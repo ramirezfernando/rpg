@@ -13,12 +13,12 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width, int height, 
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
     window_ = SDL_CreateWindow(title, x_pos, y_pos, width, height, flags); 
     if (window_) {
-      cout << "Window created" << endl;
+      std::cout << "Window created" << std::endl;
     }
     renderer_ = SDL_CreateRenderer(window_, -1, 0);
     if (renderer_) {
       SDL_SetRenderDrawColor(renderer_, 255, 255, 255, 255);
-      cout << "Renderer created" << endl;
+      std::cout << "Renderer created" << std::endl;
     }
     is_running_ = true;
   } 
@@ -50,7 +50,7 @@ void Game::Clean() {
   SDL_DestroyRenderer(renderer_);
   SDL_Quit();
   IMG_Quit();
-  cout << "Game cleaned" << endl;
+  std::cout << "Game cleaned" << std::endl;
 }
 
 void Game::SetIsRunning(bool is_running) {

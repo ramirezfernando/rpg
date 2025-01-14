@@ -5,8 +5,6 @@
 #include <string>
 #include <unistd.h>
 
-using namespace std;
-
 #pragma once
 
 #ifndef GAME_H

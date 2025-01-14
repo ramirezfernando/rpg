@@ -4,8 +4,6 @@
 
 #include "game.h"
 
-using namespace std;
-
 int main(int argc, const char * argv[]) {
   constexpr int FPS = 30;
   constexpr int FRAME_DELAY = 1000 / FPS;
