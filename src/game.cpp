@@ -1,17 +1,19 @@
 #include "game.h"
-#include<unistd.h>
+#include <unistd.h>
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
 
-void Game::Init(const char* title, int x_pos, int y_pos, int width, int height, bool full_screen) {
+void Game::Init(const char* title, int x_pos, int y_pos, int width, int height,
+                bool full_screen) {
   int flags = 0;
   if (full_screen == true) {
     flags = SDL_WINDOW_FULLSCREEN;
   }
+
   // Initializing SDL2 window
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-    window_ = SDL_CreateWindow(title, x_pos, y_pos, width, height, flags); 
+    window_ = SDL_CreateWindow(title, x_pos, y_pos, width, height, flags);
     if (window_) {
       std::cout << "Window created" << std::endl;
     }
@@ -21,8 +23,7 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width, int height, 
       std::cout << "Renderer created" << std::endl;
     }
     is_running_ = true;
-  } 
-  else {
+  } else {
     is_running_ = false;
   }
 }
@@ -42,7 +43,7 @@ void Game::Update() {
 
 void Game::Render() {
   SDL_RenderClear(renderer_);
-  SDL_RenderPresent(renderer_); // Double buffering
+  SDL_RenderPresent(renderer_);  // Double buffering
 }
 
 void Game::Clean() {

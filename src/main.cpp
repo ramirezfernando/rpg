@@ -4,17 +4,18 @@
 
 #include "game.h"
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char* argv[]) {
   constexpr int FPS = 30;
   constexpr int FRAME_DELAY = 1000 / FPS;
   Uint32 frame_start;
   int frame_time;
 
-  Game *game = nullptr;
+  Game* game = nullptr;
   game = new Game();
 
   // Create the window
-  game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
+  game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640,
+             false);
 
   // Game loop
   while (game->GetIsRunning()) {
