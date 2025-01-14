@@ -11,21 +11,20 @@ using namespace std;
 
 #ifndef GAME_H
 #define GAME_H
-class Game
-{
+class Game {
 public: 
-    void Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen); // initialize window to display the game
-    void HandleEvents();
-    void Update();
-    void Render(); 
-    void Clean(); // destroys SDL_Window
-    bool Running(); // game loop variable
-    void SetRunning(bool run); // set game loop variable
-    static SDL_Renderer* renderer; // static renderer without the need of having multiple renderers
-    static SDL_Event event; 
+  void Init(const char* title, int x_pos, int y_pos, int width, int height, bool full_screen);
+  void HandleEvents();
+  void Update();
+  void Render(); 
+  void Clean();
+  void SetIsRunning(bool is_running);
+  bool GetIsRunning();
+  static SDL_Renderer* renderer_;
+  static SDL_Event event_; 
 private:
-    bool isRunning;
-    SDL_Window *window;
+  bool is_running_;
+  SDL_Window *window_;
 };
 
 #endif
