@@ -11,9 +11,7 @@
 #define GAME_H
 class Game {
  public:
-  void Init(const char* title, int x_pos, int y_pos, int width, int height,
-            bool full_screen);
-
+  void Init(const char* title, int x_pos, int y_pos, int width, int height);
   void Update();
   void Render();
   void Clean();

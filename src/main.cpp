@@ -2,31 +2,27 @@
 #include <iostream>
 #include <string>
 #include "game.h"
+#include "constants/game_constants.h"
 
 int main(int argc, const char* argv[]) {
-  constexpr int FPS = 30;
-  constexpr int FRAME_DELAY = 1000 / FPS;
   Uint32 frame_start;
   int frame_time;
-
-  Game* game = nullptr;
-  game = new Game();
+  std::unique_ptr<Game> game(new Game());
 
   // Create the window
-  game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 736, 736,
-             false);
+  game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 736, 736);
 
   // Game loop
   while (game->GetIsRunning()) {
     frame_start = SDL_GetTicks();
-    game->HandleEvents();
     game->Update();
     game->Render();
+    game->HandleEvents();
 
     // Handles frame rate
     frame_time = SDL_GetTicks() - frame_start;
-    if (FRAME_DELAY > frame_time) {
-      SDL_Delay(FRAME_DELAY - frame_time);
+    if (Constants::FRAME_DELAY > frame_time) {
+      SDL_Delay(Constants::FRAME_DELAY - frame_time);
     }
   }
   game->Clean();

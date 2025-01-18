@@ -2,24 +2,17 @@
 #include "background.h"
 #include "character.h"
 #include "character_mage.h"
-#include "constants.h"
-#include <unistd.h>
+#include "constants/asset_constants.h"
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
 Background* background;
 Character* player;
 
-void Game::Init(const char* title, int x_pos, int y_pos, int width, int height,
-                bool full_screen) {
-  int flags = 0;
-  if (full_screen == true) {
-    flags = SDL_WINDOW_FULLSCREEN;
-  }
-
+void Game::Init(const char* title, int x_pos, int y_pos, int width, int height) {
   // Initializing SDL2 window
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-    window_ = SDL_CreateWindow(title, x_pos, y_pos, width, height, flags);
+    window_ = SDL_CreateWindow(title, x_pos, y_pos, width, height, 0);
     if (window_) {
       std::cout << "Window created" << std::endl;
     }
@@ -34,10 +27,10 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width, int height,
   }
 
   // Setup background
-  background = new Background(Const::BACKGROUND_FILE_PATH, 0, 0);
+  background = new Background(Constants::BACKGROUND_FILE_PATH, 0, 0);
 
   // Setup character
-  player = new Mage(Const::MAGE_DOWN_FOLDER_PATH, 0, 0);
+  player = new Mage(Constants::CHARACTER_MAGE_DOWN_FOLDER_PATH, 0, 0);
 }
 
 void Game::Update() {
