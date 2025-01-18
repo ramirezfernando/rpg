@@ -1,11 +1,14 @@
 #include "game.h"
 #include "background.h"
+#include "character.h"
+#include "character_mage.h"
 #include "constants.h"
 #include <unistd.h>
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
 Background* background;
+Character* player;
 
 void Game::Init(const char* title, int x_pos, int y_pos, int width, int height,
                 bool full_screen) {
@@ -32,6 +35,31 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width, int height,
 
   // Setup background
   background = new Background(Const::BACKGROUND_FILE_PATH, 0, 0);
+
+  // Setup character
+  player = new Mage(Const::MAGE_DOWN_FOLDER_PATH, 0, 0);
+}
+
+void Game::Update() {
+  background->Update();
+  player->Update();
+}
+
+void Game::Render() {
+  SDL_RenderClear(renderer_);
+  background->Render();
+  player->Render();
+  SDL_RenderPresent(renderer_);  // Double buffering
+}
+
+void Game::Clean() {
+  background->Clean();
+  player->Clean();
+  SDL_DestroyWindow(window_);
+  SDL_DestroyRenderer(renderer_);
+  SDL_Quit();
+  IMG_Quit();
+  std::cout << "Game cleaned" << std::endl;
 }
 
 void Game::HandleEvents() {
@@ -41,25 +69,6 @@ void Game::HandleEvents() {
       is_running_ = false;
       break;
   }
-}
-
-void Game::Update() {
-  background->Update();
-}
-
-void Game::Render() {
-  SDL_RenderClear(renderer_);
-  background->Render();
-  SDL_RenderPresent(renderer_);  // Double buffering
-}
-
-void Game::Clean() {
-  background->Clean();
-  SDL_DestroyWindow(window_);
-  SDL_DestroyRenderer(renderer_);
-  SDL_Quit();
-  IMG_Quit();
-  std::cout << "Game cleaned" << std::endl;
 }
 
 void Game::SetIsRunning(bool is_running) {

@@ -14,10 +14,10 @@ class Game {
   void Init(const char* title, int x_pos, int y_pos, int width, int height,
             bool full_screen);
 
-  void HandleEvents();
   void Update();
   void Render();
   void Clean();
+  void HandleEvents();
   void SetIsRunning(bool is_running);
   bool GetIsRunning();
   static SDL_Renderer* renderer_;
