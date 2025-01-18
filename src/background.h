@@ -9,14 +9,11 @@ class Background {
   void Update();
   void Render();
   void Clean();
-  void SetFilePath(std::string file_path);
-  std::string GetFilePath();
 
  private:
   SDL_Texture* background_texture_;
   SDL_Rect src_rect_, dest_rect_;
   int x_pos_, y_pos_;
-  std::string file_path_;
 };
 
 #endif
