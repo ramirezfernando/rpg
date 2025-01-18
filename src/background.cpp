@@ -1,16 +1,16 @@
 #include "background.h"
-#include "textures.h"
+#include "util.h"
 
 Background::Background(const char* file_path, int x_pos, int y_pos) {
-  background_texture_ = Textures::LoadTexture(file_path);
+  background_texture_ = Util::LoadTexture(file_path);
   x_pos_ = x_pos;
   y_pos_ = y_pos;
   file_path_ = std::string(file_path);
 }
 
 void Background::Update() {
-  src_rect_.h = 640;
-  src_rect_.w = 800;
+  src_rect_.w = 736;
+  src_rect_.h = 736;
   src_rect_.x = 0;
   src_rect_.y = 0;
 
