@@ -1,8 +1,11 @@
 #include "game.h"
+#include "background.h"
+#include "constants.h"
 #include <unistd.h>
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
+Background* background;
 
 void Game::Init(const char* title, int x_pos, int y_pos, int width, int height,
                 bool full_screen) {
@@ -26,6 +29,9 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width, int height,
   } else {
     is_running_ = false;
   }
+
+  // Setup background
+  background = new Background(Const::BACKGROUND_FILE_PATH, 0, 0);
 }
 
 void Game::HandleEvents() {
@@ -38,15 +44,17 @@ void Game::HandleEvents() {
 }
 
 void Game::Update() {
-  return;
+  background->Update();
 }
 
 void Game::Render() {
   SDL_RenderClear(renderer_);
+  background->Render();
   SDL_RenderPresent(renderer_);  // Double buffering
 }
 
 void Game::Clean() {
+  background->Clean();
   SDL_DestroyWindow(window_);
   SDL_DestroyRenderer(renderer_);
   SDL_Quit();

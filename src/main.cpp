@@ -13,7 +13,7 @@ int main(int argc, const char* argv[]) {
   game = new Game();
 
   // Create the window
-  game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640,
+  game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 736, 736,
              false);
 
   // Game loop
