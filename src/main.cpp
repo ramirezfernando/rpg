@@ -1,8 +1,8 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <string>
-#include "game.h"
 #include "constants/game_constants.h"
+#include "game.h"
 
 int main(int argc, const char* argv[]) {
   Uint32 frame_start;

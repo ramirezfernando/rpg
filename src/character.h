@@ -11,6 +11,7 @@ class Character {
   void Update();
   void Render();
   void Clean();
+
  protected:
   SDL_Texture* character_texture_;
   SDL_Rect src_rect_, dest_rect_;

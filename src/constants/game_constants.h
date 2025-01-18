@@ -4,6 +4,6 @@
 namespace Constants {
 const int FRAME_DELAY =
     1000 / 30;  // The number of milliseconds in a second divided by FPS
-}
+}  // namespace Constants
 
 #endif

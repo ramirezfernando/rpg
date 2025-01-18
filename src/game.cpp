@@ -9,7 +9,8 @@ SDL_Event Game::event_;
 Background* background;
 Character* player;
 
-void Game::Init(const char* title, int x_pos, int y_pos, int width, int height) {
+void Game::Init(const char* title, int x_pos, int y_pos, int width,
+                int height) {
   // Initializing SDL2 window
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
     window_ = SDL_CreateWindow(title, x_pos, y_pos, width, height, 0);
