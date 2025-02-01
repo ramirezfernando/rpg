@@ -3,6 +3,7 @@
 #include "character.h"
 #include "character_mage.h"
 #include "constants/asset_constants.h"
+#include "constants/game_constants.h"
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
@@ -61,6 +62,32 @@ void Game::HandleEvents() {
   switch (event_.type) {
     case SDL_QUIT:
       is_running_ = false;
+      break;
+    case SDL_KEYDOWN:
+      switch (event_.key.keysym.sym) {
+        case SDLK_UP:
+          player->SetYPos(player->GetYPos() -
+                          Constants::CHARACTER_MOVEMENT_GAP);
+          player->SetFilePath(Constants::CHARACTER_MAGE_UP_FOLDER_PATH);
+          break;
+        case SDLK_DOWN:
+          player->SetYPos(player->GetYPos() +
+                          Constants::CHARACTER_MOVEMENT_GAP);
+          player->SetFilePath(Constants::CHARACTER_MAGE_DOWN_FOLDER_PATH);
+          break;
+        case SDLK_LEFT:
+          player->SetXPos(player->GetXPos() -
+                          Constants::CHARACTER_MOVEMENT_GAP);
+          player->SetFilePath(Constants::CHARACTER_MAGE_LEFT_FOLDER_PATH);
+          break;
+        case SDLK_RIGHT:
+          player->SetXPos(player->GetXPos() +
+                          Constants::CHARACTER_MOVEMENT_GAP);
+          player->SetFilePath(Constants::CHARACTER_MAGE_RIGHT_FOLDER_PATH);
+          break;
+        default:
+          break;
+      }
       break;
   }
 }

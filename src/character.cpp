@@ -11,6 +11,10 @@ void Character::Update() {
   dest_rect_.h = src_rect_.h * 2;
   dest_rect_.w = src_rect_.w * 2;
 
+  std::string filename = file_path_ + to_string(0) + ".png";
+  const char* file = filename.c_str();
+  character_texture_ = Util::LoadTexture(file);
+  /*
   // Handles character animation
   if (count_ < frames_) {
     std::string filename = file_path_ + to_string(count_) + ".png";
@@ -21,6 +25,7 @@ void Character::Update() {
   } else {
     count_ = 0;
   }
+  */
 }
 
 void Character::Render() {
