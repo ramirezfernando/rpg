@@ -85,6 +85,9 @@ void Game::HandleEvents() {
                           Constants::CHARACTER_MOVEMENT_GAP);
           player->SetFilePath(Constants::CHARACTER_MAGE_RIGHT_FOLDER_PATH);
           break;
+        case SDLK_a:
+          player->setShouldAttack(true);
+          break;
         default:
           break;
       }
