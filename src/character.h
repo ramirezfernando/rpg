@@ -11,11 +11,12 @@ class Character {
   void Update();
   void Render();
   void Clean();
-  void SetFilePath(const char* file_path) { file_path_ = file_path; }
-  void SetXPos(int x_pos) { x_pos_ = x_pos; }
-  void SetYPos(int y_pos) { y_pos_ = y_pos; }
-  int GetXPos() { return x_pos_; }
-  int GetYPos() { return y_pos_; }
+  void SetFilePath(const char* file_path);
+  void SetXPos(int x_pos);
+  void SetYPos(int y_pos);
+  int GetXPos();
+  int GetYPos();
+  bool IsWithinBounds(int x_pos, int y_pos);
 
  protected:
   SDL_Texture* character_texture_;

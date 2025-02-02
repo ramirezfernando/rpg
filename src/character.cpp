@@ -1,4 +1,5 @@
 #include "character.h"
+#include "constants/game_constants.h"
 #include "util.h"
 
 void Character::Update() {
@@ -34,4 +35,33 @@ void Character::Render() {
 
 void Character::Clean() {
   SDL_DestroyTexture(character_texture_);
+}
+
+void Character::SetFilePath(const char* file_path) {
+  file_path_ = file_path;
+}
+
+void Character::SetXPos(int x_pos) {
+  if (IsWithinBounds(x_pos, y_pos_)) {
+    x_pos_ = x_pos;
+  }
+}
+
+void Character::SetYPos(int y_pos) {
+  if (IsWithinBounds(x_pos_, y_pos)) {
+    y_pos_ = y_pos;
+  }
+}
+
+int Character::GetXPos() {
+  return x_pos_;
+}
+
+int Character::GetYPos() {
+  return y_pos_;
+}
+
+bool Character::IsWithinBounds(int x_pos, int y_pos) {
+  return x_pos >= 0 && x_pos <= Constants::WINDOW_SIZE - dest_rect_.w &&
+         y_pos >= 0 && y_pos <= Constants::WINDOW_SIZE - dest_rect_.h;
 }
