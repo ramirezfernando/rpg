@@ -10,7 +10,8 @@ int main(int argc, const char* argv[]) {
   std::unique_ptr<Game> game(new Game());
 
   // Create the window
-  game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 736, 736);
+  game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+             Constants::WINDOW_SIZE, Constants::WINDOW_SIZE);
 
   // Game loop
   while (game->GetIsRunning()) {

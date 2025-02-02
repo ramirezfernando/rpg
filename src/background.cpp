@@ -1,4 +1,5 @@
 #include "background.h"
+#include "constants/game_constants.h"
 #include "util.h"
 
 Background::Background(const char* file_path, int x_pos, int y_pos) {
@@ -8,8 +9,8 @@ Background::Background(const char* file_path, int x_pos, int y_pos) {
 }
 
 void Background::Update() {
-  src_rect_.w = 736;
-  src_rect_.h = 736;
+  src_rect_.w = Constants::WINDOW_SIZE;
+  src_rect_.h = Constants::WINDOW_SIZE;
   src_rect_.x = 0;
   src_rect_.y = 0;
   dest_rect_.h = src_rect_.h;
