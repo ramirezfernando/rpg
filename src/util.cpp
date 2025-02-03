@@ -7,9 +7,3 @@ SDL_Texture* Util::LoadTexture(const char* file_name) {
   SDL_FreeSurface(tmp_surface);
   return texture;
 }
-
-void Util::RenderInvertedTexture(SDL_Texture* texture, SDL_Rect src_rect,
-                                 SDL_Rect dest_rect, SDL_RendererFlip flip) {
-  SDL_RenderCopyEx(Game::renderer_, texture, &src_rect, &dest_rect, 0.0, NULL,
-                   flip);
-}
