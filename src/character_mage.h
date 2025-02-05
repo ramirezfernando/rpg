@@ -1,7 +1,12 @@
 #include "character.h"
 
+#ifndef CHARACTER_MAGE_H
+#define CHARACTER_MAGE_H
+
 class Mage : public Character {
  public:
-  Mage(const char* file_path, int x_pos, int y_pos);
-  void Attack();
+  Mage(const char* folder_path, int x_pos, int y_pos);
+  void Attack() override;
 };
+
+#endif

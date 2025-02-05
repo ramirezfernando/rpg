@@ -12,7 +12,7 @@ void Character::Update() {
   dest_rect_.h = src_rect_.h * 2;
   dest_rect_.w = src_rect_.w * 2;
 
-  std::string filename = file_path_ + to_string(0) + ".png";
+  std::string filename = folder_path_ + to_string(0) + ".png";
   const char* file = filename.c_str();
   character_texture_ = Util::LoadTexture(file);
 
@@ -29,11 +29,11 @@ void Character::Clean() {
   SDL_DestroyTexture(character_texture_);
 }
 
-void Character::SetFilePath(const char* file_path) {
-  file_path_ = file_path;
+void Character::SetFolderPath(const char* folder_path) {
+  folder_path_ = folder_path;
 }
 
-void Character::setShouldAttack(bool should_attack) {
+void Character::SetShouldAttack(bool should_attack) {
   should_attack_ = should_attack;
 }
 
@@ -64,7 +64,7 @@ bool Character::IsWithinBounds(int x_pos, int y_pos) {
 
 void Character::Attack() {
   if (count_ < frames_) {
-    std::string filename = file_path_ + std::to_string(count_) + ".png";
+    std::string filename = folder_path_ + std::to_string(count_) + ".png";
     const char* file = filename.c_str();
     character_texture_ = Util::LoadTexture(file);
     SDL_Delay(delay_);

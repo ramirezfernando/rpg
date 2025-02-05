@@ -1,8 +1,8 @@
 #include "character_mage.h"
 #include "util.h"
 
-Mage::Mage(const char* file_path, int x_pos, int y_pos) {
-  file_path_ = file_path;
+Mage::Mage(const char* folder_path, int x_pos, int y_pos) {
+  folder_path_ = folder_path;
   x_pos_ = x_pos;
   y_pos_ = y_pos;
   frames_ = 3;
@@ -13,7 +13,7 @@ Mage::Mage(const char* file_path, int x_pos, int y_pos) {
 void Mage::Attack() {
   // TODO: Implement projectile animation
   if (count_ < frames_) {
-    std::string filename = file_path_ + std::to_string(count_) + ".png";
+    std::string filename = folder_path_ + std::to_string(count_) + ".png";
     const char* file = filename.c_str();
     character_texture_ = Util::LoadTexture(file);
     SDL_Delay(delay_);

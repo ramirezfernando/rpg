@@ -11,8 +11,8 @@ class Character {
   void Update();
   void Render();
   void Clean();
-  void SetFilePath(const char* file_path);
-  void setShouldAttack(bool should_attack);
+  void SetFolderPath(const char* folder_path);
+  void SetShouldAttack(bool should_attack);
   void SetXPos(int x_pos);
   void SetYPos(int y_pos);
   int GetXPos();
@@ -24,7 +24,7 @@ class Character {
   SDL_Texture* character_texture_;
   SDL_Rect src_rect_, dest_rect_;
   int x_pos_, y_pos_, frames_, delay_, count_;
-  const char* file_path_;
+  const char* folder_path_;
   bool should_attack_ = false;
 };
 
