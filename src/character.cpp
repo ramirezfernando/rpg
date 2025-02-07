@@ -12,7 +12,7 @@ void Character::Update() {
   dest_rect_.h = src_rect_.h * 2;
   dest_rect_.w = src_rect_.w * 2;
 
-  std::string filename = folder_path_ + to_string(0) + ".png";
+  std::string filename = folder_path_ + std::to_string(0) + ".png";
   const char* file = filename.c_str();
   character_texture_ = Util::LoadTexture(file);
 

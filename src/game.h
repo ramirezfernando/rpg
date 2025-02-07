@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <unistd.h>
@@ -5,10 +7,6 @@
 #include <iostream>
 #include <string>
 
-#pragma once
-
-#ifndef GAME_H
-#define GAME_H
 class Game {
  public:
   void Init(const char* title, int x_pos, int y_pos, int width, int height);
@@ -25,5 +23,3 @@ class Game {
   bool is_running_;
   SDL_Window* window_;
 };
-
-#endif

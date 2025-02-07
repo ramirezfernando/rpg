@@ -1,10 +1,7 @@
-#include "game.h"
+#pragma once
+
 #include "constants/asset_constants.h"
-
-using namespace std;
-
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#include "game.h"
 
 class Character {
  public:
@@ -28,5 +25,3 @@ class Character {
   const char* folder_path_;
   bool should_attack_ = false;
 };
-
-#endif

@@ -1,12 +1,9 @@
-#include "game.h"
+#pragma once
 
-#ifndef UTIL_H
-#define UTIL_H
+#include "game.h"
 
 namespace Util {
 
 SDL_Texture* LoadTexture(const char* file_name);
 
 }  // namespace Util
-
-#endif

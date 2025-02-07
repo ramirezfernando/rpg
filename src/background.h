@@ -1,7 +1,6 @@
-#include "game.h"
+#pragma once
 
-#ifndef BACKGROUND_H
-#define BACKGROUND_H
+#include "game.h"
 
 class Background {
  public:
@@ -15,5 +14,3 @@ class Background {
   SDL_Rect src_rect_, dest_rect_;
   int x_pos_, y_pos_;
 };
-
-#endif

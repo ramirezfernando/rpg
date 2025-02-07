@@ -1,5 +1,4 @@
-#ifndef ASSET_CONSTANTS_H
-#define ASSET_CONSTANTS_H
+#pragma once
 
 namespace Constants {
 constexpr const char* BACKGROUND_FILE_PATH = "assets/background/grass.jpg";
@@ -24,5 +23,3 @@ constexpr const char* CHARACTER_ELF_UP_FOLDER_PATH =
 
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 }  // namespace Constants
-
-#endif
