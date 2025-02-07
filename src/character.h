@@ -1,5 +1,5 @@
-#include <string>
 #include "game.h"
+#include "constants/asset_constants.h"
 
 using namespace std;
 
@@ -12,7 +12,7 @@ class Character {
   void Render();
   void Clean();
   void SetFolderPath(const char* folder_path);
-  virtual void SetFolderPathFromDirection(std::string direction) = 0;
+  virtual void SetFolderPathFromDirection(Constants::Direction direction) = 0;
   void SetShouldAttack(bool should_attack);
   void SetXPos(int x_pos);
   void SetYPos(int y_pos);

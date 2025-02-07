@@ -22,6 +22,7 @@ constexpr const char* CHARACTER_ELF_RIGHT_FOLDER_PATH =
 constexpr const char* CHARACTER_ELF_UP_FOLDER_PATH =
     "assets/characters/elf/up/";
 
+enum class Direction { UP, DOWN, LEFT, RIGHT };
 }  // namespace Constants
 
 #endif

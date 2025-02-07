@@ -70,22 +70,22 @@ void Game::HandleEvents() {
         case SDLK_UP:
           player->SetYPos(player->GetYPos() -
                           Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPathFromDirection("UP");
+          player->SetFolderPathFromDirection(Constants::Direction::UP);
           break;
         case SDLK_DOWN:
           player->SetYPos(player->GetYPos() +
                           Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPathFromDirection("DOWN");
+          player->SetFolderPathFromDirection(Constants::Direction::DOWN);
           break;
         case SDLK_LEFT:
           player->SetXPos(player->GetXPos() -
                           Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPathFromDirection("LEFT");
+          player->SetFolderPathFromDirection(Constants::Direction::LEFT);
           break;
         case SDLK_RIGHT:
           player->SetXPos(player->GetXPos() +
                           Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPathFromDirection("RIGHT");
+          player->SetFolderPathFromDirection(Constants::Direction::RIGHT);
           break;
         case SDLK_a:
           player->SetShouldAttack(true);

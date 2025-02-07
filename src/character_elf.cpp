@@ -1,6 +1,4 @@
 #include "character_elf.h"
-#include "constants/asset_constants.h"
-#include "util.h"
 
 Elf::Elf(const char* folder_path, int x_pos, int y_pos) {
   folder_path_ = folder_path;
@@ -11,14 +9,19 @@ Elf::Elf(const char* folder_path, int x_pos, int y_pos) {
   count_ = 0;
 }
 
-void Elf::SetFolderPathFromDirection(std::string direction) {
-  if (direction == "UP") {
-    folder_path_ = Constants::CHARACTER_ELF_UP_FOLDER_PATH;
-  } else if (direction == "DOWN") {
-    folder_path_ = Constants::CHARACTER_ELF_DOWN_FOLDER_PATH;
-  } else if (direction == "LEFT") {
-    folder_path_ = Constants::CHARACTER_ELF_LEFT_FOLDER_PATH;
-  } else if (direction == "RIGHT") {
-    folder_path_ = Constants::CHARACTER_ELF_RIGHT_FOLDER_PATH;
+void Elf::SetFolderPathFromDirection(Constants::Direction direction) {
+  switch (direction) {
+    case Constants::Direction::UP:
+      folder_path_ = Constants::CHARACTER_ELF_UP_FOLDER_PATH;
+      break;
+    case Constants::Direction::DOWN:
+      folder_path_ = Constants::CHARACTER_ELF_DOWN_FOLDER_PATH;
+      break;
+    case Constants::Direction::LEFT:
+      folder_path_ = Constants::CHARACTER_ELF_LEFT_FOLDER_PATH;
+      break;
+    case Constants::Direction::RIGHT:
+      folder_path_ = Constants::CHARACTER_ELF_RIGHT_FOLDER_PATH;
+      break;
   }
 }
