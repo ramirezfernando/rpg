@@ -1,4 +1,5 @@
 #include "character_mage.h"
+#include "constants/asset_constants.h"
 #include "util.h"
 
 Mage::Mage(const char* folder_path, int x_pos, int y_pos) {
@@ -10,17 +11,14 @@ Mage::Mage(const char* folder_path, int x_pos, int y_pos) {
   count_ = 0;
 }
 
-void Mage::Attack() {
-  // TODO: Implement projectile animation
-  if (count_ < frames_) {
-    std::string filename = folder_path_ + std::to_string(count_) + ".png";
-    const char* file = filename.c_str();
-    character_texture_ = Util::LoadTexture(file);
-    SDL_Delay(delay_);
-    count_++;
-  } else {
-    count_ = 0;
-    // Ensures that the character does not keep attacking
-    should_attack_ = false;
+void Mage::SetFolderPathFromDirection(std::string direction) {
+  if (direction == "UP") {
+    folder_path_ = Constants::CHARACTER_MAGE_UP_FOLDER_PATH;
+  } else if (direction == "DOWN") {
+    folder_path_ = Constants::CHARACTER_MAGE_DOWN_FOLDER_PATH;
+  } else if (direction == "LEFT") {
+    folder_path_ = Constants::CHARACTER_MAGE_LEFT_FOLDER_PATH;
+  } else if (direction == "RIGHT") {
+    folder_path_ = Constants::CHARACTER_MAGE_RIGHT_FOLDER_PATH;
   }
 }

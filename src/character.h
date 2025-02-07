@@ -12,13 +12,14 @@ class Character {
   void Render();
   void Clean();
   void SetFolderPath(const char* folder_path);
+  virtual void SetFolderPathFromDirection(std::string direction) = 0;
   void SetShouldAttack(bool should_attack);
   void SetXPos(int x_pos);
   void SetYPos(int y_pos);
   int GetXPos();
   int GetYPos();
   bool IsWithinBounds(int x_pos, int y_pos);
-  virtual void Attack();
+  void Attack();
 
  protected:
   SDL_Texture* character_texture_;

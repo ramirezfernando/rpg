@@ -1,6 +1,7 @@
 #include "game.h"
 #include "background.h"
 #include "character.h"
+#include "character_elf.h"
 #include "character_mage.h"
 #include "constants/asset_constants.h"
 #include "constants/game_constants.h"
@@ -32,7 +33,8 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
   background = new Background(Constants::BACKGROUND_FILE_PATH, 0, 0);
 
   // Setup character
-  player = new Mage(Constants::CHARACTER_MAGE_DOWN_FOLDER_PATH, 0, 0);
+  //player = new Mage(Constants::CHARACTER_MAGE_DOWN_FOLDER_PATH, 0, 0);
+  player = new Elf(Constants::CHARACTER_ELF_DOWN_FOLDER_PATH, 0, 0);
 }
 
 void Game::Update() {
@@ -68,22 +70,22 @@ void Game::HandleEvents() {
         case SDLK_UP:
           player->SetYPos(player->GetYPos() -
                           Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPath(Constants::CHARACTER_MAGE_UP_FOLDER_PATH);
+          player->SetFolderPathFromDirection("UP");
           break;
         case SDLK_DOWN:
           player->SetYPos(player->GetYPos() +
                           Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPath(Constants::CHARACTER_MAGE_DOWN_FOLDER_PATH);
+          player->SetFolderPathFromDirection("DOWN");
           break;
         case SDLK_LEFT:
           player->SetXPos(player->GetXPos() -
                           Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPath(Constants::CHARACTER_MAGE_LEFT_FOLDER_PATH);
+          player->SetFolderPathFromDirection("LEFT");
           break;
         case SDLK_RIGHT:
           player->SetXPos(player->GetXPos() +
                           Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPath(Constants::CHARACTER_MAGE_RIGHT_FOLDER_PATH);
+          player->SetFolderPathFromDirection("RIGHT");
           break;
         case SDLK_a:
           player->SetShouldAttack(true);
