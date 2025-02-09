@@ -5,7 +5,11 @@ SRCS = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
 HDRS = $(wildcard src/*.h) $(wildcard src/*/*.h)
 OBJS = $(SRCS:.cpp=.o)
 
-# Default build
+# Build the game
+build:
+	$(CXX) $(OBJS) -o ./out/play $(LDFLAGS)
+
+# Build and run the game
 game: $(OBJS)
 	$(CXX) $(OBJS) -o ./out/play $(LDFLAGS) && ./out/play
 
@@ -17,14 +21,14 @@ debug: $(OBJS)
 	$(CXX) $(OBJS) -o ./out/play $(LDFLAGS)
 	leaks --atExit --list -- ./out/play
 
+# Compile all source files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+# Clean the object files and the executable
 clean:
 	rm -f $(OBJS) ./out/play
 
-print-vars:
-	@echo "Source files:" $(SRCS)
-
+# Format files using clang-format
 format:
 	clang-format --style=file:.clang-format -i $(SRCS) $(HDRS)
