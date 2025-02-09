@@ -1,8 +1,8 @@
 #include "game.h"
 #include "background.h"
-#include "character.h"
-#include "character_elf.h"
-#include "character_mage.h"
+#include "characters/character.h"
+#include "characters/character_elf.h"
+#include "characters/character_mage.h"
 #include "constants/asset_constants.h"
 #include "constants/game_constants.h"
 
