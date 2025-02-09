@@ -14,12 +14,12 @@ class Game {
   void Update();
   void Render();
   void HandleEvents();
-  void SetIsRunning(bool is_running);
-  bool GetIsRunning();
+  void SetIsRunning(bool is_running) { is_running_ = is_running; }
+  bool GetIsRunning() { return is_running_; }
   static SDL_Renderer* renderer_;
   static SDL_Event event_;
 
  private:
-  bool is_running_;
   SDL_Window* window_;
+  bool is_running_;
 };

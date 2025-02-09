@@ -17,6 +17,7 @@ void Character::Update() {
   dest_rect_.h = src_rect_.h * 2;
   dest_rect_.w = src_rect_.w * 2;
 
+  // Load the first image: 0.png
   std::string filename = folder_path_ + std::to_string(0) + ".png";
   const char* file = filename.c_str();
   character_texture_ = Util::LoadTexture(file);
@@ -30,14 +31,6 @@ void Character::Render() {
   SDL_RenderCopy(Game::renderer_, character_texture_, &src_rect_, &dest_rect_);
 }
 
-void Character::SetFolderPath(const char* folder_path) {
-  folder_path_ = folder_path;
-}
-
-void Character::SetShouldAttack(bool should_attack) {
-  should_attack_ = should_attack;
-}
-
 void Character::SetXPos(int x_pos) {
   if (IsWithinBounds(x_pos, y_pos_)) {
     x_pos_ = x_pos;
@@ -48,14 +41,6 @@ void Character::SetYPos(int y_pos) {
   if (IsWithinBounds(x_pos_, y_pos)) {
     y_pos_ = y_pos;
   }
-}
-
-int Character::GetXPos() {
-  return x_pos_;
-}
-
-int Character::GetYPos() {
-  return y_pos_;
 }
 
 bool Character::IsWithinBounds(int x_pos, int y_pos) {

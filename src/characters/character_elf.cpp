@@ -1,12 +1,12 @@
 #include "character_elf.h"
 
-Elf::Elf(const char* folder_path, int x_pos, int y_pos) {
-  folder_path_ = folder_path;
+Elf::Elf(int x_pos, int y_pos) {
+  // Initialize the elf facing down (facing the user)
+  folder_path_ = Constants::CHARACTER_ELF_DOWN_FOLDER_PATH;
+  // The elf has 3 images for each direction
+  frames_ = 3;
   x_pos_ = x_pos;
   y_pos_ = y_pos;
-  frames_ = 3;
-  delay_ = 70;
-  count_ = 0;
 }
 
 void Elf::SetFolderPathFromDirection(Constants::Direction direction) {

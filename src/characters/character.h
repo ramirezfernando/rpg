@@ -8,20 +8,20 @@ class Character {
   virtual ~Character();
   void Update();
   void Render();
-  void SetFolderPath(const char* folder_path);
+  void SetFolderPath(const char* folder_path) { folder_path_ = folder_path; }
   virtual void SetFolderPathFromDirection(Constants::Direction direction) = 0;
-  void SetShouldAttack(bool should_attack);
+  void SetShouldAttack(bool should_attack) { should_attack_ = should_attack; }
   void SetXPos(int x_pos);
   void SetYPos(int y_pos);
-  int GetXPos();
-  int GetYPos();
+  int GetXPos() { return x_pos_; }
+  int GetYPos() { return y_pos_; }
   bool IsWithinBounds(int x_pos, int y_pos);
   void Attack();
 
  protected:
   SDL_Texture* character_texture_;
   SDL_Rect src_rect_, dest_rect_;
-  int x_pos_, y_pos_, frames_, delay_, count_;
   const char* folder_path_;
+  int x_pos_, y_pos_, frames_, delay_ = 70, count_ = 0;
   bool should_attack_ = false;
 };

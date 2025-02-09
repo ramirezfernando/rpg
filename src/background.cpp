@@ -2,10 +2,8 @@
 #include "constants/game_constants.h"
 #include "util.h"
 
-Background::Background(const char* file_path, int x_pos, int y_pos) {
+Background::Background(const char* file_path) {
   background_texture_ = Util::LoadTexture(file_path);
-  x_pos_ = x_pos;
-  y_pos_ = y_pos;
 }
 
 Background::~Background() {
