@@ -7,6 +7,7 @@
 int main() {
   Uint32 frame_start;
   int frame_time;
+  // Once out of scope, the destructor will be called since it is a `unique_ptr`
   std::unique_ptr<Game> game(new Game());
 
   // Create the window
@@ -26,7 +27,5 @@ int main() {
       SDL_Delay(Constants::FRAME_DELAY - frame_time);
     }
   }
-  // Destroy the game
-  game.reset();
   return 0;
 }

@@ -8,20 +8,15 @@
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
-Background* background;
-Character* player;
+std::unique_ptr<Background> background;
+std::unique_ptr<Character> player;
 
 Game::~Game() {
-  // Calls destructors
-  delete background;
-  delete player;
-
   // Cleans up SDL
   SDL_DestroyWindow(window_);
   SDL_DestroyRenderer(renderer_);
   SDL_Quit();
   IMG_Quit();
-
   std::cout << "Game destroyed" << std::endl;
 }
 
@@ -44,11 +39,18 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
   }
 
   // Setup background
-  background = new Background(Constants::BACKGROUND_FILE_PATH, 0, 0);
+  background = std::unique_ptr<Background>(
+      new Background(Constants::BACKGROUND_FILE_PATH));
+  if (background) {
+    std::cout << "Background created" << std::endl;
+  }
 
-  // Setup character
-  //player = new Mage(Constants::CHARACTER_MAGE_DOWN_FOLDER_PATH, 0, 0);
-  player = new Elf(Constants::CHARACTER_ELF_DOWN_FOLDER_PATH, 0, 0);
+  // Setup player
+  player = std::unique_ptr<Character>(
+      new Elf(Constants::WINDOW_SIZE / 2, Constants::WINDOW_SIZE / 2));
+  if (player) {
+    std::cout << "Character created" << std::endl;
+  }
 }
 
 void Game::Update() {
@@ -99,12 +101,4 @@ void Game::HandleEvents() {
       }
       break;
   }
-}
-
-void Game::SetIsRunning(bool is_running) {
-  is_running_ = is_running;
-}
-
-bool Game::GetIsRunning() {
-  return is_running_;
 }
