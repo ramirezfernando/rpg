@@ -4,7 +4,7 @@
 #include "constants/game_constants.h"
 #include "game.h"
 
-int main(int argc, const char* argv[]) {
+int main() {
   Uint32 frame_start;
   int frame_time;
   std::unique_ptr<Game> game(new Game());
