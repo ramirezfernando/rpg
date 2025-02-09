@@ -5,9 +5,9 @@
 class Background {
  public:
   Background(const char* file_path, int x_pos, int y_pos);
+  ~Background();
   void Update();
   void Render();
-  void Clean();
 
  private:
   SDL_Texture* background_texture_;

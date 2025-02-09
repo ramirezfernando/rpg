@@ -8,6 +8,11 @@ Background::Background(const char* file_path, int x_pos, int y_pos) {
   y_pos_ = y_pos;
 }
 
+Background::~Background() {
+  SDL_DestroyTexture(background_texture_);
+  std::cout << "Background destroyed" << std::endl;
+}
+
 void Background::Update() {
   src_rect_.w = Constants::WINDOW_SIZE;
   src_rect_.h = Constants::WINDOW_SIZE;
@@ -21,8 +26,4 @@ void Background::Update() {
 
 void Background::Render() {
   SDL_RenderCopy(Game::renderer_, background_texture_, &src_rect_, &dest_rect_);
-}
-
-void Background::Clean() {
-  SDL_DestroyTexture(background_texture_);
 }

@@ -26,6 +26,7 @@ int main() {
       SDL_Delay(Constants::FRAME_DELAY - frame_time);
     }
   }
-  game->Clean();
+  // Destroy the game
+  game.reset();
   return 0;
 }

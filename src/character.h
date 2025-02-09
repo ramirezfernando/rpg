@@ -5,9 +5,9 @@
 
 class Character {
  public:
+  virtual ~Character();
   void Update();
   void Render();
-  void Clean();
   void SetFolderPath(const char* folder_path);
   virtual void SetFolderPathFromDirection(Constants::Direction direction) = 0;
   void SetShouldAttack(bool should_attack);

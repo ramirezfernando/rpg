@@ -2,6 +2,11 @@
 #include "constants/game_constants.h"
 #include "util.h"
 
+Character::~Character() {
+  SDL_DestroyTexture(character_texture_);
+  std::cout << "Character destroyed" << std::endl;
+}
+
 void Character::Update() {
   src_rect_.w = 64;
   src_rect_.h = 64;
@@ -23,10 +28,6 @@ void Character::Update() {
 
 void Character::Render() {
   SDL_RenderCopy(Game::renderer_, character_texture_, &src_rect_, &dest_rect_);
-}
-
-void Character::Clean() {
-  SDL_DestroyTexture(character_texture_);
 }
 
 void Character::SetFolderPath(const char* folder_path) {

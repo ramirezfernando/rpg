@@ -11,6 +11,20 @@ SDL_Event Game::event_;
 Background* background;
 Character* player;
 
+Game::~Game() {
+  // Calls destructors
+  delete background;
+  delete player;
+
+  // Cleans up SDL
+  SDL_DestroyWindow(window_);
+  SDL_DestroyRenderer(renderer_);
+  SDL_Quit();
+  IMG_Quit();
+
+  std::cout << "Game destroyed" << std::endl;
+}
+
 void Game::Init(const char* title, int x_pos, int y_pos, int width,
                 int height) {
   // Initializing SDL2 window
@@ -47,16 +61,6 @@ void Game::Render() {
   background->Render();
   player->Render();
   SDL_RenderPresent(renderer_);  // Double buffering
-}
-
-void Game::Clean() {
-  background->Clean();
-  player->Clean();
-  SDL_DestroyWindow(window_);
-  SDL_DestroyRenderer(renderer_);
-  SDL_Quit();
-  IMG_Quit();
-  std::cout << "Game cleaned" << std::endl;
 }
 
 void Game::HandleEvents() {
