@@ -6,7 +6,7 @@ namespace Constants {
 // include the header file.
 // Not using `extern` would result in copying the variable for each source file
 // that includes the header file. This would result in multiple instances of the
-// variable, which is not what we want.
+// variable, which is not ideal.
 // Note: `extern` needs to be used with a declaration in a header file, and the
 // variable needs to be defined in a source file.
 
