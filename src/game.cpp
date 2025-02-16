@@ -3,6 +3,8 @@
 #include "characters/character.h"
 #include "characters/character_elf.h"
 #include "characters/character_mage.h"
+#include "enemies/enemy.h"
+#include "enemies/enemy_ghost.h"
 #include "constants/asset_constants.h"
 #include "constants/game_constants.h"
 
@@ -10,6 +12,7 @@ SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
 std::unique_ptr<Background> background;
 std::unique_ptr<Character> player;
+std::unique_ptr<Enemy> enemy;
 
 Game::~Game() {
   // Cleans up SDL
@@ -51,17 +54,26 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
   if (player) {
     std::cout << "Character created" << std::endl;
   }
+
+  // Setup enemy
+  enemy = std::unique_ptr<Enemy>(
+      new Ghost(0, 0));
+  if (enemy) {
+    std::cout << "Enemy created" << std::endl;
+  }
 }
 
 void Game::Update() {
   background->Update();
   player->Update();
+  enemy->Update(player->GetXPos(), player->GetYPos());
 }
 
 void Game::Render() {
   SDL_RenderClear(renderer_);
   background->Render();
   player->Render();
+  enemy->Render();
   SDL_RenderPresent(renderer_);  // Double buffering
 }
 
