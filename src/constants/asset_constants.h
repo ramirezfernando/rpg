@@ -22,5 +22,10 @@ extern const char* CHARACTER_ELF_LEFT_FOLDER_PATH;
 extern const char* CHARACTER_ELF_RIGHT_FOLDER_PATH;
 extern const char* CHARACTER_ELF_UP_FOLDER_PATH;
 
+extern const char* ENEMY_GHOST_DOWN_FOLDER_PATH;
+extern const char* ENEMY_GHOST_LEFT_FOLDER_PATH;
+extern const char* ENEMY_GHOST_RIGHT_FOLDER_PATH;
+extern const char* ENEMY_GHOST_UP_FOLDER_PATH;
+
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 }  // namespace Constants
