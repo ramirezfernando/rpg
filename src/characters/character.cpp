@@ -8,8 +8,8 @@ Character::~Character() {
 }
 
 void Character::Update() {
-  src_rect_.w = 64;
-  src_rect_.h = 64;
+  src_rect_.w = Constants::CHARACTER_SIZE;
+  src_rect_.h = Constants::CHARACTER_SIZE;
   src_rect_.x = 0;
   src_rect_.y = 0;
   dest_rect_.x = x_pos_;

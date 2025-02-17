@@ -8,8 +8,8 @@ Enemy::~Enemy() {
 }
 
 void Enemy::Update(int character_x_pos, int character_y_pos) {
-  src_rect_.w = 96;
-  src_rect_.h = 96;
+  src_rect_.w = Constants::ENEMY_SIZE;
+  src_rect_.h = Constants::ENEMY_SIZE;
   src_rect_.x = 0;
   src_rect_.y = 0;
   dest_rect_.x = x_pos_;
@@ -22,10 +22,9 @@ void Enemy::Update(int character_x_pos, int character_y_pos) {
   const char* file = filename.c_str();
   enemy_texture_ = Util::LoadTexture(file);
 
-  if (character_x_pos != x_pos_ || character_y_pos != y_pos_) {
-    SDL_Delay(delay_);
-    FollowCharacter(character_x_pos, character_y_pos);
-  }
+  SDL_Delay(delay_);
+
+  FollowCharacter(character_x_pos, character_y_pos);
 }
 
 void Enemy::Render() {
@@ -33,18 +32,22 @@ void Enemy::Render() {
 }
 
 void Enemy::FollowCharacter(int character_x_pos, int character_y_pos) {
-  if (character_x_pos > x_pos_) {
+  // Constants::ENEMY_SIZE / 3 is used to center the enemy with the character in
+  // the x-axis.
+  if (character_x_pos - (Constants::ENEMY_SIZE / 3) > x_pos_) {
     x_pos_ += Constants::ENEMY_MOVEMENT_GAP;
     folder_path_ = Constants::ENEMY_GHOST_RIGHT_FOLDER_PATH;
-  } else if (character_x_pos < x_pos_) {
+  } else if (character_x_pos - (Constants::ENEMY_SIZE / 3) < x_pos_) {
     x_pos_ -= Constants::ENEMY_MOVEMENT_GAP;
     folder_path_ = Constants::ENEMY_GHOST_LEFT_FOLDER_PATH;
-  } 
+  }
 
-  if (character_y_pos > y_pos_) {
+  // Constants::ENEMY_SIZE is used to center the enemy with the character in the
+  // y-axis.
+  if (character_y_pos - Constants::ENEMY_SIZE > y_pos_) {
     y_pos_ += Constants::ENEMY_MOVEMENT_GAP;
     folder_path_ = Constants::ENEMY_GHOST_DOWN_FOLDER_PATH;
-  } else if (character_y_pos < y_pos_) {
+  } else if (character_y_pos - Constants::ENEMY_SIZE < y_pos_) {
     y_pos_ -= Constants::ENEMY_MOVEMENT_GAP;
     folder_path_ = Constants::ENEMY_GHOST_UP_FOLDER_PATH;
   }
