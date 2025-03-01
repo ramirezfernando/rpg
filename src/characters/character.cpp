@@ -32,18 +32,18 @@ void Character::Render() {
 }
 
 void Character::SetXPos(int x_pos) {
-  if (IsWithinBounds(x_pos, y_pos_)) {
+  if (IsWithinWindowBounds(x_pos, y_pos_)) {
     x_pos_ = x_pos;
   }
 }
 
 void Character::SetYPos(int y_pos) {
-  if (IsWithinBounds(x_pos_, y_pos)) {
+  if (IsWithinWindowBounds(x_pos_, y_pos)) {
     y_pos_ = y_pos;
   }
 }
 
-bool Character::IsWithinBounds(int x_pos, int y_pos) {
+bool Character::IsWithinWindowBounds(int x_pos, int y_pos) {
   return x_pos >= 0 && x_pos <= Constants::WINDOW_SIZE - dest_rect_.w &&
          y_pos >= 0 && y_pos <= Constants::WINDOW_SIZE - dest_rect_.h;
 }

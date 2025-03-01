@@ -16,7 +16,7 @@ class Character {
   void SetYPos(int y_pos);
   int GetXPos() { return x_pos_; }
   int GetYPos() { return y_pos_; }
-  bool IsWithinBounds(int x_pos, int y_pos);
+  bool IsWithinWindowBounds(int x_pos, int y_pos);
   void Attack(Enemy* enemy);
 
  protected:
