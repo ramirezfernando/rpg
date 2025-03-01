@@ -15,6 +15,8 @@ class Enemy {
   int GetYPos() { return y_pos_; }
   void SetHealth(int health) { health_ = health; }
   int GetHealth() { return health_; }
+
+ private:
   void FollowCharacter(int character_x_pos, int character_y_pos);
 
  protected:
