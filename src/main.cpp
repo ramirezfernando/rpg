@@ -15,7 +15,7 @@ int main() {
              Constants::WINDOW_SIZE, Constants::WINDOW_SIZE);
 
   // Game loop
-  while (game->GetIsRunning()) {
+  while (game->IsRunning()) {
     frame_start = SDL_GetTicks();
     game->Update();
     game->Render();

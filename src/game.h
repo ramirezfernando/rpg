@@ -15,7 +15,7 @@ class Game {
   void Render();
   void HandleEvents();
   void SetIsRunning(bool is_running) { is_running_ = is_running; }
-  bool GetIsRunning() { return is_running_; }
+  bool IsRunning() { return is_running_; }
   static SDL_Renderer* renderer_;
   static SDL_Event event_;
 
