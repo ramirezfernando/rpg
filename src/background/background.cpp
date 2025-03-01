@@ -1,6 +1,6 @@
 #include "background.h"
 #include "constants/game_constants.h"
-#include "util.h"
+#include "utils/util.h"
 
 Background::Background(const char* file_path) {
   background_texture_ = Util::LoadTexture(file_path);

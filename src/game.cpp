@@ -1,5 +1,5 @@
 #include "game.h"
-#include "background.h"
+#include "background/background.h"
 #include "characters/character.h"
 #include "characters/character_elf.h"
 #include "characters/character_mage.h"

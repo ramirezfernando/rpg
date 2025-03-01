@@ -1,6 +1,6 @@
 #include "enemy.h"
 #include "constants/game_constants.h"
-#include "util.h"
+#include "utils/util.h"
 
 Enemy::~Enemy() {
   SDL_DestroyTexture(enemy_texture_);
