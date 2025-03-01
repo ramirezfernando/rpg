@@ -5,4 +5,5 @@ Ghost::Ghost(int x_pos, int y_pos) {
   frames_ = 3;
   x_pos_ = x_pos;
   y_pos_ = y_pos;
+  health_ = 100;
 }

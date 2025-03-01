@@ -9,11 +9,13 @@ class Enemy {
   virtual ~Enemy();
   void Update(int character_x_pos, int character_y_pos);
   void Render();
+  void SetHealth(int health) { health_ = health; }
+  int GetHealth() { return health_; }
   void FollowCharacter(int character_x_pos, int character_y_pos);
 
  protected:
   SDL_Texture* enemy_texture_;
   SDL_Rect src_rect_, dest_rect_;
   const char* folder_path_;
-  int x_pos_, y_pos_, frames_, delay_ = 70, count_ = 0;
+  int x_pos_, y_pos_, frames_, health_, delay_ = 70, count_ = 0;
 };

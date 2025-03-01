@@ -7,7 +7,7 @@ Character::~Character() {
   std::cout << "Character destroyed" << std::endl;
 }
 
-void Character::Update() {
+void Character::Update(Enemy* enemy) {
   src_rect_.w = Constants::CHARACTER_SIZE;
   src_rect_.h = Constants::CHARACTER_SIZE;
   src_rect_.x = 0;
@@ -23,7 +23,7 @@ void Character::Update() {
   character_texture_ = Util::LoadTexture(file);
 
   if (should_attack_) {
-    Attack();
+    Attack(enemy);
   }
 }
 
@@ -48,7 +48,7 @@ bool Character::IsWithinBounds(int x_pos, int y_pos) {
          y_pos >= 0 && y_pos <= Constants::WINDOW_SIZE - dest_rect_.h;
 }
 
-void Character::Attack() {
+void Character::Attack(Enemy* enemy) {
   Uint32 current_time = SDL_GetTicks();
   if (current_time > last_frame_time_ + delay_) {
     if (count_ < frames_) {
@@ -59,6 +59,9 @@ void Character::Attack() {
     } else {
       count_ = 0;
       should_attack_ = false;
+      // TODO: Finish the attack logic
+      enemy->SetHealth(enemy->GetHealth() - 10);
+      std::cout << "Enemy health: " << enemy->GetHealth() << std::endl;
     }
     last_frame_time_ = current_time;
   }

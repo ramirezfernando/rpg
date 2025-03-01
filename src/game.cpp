@@ -64,7 +64,7 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
 
 void Game::Update() {
   background->Update();
-  player->Update();
+  player->Update(enemy.get());
   enemy->Update(player->GetXPos(), player->GetYPos());
 }
 
