@@ -23,5 +23,6 @@ class Character {
   SDL_Rect src_rect_, dest_rect_;
   const char* folder_path_;
   int x_pos_, y_pos_, frames_, delay_ = 70, count_ = 0;
+  Uint32 last_frame_time_ = 0;
   bool should_attack_ = false;
 };

@@ -22,8 +22,6 @@ void Enemy::Update(int character_x_pos, int character_y_pos) {
   const char* file = filename.c_str();
   enemy_texture_ = Util::LoadTexture(file);
 
-  SDL_Delay(delay_);
-
   FollowCharacter(character_x_pos, character_y_pos);
 }
 

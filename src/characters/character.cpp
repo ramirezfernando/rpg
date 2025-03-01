@@ -49,15 +49,17 @@ bool Character::IsWithinBounds(int x_pos, int y_pos) {
 }
 
 void Character::Attack() {
-  if (count_ < frames_) {
-    std::string filename = folder_path_ + std::to_string(count_) + ".png";
-    const char* file = filename.c_str();
-    character_texture_ = Util::LoadTexture(file);
-    SDL_Delay(delay_);
-    count_++;
-  } else {
-    count_ = 0;
-    // Ensures that the character does not keep attacking
-    should_attack_ = false;
+  Uint32 current_time = SDL_GetTicks();
+  if (current_time > last_frame_time_ + delay_) {
+    if (count_ < frames_) {
+      std::string filename = folder_path_ + std::to_string(count_) + ".png";
+      const char* file = filename.c_str();
+      character_texture_ = Util::LoadTexture(file);
+      count_++;
+    } else {
+      count_ = 0;
+      should_attack_ = false;
+    }
+    last_frame_time_ = current_time;
   }
 }
