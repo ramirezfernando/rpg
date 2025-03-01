@@ -1,4 +1,5 @@
 #include "character.h"
+#include <cstdlib>  // For abs()
 #include "constants/game_constants.h"
 #include "util.h"
 
@@ -43,15 +44,10 @@ void Character::SetYPos(int y_pos) {
   }
 }
 
-bool Character::IsWithinWindowBounds(int x_pos, int y_pos) {
-  return x_pos >= 0 && x_pos <= Constants::WINDOW_SIZE - dest_rect_.w &&
-         y_pos >= 0 && y_pos <= Constants::WINDOW_SIZE - dest_rect_.h;
-}
-
 void Character::Attack(Enemy* enemy) {
   Uint32 current_time = SDL_GetTicks();
-  if (current_time > last_frame_time_ + delay_) {
-    if (count_ < frames_) {
+  if (ShouldUpdateTexture(current_time)) {
+    if (ShouldIncrementTexture()) {
       std::string filename = folder_path_ + std::to_string(count_) + ".png";
       const char* file = filename.c_str();
       character_texture_ = Util::LoadTexture(file);
@@ -59,10 +55,33 @@ void Character::Attack(Enemy* enemy) {
     } else {
       count_ = 0;
       should_attack_ = false;
-      // TODO: Finish the attack logic
-      enemy->SetHealth(enemy->GetHealth() - 10);
-      std::cout << "Enemy health: " << enemy->GetHealth() << std::endl;
+      if (IsWithinAttackRange(enemy->GetXPos(), enemy->GetYPos())) {
+        enemy->SetHealth(enemy->GetHealth() - 10);
+        std::cout << "Enemy health: " << enemy->GetHealth() << std::endl;
+        if (enemy->GetHealth() <= 0) {
+          // TODO: Implement game over logic
+        }
+      }
     }
     last_frame_time_ = current_time;
   }
+}
+
+bool Character::IsWithinWindowBounds(int x_pos, int y_pos) {
+  return x_pos >= 0 && x_pos <= Constants::WINDOW_SIZE - dest_rect_.w &&
+         y_pos >= 0 && y_pos <= Constants::WINDOW_SIZE - dest_rect_.h;
+}
+
+bool Character::IsWithinAttackRange(int enemy_x_pos, int enemy_y_pos) {
+  return abs(x_pos_ - enemy_x_pos) <= Constants::ATTACK_RANGE &&
+         abs(y_pos_ - enemy_y_pos) <= Constants::ATTACK_RANGE;
+}
+
+// Adds a delay between each frame of the attack animation
+bool Character::ShouldUpdateTexture(Uint32 current_time) {
+  return current_time > last_frame_time_ + delay_;
+}
+
+bool Character::ShouldIncrementTexture() {
+  return count_ < frames_;
 }

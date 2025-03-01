@@ -16,8 +16,13 @@ class Character {
   void SetYPos(int y_pos);
   int GetXPos() { return x_pos_; }
   int GetYPos() { return y_pos_; }
-  bool IsWithinWindowBounds(int x_pos, int y_pos);
+
+ private:
   void Attack(Enemy* enemy);
+  bool IsWithinWindowBounds(int x_pos, int y_pos);
+  bool IsWithinAttackRange(int enemy_x_pos, int enemy_y_pos);
+  bool ShouldUpdateTexture(Uint32 current_time);
+  bool ShouldIncrementTexture();
 
  protected:
   SDL_Texture* character_texture_;

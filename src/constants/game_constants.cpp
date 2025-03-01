@@ -9,4 +9,5 @@ const int CHARACTER_MOVEMENT_GAP =
     20;                            // The number of pixels to move the character
 const int ENEMY_MOVEMENT_GAP = 2;  // The number of pixels to move the enemy
 const int ENEMY_SIZE = 96;         // The size of the enemy (96 x 96)
+const int ATTACK_RANGE = 100;
 }  // namespace Constants

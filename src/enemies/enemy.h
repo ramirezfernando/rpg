@@ -9,6 +9,10 @@ class Enemy {
   virtual ~Enemy();
   void Update(int character_x_pos, int character_y_pos);
   void Render();
+  void SetXPos(int x_pos);
+  void SetYPos(int y_pos);
+  int GetXPos() { return x_pos_; }
+  int GetYPos() { return y_pos_; }
   void SetHealth(int health) { health_ = health; }
   int GetHealth() { return health_; }
   void FollowCharacter(int character_x_pos, int character_y_pos);
