@@ -19,7 +19,7 @@ class Character {
 
  private:
   void Attack(Enemy* enemy);
-  bool IsWithinWindowBounds(int x_pos, int y_pos);
+  bool IsWithinWindowBounds();
   bool IsWithinAttackRange(int enemy_x_pos, int enemy_y_pos);
   bool ShouldUpdateTexture(Uint32 current_time);
   bool ShouldIncrementTexture();

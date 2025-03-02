@@ -33,13 +33,13 @@ void Character::Render() {
 }
 
 void Character::SetXPos(int x_pos) {
-  if (IsWithinWindowBounds(x_pos, y_pos_)) {
+  if (IsWithinWindowBounds()) {
     x_pos_ = x_pos;
   }
 }
 
 void Character::SetYPos(int y_pos) {
-  if (IsWithinWindowBounds(x_pos_, y_pos)) {
+  if (IsWithinWindowBounds()) {
     y_pos_ = y_pos;
   }
 }
@@ -67,9 +67,9 @@ void Character::Attack(Enemy* enemy) {
   }
 }
 
-bool Character::IsWithinWindowBounds(int x_pos, int y_pos) {
-  return x_pos >= 0 && x_pos <= Constants::WINDOW_SIZE - dest_rect_.w &&
-         y_pos >= 0 && y_pos <= Constants::WINDOW_SIZE - dest_rect_.h;
+bool Character::IsWithinWindowBounds() {
+  return x_pos_ >= 0 && x_pos_ <= Constants::WINDOW_SIZE - dest_rect_.w &&
+         y_pos_ >= 0 && y_pos_ <= Constants::WINDOW_SIZE - dest_rect_.h;
 }
 
 bool Character::IsWithinAttackRange(int enemy_x_pos, int enemy_y_pos) {
