@@ -55,11 +55,12 @@ void Character::Attack(Enemy* enemy) {
     } else {
       count_ = 0;
       should_attack_ = false;
-      if (IsWithinAttackRange(enemy->GetXPos(), enemy->GetYPos())) {
+      if (IsWithinAttackRange(enemy->GetXPos(), enemy->GetYPos()) &&
+          IsFacingEnemy(enemy->GetXPos(), enemy->GetYPos())) {
         enemy->SetHealth(enemy->GetHealth() - 10);
         std::cout << "Enemy health: " << enemy->GetHealth() << std::endl;
         if (enemy->GetHealth() <= 0) {
-          // TODO: Implement game over logic
+          // TODO: Implement enamy death logic.
         }
       }
     }
@@ -75,6 +76,23 @@ bool Character::IsWithinWindowBounds() {
 bool Character::IsWithinAttackRange(int enemy_x_pos, int enemy_y_pos) {
   return abs(x_pos_ - enemy_x_pos) <= Constants::ATTACK_RANGE &&
          abs(y_pos_ - enemy_y_pos) <= Constants::ATTACK_RANGE;
+}
+
+bool Character::IsFacingEnemy(int enemy_x_pos, int enemy_y_pos) {
+  switch (direction_facing_) {
+    case Constants::Direction::UP:
+      return enemy_y_pos - Constants::ENEMY_SIZE <
+             y_pos_ - Constants::CHARACTER_SIZE;
+    case Constants::Direction::DOWN:
+      return enemy_y_pos - Constants::ENEMY_SIZE >
+             y_pos_ - Constants::CHARACTER_SIZE;
+    case Constants::Direction::LEFT:
+      return enemy_x_pos - Constants::ENEMY_SIZE <
+             x_pos_ - Constants::CHARACTER_SIZE;
+    case Constants::Direction::RIGHT:
+      return enemy_x_pos - Constants::ENEMY_SIZE >
+             x_pos_ - Constants::CHARACTER_SIZE;
+  }
 }
 
 // Adds a delay between each frame of the attack animation

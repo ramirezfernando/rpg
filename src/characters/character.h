@@ -16,11 +16,15 @@ class Character {
   void SetYPos(int y_pos);
   int GetXPos() { return x_pos_; }
   int GetYPos() { return y_pos_; }
+  void SetDirectionFacing(Constants::Direction direction) {
+    direction_facing_ = direction;
+  }
 
  private:
   void Attack(Enemy* enemy);
   bool IsWithinWindowBounds();
   bool IsWithinAttackRange(int enemy_x_pos, int enemy_y_pos);
+  bool IsFacingEnemy(int enemy_x_pos, int enemy_y_pos);
   bool ShouldUpdateTexture(Uint32 current_time);
   bool ShouldIncrementTexture();
 
@@ -31,4 +35,5 @@ class Character {
   int x_pos_, y_pos_, frames_, delay_ = 70, count_ = 0;
   Uint32 last_frame_time_ = 0;
   bool should_attack_ = false;
+  Constants::Direction direction_facing_;
 };
