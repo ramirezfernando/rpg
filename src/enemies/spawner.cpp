@@ -9,9 +9,9 @@ Spawner::~Spawner() {
   enemies_.clear();
 }
 
-void Spawner::Update() {
+void Spawner::Update(int character_x_pos, int character_y_pos) {
   for (auto enemy : enemies_) {
-    enemy->Update(0, 0);  // Update with dummy values for now
+    enemy->Update(character_x_pos, character_y_pos);
   }
 }
 

@@ -9,7 +9,7 @@ class Spawner {
  public:
   Spawner();
   ~Spawner();
-  void Update();
+  void Update(int character_x_pos, int character_y_pos);
   void Render();
   void AddEnemy(Enemy* enemy);
   void RemoveEnemy(Enemy* enemy);
