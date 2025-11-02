@@ -5,16 +5,11 @@
 #include "characters/character_mage.h"
 #include "constants/asset_constants.h"
 #include "constants/game_constants.h"
-#include "enemies/enemy.h"
-#include "enemies/enemy_ghost.h"
-#include "enemies/spawner.h"
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
 std::unique_ptr<Background> background;
 std::unique_ptr<Character> player;
-std::unique_ptr<Enemy> enemy;
-std::unique_ptr<Spawner> spawner;
 
 Game::~Game() {
   // Cleans up SDL
@@ -56,35 +51,17 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
   if (player) {
     std::cout << "Character created" << std::endl;
   }
-
-  // Setup enemy
-  enemy = std::unique_ptr<Enemy>(new Ghost(0, 0));
-  if (enemy) {
-    std::cout << "Enemy created" << std::endl;
-  }
-
-  // Setup spawner
-  spawner = std::unique_ptr<Spawner>(new Spawner());
-  if (spawner) {
-    std::cout << "Spawner created" << std::endl;
-  }
-
-  // Add enemy to spawner
-  spawner->AddEnemy(enemy.get());
-  std::cout << "Enemy added to spawner" << std::endl;
 }
 
 void Game::Update() {
   background->Update();
-  player->Update(enemy.get());
-  spawner->Update(player->GetXPos(), player->GetYPos());
+  player->Update();
 }
 
 void Game::Render() {
   SDL_RenderClear(renderer_);
   background->Render();
   player->Render();
-  spawner->Render();
   SDL_RenderPresent(renderer_);  // Double buffering
 }
 
@@ -119,9 +96,6 @@ void Game::HandleEvents() {
                           Constants::CHARACTER_MOVEMENT_GAP);
           player->SetFolderPathFromDirection(Constants::Direction::RIGHT);
           player->SetDirectionFacing(Constants::Direction::RIGHT);
-          break;
-        case SDLK_a:
-          player->SetShouldAttack(true);
           break;
         default:
           break;

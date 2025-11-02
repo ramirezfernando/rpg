@@ -1,5 +1,5 @@
 CXX = clang++
-CXXFLAGS = -std=c++11 $(shell pkg-config --cflags sdl2) -Isrc
+CXXFLAGS = -std=c++20 $(shell pkg-config --cflags sdl2) -Isrc
 LDFLAGS = $(shell pkg-config --libs sdl2) $(shell pkg-config --libs sdl2_image)
 SRCS = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
 HDRS = $(wildcard src/*.h) $(wildcard src/*/*.h)

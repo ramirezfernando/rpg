@@ -8,7 +8,7 @@ Character::~Character() {
   std::cout << "Character destroyed" << std::endl;
 }
 
-void Character::Update(Enemy* enemy) {
+void Character::Update() {
   src_rect_.w = Constants::CHARACTER_SIZE;
   src_rect_.h = Constants::CHARACTER_SIZE;
   src_rect_.x = 0;
@@ -22,10 +22,6 @@ void Character::Update(Enemy* enemy) {
   std::string filename = folder_path_ + std::to_string(0) + ".png";
   const char* file = filename.c_str();
   character_texture_ = Util::LoadTexture(file);
-
-  if (should_attack_) {
-    Attack(enemy);
-  }
 }
 
 void Character::Render() {
@@ -44,58 +40,11 @@ void Character::SetYPos(int y_pos) {
   }
 }
 
-void Character::Attack(Enemy* enemy) {
-  Uint32 current_time = SDL_GetTicks();
-  if (ShouldUpdateTexture(current_time)) {
-    if (ShouldIncrementTexture()) {
-      std::string filename = folder_path_ + std::to_string(count_) + ".png";
-      const char* file = filename.c_str();
-      character_texture_ = Util::LoadTexture(file);
-      count_++;
-    } else {
-      count_ = 0;
-      should_attack_ = false;
-      if (IsWithinAttackRange(enemy->GetXPos(), enemy->GetYPos()) &&
-          IsFacingEnemy(enemy->GetXPos(), enemy->GetYPos())) {
-        enemy->SetHealth(enemy->GetHealth() - 10);
-        std::cout << "Enemy health: " << enemy->GetHealth() << std::endl;
-        if (enemy->GetHealth() <= 0) {
-          // TODO: Implement enamy death logic.
-        }
-      }
-    }
-    last_frame_time_ = current_time;
-  }
-}
-
 bool Character::IsWithinWindowBounds() {
   return x_pos_ >= 0 && x_pos_ <= Constants::WINDOW_SIZE - dest_rect_.w &&
          y_pos_ >= 0 && y_pos_ <= Constants::WINDOW_SIZE - dest_rect_.h;
 }
 
-bool Character::IsWithinAttackRange(int enemy_x_pos, int enemy_y_pos) {
-  return abs(x_pos_ - enemy_x_pos) <= Constants::ATTACK_RANGE &&
-         abs(y_pos_ - enemy_y_pos) <= Constants::ATTACK_RANGE;
-}
-
-bool Character::IsFacingEnemy(int enemy_x_pos, int enemy_y_pos) {
-  switch (direction_facing_) {
-    case Constants::Direction::UP:
-      return enemy_y_pos - Constants::ENEMY_SIZE <
-             y_pos_ - Constants::CHARACTER_SIZE;
-    case Constants::Direction::DOWN:
-      return enemy_y_pos - Constants::ENEMY_SIZE >
-             y_pos_ - Constants::CHARACTER_SIZE;
-    case Constants::Direction::LEFT:
-      return enemy_x_pos - Constants::ENEMY_SIZE <
-             x_pos_ - Constants::CHARACTER_SIZE;
-    case Constants::Direction::RIGHT:
-      return enemy_x_pos - Constants::ENEMY_SIZE >
-             x_pos_ - Constants::CHARACTER_SIZE;
-  }
-}
-
-// Adds a delay between each frame of the attack animation
 bool Character::ShouldUpdateTexture(Uint32 current_time) {
   return current_time > last_frame_time_ + delay_;
 }
