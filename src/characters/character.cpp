@@ -1,7 +1,7 @@
 #include "character.h"
 #include <cstdlib>  // For abs()
 #include "constants/game_constants.h"
-#include "utils/util.h"
+#include "util/util.h"
 
 Character::~Character() {
   SDL_DestroyTexture(character_texture_);

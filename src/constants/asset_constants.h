@@ -4,11 +4,6 @@ namespace Constants {
 
 extern const char* BACKGROUND_FILE_PATH;
 
-extern const char* CHARACTER_MAGE_DOWN_FOLDER_PATH;
-extern const char* CHARACTER_MAGE_LEFT_FOLDER_PATH;
-extern const char* CHARACTER_MAGE_RIGHT_FOLDER_PATH;
-extern const char* CHARACTER_MAGE_UP_FOLDER_PATH;
-
 extern const char* CHARACTER_ELF_DOWN_FOLDER_PATH;
 extern const char* CHARACTER_ELF_LEFT_FOLDER_PATH;
 extern const char* CHARACTER_ELF_RIGHT_FOLDER_PATH;

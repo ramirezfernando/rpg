@@ -1,14 +1,13 @@
 #include "game.h"
-#include "background/background.h"
 #include "characters/character.h"
 #include "characters/character_elf.h"
-#include "characters/character_mage.h"
 #include "constants/asset_constants.h"
 #include "constants/game_constants.h"
+#include "tileset/tileset.h"
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
-std::unique_ptr<Background> background;
+std::unique_ptr<Tileset> tileset;
 std::unique_ptr<Character> player;
 
 Game::~Game() {
@@ -38,29 +37,40 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
     is_running_ = false;
   }
 
-  // Setup background
-  background = std::unique_ptr<Background>(
-      new Background(Constants::BACKGROUND_FILE_PATH));
-  if (background) {
-    std::cout << "Background created" << std::endl;
-  }
-
   // Setup player
   player = std::unique_ptr<Character>(
       new Elf(Constants::WINDOW_SIZE / 2, Constants::WINDOW_SIZE / 2));
   if (player) {
     std::cout << "Character created" << std::endl;
   }
+
+  tileset =
+      std::unique_ptr<Tileset>(new Tileset("assets/tiles/tileset.png", 16, 16));
+  if (tileset && tileset->Load()) {
+    std::cout << "Tileset loaded\n";
+  }
 }
 
 void Game::Update() {
-  background->Update();
   player->Update();
+}
+
+static inline int TileIndex(int col, int row, int tileset_columns = 4) {
+  return row * tileset_columns + col;
 }
 
 void Game::Render() {
   SDL_RenderClear(renderer_);
-  background->Render();
+  // example map (row-major indices). Negative = empty.
+  if (tileset) {
+    std::vector<int> map = {
+        TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), -1,
+        TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), -1,
+        TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(2, 2),
+        TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), -1,
+    };
+    tileset->RenderMap(map, 4, 4, 0, 0, 2);
+  }
   player->Render();
   SDL_RenderPresent(renderer_);  // Double buffering
 }
