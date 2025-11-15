@@ -7,8 +7,6 @@
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
-std::unique_ptr<Tileset> tileset;
-std::unique_ptr<Character> player;
 
 Game::~Game() {
   // Cleans up SDL
@@ -21,7 +19,6 @@ Game::~Game() {
 
 void Game::Init(const char* title, int x_pos, int y_pos, int width,
                 int height) {
-  // Initializing SDL2 window
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
     window_ = SDL_CreateWindow(title, x_pos, y_pos, width, height, 0);
     if (window_) {
@@ -37,22 +34,21 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
     is_running_ = false;
   }
 
-  // Setup player
-  player = std::unique_ptr<Character>(
+  player_ = std::unique_ptr<Character>(
       new Elf(Constants::WINDOW_SIZE / 2, Constants::WINDOW_SIZE / 2));
-  if (player) {
+  if (player_) {
     std::cout << "Character created" << std::endl;
   }
 
-  tileset =
+  tileset_ =
       std::unique_ptr<Tileset>(new Tileset("assets/tiles/tileset.png", 16, 16));
-  if (tileset && tileset->Load()) {
-    std::cout << "Tileset loaded\n";
+  if (tileset_ && tileset_->Load()) {
+    std::cout << "Tileset created" << std::endl;
   }
 }
 
 void Game::Update() {
-  player->Update();
+  player_->Update();
 }
 
 static inline int TileIndex(int col, int row, int tileset_columns = 4) {
@@ -61,17 +57,16 @@ static inline int TileIndex(int col, int row, int tileset_columns = 4) {
 
 void Game::Render() {
   SDL_RenderClear(renderer_);
-  // example map (row-major indices). Negative = empty.
-  if (tileset) {
+  if (tileset_) {
     std::vector<int> map = {
         TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), -1,
         TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), -1,
         TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(2, 2),
         TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), -1,
     };
-    tileset->RenderMap(map, 4, 4, 0, 0, 2);
+    tileset_->RenderMap(map, 4, 4, 0, 0, 2);
   }
-  player->Render();
+  player_->Render();
   SDL_RenderPresent(renderer_);  // Double buffering
 }
 
@@ -84,28 +79,28 @@ void Game::HandleEvents() {
     case SDL_KEYDOWN:
       switch (event_.key.keysym.sym) {
         case SDLK_UP:
-          player->SetYPos(player->GetYPos() -
-                          Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPathFromDirection(Constants::Direction::UP);
-          player->SetDirectionFacing(Constants::Direction::UP);
+          player_->SetYPos(player_->GetYPos() -
+                           Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetFolderPathFromDirection(Constants::Direction::UP);
+          player_->SetDirectionFacing(Constants::Direction::UP);
           break;
         case SDLK_DOWN:
-          player->SetYPos(player->GetYPos() +
-                          Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPathFromDirection(Constants::Direction::DOWN);
-          player->SetDirectionFacing(Constants::Direction::DOWN);
+          player_->SetYPos(player_->GetYPos() +
+                           Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetFolderPathFromDirection(Constants::Direction::DOWN);
+          player_->SetDirectionFacing(Constants::Direction::DOWN);
           break;
         case SDLK_LEFT:
-          player->SetXPos(player->GetXPos() -
-                          Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPathFromDirection(Constants::Direction::LEFT);
-          player->SetDirectionFacing(Constants::Direction::LEFT);
+          player_->SetXPos(player_->GetXPos() -
+                           Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetFolderPathFromDirection(Constants::Direction::LEFT);
+          player_->SetDirectionFacing(Constants::Direction::LEFT);
           break;
         case SDLK_RIGHT:
-          player->SetXPos(player->GetXPos() +
-                          Constants::CHARACTER_MOVEMENT_GAP);
-          player->SetFolderPathFromDirection(Constants::Direction::RIGHT);
-          player->SetDirectionFacing(Constants::Direction::RIGHT);
+          player_->SetXPos(player_->GetXPos() +
+                           Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetFolderPathFromDirection(Constants::Direction::RIGHT);
+          player_->SetDirectionFacing(Constants::Direction::RIGHT);
           break;
         default:
           break;

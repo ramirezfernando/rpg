@@ -5,7 +5,11 @@
 #include <unistd.h>
 #include <fstream>
 #include <iostream>
+#include <memory>
 #include <string>
+
+class Character;
+class Tileset;
 
 class Game {
  public:
@@ -22,4 +26,6 @@ class Game {
  private:
   SDL_Window* window_;
   bool is_running_;
+  std::unique_ptr<Character> player_;
+  std::unique_ptr<Tileset> tileset_;
 };
