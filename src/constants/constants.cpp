@@ -12,12 +12,13 @@ const char* CHARACTER_ELF_DOWN_FOLDER_PATH = "assets/characters/elf/down/";
 const char* CHARACTER_ELF_LEFT_FOLDER_PATH = "assets/characters/elf/left/";
 const char* CHARACTER_ELF_RIGHT_FOLDER_PATH = "assets/characters/elf/right/";
 const char* CHARACTER_ELF_UP_FOLDER_PATH = "assets/characters/elf/up/";
+
 const char* TILE_SET_PATH = "assets/map/tile_set.png";
 const int TILE_WIDTH = 16;
 const int TILE_HEIGHT = 16;
 const int SPRITE_SCALE = 3;
 // clang-format off
-const int FULL_MAP[16 * 16] = {
+const int FULL_MAP[TILE_WIDTH * TILE_HEIGHT] = {
   // row 0
   9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
   // row 1

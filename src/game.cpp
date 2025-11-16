@@ -54,6 +54,12 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
   if (tiny_house_ && tiny_house_->LoadSpriteSheet()) {
     std::cout << "Tiny house created" << std::endl;
   }
+
+  wood_fence_ = std::unique_ptr<SpriteSheetManager>(
+      new SpriteSheetManager("assets/map/wood_fence.png", 16, 16));
+  if (wood_fence_ && wood_fence_->LoadSpriteSheet()) {
+    std::cout << "Wood fence created" << std::endl;
+  }
 }
 
 void Game::Update() {
@@ -67,12 +73,77 @@ void Game::Render() {
                                  Constants::TILE_HEIGHT, 0, 0,
                                  Constants::SPRITE_SCALE);
   }
+  if (wood_fence_) {
+    // Render the wood fence one the left side of the tiny house.
+    wood_fence_->RenderSpriteSheetItem(11, Constants::TINY_HOUSE_X_POS - 0,
+                                       Constants::TINY_HOUSE_Y_POS + 180,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(7, Constants::TINY_HOUSE_X_POS - 48,
+                                       Constants::TINY_HOUSE_Y_POS + 180,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(7, Constants::TINY_HOUSE_X_POS - 96,
+                                       Constants::TINY_HOUSE_Y_POS + 180,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(0, Constants::TINY_HOUSE_X_POS - 144,
+                                       Constants::TINY_HOUSE_Y_POS + 180,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(3, Constants::TINY_HOUSE_X_POS - 144,
+                                       Constants::TINY_HOUSE_Y_POS + 228,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(13, Constants::TINY_HOUSE_X_POS - 144,
+                                       Constants::TINY_HOUSE_Y_POS + 276,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(1, Constants::TINY_HOUSE_X_POS - 192,
+                                       Constants::TINY_HOUSE_Y_POS + 276,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(11, Constants::TINY_HOUSE_X_POS - 240,
+                                       Constants::TINY_HOUSE_Y_POS + 276,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(10, Constants::TINY_HOUSE_X_POS - 288,
+                                       Constants::TINY_HOUSE_Y_POS + 276,
+                                       Constants::SPRITE_SCALE);
+    // Render the wood fence on the right side of the tiny house.
+    wood_fence_->RenderSpriteSheetItem(10, Constants::TINY_HOUSE_X_POS + 192,
+                                       Constants::TINY_HOUSE_Y_POS + 180,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(2, Constants::TINY_HOUSE_X_POS + 240,
+                                       Constants::TINY_HOUSE_Y_POS + 180,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(3, Constants::TINY_HOUSE_X_POS + 240,
+                                       Constants::TINY_HOUSE_Y_POS + 228,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(3, Constants::TINY_HOUSE_X_POS + 240,
+                                       Constants::TINY_HOUSE_Y_POS + 276,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(3, Constants::TINY_HOUSE_X_POS + 240,
+                                       Constants::TINY_HOUSE_Y_POS + 324,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(3, Constants::TINY_HOUSE_X_POS + 240,
+                                       Constants::TINY_HOUSE_Y_POS + 372,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(8, Constants::TINY_HOUSE_X_POS + 240,
+                                       Constants::TINY_HOUSE_Y_POS + 420,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(7, Constants::TINY_HOUSE_X_POS + 192,
+                                       Constants::TINY_HOUSE_Y_POS + 420,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(7, Constants::TINY_HOUSE_X_POS + 144,
+                                       Constants::TINY_HOUSE_Y_POS + 420,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(7, Constants::TINY_HOUSE_X_POS + 96,
+                                       Constants::TINY_HOUSE_Y_POS + 420,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(7, Constants::TINY_HOUSE_X_POS + 48,
+                                       Constants::TINY_HOUSE_Y_POS + 420,
+                                       Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(10, Constants::TINY_HOUSE_X_POS + 0,
+                                       Constants::TINY_HOUSE_Y_POS + 420,
+                                       Constants::SPRITE_SCALE);
+  }
   if (tiny_house_) {
-    tiny_house_->RenderSpriteSheet(nullptr, /* map_columns= */ 1,
-                                   /* map_rows= */ 1,
-                                   /* dst_x= */ Constants::TINY_HOUSE_X_POS,
-                                   /* dst_y= */ Constants::TINY_HOUSE_Y_POS,
-                                   /* scale= */ Constants::SPRITE_SCALE);
+    tiny_house_->RenderSpriteSheetItem(0, Constants::TINY_HOUSE_X_POS,
+                                       Constants::TINY_HOUSE_Y_POS,
+                                       Constants::SPRITE_SCALE);
   }
   player_->Render();
   SDL_RenderPresent(renderer_);  // Double buffering

@@ -19,6 +19,7 @@ extern const int TINY_HOUSE_WIDTH;
 extern const int TINY_HOUSE_HEIGHT;
 extern const int TINY_HOUSE_X_POS;
 extern const int TINY_HOUSE_Y_POS;
+extern const int WOOD_FENCES[];
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
 }  // namespace Constants

@@ -55,8 +55,8 @@ bool SpriteSheetManager::LoadSpriteSheet() {
   return true;
 }
 
-void SpriteSheetManager::RenderSheetItem(int tile_index, int dst_x, int dst_y,
-                                         int scale) {
+void SpriteSheetManager::RenderSpriteSheetItem(int tile_index, int dst_x,
+                                               int dst_y, int scale) {
   if (!texture_)
     return;
   // Negative reserved for empty tiles.
@@ -99,12 +99,8 @@ void SpriteSheetManager::RenderSpriteSheet(const int* tile_map,
                                            int dst_y, int scale) {
   if (!texture_)
     return;
-  if (!tile_map) {
-    int new_tile_map[1] = {0};
-    tile_map = new_tile_map;
-    tile_map_columns = 1;
-    tile_map_rows = 1;
-  }
+  if (!tile_map)
+    return;
 
   for (int y = 0; y < tile_map_rows; ++y) {
     for (int x = 0; x < tile_map_columns; ++x) {
@@ -112,8 +108,8 @@ void SpriteSheetManager::RenderSpriteSheet(const int* tile_map,
       // Skip negative tiles as they are reserved for empty tiles.
       if (idx < 0)
         continue;
-      RenderSheetItem(idx, dst_x + x * tile_width_ * scale,
-                      dst_y + y * tile_height_ * scale, scale);
+      RenderSpriteSheetItem(idx, dst_x + x * tile_width_ * scale,
+                            dst_y + y * tile_height_ * scale, scale);
     }
   }
 }
