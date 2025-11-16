@@ -91,12 +91,12 @@ void TileMap::RenderTile(int tile_index, int dst_x, int dst_y, int scale) {
   SDL_SetRenderDrawColor(Game::renderer_, prev_r, prev_g, prev_b, prev_a);
 }
 
-void TileMap::RenderTileMap(const std::vector<int>& tile_map,
-                            int tile_map_columns, int tile_map_rows, int dst_x,
-                            int dst_y, int scale) {
+void TileMap::RenderTileMap(const int* tile_map, int tile_map_columns,
+                            int tile_map_rows, int dst_x, int dst_y,
+                            int scale) {
   if (!texture_)
     return;
-  if ((int)tile_map.size() < tile_map_columns * tile_map_rows)
+  if (!tile_map)
     return;
 
   for (int y = 0; y < tile_map_rows; ++y) {

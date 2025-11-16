@@ -53,84 +53,12 @@ void Game::Update() {
   player_->Update();
 }
 
-static inline int TileIndex(int col, int row, int tileset_columns = 4) {
-  return row * tileset_columns + col;
-}
-
 void Game::Render() {
   SDL_RenderClear(renderer_);
   if (tile_map_) {
-    std::vector<int> map = {
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 4), TileIndex(1, 4), TileIndex(2, 4), TileIndex(3, 4),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 4), TileIndex(1, 4), TileIndex(2, 4), TileIndex(3, 4),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 4), TileIndex(1, 4), TileIndex(2, 4), TileIndex(3, 4),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 4), TileIndex(1, 4), TileIndex(2, 4), TileIndex(3, 4),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 4), TileIndex(1, 4), TileIndex(2, 4), TileIndex(3, 4),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 4), TileIndex(1, 4), TileIndex(2, 4), TileIndex(3, 4),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 4), TileIndex(1, 4), TileIndex(2, 4), TileIndex(3, 4),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-        TileIndex(0, 4), TileIndex(1, 4), TileIndex(2, 4), TileIndex(3, 4),
-        TileIndex(0, 0), TileIndex(1, 0), TileIndex(2, 0), TileIndex(3, 0),
-        TileIndex(0, 1), TileIndex(1, 1), TileIndex(2, 1), TileIndex(3, 1),
-        TileIndex(0, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(3, 2),
-        TileIndex(0, 3), TileIndex(1, 3), TileIndex(2, 3), TileIndex(3, 3),
-    };
-    tile_map_->RenderTileMap(/*tile_map*/ map, /*tile_map_columns*/ 16,
-                             /*tile_map_rows*/ 16,
-                             /*dst_x*/ 0,
-                             /*dst_y*/ 0,
-                             /*scale*/ Constants::SPRITE_SCALE);
+    tile_map_->RenderTileMap(
+        Constants::TILE_MAP_DATA, Constants::MAP_TILE_WIDTH,
+        Constants::MAP_TILE_HEIGHT, 0, 0, Constants::SPRITE_SCALE);
   }
   player_->Render();
   SDL_RenderPresent(renderer_);  // Double buffering

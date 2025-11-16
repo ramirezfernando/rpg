@@ -14,6 +14,7 @@ extern const char* MAP_TILE_SET_PATH;
 extern const int MAP_TILE_WIDTH;
 extern const int MAP_TILE_HEIGHT;
 extern const int SPRITE_SCALE;
+extern const int TILE_MAP_DATA[];
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
 }  // namespace Constants
