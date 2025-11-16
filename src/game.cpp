@@ -1,9 +1,8 @@
 #include "game.h"
 #include "characters/character.h"
 #include "characters/character_elf.h"
-#include "constants/asset_constants.h"
-#include "constants/game_constants.h"
-#include "tileset/tileset.h"
+#include "constants/constants.h"
+#include "map/tile_map.h"
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
@@ -12,6 +11,8 @@ Game::~Game() {
   // Cleans up SDL
   SDL_DestroyWindow(window_);
   SDL_DestroyRenderer(renderer_);
+  player_.reset();
+  tile_map_.reset();
   SDL_Quit();
   IMG_Quit();
   std::cout << "Game destroyed" << std::endl;
@@ -40,10 +41,11 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
     std::cout << "Character created" << std::endl;
   }
 
-  tileset_ =
-      std::unique_ptr<Tileset>(new Tileset("assets/tiles/tileset.png", 16, 16));
-  if (tileset_ && tileset_->Load()) {
-    std::cout << "Tileset created" << std::endl;
+  tile_map_ = std::unique_ptr<TileMap>(new TileMap(Constants::MAP_TILE_SET_PATH,
+                                                   Constants::MAP_TILE_WIDTH,
+                                                   Constants::MAP_TILE_HEIGHT));
+  if (tile_map_ && tile_map_->Load()) {
+    std::cout << "Tile map created" << std::endl;
   }
 }
 
@@ -57,14 +59,16 @@ static inline int TileIndex(int col, int row, int tileset_columns = 4) {
 
 void Game::Render() {
   SDL_RenderClear(renderer_);
-  if (tileset_) {
+  if (tile_map_) {
     std::vector<int> map = {
         TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), -1,
         TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), -1,
         TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), TileIndex(2, 2),
         TileIndex(1, 2), TileIndex(1, 2), TileIndex(2, 2), -1,
     };
-    tileset_->RenderMap(map, 4, 4, 0, 0, 2);
+    tile_map_->RenderMap(map, /*map_w*/ 4, /*map_h*/ 4, /*dst_x*/ 0,
+                         /*dst_y*/ 0,
+                         /*scale*/ 2);
   }
   player_->Render();
   SDL_RenderPresent(renderer_);  // Double buffering

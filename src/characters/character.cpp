@@ -1,6 +1,6 @@
 #include "character.h"
 #include <cstdlib>  // For abs()
-#include "constants/game_constants.h"
+#include "constants/constants.h"
 #include "util/util.h"
 
 Character::~Character() {

@@ -1,10 +1,10 @@
-#include "tileset/tileset.h"
 #include <SDL2/SDL.h>
 #include <iostream>
-#include "game.h"
+
+#include "map/tile_map.h"
 #include "util/util.h"
 
-Tileset::Tileset(const char* path, int tile_w, int tile_h, int margin,
+TileMap::TileMap(const char* path, int tile_w, int tile_h, int margin,
                  int spacing)
     : path_(path),
       texture_(nullptr),
@@ -14,17 +14,17 @@ Tileset::Tileset(const char* path, int tile_w, int tile_h, int margin,
       spacing_(spacing),
       columns_(0) {}
 
-Tileset::~Tileset() {
+TileMap::~TileMap() {
   if (texture_) {
     SDL_DestroyTexture(texture_);
     texture_ = nullptr;
   }
 }
 
-bool Tileset::Load() {
+bool TileMap::Load() {
   texture_ = Util::LoadTexture(path_);
   if (!texture_) {
-    std::cerr << "Tileset: failed to load texture: " << path_ << std::endl;
+    std::cerr << "Tile map failed to load texture: " << path_ << std::endl;
     return false;
   }
 
@@ -45,21 +45,21 @@ bool Tileset::Load() {
 
   tile_count_ = columns_ * rows_;
 
-  std::cout << "Tileset loaded: " << path_ << " tex=" << tex_w << "x" << tex_h
+  std::cout << "Tile map loaded: " << path_ << " tex=" << tex_w << "x" << tex_h
             << " cols=" << columns_ << " rows=" << rows_
             << " tiles=" << tile_count_ << std::endl;
 
   return true;
 }
 
-void Tileset::RenderTile(int tile_index, int dst_x, int dst_y, int scale) {
+void TileMap::RenderTile(int tile_index, int dst_x, int dst_y, int scale) {
   if (!texture_)
     return;
   // Negative reserved for empty tiles.
   if (tile_index < 0)
     return;
   if (tile_index >= tile_count_) {
-    std::cerr << "Tileset::RenderTile: tile_index " << tile_index
+    std::cerr << "TileMap::RenderTile: tile_index " << tile_index
               << " out of range (0.." << (tile_count_ - 1) << ")\n";
     return;
   }
@@ -89,7 +89,7 @@ void Tileset::RenderTile(int tile_index, int dst_x, int dst_y, int scale) {
   SDL_SetRenderDrawColor(Game::renderer_, prev_r, prev_g, prev_b, prev_a);
 }
 
-void Tileset::RenderMap(const std::vector<int>& map, int map_w, int map_h,
+void TileMap::RenderMap(const std::vector<int>& map, int map_w, int map_h,
                         int dst_x, int dst_y, int scale) {
   if (!texture_)
     return;

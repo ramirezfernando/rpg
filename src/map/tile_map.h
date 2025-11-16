@@ -4,11 +4,11 @@
 #include <string>
 #include <vector>
 
-class Tileset {
+class TileMap {
  public:
-  Tileset(const char* path, int tile_w, int tile_h, int margin = 0,
+  TileMap(const char* path, int tile_w, int tile_h, int margin = 0,
           int spacing = 0);
-  ~Tileset();
+  ~TileMap();
   bool Load();
   void RenderTile(int tile_index, int dst_x, int dst_y, int scale = 1);
   void RenderMap(const std::vector<int>& map, int map_w, int map_h,

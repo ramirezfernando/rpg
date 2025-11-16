@@ -1,7 +1,7 @@
 #pragma once
 
-#include "constants/asset_constants.h"
-#include "game.h"
+#include <SDL2/SDL.h>
+#include "constants/constants.h"
 
 class Character {
  public:

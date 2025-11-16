@@ -8,8 +8,8 @@
 #include <memory>
 #include <string>
 
-class Character;
-class Tileset;
+#include "characters/character.h"
+#include "map/tile_map.h"
 
 class Game {
  public:
@@ -27,5 +27,5 @@ class Game {
   SDL_Window* window_;
   bool is_running_;
   std::unique_ptr<Character> player_;
-  std::unique_ptr<Tileset> tileset_;
+  std::unique_ptr<TileMap> tile_map_;
 };

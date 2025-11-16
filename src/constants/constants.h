@@ -2,12 +2,18 @@
 
 namespace Constants {
 
-extern const char* BACKGROUND_FILE_PATH;
-
+extern const int FRAME_DELAY;
+extern const int WINDOW_SIZE;
+extern const int CHARACTER_SIZE;
+extern const int CHARACTER_MOVEMENT_GAP;
 extern const char* CHARACTER_ELF_DOWN_FOLDER_PATH;
 extern const char* CHARACTER_ELF_LEFT_FOLDER_PATH;
 extern const char* CHARACTER_ELF_RIGHT_FOLDER_PATH;
 extern const char* CHARACTER_ELF_UP_FOLDER_PATH;
-
+extern const char* MAP_TILE_SET_PATH;
+extern const int MAP_TILE_WIDTH;
+extern const int MAP_TILE_HEIGHT;
+extern const int SPRITE_SCALE;
 enum class Direction { UP, DOWN, LEFT, RIGHT };
+
 }  // namespace Constants
