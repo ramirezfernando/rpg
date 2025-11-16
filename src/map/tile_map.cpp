@@ -18,10 +18,11 @@ TileMap::~TileMap() {
   if (texture_) {
     SDL_DestroyTexture(texture_);
     texture_ = nullptr;
+    std::cout << "Tile map destroyed" << std::endl;
   }
 }
 
-bool TileMap::Load() {
+bool TileMap::LoadTileSet() {
   texture_ = Util::LoadTexture(path_);
   if (!texture_) {
     std::cerr << "Tile map failed to load texture: " << path_ << std::endl;

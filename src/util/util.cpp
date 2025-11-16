@@ -7,7 +7,3 @@ SDL_Texture* Util::LoadTexture(const char* file_name) {
   SDL_FreeSurface(tmp_surface);
   return texture;
 }
-
-int Util::GetTileIndex(int col, int row, int tileset_columns) {
-  return row * tileset_columns + col;
-}

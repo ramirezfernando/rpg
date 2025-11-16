@@ -1,5 +1,4 @@
 #include "constants.h"
-#include "util/util.h"
 
 namespace Constants {
 const int FRAME_DELAY =
@@ -13,138 +12,44 @@ const char* CHARACTER_ELF_DOWN_FOLDER_PATH = "assets/characters/elf/down/";
 const char* CHARACTER_ELF_LEFT_FOLDER_PATH = "assets/characters/elf/left/";
 const char* CHARACTER_ELF_RIGHT_FOLDER_PATH = "assets/characters/elf/right/";
 const char* CHARACTER_ELF_UP_FOLDER_PATH = "assets/characters/elf/up/";
-const char* MAP_TILE_SET_PATH = "assets/map/tile_set.png";
-const int MAP_TILE_WIDTH = 16;
-const int MAP_TILE_HEIGHT = 16;
+const char* TILE_SET_PATH = "assets/map/tile_set.png";
+const int TILE_WIDTH = 16;
+const int TILE_HEIGHT = 16;
 const int SPRITE_SCALE = 3;
-const int TILE_MAP_DATA[MAP_TILE_WIDTH * MAP_TILE_HEIGHT] = {
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(1, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 4), Util::GetTileIndex(1, 4),
-    Util::GetTileIndex(2, 4), Util::GetTileIndex(3, 4),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 4), Util::GetTileIndex(1, 4),
-    Util::GetTileIndex(2, 4), Util::GetTileIndex(3, 4),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 4), Util::GetTileIndex(1, 4),
-    Util::GetTileIndex(2, 4), Util::GetTileIndex(3, 4),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 4), Util::GetTileIndex(1, 4),
-    Util::GetTileIndex(2, 4), Util::GetTileIndex(3, 4),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 4), Util::GetTileIndex(1, 4),
-    Util::GetTileIndex(2, 4), Util::GetTileIndex(3, 4),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 4), Util::GetTileIndex(1, 4),
-    Util::GetTileIndex(2, 4), Util::GetTileIndex(3, 4),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 4), Util::GetTileIndex(1, 4),
-    Util::GetTileIndex(2, 4), Util::GetTileIndex(3, 4),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
-    Util::GetTileIndex(0, 4), Util::GetTileIndex(1, 4),
-    Util::GetTileIndex(2, 4), Util::GetTileIndex(3, 4),
-    Util::GetTileIndex(0, 0), Util::GetTileIndex(1, 0),
-    Util::GetTileIndex(2, 0), Util::GetTileIndex(3, 0),
-    Util::GetTileIndex(0, 1), Util::GetTileIndex(1, 1),
-    Util::GetTileIndex(2, 1), Util::GetTileIndex(3, 1),
-    Util::GetTileIndex(0, 2), Util::GetTileIndex(1, 2),
-    Util::GetTileIndex(2, 2), Util::GetTileIndex(3, 2),
-    Util::GetTileIndex(0, 3), Util::GetTileIndex(1, 3),
-    Util::GetTileIndex(2, 3), Util::GetTileIndex(3, 3),
+// clang-format off
+const int FULL_MAP[16 * 16] = {
+  // row 0
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 1
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 2
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 3
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 4
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 5
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 6
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 7
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 8
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 9
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 10
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 11
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 12
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 13
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 14
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  // row 15
+  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 };
+// clang-format on
 }  // namespace Constants

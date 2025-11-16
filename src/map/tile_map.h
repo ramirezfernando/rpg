@@ -9,7 +9,7 @@ class TileMap {
   TileMap(const char* path, int tile_width, int tile_height, int margin = 0,
           int spacing = 0);
   ~TileMap();
-  bool Load()
+  bool LoadTileSet();
   void RenderTile(int tile_index, int dst_x, int dst_y, int scale = 1);
   void RenderTileMap(const int* tile_map, int map_columns, int map_rows,
                      int dst_x = 0, int dst_y = 0, int scale = 1);

@@ -41,10 +41,9 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
     std::cout << "Character created" << std::endl;
   }
 
-  tile_map_ = std::unique_ptr<TileMap>(new TileMap(Constants::MAP_TILE_SET_PATH,
-                                                   Constants::MAP_TILE_WIDTH,
-                                                   Constants::MAP_TILE_HEIGHT));
-  if (tile_map_ && tile_map_->Load()) {
+  tile_map_ = std::unique_ptr<TileMap>(new TileMap(
+      Constants::TILE_SET_PATH, Constants::TILE_WIDTH, Constants::TILE_HEIGHT));
+  if (tile_map_ && tile_map_->LoadTileSet()) {
     std::cout << "Tile map created" << std::endl;
   }
 }
@@ -56,9 +55,9 @@ void Game::Update() {
 void Game::Render() {
   SDL_RenderClear(renderer_);
   if (tile_map_) {
-    tile_map_->RenderTileMap(
-        Constants::TILE_MAP_DATA, Constants::MAP_TILE_WIDTH,
-        Constants::MAP_TILE_HEIGHT, 0, 0, Constants::SPRITE_SCALE);
+    tile_map_->RenderTileMap(Constants::FULL_MAP, Constants::TILE_WIDTH,
+                             Constants::TILE_HEIGHT, 0, 0,
+                             Constants::SPRITE_SCALE);
   }
   player_->Render();
   SDL_RenderPresent(renderer_);  // Double buffering
