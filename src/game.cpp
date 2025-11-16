@@ -2,7 +2,7 @@
 #include "characters/character.h"
 #include "characters/character_elf.h"
 #include "constants/constants.h"
-#include "map/tile_map.h"
+#include "map/sprite_sheet_manager.h"
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
@@ -13,6 +13,7 @@ Game::~Game() {
   SDL_DestroyRenderer(renderer_);
   player_.reset();
   tile_map_.reset();
+  tiny_house_.reset();
   SDL_Quit();
   IMG_Quit();
   std::cout << "Game destroyed" << std::endl;
@@ -41,10 +42,17 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
     std::cout << "Character created" << std::endl;
   }
 
-  tile_map_ = std::unique_ptr<TileMap>(new TileMap(
+  tile_map_ = std::unique_ptr<SpriteSheetManager>(new SpriteSheetManager(
       Constants::TILE_SET_PATH, Constants::TILE_WIDTH, Constants::TILE_HEIGHT));
-  if (tile_map_ && tile_map_->LoadTileSet()) {
+  if (tile_map_ && tile_map_->LoadSpriteSheet()) {
     std::cout << "Tile map created" << std::endl;
+  }
+
+  tiny_house_ = std::unique_ptr<SpriteSheetManager>(new SpriteSheetManager(
+      "assets/map/tiny_house.png", Constants::TINY_HOUSE_WIDTH,
+      Constants::TINY_HOUSE_HEIGHT));
+  if (tiny_house_ && tiny_house_->LoadSpriteSheet()) {
+    std::cout << "Tiny house created" << std::endl;
   }
 }
 
@@ -55,9 +63,16 @@ void Game::Update() {
 void Game::Render() {
   SDL_RenderClear(renderer_);
   if (tile_map_) {
-    tile_map_->RenderTileMap(Constants::FULL_MAP, Constants::TILE_WIDTH,
-                             Constants::TILE_HEIGHT, 0, 0,
-                             Constants::SPRITE_SCALE);
+    tile_map_->RenderSpriteSheet(Constants::FULL_MAP, Constants::TILE_WIDTH,
+                                 Constants::TILE_HEIGHT, 0, 0,
+                                 Constants::SPRITE_SCALE);
+  }
+  if (tiny_house_) {
+    tiny_house_->RenderSpriteSheet(nullptr, /* map_columns= */ 1,
+                                   /* map_rows= */ 1,
+                                   /* dst_x= */ Constants::TINY_HOUSE_X_POS,
+                                   /* dst_y= */ Constants::TINY_HOUSE_Y_POS,
+                                   /* scale= */ Constants::SPRITE_SCALE);
   }
   player_->Render();
   SDL_RenderPresent(renderer_);  // Double buffering

@@ -9,7 +9,7 @@
 #include <string>
 
 #include "characters/character.h"
-#include "map/tile_map.h"
+#include "map/sprite_sheet_manager.h"
 
 class Game {
  public:
@@ -27,5 +27,6 @@ class Game {
   SDL_Window* window_;
   bool is_running_;
   std::unique_ptr<Character> player_;
-  std::unique_ptr<TileMap> tile_map_;
+  std::unique_ptr<SpriteSheetManager> tile_map_;
+  std::unique_ptr<SpriteSheetManager> tiny_house_;
 };

@@ -52,4 +52,8 @@ const int FULL_MAP[16 * 16] = {
   9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 };
 // clang-format on
+const int TINY_HOUSE_WIDTH = 80;
+const int TINY_HOUSE_HEIGHT = 100;
+const int TINY_HOUSE_X_POS = 400;
+const int TINY_HOUSE_Y_POS = 50;
 }  // namespace Constants

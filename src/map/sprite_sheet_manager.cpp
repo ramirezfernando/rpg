@@ -1,11 +1,11 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-#include "map/tile_map.h"
+#include "map/sprite_sheet_manager.h"
 #include "util/util.h"
 
-TileMap::TileMap(const char* path, int tile_width, int tile_height, int margin,
-                 int spacing)
+SpriteSheetManager::SpriteSheetManager(const char* path, int tile_width,
+                                       int tile_height, int margin, int spacing)
     : path_(path),
       texture_(nullptr),
       tile_width_(tile_width),
@@ -14,18 +14,18 @@ TileMap::TileMap(const char* path, int tile_width, int tile_height, int margin,
       spacing_(spacing),
       columns_(0) {}
 
-TileMap::~TileMap() {
+SpriteSheetManager::~SpriteSheetManager() {
   if (texture_) {
     SDL_DestroyTexture(texture_);
     texture_ = nullptr;
-    std::cout << "Tile map destroyed" << std::endl;
+    std::cout << "Sprite sheet manager destroyed" << std::endl;
   }
 }
 
-bool TileMap::LoadTileSet() {
+bool SpriteSheetManager::LoadSpriteSheet() {
   texture_ = Util::LoadTexture(path_);
   if (!texture_) {
-    std::cerr << "Tile map failed to load texture: " << path_ << std::endl;
+    std::cerr << "Sprite sheet failed to load texture: " << path_ << std::endl;
     return false;
   }
 
@@ -48,14 +48,15 @@ bool TileMap::LoadTileSet() {
 
   tile_count_ = columns_ * rows_;
 
-  std::cout << "Tile map loaded: " << path_ << " tex=" << texture_width << "x"
-            << texture_height << " cols=" << columns_ << " rows=" << rows_
-            << " tiles=" << tile_count_ << std::endl;
+  std::cout << "Sprite sheet loaded: " << path_ << " tex=" << texture_width
+            << "x" << texture_height << " cols=" << columns_
+            << " rows=" << rows_ << " tiles=" << tile_count_ << std::endl;
 
   return true;
 }
 
-void TileMap::RenderTile(int tile_index, int dst_x, int dst_y, int scale) {
+void SpriteSheetManager::RenderSheetItem(int tile_index, int dst_x, int dst_y,
+                                         int scale) {
   if (!texture_)
     return;
   // Negative reserved for empty tiles.
@@ -92,13 +93,18 @@ void TileMap::RenderTile(int tile_index, int dst_x, int dst_y, int scale) {
   SDL_SetRenderDrawColor(Game::renderer_, prev_r, prev_g, prev_b, prev_a);
 }
 
-void TileMap::RenderTileMap(const int* tile_map, int tile_map_columns,
-                            int tile_map_rows, int dst_x, int dst_y,
-                            int scale) {
+void SpriteSheetManager::RenderSpriteSheet(const int* tile_map,
+                                           int tile_map_columns,
+                                           int tile_map_rows, int dst_x,
+                                           int dst_y, int scale) {
   if (!texture_)
     return;
-  if (!tile_map)
-    return;
+  if (!tile_map) {
+    int new_tile_map[1] = {0};
+    tile_map = new_tile_map;
+    tile_map_columns = 1;
+    tile_map_rows = 1;
+  }
 
   for (int y = 0; y < tile_map_rows; ++y) {
     for (int x = 0; x < tile_map_columns; ++x) {
@@ -106,8 +112,8 @@ void TileMap::RenderTileMap(const int* tile_map, int tile_map_columns,
       // Skip negative tiles as they are reserved for empty tiles.
       if (idx < 0)
         continue;
-      RenderTile(idx, dst_x + x * tile_width_ * scale,
-                 dst_y + y * tile_height_ * scale, scale);
+      RenderSheetItem(idx, dst_x + x * tile_width_ * scale,
+                      dst_y + y * tile_height_ * scale, scale);
     }
   }
 }
