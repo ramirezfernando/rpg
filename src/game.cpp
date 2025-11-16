@@ -69,7 +69,7 @@ void Game::Update() {
 void Game::Render() {
   SDL_RenderClear(renderer_);
   if (tile_map_) {
-    tile_map_->RenderSpriteSheet(Constants::FULL_MAP, Constants::TILE_WIDTH,
+    tile_map_->RenderSpriteSheet(Constants::TILE_MAP, Constants::TILE_WIDTH,
                                  Constants::TILE_HEIGHT, 0, 0,
                                  Constants::SPRITE_SCALE);
   }

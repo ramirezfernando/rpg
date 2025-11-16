@@ -14,7 +14,7 @@ extern const char* TILE_SET_PATH;
 extern const int TILE_WIDTH;
 extern const int TILE_HEIGHT;
 extern const int SPRITE_SCALE;
-extern const int FULL_MAP[];
+extern const int TILE_MAP[];
 extern const int TINY_HOUSE_WIDTH;
 extern const int TINY_HOUSE_HEIGHT;
 extern const int TINY_HOUSE_X_POS;
