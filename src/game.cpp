@@ -115,6 +115,10 @@ void Game::Render() {
         10, Constants::TINY_HOUSE_X_POS - 288 + SHIFT_X_POS,
         Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
         Constants::SPRITE_SCALE);
+    wood_fence_->RenderSpriteSheetItem(
+        13, Constants::TINY_HOUSE_X_POS - 424 + SHIFT_X_POS,
+        Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
+        Constants::SPRITE_SCALE);
     // Render the wood fence on the right side of the tiny house.
     wood_fence_->RenderSpriteSheetItem(
         10, Constants::TINY_HOUSE_X_POS + 192 + SHIFT_X_POS,
