@@ -4,4 +4,4 @@
 A 2D RPG written in C++ from scratch (in development).
 
 ## Screenshot
-<img width="763" height="791" alt="Screenshot 2025-11-16 at 2 09 47 AM" src="https://github.com/user-attachments/assets/a2590f77-8bd8-4e64-b2f6-bc389152db9d" />
+<img width="763" height="790" alt="Screenshot 2025-11-17 at 1 08 45 AM" src="https://github.com/user-attachments/assets/f3ac08a9-07d5-4b21-a886-0fb65080d470" />
