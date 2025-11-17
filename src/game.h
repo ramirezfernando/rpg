@@ -26,10 +26,12 @@ class Game {
  private:
   SDL_Window* window_;
   bool is_running_;
+  // TODO: Order of rendering matters: first rendered = back, last rendered = front
   std::unique_ptr<Character> player_;
   std::unique_ptr<SpriteSheetManager> tile_map_;
   std::unique_ptr<SpriteSheetManager> tiny_house_;
   std::unique_ptr<SpriteSheetManager> wood_fence_;
-  std::unique_ptr<SpriteSheetManager> waterfall_;
   std::unique_ptr<SpriteSheetManager> grass_water_;
+  std::unique_ptr<SpriteSheetManager> waterfall_;
+  std::unique_ptr<SpriteSheetManager> cliff_;
 };

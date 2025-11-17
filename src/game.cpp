@@ -72,6 +72,12 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
   if (grass_water_ && grass_water_->LoadSpriteSheet()) {
     std::cout << "Grass water created" << std::endl;
   }
+
+  cliff_ = std::unique_ptr<SpriteSheetManager>(
+      new SpriteSheetManager("assets/map/cliff.png", 16, 16));
+  if (cliff_ && cliff_->LoadSpriteSheet()) {
+    std::cout << "Cliff created" << std::endl;
+  }
 }
 
 void Game::Update() {
@@ -89,6 +95,74 @@ void Game::Render() {
   // TODO: Remove hardcoded destination positions after finishing map design.
   const int SHIFT_X_POS = 24;
   const int SHIFT_Y_POS = 24;
+  if (grass_water_) {
+    // TODO: 297 = water tile.
+    // TODO: Refactor magic numbers into constants.
+    grass_water_->RenderSpriteSheetItem(143, 96, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 144, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(92, 192, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(92, 48, 144, Constants::SPRITE_SCALE);
+
+    grass_water_->RenderSpriteSheetItem(297, 0, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 0, 48, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 0, 96, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 0, 144, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 240, 144, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 288, 144, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 336, 144, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 336, 96, Constants::SPRITE_SCALE);
+
+    grass_water_->RenderSpriteSheetItem(297, 0, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 48, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 96, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 144, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 192, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 240, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 288, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(345, 288, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 336, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(345, 336, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 384, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(347, 384, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 384, 144, Constants::SPRITE_SCALE);
+
+    grass_water_->RenderSpriteSheetItem(297, 384, 96, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 384, 48, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 384, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 432, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 432, 48, Constants::SPRITE_SCALE);
+
+    grass_water_->RenderSpriteSheetItem(297, 0, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 48, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 96, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 144, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 192, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 240, 240, Constants::SPRITE_SCALE);
+
+    grass_water_->RenderSpriteSheetItem(344, 0, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(293, 0, 192, Constants::SPRITE_SCALE);
+
+    grass_water_->RenderSpriteSheetItem(345, 48, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(345, 96, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(345, 144, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(345, 192, 240, Constants::SPRITE_SCALE);
+
+    // Make right corner water tile.
+    grass_water_->RenderSpriteSheetItem(347, 240, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(294, 240, 192, Constants::SPRITE_SCALE);
+
+    grass_water_->RenderSpriteSheetItem(299, 384, 144,
+                                        Constants::SPRITE_SCALE);  //
+    grass_water_->RenderSpriteSheetItem(299, 384, 96,
+                                        Constants::SPRITE_SCALE);  //
+    grass_water_->RenderSpriteSheetItem(294, 384, 48, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(345, 432, 48, Constants::SPRITE_SCALE);
+
+    grass_water_->RenderSpriteSheetItem(297, 480, 48, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 480, 0, Constants::SPRITE_SCALE);
+
+    grass_water_->RenderSpriteSheetItem(299, 480, 0, Constants::SPRITE_SCALE);
+  }
   if (wood_fence_) {
     // Render the wood fence one the left side of the tiny house.
     wood_fence_->RenderSpriteSheetItem(
@@ -189,10 +263,26 @@ void Game::Render() {
   if (waterfall_) {
     waterfall_->RenderSpriteSheetItem(0, 96, 48, Constants::SPRITE_SCALE);
   }
-  if (grass_water_) {
-    grass_water_->RenderSpriteSheetItem(143, 96, 0, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 144, 0, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(92, 192, 0, Constants::SPRITE_SCALE);
+  if (cliff_) {
+    // Render the cliff on the left side of the waterfall.
+    cliff_->RenderSpriteSheetItem(120, 48, 144, Constants::SPRITE_SCALE);
+    cliff_->RenderSpriteSheetItem(80, 48, 96, Constants::SPRITE_SCALE);
+    cliff_->RenderSpriteSheetItem(32, 48, 48, Constants::SPRITE_SCALE);
+    cliff_->RenderSpriteSheetItem(53, 48, 0, Constants::SPRITE_SCALE);
+
+    cliff_->RenderSpriteSheetItem(81, 0, 0, Constants::SPRITE_SCALE);
+
+    // Render the cliff on the right side of the waterfall.
+    cliff_->RenderSpriteSheetItem(122, 240, 144, Constants::SPRITE_SCALE);
+    cliff_->RenderSpriteSheetItem(83, 240, 96, Constants::SPRITE_SCALE);
+    cliff_->RenderSpriteSheetItem(54, 240, 48, Constants::SPRITE_SCALE);
+
+    cliff_->RenderSpriteSheetItem(81, 288, 48, Constants::SPRITE_SCALE);
+    cliff_->RenderSpriteSheetItem(121, 288, 96, Constants::SPRITE_SCALE);
+
+    cliff_->RenderSpriteSheetItem(122, 336, 96, Constants::SPRITE_SCALE);
+    cliff_->RenderSpriteSheetItem(83, 336, 48, Constants::SPRITE_SCALE);
+    cliff_->RenderSpriteSheetItem(59, 336, 0, Constants::SPRITE_SCALE);
   }
   player_->Render();
   SDL_RenderPresent(renderer_);  // Double buffering
