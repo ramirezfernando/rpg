@@ -30,4 +30,6 @@ class Game {
   std::unique_ptr<SpriteSheetManager> tile_map_;
   std::unique_ptr<SpriteSheetManager> tiny_house_;
   std::unique_ptr<SpriteSheetManager> wood_fence_;
+  std::unique_ptr<SpriteSheetManager> waterfall_;
+  std::unique_ptr<SpriteSheetManager> grass_water_;
 };

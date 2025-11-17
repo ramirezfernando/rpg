@@ -20,7 +20,7 @@ const int SPRITE_SCALE = 3;
 // clang-format off
 const int TILE_MAP[TILE_WIDTH * TILE_HEIGHT] = {
   // row 0
-  9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
+  9,9,-1,-1,-1,9,9,9,9,9,9,9,9,9,9,9,
   // row 1
   9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
   // row 2

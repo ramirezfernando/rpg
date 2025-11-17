@@ -60,6 +60,18 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
   if (wood_fence_ && wood_fence_->LoadSpriteSheet()) {
     std::cout << "Wood fence created" << std::endl;
   }
+
+  waterfall_ = std::unique_ptr<SpriteSheetManager>(
+      new SpriteSheetManager("assets/map/waterfall.png", 48, 56));
+  if (waterfall_ && waterfall_->LoadSpriteSheet()) {
+    std::cout << "Waterfall created" << std::endl;
+  }
+
+  grass_water_ = std::unique_ptr<SpriteSheetManager>(
+      new SpriteSheetManager("assets/map/grass_water.png", 16, 16));
+  if (grass_water_ && grass_water_->LoadSpriteSheet()) {
+    std::cout << "Grass water created" << std::endl;
+  }
 }
 
 void Game::Update() {
@@ -173,6 +185,14 @@ void Game::Render() {
     tiny_house_->RenderSpriteSheetItem(
         0, Constants::TINY_HOUSE_X_POS + SHIFT_X_POS,
         Constants::TINY_HOUSE_Y_POS - SHIFT_Y_POS, Constants::SPRITE_SCALE);
+  }
+  if (waterfall_) {
+    waterfall_->RenderSpriteSheetItem(0, 96, 48, Constants::SPRITE_SCALE);
+  }
+  if (grass_water_) {
+    grass_water_->RenderSpriteSheetItem(143, 96, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 144, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(92, 192, 0, Constants::SPRITE_SCALE);
   }
   player_->Render();
   SDL_RenderPresent(renderer_);  // Double buffering
