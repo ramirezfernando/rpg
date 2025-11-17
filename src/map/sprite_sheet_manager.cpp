@@ -93,6 +93,21 @@ void SpriteSheetManager::RenderSpriteSheetItem(int tile_index, int dst_x,
   SDL_SetRenderDrawColor(Game::renderer_, prev_r, prev_g, prev_b, prev_a);
 }
 
+// TODO: Generalize for any number of frames and frame rate.
+void SpriteSheetManager::RenderAnimatedSpriteSheetItem(int dst_x, int dst_y,
+                                                       int scale) {
+  // Simple animation by cycling through frames.
+  static Uint32 last_time = 0;
+  static int current_frame = 0;
+  Uint32 current_time = SDL_GetTicks();
+  const Uint32 FRAME_DELAY = 100;
+  if (current_time - last_time >= FRAME_DELAY) {
+    current_frame = (current_frame + 1) % tile_count_;
+    last_time = current_time;
+  }
+  RenderSpriteSheetItem(current_frame, dst_x, dst_y, scale);
+}
+
 void SpriteSheetManager::RenderSpriteSheet(const int* tile_map,
                                            int tile_map_columns,
                                            int tile_map_rows, int dst_x,

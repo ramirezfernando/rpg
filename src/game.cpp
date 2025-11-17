@@ -99,7 +99,10 @@ void Game::Render() {
     // TODO: 297 = water tile.
     // TODO: Refactor magic numbers into constants.
     grass_water_->RenderSpriteSheetItem(143, 96, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 96, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(143, 96, 0, Constants::SPRITE_SCALE);
     grass_water_->RenderSpriteSheetItem(297, 144, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSpriteSheetItem(297, 192, 0, Constants::SPRITE_SCALE);
     grass_water_->RenderSpriteSheetItem(92, 192, 0, Constants::SPRITE_SCALE);
     grass_water_->RenderSpriteSheetItem(92, 48, 144, Constants::SPRITE_SCALE);
 
@@ -261,7 +264,7 @@ void Game::Render() {
         Constants::TINY_HOUSE_Y_POS - SHIFT_Y_POS, Constants::SPRITE_SCALE);
   }
   if (waterfall_) {
-    waterfall_->RenderSpriteSheetItem(0, 96, 48, Constants::SPRITE_SCALE);
+    waterfall_->RenderAnimatedSpriteSheetItem(96, 48, Constants::SPRITE_SCALE);
   }
   if (cliff_) {
     // Render the cliff on the left side of the waterfall.
