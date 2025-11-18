@@ -1,11 +1,12 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-#include "map/sprite_sheet_manager.h"
+#include "map/sprite_sheet_renderer.h"
 #include "util/util.h"
 
-SpriteSheetManager::SpriteSheetManager(const char* path, int tile_width,
-                                       int tile_height, int margin, int spacing)
+SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int tile_width,
+                                         int tile_height, int margin,
+                                         int spacing)
     : path_(path),
       texture_(nullptr),
       tile_width_(tile_width),
@@ -14,7 +15,7 @@ SpriteSheetManager::SpriteSheetManager(const char* path, int tile_width,
       spacing_(spacing),
       columns_(0) {}
 
-SpriteSheetManager::~SpriteSheetManager() {
+SpriteSheetRenderer::~SpriteSheetRenderer() {
   if (texture_) {
     SDL_DestroyTexture(texture_);
     texture_ = nullptr;
@@ -22,7 +23,7 @@ SpriteSheetManager::~SpriteSheetManager() {
   }
 }
 
-bool SpriteSheetManager::LoadSpriteSheet() {
+bool SpriteSheetRenderer::LoadSpriteSheet() {
   texture_ = Util::LoadTexture(path_);
   if (!texture_) {
     std::cerr << "Sprite sheet failed to load texture: " << path_ << std::endl;
@@ -55,8 +56,8 @@ bool SpriteSheetManager::LoadSpriteSheet() {
   return true;
 }
 
-void SpriteSheetManager::RenderSpriteSheetItem(int tile_index, int dst_x,
-                                               int dst_y, int scale) {
+void SpriteSheetRenderer::RenderSpriteSheetItem(int tile_index, int dst_x,
+                                                int dst_y, int scale) {
   if (!texture_)
     return;
   // Negative reserved for empty tiles.
@@ -94,13 +95,13 @@ void SpriteSheetManager::RenderSpriteSheetItem(int tile_index, int dst_x,
 }
 
 // TODO: Generalize for any number of frames and frame rate.
-void SpriteSheetManager::RenderAnimatedSpriteSheetItem(int dst_x, int dst_y,
-                                                       int scale) {
+void SpriteSheetRenderer::RenderAnimatedSpriteSheetItem(int dst_x, int dst_y,
+                                                        int scale) {
   // Simple animation by cycling through frames.
   static Uint32 last_time = 0;
   static int current_frame = 0;
   Uint32 current_time = SDL_GetTicks();
-  const Uint32 FRAME_DELAY = 100;
+  const Uint32 FRAME_DELAY = 130;
   if (current_time - last_time >= FRAME_DELAY) {
     current_frame = (current_frame + 1) % tile_count_;
     last_time = current_time;
@@ -108,10 +109,10 @@ void SpriteSheetManager::RenderAnimatedSpriteSheetItem(int dst_x, int dst_y,
   RenderSpriteSheetItem(current_frame, dst_x, dst_y, scale);
 }
 
-void SpriteSheetManager::RenderSpriteSheet(const int* tile_map,
-                                           int tile_map_columns,
-                                           int tile_map_rows, int dst_x,
-                                           int dst_y, int scale) {
+void SpriteSheetRenderer::RenderSpriteSheet(const int* tile_map,
+                                            int tile_map_columns,
+                                            int tile_map_rows, int dst_x,
+                                            int dst_y, int scale) {
   if (!texture_)
     return;
   if (!tile_map)

@@ -2,7 +2,7 @@
 #include "characters/character.h"
 #include "characters/character_elf.h"
 #include "constants/constants.h"
-#include "map/sprite_sheet_manager.h"
+#include "map/sprite_sheet_renderer.h"
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
@@ -42,39 +42,39 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
     std::cout << "Character created" << std::endl;
   }
 
-  tile_map_ = std::unique_ptr<SpriteSheetManager>(new SpriteSheetManager(
+  tile_map_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
       Constants::TILE_SET_PATH, Constants::TILE_WIDTH, Constants::TILE_HEIGHT));
   if (tile_map_ && tile_map_->LoadSpriteSheet()) {
     std::cout << "Tile map created" << std::endl;
   }
 
-  tiny_house_ = std::unique_ptr<SpriteSheetManager>(new SpriteSheetManager(
+  tiny_house_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
       "assets/map/tiny_house.png", Constants::TINY_HOUSE_WIDTH,
       Constants::TINY_HOUSE_HEIGHT));
   if (tiny_house_ && tiny_house_->LoadSpriteSheet()) {
     std::cout << "Tiny house created" << std::endl;
   }
 
-  wood_fence_ = std::unique_ptr<SpriteSheetManager>(
-      new SpriteSheetManager("assets/map/wood_fence.png", 16, 16));
+  wood_fence_ = std::unique_ptr<SpriteSheetRenderer>(
+      new SpriteSheetRenderer("assets/map/wood_fence.png", 16, 16));
   if (wood_fence_ && wood_fence_->LoadSpriteSheet()) {
     std::cout << "Wood fence created" << std::endl;
   }
 
-  waterfall_ = std::unique_ptr<SpriteSheetManager>(
-      new SpriteSheetManager("assets/map/waterfall.png", 48, 56));
+  waterfall_ = std::unique_ptr<SpriteSheetRenderer>(
+      new SpriteSheetRenderer("assets/map/waterfall.png", 48, 56));
   if (waterfall_ && waterfall_->LoadSpriteSheet()) {
     std::cout << "Waterfall created" << std::endl;
   }
 
-  grass_water_ = std::unique_ptr<SpriteSheetManager>(
-      new SpriteSheetManager("assets/map/grass_water.png", 16, 16));
+  grass_water_ = std::unique_ptr<SpriteSheetRenderer>(
+      new SpriteSheetRenderer("assets/map/grass_water.png", 16, 16));
   if (grass_water_ && grass_water_->LoadSpriteSheet()) {
     std::cout << "Grass water created" << std::endl;
   }
 
-  cliff_ = std::unique_ptr<SpriteSheetManager>(
-      new SpriteSheetManager("assets/map/cliff.png", 16, 16));
+  cliff_ = std::unique_ptr<SpriteSheetRenderer>(
+      new SpriteSheetRenderer("assets/map/cliff.png", 16, 16));
   if (cliff_ && cliff_->LoadSpriteSheet()) {
     std::cout << "Cliff created" << std::endl;
   }

@@ -9,7 +9,7 @@
 #include <string>
 
 #include "characters/character.h"
-#include "map/sprite_sheet_manager.h"
+#include "map/sprite_sheet_renderer.h"
 
 class Game {
  public:
@@ -28,10 +28,10 @@ class Game {
   bool is_running_;
   // TODO: Order of rendering matters: first rendered = back, last rendered = front
   std::unique_ptr<Character> player_;
-  std::unique_ptr<SpriteSheetManager> tile_map_;
-  std::unique_ptr<SpriteSheetManager> tiny_house_;
-  std::unique_ptr<SpriteSheetManager> wood_fence_;
-  std::unique_ptr<SpriteSheetManager> grass_water_;
-  std::unique_ptr<SpriteSheetManager> waterfall_;
-  std::unique_ptr<SpriteSheetManager> cliff_;
+  std::unique_ptr<SpriteSheetRenderer> tile_map_;
+  std::unique_ptr<SpriteSheetRenderer> tiny_house_;
+  std::unique_ptr<SpriteSheetRenderer> wood_fence_;
+  std::unique_ptr<SpriteSheetRenderer> grass_water_;
+  std::unique_ptr<SpriteSheetRenderer> waterfall_;
+  std::unique_ptr<SpriteSheetRenderer> cliff_;
 };

@@ -4,18 +4,11 @@
 #include <string>
 #include <vector>
 
-struct SpriteSheetItem {
-  int tile_index;
-  int dst_x;
-  int dst_y;
-  int scale;
-};
-
-class SpriteSheetManager {
+class SpriteSheetRenderer {
  public:
-  SpriteSheetManager(const char* path, int tile_width, int tile_height,
-                     int margin = 0, int spacing = 0);
-  ~SpriteSheetManager();
+  SpriteSheetRenderer(const char* path, int tile_width, int tile_height,
+                      int margin = 0, int spacing = 0);
+  ~SpriteSheetRenderer();
   bool LoadSpriteSheet();
   void RenderSpriteSheetItem(int tile_index, int dst_x, int dst_y,
                              int scale = 1);
