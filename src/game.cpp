@@ -62,7 +62,7 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
   }
 
   waterfall_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/map/waterfall.png", 48, 56));
+      new SpriteSheetRenderer("assets/map/waterfall.png", 48, 80));
   if (waterfall_ && waterfall_->LoadSpriteSheet()) {
     std::cout << "Waterfall created" << std::endl;
   }
@@ -321,7 +321,7 @@ void Game::RenderTinyHouse() {
 
 void Game::RenderWaterfall() {
   if (waterfall_) {
-    waterfall_->RenderAnimatedSprite(96, 48, Constants::SPRITE_SCALE);
+    waterfall_->RenderAnimatedSprite(96, 0, Constants::SPRITE_SCALE);
   }
 }
 

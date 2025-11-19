@@ -106,7 +106,7 @@ void SpriteSheetRenderer::RenderAnimatedSprite(int dst_x, int dst_y,
   static Uint32 last_time = 0;
   static int current_frame = 0;
   Uint32 current_time = SDL_GetTicks();
-  const Uint32 FRAME_DELAY = 130;
+  const Uint32 FRAME_DELAY = 140;
   if (current_time - last_time >= FRAME_DELAY) {
     current_frame = (current_frame + 1) % sprite_count_;
     last_time = current_time;
