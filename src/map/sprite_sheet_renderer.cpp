@@ -4,13 +4,13 @@
 #include "map/sprite_sheet_renderer.h"
 #include "util/util.h"
 
-SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int tile_width,
-                                         int tile_height, int margin,
+SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
+                                         int sprite_height, int margin,
                                          int spacing)
     : path_(path),
       texture_(nullptr),
-      tile_width_(tile_width),
-      tile_height_(tile_height),
+      sprite_width_(sprite_width),
+      sprite_height_(sprite_height),
       margin_(margin),
       spacing_(spacing),
       columns_(0) {}
@@ -39,50 +39,55 @@ bool SpriteSheetRenderer::LoadSpriteSheet() {
 
   // Compute columns/rows using tile size, margin and spacing.
   columns_ =
-      (texture_width - 2 * margin_ + spacing_) / (tile_width_ + spacing_);
-  if (columns_ <= 0)
+      (texture_width - 2 * margin_ + spacing_) / (sprite_width_ + spacing_);
+  if (columns_ <= 0) {
     columns_ = 1;
+  }
 
-  rows_ = (texture_height - 2 * margin_ + spacing_) / (tile_height_ + spacing_);
-  if (rows_ <= 0)
+  rows_ =
+      (texture_height - 2 * margin_ + spacing_) / (sprite_height_ + spacing_);
+  if (rows_ <= 0) {
     rows_ = 1;
+  }
 
-  tile_count_ = columns_ * rows_;
+  sprite_count_ = columns_ * rows_;
 
   std::cout << "Sprite sheet loaded: " << path_ << " tex=" << texture_width
             << "x" << texture_height << " cols=" << columns_
-            << " rows=" << rows_ << " tiles=" << tile_count_ << std::endl;
+            << " rows=" << rows_ << " tiles=" << sprite_count_ << std::endl;
 
   return true;
 }
 
-void SpriteSheetRenderer::RenderSpriteSheetItem(int tile_index, int dst_x,
-                                                int dst_y, int scale) {
-  if (!texture_)
+void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
+                                       int scale) {
+  if (!texture_) {
     return;
+  }
   // Negative reserved for empty tiles.
-  if (tile_index < 0)
+  if (sprite_index < 0) {
     return;
-  if (tile_index >= tile_count_) {
-    std::cerr << "Tile map: tile_index " << tile_index << " out of range (0.."
-              << (tile_count_ - 1) << ")\n";
+  }
+  if (sprite_index >= sprite_count_) {
+    std::cerr << "Tile map: sprite_index " << sprite_index
+              << " out of range (0.." << (sprite_count_ - 1) << ")\n";
     return;
   }
 
-  int col = tile_index % columns_;
-  int row = tile_index / columns_;
+  int col = sprite_index % columns_;
+  int row = sprite_index / columns_;
 
   SDL_Rect src;
-  src.x = margin_ + col * (tile_width_ + spacing_);
-  src.y = margin_ + row * (tile_height_ + spacing_);
-  src.w = tile_width_;
-  src.h = tile_height_;
+  src.x = margin_ + col * (sprite_width_ + spacing_);
+  src.y = margin_ + row * (sprite_height_ + spacing_);
+  src.w = sprite_width_;
+  src.h = sprite_height_;
 
   SDL_Rect dst;
   dst.x = dst_x;
   dst.y = dst_y;
-  dst.w = tile_width_ * scale;
-  dst.h = tile_height_ * scale;
+  dst.w = sprite_width_ * scale;
+  dst.h = sprite_height_ * scale;
 
   SDL_RenderCopy(Game::renderer_, texture_, &src, &dst);
 
@@ -95,37 +100,39 @@ void SpriteSheetRenderer::RenderSpriteSheetItem(int tile_index, int dst_x,
 }
 
 // TODO: Generalize for any number of frames and frame rate.
-void SpriteSheetRenderer::RenderAnimatedSpriteSheetItem(int dst_x, int dst_y,
-                                                        int scale) {
+void SpriteSheetRenderer::RenderAnimatedSprite(int dst_x, int dst_y,
+                                               int scale) {
   // Simple animation by cycling through frames.
   static Uint32 last_time = 0;
   static int current_frame = 0;
   Uint32 current_time = SDL_GetTicks();
   const Uint32 FRAME_DELAY = 130;
   if (current_time - last_time >= FRAME_DELAY) {
-    current_frame = (current_frame + 1) % tile_count_;
+    current_frame = (current_frame + 1) % sprite_count_;
     last_time = current_time;
   }
-  RenderSpriteSheetItem(current_frame, dst_x, dst_y, scale);
+  RenderSprite(current_frame, dst_x, dst_y, scale);
 }
 
-void SpriteSheetRenderer::RenderSpriteSheet(const int* tile_map,
-                                            int tile_map_columns,
-                                            int tile_map_rows, int dst_x,
-                                            int dst_y, int scale) {
-  if (!texture_)
+void SpriteSheetRenderer::RenderTileMap(const int* tile_map,
+                                        int tile_map_columns, int tile_map_rows,
+                                        int dst_x, int dst_y, int scale) {
+  if (!texture_) {
     return;
-  if (!tile_map)
+  }
+  if (!tile_map) {
     return;
+  }
 
   for (int y = 0; y < tile_map_rows; ++y) {
     for (int x = 0; x < tile_map_columns; ++x) {
       int idx = tile_map[y * tile_map_columns + x];
       // Skip negative tiles as they are reserved for empty tiles.
-      if (idx < 0)
+      if (idx < 0) {
         continue;
-      RenderSpriteSheetItem(idx, dst_x + x * tile_width_ * scale,
-                            dst_y + y * tile_height_ * scale, scale);
+      }
+      RenderSprite(idx, dst_x + x * sprite_width_ * scale,
+                   dst_y + y * sprite_height_ * scale, scale);
     }
   }
 }

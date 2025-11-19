@@ -87,9 +87,9 @@ void Game::Update() {
 void Game::Render() {
   SDL_RenderClear(renderer_);
   if (tile_map_) {
-    tile_map_->RenderSpriteSheet(Constants::TILE_MAP, Constants::TILE_WIDTH,
-                                 Constants::TILE_HEIGHT, 0, 0,
-                                 Constants::SPRITE_SCALE);
+    tile_map_->RenderTileMap(Constants::TILE_MAP, Constants::TILE_WIDTH,
+                             Constants::TILE_HEIGHT, 0, 0,
+                             Constants::SPRITE_SCALE);
   }
   // TODO: Remove position shifts after finishing map design.
   // TODO: Remove hardcoded destination positions after finishing map design.
@@ -98,194 +98,188 @@ void Game::Render() {
   if (grass_water_) {
     // TODO: 297 = water tile.
     // TODO: Refactor magic numbers into constants.
-    grass_water_->RenderSpriteSheetItem(143, 96, 0, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 96, 0, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(143, 96, 0, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 144, 0, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 192, 0, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(92, 192, 0, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(92, 48, 144, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(143, 96, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 96, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(143, 96, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 144, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 192, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(92, 192, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(92, 48, 144, Constants::SPRITE_SCALE);
 
-    grass_water_->RenderSpriteSheetItem(297, 0, 0, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 0, 48, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 0, 96, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 0, 144, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 240, 144, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 288, 144, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 336, 144, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 336, 96, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 0, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 0, 48, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 0, 96, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 0, 144, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 240, 144, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 288, 144, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 336, 144, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 336, 96, Constants::SPRITE_SCALE);
 
-    grass_water_->RenderSpriteSheetItem(297, 0, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 48, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 96, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 144, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 192, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 240, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 288, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(345, 288, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 336, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(345, 336, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 384, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(347, 384, 192, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 384, 144, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 0, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 48, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 96, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 144, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 192, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 240, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 288, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(345, 288, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 336, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(345, 336, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 384, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(347, 384, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 384, 144, Constants::SPRITE_SCALE);
 
-    grass_water_->RenderSpriteSheetItem(297, 384, 96, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 384, 48, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 384, 0, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 432, 0, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 432, 48, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 384, 96, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 384, 48, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 384, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 432, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 432, 48, Constants::SPRITE_SCALE);
 
-    grass_water_->RenderSpriteSheetItem(297, 0, 240, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 48, 240, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 96, 240, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 144, 240, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 192, 240, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 240, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 0, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 48, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 96, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 144, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 192, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 240, 240, Constants::SPRITE_SCALE);
 
-    grass_water_->RenderSpriteSheetItem(344, 0, 240, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(293, 0, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(344, 0, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(293, 0, 192, Constants::SPRITE_SCALE);
 
-    grass_water_->RenderSpriteSheetItem(345, 48, 240, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(345, 96, 240, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(345, 144, 240, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(345, 192, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(345, 48, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(345, 96, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(345, 144, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(345, 192, 240, Constants::SPRITE_SCALE);
 
     // Make right corner water tile.
-    grass_water_->RenderSpriteSheetItem(347, 240, 240, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(294, 240, 192, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(347, 240, 240, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(294, 240, 192, Constants::SPRITE_SCALE);
 
-    grass_water_->RenderSpriteSheetItem(299, 384, 144,
-                                        Constants::SPRITE_SCALE);  //
-    grass_water_->RenderSpriteSheetItem(299, 384, 96,
-                                        Constants::SPRITE_SCALE);  //
-    grass_water_->RenderSpriteSheetItem(294, 384, 48, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(345, 432, 48, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(299, 384, 144,
+                               Constants::SPRITE_SCALE);  //
+    grass_water_->RenderSprite(299, 384, 96,
+                               Constants::SPRITE_SCALE);  //
+    grass_water_->RenderSprite(294, 384, 48, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(345, 432, 48, Constants::SPRITE_SCALE);
 
-    grass_water_->RenderSpriteSheetItem(297, 480, 48, Constants::SPRITE_SCALE);
-    grass_water_->RenderSpriteSheetItem(297, 480, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 480, 48, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(297, 480, 0, Constants::SPRITE_SCALE);
 
-    grass_water_->RenderSpriteSheetItem(299, 480, 0, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(299, 480, 0, Constants::SPRITE_SCALE);
   }
   if (wood_fence_) {
     // Render the wood fence one the left side of the tiny house.
-    wood_fence_->RenderSpriteSheetItem(
-        11, Constants::TINY_HOUSE_X_POS - 0 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        7, Constants::TINY_HOUSE_X_POS - 48 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        7, Constants::TINY_HOUSE_X_POS - 96 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        0, Constants::TINY_HOUSE_X_POS - 144 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        3, Constants::TINY_HOUSE_X_POS - 144 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 228 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        13, Constants::TINY_HOUSE_X_POS - 144 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        1, Constants::TINY_HOUSE_X_POS - 192 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        11, Constants::TINY_HOUSE_X_POS - 240 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        10, Constants::TINY_HOUSE_X_POS - 288 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        13, Constants::TINY_HOUSE_X_POS - 424 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(11, Constants::TINY_HOUSE_X_POS - 0 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(7, Constants::TINY_HOUSE_X_POS - 48 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(7, Constants::TINY_HOUSE_X_POS - 96 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(0,
+                              Constants::TINY_HOUSE_X_POS - 144 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(3,
+                              Constants::TINY_HOUSE_X_POS - 144 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 228 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(13,
+                              Constants::TINY_HOUSE_X_POS - 144 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(1,
+                              Constants::TINY_HOUSE_X_POS - 192 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(11,
+                              Constants::TINY_HOUSE_X_POS - 240 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(10,
+                              Constants::TINY_HOUSE_X_POS - 288 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(13,
+                              Constants::TINY_HOUSE_X_POS - 424 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
     // Render the wood fence on the right side of the tiny house.
-    wood_fence_->RenderSpriteSheetItem(
-        10, Constants::TINY_HOUSE_X_POS + 192 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        2, Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        3, Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 228 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        3, Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        3, Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 324 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        3, Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 372 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        8, Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        7, Constants::TINY_HOUSE_X_POS + 192 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        7, Constants::TINY_HOUSE_X_POS + 144 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        7, Constants::TINY_HOUSE_X_POS + 96 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        7, Constants::TINY_HOUSE_X_POS + 48 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
-    wood_fence_->RenderSpriteSheetItem(
-        10, Constants::TINY_HOUSE_X_POS + 0 + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
-        Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(10,
+                              Constants::TINY_HOUSE_X_POS + 192 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(2,
+                              Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 180 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(3,
+                              Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 228 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(3,
+                              Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 276 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(3,
+                              Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 324 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(3,
+                              Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 372 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(8,
+                              Constants::TINY_HOUSE_X_POS + 240 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(7,
+                              Constants::TINY_HOUSE_X_POS + 192 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(7,
+                              Constants::TINY_HOUSE_X_POS + 144 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(7, Constants::TINY_HOUSE_X_POS + 96 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(7, Constants::TINY_HOUSE_X_POS + 48 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
+    wood_fence_->RenderSprite(10, Constants::TINY_HOUSE_X_POS + 0 + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
   }
   if (tiny_house_) {
-    tiny_house_->RenderSpriteSheetItem(
-        0, Constants::TINY_HOUSE_X_POS + SHIFT_X_POS,
-        Constants::TINY_HOUSE_Y_POS - SHIFT_Y_POS, Constants::SPRITE_SCALE);
+    tiny_house_->RenderSprite(0, Constants::TINY_HOUSE_X_POS + SHIFT_X_POS,
+                              Constants::TINY_HOUSE_Y_POS - SHIFT_Y_POS,
+                              Constants::SPRITE_SCALE);
   }
   if (waterfall_) {
-    waterfall_->RenderAnimatedSpriteSheetItem(96, 48, Constants::SPRITE_SCALE);
+    waterfall_->RenderAnimatedSprite(96, 48, Constants::SPRITE_SCALE);
   }
   if (cliff_) {
     // Render the cliff on the left side of the waterfall.
-    cliff_->RenderSpriteSheetItem(120, 48, 144, Constants::SPRITE_SCALE);
-    cliff_->RenderSpriteSheetItem(80, 48, 96, Constants::SPRITE_SCALE);
-    cliff_->RenderSpriteSheetItem(32, 48, 48, Constants::SPRITE_SCALE);
-    cliff_->RenderSpriteSheetItem(53, 48, 0, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(120, 48, 144, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(80, 48, 96, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(32, 48, 48, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(53, 48, 0, Constants::SPRITE_SCALE);
 
-    cliff_->RenderSpriteSheetItem(81, 0, 0, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(81, 0, 0, Constants::SPRITE_SCALE);
 
     // Render the cliff on the right side of the waterfall.
-    cliff_->RenderSpriteSheetItem(122, 240, 144, Constants::SPRITE_SCALE);
-    cliff_->RenderSpriteSheetItem(83, 240, 96, Constants::SPRITE_SCALE);
-    cliff_->RenderSpriteSheetItem(54, 240, 48, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(122, 240, 144, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(83, 240, 96, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(54, 240, 48, Constants::SPRITE_SCALE);
 
-    cliff_->RenderSpriteSheetItem(81, 288, 48, Constants::SPRITE_SCALE);
-    cliff_->RenderSpriteSheetItem(121, 288, 96, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(81, 288, 48, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(121, 288, 96, Constants::SPRITE_SCALE);
 
-    cliff_->RenderSpriteSheetItem(122, 336, 96, Constants::SPRITE_SCALE);
-    cliff_->RenderSpriteSheetItem(83, 336, 48, Constants::SPRITE_SCALE);
-    cliff_->RenderSpriteSheetItem(59, 336, 0, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(122, 336, 96, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(83, 336, 48, Constants::SPRITE_SCALE);
+    cliff_->RenderSprite(59, 336, 0, Constants::SPRITE_SCALE);
   }
   player_->Render();
   SDL_RenderPresent(renderer_);  // Double buffering
