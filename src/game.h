@@ -24,6 +24,13 @@ class Game {
   static SDL_Event event_;
 
  private:
+  void RenderGrassTiles();
+  void RenderGrassWater();
+  void RenderTinyHouse();
+  void RenderWoodFence();
+  void RenderWaterfall();
+  void RenderCliff();
+
   SDL_Window* window_;
   bool is_running_;
   // TODO: Order of rendering matters: first rendered = back, last rendered = front

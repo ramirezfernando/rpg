@@ -86,15 +86,65 @@ void Game::Update() {
 
 void Game::Render() {
   SDL_RenderClear(renderer_);
+  RenderGrassTiles();
+  RenderGrassWater();
+  RenderWoodFence();
+  RenderTinyHouse();
+  RenderWaterfall();
+  RenderCliff();
+
+  player_->Render();
+  SDL_RenderPresent(renderer_);  // Double buffering
+}
+
+void Game::HandleEvents() {
+  SDL_PollEvent(&event_);
+  switch (event_.type) {
+    case SDL_QUIT:
+      is_running_ = false;
+      break;
+    case SDL_KEYDOWN:
+      switch (event_.key.keysym.sym) {
+        case SDLK_UP:
+          player_->SetYPos(player_->GetYPos() -
+                           Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetFolderPathFromDirection(Constants::Direction::UP);
+          player_->SetDirectionFacing(Constants::Direction::UP);
+          break;
+        case SDLK_DOWN:
+          player_->SetYPos(player_->GetYPos() +
+                           Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetFolderPathFromDirection(Constants::Direction::DOWN);
+          player_->SetDirectionFacing(Constants::Direction::DOWN);
+          break;
+        case SDLK_LEFT:
+          player_->SetXPos(player_->GetXPos() -
+                           Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetFolderPathFromDirection(Constants::Direction::LEFT);
+          player_->SetDirectionFacing(Constants::Direction::LEFT);
+          break;
+        case SDLK_RIGHT:
+          player_->SetXPos(player_->GetXPos() +
+                           Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetFolderPathFromDirection(Constants::Direction::RIGHT);
+          player_->SetDirectionFacing(Constants::Direction::RIGHT);
+          break;
+        default:
+          break;
+      }
+      break;
+  }
+}
+
+void Game::RenderGrassTiles() {
   if (tile_map_) {
     tile_map_->RenderTileMap(Constants::TILE_MAP, Constants::TILE_WIDTH,
                              Constants::TILE_HEIGHT, 0, 0,
                              Constants::SPRITE_SCALE);
   }
-  // TODO: Remove position shifts after finishing map design.
-  // TODO: Remove hardcoded destination positions after finishing map design.
-  const int SHIFT_X_POS = 24;
-  const int SHIFT_Y_POS = 24;
+}
+
+void Game::RenderGrassWater() {
   if (grass_water_) {
     // TODO: 297 = water tile.
     // TODO: Refactor magic numbers into constants.
@@ -154,10 +204,8 @@ void Game::Render() {
     grass_water_->RenderSprite(347, 240, 240, Constants::SPRITE_SCALE);
     grass_water_->RenderSprite(294, 240, 192, Constants::SPRITE_SCALE);
 
-    grass_water_->RenderSprite(299, 384, 144,
-                               Constants::SPRITE_SCALE);  //
-    grass_water_->RenderSprite(299, 384, 96,
-                               Constants::SPRITE_SCALE);  //
+    grass_water_->RenderSprite(299, 384, 144, Constants::SPRITE_SCALE);
+    grass_water_->RenderSprite(299, 384, 96, Constants::SPRITE_SCALE);
     grass_water_->RenderSprite(294, 384, 48, Constants::SPRITE_SCALE);
     grass_water_->RenderSprite(345, 432, 48, Constants::SPRITE_SCALE);
 
@@ -166,6 +214,12 @@ void Game::Render() {
 
     grass_water_->RenderSprite(299, 480, 0, Constants::SPRITE_SCALE);
   }
+}
+
+void Game::RenderWoodFence() {
+  const int SHIFT_X_POS = 24;
+  const int SHIFT_Y_POS = 24;
+
   if (wood_fence_) {
     // Render the wood fence one the left side of the tiny house.
     wood_fence_->RenderSprite(11, Constants::TINY_HOUSE_X_POS - 0 + SHIFT_X_POS,
@@ -252,14 +306,26 @@ void Game::Render() {
                               Constants::TINY_HOUSE_Y_POS + 420 - SHIFT_Y_POS,
                               Constants::SPRITE_SCALE);
   }
+}
+
+void Game::RenderTinyHouse() {
+  const int SHIFT_X_POS = 24;
+  const int SHIFT_Y_POS = 24;
+
   if (tiny_house_) {
     tiny_house_->RenderSprite(0, Constants::TINY_HOUSE_X_POS + SHIFT_X_POS,
                               Constants::TINY_HOUSE_Y_POS - SHIFT_Y_POS,
                               Constants::SPRITE_SCALE);
   }
+}
+
+void Game::RenderWaterfall() {
   if (waterfall_) {
     waterfall_->RenderAnimatedSprite(96, 48, Constants::SPRITE_SCALE);
   }
+}
+
+void Game::RenderCliff() {
   if (cliff_) {
     // Render the cliff on the left side of the waterfall.
     cliff_->RenderSprite(120, 48, 144, Constants::SPRITE_SCALE);
@@ -280,46 +346,5 @@ void Game::Render() {
     cliff_->RenderSprite(122, 336, 96, Constants::SPRITE_SCALE);
     cliff_->RenderSprite(83, 336, 48, Constants::SPRITE_SCALE);
     cliff_->RenderSprite(59, 336, 0, Constants::SPRITE_SCALE);
-  }
-  player_->Render();
-  SDL_RenderPresent(renderer_);  // Double buffering
-}
-
-void Game::HandleEvents() {
-  SDL_PollEvent(&event_);
-  switch (event_.type) {
-    case SDL_QUIT:
-      is_running_ = false;
-      break;
-    case SDL_KEYDOWN:
-      switch (event_.key.keysym.sym) {
-        case SDLK_UP:
-          player_->SetYPos(player_->GetYPos() -
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetFolderPathFromDirection(Constants::Direction::UP);
-          player_->SetDirectionFacing(Constants::Direction::UP);
-          break;
-        case SDLK_DOWN:
-          player_->SetYPos(player_->GetYPos() +
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetFolderPathFromDirection(Constants::Direction::DOWN);
-          player_->SetDirectionFacing(Constants::Direction::DOWN);
-          break;
-        case SDLK_LEFT:
-          player_->SetXPos(player_->GetXPos() -
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetFolderPathFromDirection(Constants::Direction::LEFT);
-          player_->SetDirectionFacing(Constants::Direction::LEFT);
-          break;
-        case SDLK_RIGHT:
-          player_->SetXPos(player_->GetXPos() +
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetFolderPathFromDirection(Constants::Direction::RIGHT);
-          player_->SetDirectionFacing(Constants::Direction::RIGHT);
-          break;
-        default:
-          break;
-      }
-      break;
   }
 }
