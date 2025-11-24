@@ -16,7 +16,6 @@ const char* CHARACTER_ELF_UP_FOLDER_PATH = "assets/characters/elf/up/";
 const char* TILE_SET_PATH = "assets/map/tile_set.png";
 const int TILE_WIDTH = 16;
 const int TILE_HEIGHT = 16;
-const int SPRITE_SCALE = 3;
 // clang-format off
 // TODO: Map only contains grass and dirt tiles, may need to expand later.
 // -1 represents empty tile. A different tile is rendered in its place.
@@ -59,4 +58,12 @@ const int TINY_HOUSE_WIDTH = 80;
 const int TINY_HOUSE_HEIGHT = 100;
 const int TINY_HOUSE_X_POS = 400;
 const int TINY_HOUSE_Y_POS = 50;
+
+const int WATER_TILE_IDX = 297;
+const int BOTTOM_LEFT_GRASS_WATER_TILE_IDX = 293;
+const int BOTTOM_RIGHT_GRASS_WATER_TILE_IDX = 294;
+const int BOTTOM_LEFT_GRASS_WATER_CORNER_TILE_IDX = 344;
+const int BOTTOM_RIGHT_GRASS_WATER_CORNER_TILE_IDX = 347;
+const int BOTTOM_GRASS_WATER_TILE_IDX = 345;
+const int RIGHT_GRASS_WATER_TILE_IDX = 299;
 }  // namespace Constants

@@ -20,6 +20,16 @@ extern const int TINY_HOUSE_HEIGHT;
 extern const int TINY_HOUSE_X_POS;
 extern const int TINY_HOUSE_Y_POS;
 extern const int WOOD_FENCES[];
+
+// Indexes specific to the grass water sprite sheet.
+extern const int WATER_TILE_IDX;
+extern const int BOTTOM_LEFT_GRASS_WATER_TILE_IDX;
+extern const int BOTTOM_RIGHT_GRASS_WATER_TILE_IDX;
+extern const int BOTTOM_LEFT_GRASS_WATER_CORNER_TILE_IDX;
+extern const int BOTTOM_RIGHT_GRASS_WATER_CORNER_TILE_IDX;
+extern const int BOTTOM_GRASS_WATER_TILE_IDX;
+extern const int RIGHT_GRASS_WATER_TILE_IDX;
+
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
 }  // namespace Constants

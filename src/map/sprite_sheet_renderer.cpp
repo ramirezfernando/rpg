@@ -92,11 +92,11 @@ void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
   SDL_RenderCopy(Game::renderer_, texture_, &src, &dst);
 
   // Draw red border so you can see tile boundaries (for debugging).
-  Uint8 prev_r, prev_g, prev_b, prev_a;
-  SDL_GetRenderDrawColor(Game::renderer_, &prev_r, &prev_g, &prev_b, &prev_a);
-  SDL_SetRenderDrawColor(Game::renderer_, 255, 0, 0, 255);
-  SDL_RenderDrawRect(Game::renderer_, &dst);
-  SDL_SetRenderDrawColor(Game::renderer_, prev_r, prev_g, prev_b, prev_a);
+  // Uint8 prev_r, prev_g, prev_b, prev_a;
+  // SDL_GetRenderDrawColor(Game::renderer_, &prev_r, &prev_g, &prev_b, &prev_a);
+  // SDL_SetRenderDrawColor(Game::renderer_, 255, 0, 0, 255);
+  // SDL_RenderDrawRect(Game::renderer_, &dst);
+  // SDL_SetRenderDrawColor(Game::renderer_, prev_r, prev_g, prev_b, prev_a);
 }
 
 // TODO: Generalize for any number of frames and frame rate.
