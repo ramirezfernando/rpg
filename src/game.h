@@ -9,7 +9,7 @@
 #include <string>
 
 #include "characters/character.h"
-#include "map/sprite_sheet_renderer.h"
+#include "map/map_renderer.h"
 
 class Game {
  public:
@@ -23,22 +23,8 @@ class Game {
   static SDL_Renderer* renderer_;
   static SDL_Event event_;
 
- private:
-  void RenderGrassTiles();
-  void RenderGrassWater();
-  void RenderTinyHouse();
-  void RenderWoodFence();
-  void RenderWaterfall();
-  void RenderCliff();
-
   SDL_Window* window_;
   bool is_running_;
-  // TODO: Order of rendering matters: first rendered = back, last rendered = front
   std::unique_ptr<Character> player_;
-  std::unique_ptr<SpriteSheetRenderer> tile_map_;
-  std::unique_ptr<SpriteSheetRenderer> tiny_house_;
-  std::unique_ptr<SpriteSheetRenderer> wood_fence_;
-  std::unique_ptr<SpriteSheetRenderer> grass_water_;
-  std::unique_ptr<SpriteSheetRenderer> waterfall_;
-  std::unique_ptr<SpriteSheetRenderer> cliff_;
+  std::unique_ptr<MapRenderer> map_renderer_;
 };

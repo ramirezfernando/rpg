@@ -7,7 +7,6 @@ const int WINDOW_SIZE = 768;    // The size of the GUI window (768 x 768)
 const int CHARACTER_SIZE = 64;  // The size of the character (64 x 64)
 const int CHARACTER_MOVEMENT_GAP =
     20;  // The number of pixels to move the character
-const int ATTACK_RANGE = 100;
 const char* CHARACTER_ELF_DOWN_FOLDER_PATH = "assets/characters/elf/down/";
 const char* CHARACTER_ELF_LEFT_FOLDER_PATH = "assets/characters/elf/left/";
 const char* CHARACTER_ELF_RIGHT_FOLDER_PATH = "assets/characters/elf/right/";
@@ -16,9 +15,10 @@ const char* CHARACTER_ELF_UP_FOLDER_PATH = "assets/characters/elf/up/";
 const char* TILE_SET_PATH = "assets/map/tile_set.png";
 const int TILE_WIDTH = 16;
 const int TILE_HEIGHT = 16;
+// TODO: Map only contains grass and dirt tiles, may need to expand later. `-1`
+// represents empty tile and a positive integer represents the index of the tile
+// in `tile_set.png`.
 // clang-format off
-// TODO: Map only contains grass and dirt tiles, may need to expand later.
-// -1 represents empty tile. A different tile is rendered in its place.
 const int TILE_MAP[TILE_WIDTH * TILE_HEIGHT] = {
   // row 0
   -1,-1,-1,-1,-1,9,9,-1,-1,-1,-1,9,9,9,9,9,
@@ -54,16 +54,4 @@ const int TILE_MAP[TILE_WIDTH * TILE_HEIGHT] = {
   9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 };
 // clang-format on
-const int TINY_HOUSE_WIDTH = 80;
-const int TINY_HOUSE_HEIGHT = 100;
-const int TINY_HOUSE_X_POS = 400;
-const int TINY_HOUSE_Y_POS = 50;
-
-const int WATER_TILE_IDX = 297;
-const int BOTTOM_LEFT_GRASS_WATER_TILE_IDX = 293;
-const int BOTTOM_RIGHT_GRASS_WATER_TILE_IDX = 294;
-const int BOTTOM_LEFT_GRASS_WATER_CORNER_TILE_IDX = 344;
-const int BOTTOM_RIGHT_GRASS_WATER_CORNER_TILE_IDX = 347;
-const int BOTTOM_GRASS_WATER_TILE_IDX = 345;
-const int RIGHT_GRASS_WATER_TILE_IDX = 299;
 }  // namespace Constants

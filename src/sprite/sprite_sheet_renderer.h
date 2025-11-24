@@ -9,7 +9,7 @@ class SpriteSheetRenderer {
  public:
   SpriteSheetRenderer(const char* path, int sprite_width, int sprite_height,
                       int margin = 0, int spacing = 0);
-  ~SpriteSheetRenderer();
+  ~SpriteSheetRenderer() = default;
 
   // Loads and sets up the variables for the sprite sheet.
   bool LoadSpriteSheet();

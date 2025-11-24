@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-#include "map/sprite_sheet_renderer.h"
+#include "sprite/sprite_sheet_renderer.h"
 #include "util/util.h"
 
 SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
@@ -14,14 +14,6 @@ SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
       margin_(margin),
       spacing_(spacing),
       columns_(0) {}
-
-SpriteSheetRenderer::~SpriteSheetRenderer() {
-  if (texture_) {
-    SDL_DestroyTexture(texture_);
-    texture_ = nullptr;
-    std::cout << "Sprite sheet manager destroyed" << std::endl;
-  }
-}
 
 bool SpriteSheetRenderer::LoadSpriteSheet() {
   texture_ = Util::LoadTexture(path_);
