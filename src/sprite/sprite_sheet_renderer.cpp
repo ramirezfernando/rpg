@@ -18,14 +18,18 @@ SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
 bool SpriteSheetRenderer::LoadSpriteSheet() {
   texture_ = Util::LoadTexture(path_);
   if (!texture_) {
+#if defined(DEBUG_MODE) && (DEBUG_MODE)
     std::cerr << "Sprite sheet failed to load texture: " << path_ << std::endl;
+#endif  // DEBUG_MODE
     return false;
   }
 
   int texture_width = 0, texture_height = 0;
   if (SDL_QueryTexture(texture_, nullptr, nullptr, &texture_width,
                        &texture_height) != 0) {
+#if defined(DEBUG_MODE) && (DEBUG_MODE)
     std::cerr << "SDL_QueryTexture failed: " << SDL_GetError() << std::endl;
+#endif  // DEBUG_MODE
     return false;
   }
 
@@ -44,9 +48,11 @@ bool SpriteSheetRenderer::LoadSpriteSheet() {
 
   sprite_count_ = columns_ * rows_;
 
+#if defined(DEBUG_MODE) && (DEBUG_MODE)
   std::cout << "Sprite sheet loaded: " << path_ << " tex=" << texture_width
             << "x" << texture_height << " cols=" << columns_
             << " rows=" << rows_ << " tiles=" << sprite_count_ << std::endl;
+#endif  // DEBUG_MODE
 
   return true;
 }
@@ -61,8 +67,10 @@ void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
     return;
   }
   if (sprite_index >= sprite_count_) {
+#if defined(DEBUG_MODE) && (DEBUG_MODE)
     std::cerr << "Tile map: sprite_index " << sprite_index
               << " out of range (0.." << (sprite_count_ - 1) << ")\n";
+#endif  // DEBUG_MODE
     return;
   }
 
@@ -83,12 +91,14 @@ void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
 
   SDL_RenderCopy(Game::renderer_, texture_, &src, &dst);
 
-  // Draw red border so you can see tile boundaries (for debugging).
-  // Uint8 prev_r, prev_g, prev_b, prev_a;
-  // SDL_GetRenderDrawColor(Game::renderer_, &prev_r, &prev_g, &prev_b, &prev_a);
-  // SDL_SetRenderDrawColor(Game::renderer_, 255, 0, 0, 255);
-  // SDL_RenderDrawRect(Game::renderer_, &dst);
-  // SDL_SetRenderDrawColor(Game::renderer_, prev_r, prev_g, prev_b, prev_a);
+#if defined(DEBUG_MODE) && (DEBUG_MODE)
+  // Draw red border so you can see tile boundaries.
+  Uint8 prev_r, prev_g, prev_b, prev_a;
+  SDL_GetRenderDrawColor(Game::renderer_, &prev_r, &prev_g, &prev_b, &prev_a);
+  SDL_SetRenderDrawColor(Game::renderer_, 255, 0, 0, 255);
+  SDL_RenderDrawRect(Game::renderer_, &dst);
+  SDL_SetRenderDrawColor(Game::renderer_, prev_r, prev_g, prev_b, prev_a);
+#endif  // DEBUG_MODE
 }
 
 // TODO: Generalize for any number of frames and frame rate.
