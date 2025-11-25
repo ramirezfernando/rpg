@@ -8,7 +8,6 @@ SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
 
 Game::~Game() {
-  // Cleans up SDL
   SDL_DestroyWindow(window_);
   SDL_DestroyRenderer(renderer_);
   SDL_Quit();
