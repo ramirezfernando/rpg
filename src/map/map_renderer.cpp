@@ -9,47 +9,47 @@ MapRenderer::MapRenderer() {
   tile_map_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
       Constants::TILE_SET_PATH, Constants::TILE_WIDTH, Constants::TILE_HEIGHT));
   if (tile_map_ && tile_map_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE) && (DEBUG_MODE)
+#if defined(DEBUG_MODE)
     std::cout << "Tile map created" << std::endl;
 #endif  // DEBUG_MODE
   }
 
   tiny_house_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/map/tiny_house.png", 80, 100));
+      new SpriteSheetRenderer("assets/sprites/map/tiny_house.png", 80, 100));
   if (tiny_house_ && tiny_house_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE) && (DEBUG_MODE)
+#if defined(DEBUG_MODE)
     std::cout << "Tiny house created" << std::endl;
 #endif  // DEBUG_MODE
   }
 
   wood_fence_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/map/wood_fence.png", 16, 16));
+      new SpriteSheetRenderer("assets/sprites/map/wood_fence.png", 16, 16));
   if (wood_fence_ && wood_fence_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE) && (DEBUG_MODE)
+#if defined(DEBUG_MODE)
     std::cout << "Wood fence created" << std::endl;
 #endif  // DEBUG_MODE
   }
 
   waterfall_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/map/waterfall.png", 48, 80));
+      new SpriteSheetRenderer("assets/sprites/map/waterfall.png", 48, 80));
   if (waterfall_ && waterfall_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE) && (DEBUG_MODE)
+#if defined(DEBUG_MODE)
     std::cout << "Waterfall created" << std::endl;
 #endif  // DEBUG_MODE
   }
 
   grass_water_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/map/grass_water.png", 16, 16));
+      new SpriteSheetRenderer("assets/sprites/map/grass_water.png", 16, 16));
   if (grass_water_ && grass_water_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE) && (DEBUG_MODE)
+#if defined(DEBUG_MODE)
     std::cout << "Grass water created" << std::endl;
 #endif  // DEBUG_MODE
   }
 
   cliff_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/map/cliff.png", 16, 16));
+      new SpriteSheetRenderer("assets/sprites/map/cliff.png", 16, 16));
   if (cliff_ && cliff_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE) && (DEBUG_MODE)
+#if defined(DEBUG_MODE)
     std::cout << "Cliff created" << std::endl;
 #endif  // DEBUG_MODE
   }
