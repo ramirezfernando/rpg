@@ -1,8 +1,6 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include <string>
-#include <vector>
 
 // This class manages loading and rendering of sprite sheets.
 class SpriteSheetRenderer {

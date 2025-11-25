@@ -3,10 +3,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <unistd.h>
-#include <fstream>
-#include <iostream>
+
 #include <memory>
-#include <string>
 
 #include "characters/character.h"
 #include "map/map_renderer.h"

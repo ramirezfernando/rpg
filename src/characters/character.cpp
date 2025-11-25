@@ -1,5 +1,8 @@
 #include "character.h"
-#include <cstdlib>  // For abs()
+
+#include <iostream>
+#include <string>
+
 #include "constants/constants.h"
 #include "util/util.h"
 

@@ -1,4 +1,7 @@
 #include "game.h"
+
+#include <iostream>
+
 #include "characters/character.h"
 #include "characters/character_elf.h"
 #include "constants/constants.h"

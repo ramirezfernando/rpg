@@ -1,6 +1,8 @@
 #include <SDL2/SDL.h>
+
 #include <iostream>
 #include <string>
+
 #include "constants/constants.h"
 #include "game.h"
 

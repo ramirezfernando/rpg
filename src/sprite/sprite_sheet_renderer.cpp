@@ -1,7 +1,9 @@
+#include "sprite/sprite_sheet_renderer.h"
+
 #include <SDL2/SDL.h>
+
 #include <iostream>
 
-#include "sprite/sprite_sheet_renderer.h"
 #include "util/util.h"
 
 SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,

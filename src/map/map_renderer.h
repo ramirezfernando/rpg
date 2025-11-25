@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+
 #include "sprite/sprite_sheet_renderer.h"
 
 class MapRenderer {

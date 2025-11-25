@@ -49,7 +49,26 @@ Cpp11BracedListStyle: true
 DerivePointerAlignment: false  # Make sure the * or & align on the left
 EmptyLineBeforeAccessModifier: LogicalBlock
 FixNamespaceComments: true
-IncludeBlocks: Preserve
+
+# Sort #includes by following
+# https://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes
+#
+# ref: https://clang.llvm.org/docs/ClangFormatStyleOptions.html#includeblocks
+IncludeBlocks: Regroup
+# ref: https://clang.llvm.org/docs/ClangFormatStyleOptions.html#includecategories
+IncludeCategories:
+  # C system headers (e.g., <stdio.h>)
+  - Regex:           '^<.*\.h>'
+    Priority:        1
+  # C++ standard library headers (e.g., <iostream>, <vector>)
+  - Regex:           '^<.*>'
+    Priority:        2
+  # Project headers (e.g., "base/util.h")
+  - Regex:           '.*'
+    Priority:        3
+# ref: https://clang.llvm.org/docs/ClangFormatStyleOptions.html#includeismainregex
+IncludeIsMainRegex: '(_test)?$'
+
 IndentCaseLabels: true
 IndentPPDirectives: None
 IndentWidth: 2
@@ -61,6 +80,7 @@ ObjCSpaceBeforeProtocolList: true
 PointerAlignment: Left
 ReflowComments: false
 # SeparateDefinitionBlocks: Always   # Only support since clang-format 14
+SortIncludes: true
 SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: true
@@ -78,6 +98,6 @@ SpacesInCStyleCastParentheses: false
 SpacesInContainerLiterals: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
-Standard: c++11
+Standard: c++20
 TabWidth: 4
 UseTab: Never
