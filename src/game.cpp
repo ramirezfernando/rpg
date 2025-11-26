@@ -62,6 +62,7 @@ void Game::Update() {
 
 void Game::Render() {
   SDL_RenderClear(renderer_);
+  // Order of rendering matters: first rendered = back, last rendered = front.
   map_renderer_->RenderGrassTiles();
   map_renderer_->RenderGrassWater();
   map_renderer_->RenderWoodFence();

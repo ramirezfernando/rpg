@@ -16,7 +16,6 @@ class MapRenderer {
   void RenderCliff();
 
  private:
-  // Order of rendering matters: first rendered = back, last rendered = front
   std::unique_ptr<SpriteSheetRenderer> tile_map_;
   std::unique_ptr<SpriteSheetRenderer> tiny_house_;
   std::unique_ptr<SpriteSheetRenderer> wood_fence_;
