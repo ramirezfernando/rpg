@@ -70,7 +70,7 @@ void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
   }
   if (sprite_index >= sprite_count_) {
 #if defined(DEBUG_MODE)
-    std::cerr << "Tile map: sprite_index " << sprite_index
+    std::cerr << "RenderSprite: sprite_index " << sprite_index
               << " out of range (0.." << (sprite_count_ - 1) << ")\n";
 #endif  // DEBUG_MODE
     return;

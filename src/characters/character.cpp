@@ -5,7 +5,9 @@
 Character::Character(std::unique_ptr<SpriteSheetRenderer> renderer)
     : renderer_(std::move(renderer)),
       direction_(Direction::Down),
-      animation_frame_index_(0) {}
+      animation_frame_index_(0),
+      dst_x_(0),
+      dst_y_(0) {}
 
 void Character::Render() {
   if (!renderer()) {
@@ -15,9 +17,21 @@ void Character::Render() {
   int initial_index = GetInitialAnimationFrame(direction_);
   int columns = GetSpriteSheetColumns();
 
+  // Use columns (frames per row) to wrap the animation frame.
   int frame = animation_frame_index_ % columns;
-  // Render using current animation frame (wrap safely).
-  renderer()->RenderSprite(initial_index + frame, /*dst_x=*/0, /*dst_y=*/0,
-                           /*scale=*/3,
+
+  // Compute final index and guard against exceeding sprite_count_.
+  int final_index = initial_index + frame;
+  int sprite_count = renderer()->GetSpriteCount();  // add getter if missing
+  if (final_index >= sprite_count) {
+#if defined(DEBUG_MODE)
+    std::cerr << "Character::Render: final_index " << final_index
+              << " >= sprite_count " << sprite_count << ", wrapping\n";
+#endif
+    final_index %= sprite_count;
+  }
+
+  renderer()->RenderSprite(final_index, /*dst_x=*/dst_x_,
+                           /*dst_y=*/dst_y_, /*scale=*/3,
                            /*invert=*/direction_ == Direction::Left);
 }

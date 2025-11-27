@@ -77,29 +77,29 @@ void Game::HandleEvents() {
     case SDL_KEYDOWN:
       switch (event_.key.keysym.sym) {
         case SDLK_w:
-          // player_->SetYPos(player_->GetYPos() -
-          //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetYPos(player_->GetYPos() -
+                           Constants::CHARACTER_MOVEMENT_GAP);
           player_->SetPathForAction(Action::Walk);
           player_->SetDirectionFacing(Direction::Up);
           player_->IncrementAnimationFrameIndex();
           break;
         case SDLK_s:
-          // player_->SetYPos(player_->GetYPos() +
-          //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetYPos(player_->GetYPos() +
+                           Constants::CHARACTER_MOVEMENT_GAP);
           player_->SetPathForAction(Action::Walk);
           player_->SetDirectionFacing(Direction::Down);
           player_->IncrementAnimationFrameIndex();
           break;
         case SDLK_a:
-          // player_->SetXPos(player_->GetXPos() -
-          //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetXPos(player_->GetXPos() -
+                           Constants::CHARACTER_MOVEMENT_GAP);
           player_->SetPathForAction(Action::Walk);
           player_->SetDirectionFacing(Direction::Left);
           player_->IncrementAnimationFrameIndex();
           break;
         case SDLK_d:
-          // player_->SetXPos(player_->GetXPos() +
-          //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetXPos(player_->GetXPos() +
+                           Constants::CHARACTER_MOVEMENT_GAP);
           player_->SetPathForAction(Action::Walk);
           player_->SetDirectionFacing(Direction::Right);
           player_->IncrementAnimationFrameIndex();
