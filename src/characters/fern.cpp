@@ -8,6 +8,7 @@ Fern::Fern()
     : Character(std::make_unique<SpriteSheetRenderer>(
           /*path=*/"assets/sprites/characters/fern/walk.png",
           /*sprite_w=*/32, /*sprite_h=*/32)) {
+  renderer()->LoadSpriteSheet();
   sprite_sheet_columns_ = renderer()->GetColumns();
   std::cout << sprite_sheet_columns_;
 }

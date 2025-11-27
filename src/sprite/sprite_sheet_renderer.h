@@ -9,6 +9,8 @@ class SpriteSheetRenderer {
                       int margin = 0, int spacing = 0);
   ~SpriteSheetRenderer() = default;
 
+  // Loads and sets up the variables for the sprite sheet.
+  bool LoadSpriteSheet();
   // Renders a specific sprite from the sprite sheet at the given position.
   void RenderSprite(int sprite_index, int dst_x, int dst_y, int scale = 3,
                     bool invert = false);
