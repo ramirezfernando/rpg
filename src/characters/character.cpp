@@ -14,7 +14,7 @@ void Character::Render() {
     return;
   }
 
-  int base_index = GetSpriteIndex(direction_);
+  int base_index = GetBaseSpriteIndexForDirection(direction_);
   int columns = GetSpriteSheetColumns();
 
   int frame = animation_frame_index_ % columns;

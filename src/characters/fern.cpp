@@ -13,14 +13,14 @@ Fern::Fern()
   std::cout << sprite_sheet_columns_;
 }
 
-int Fern::GetSpriteIndex(Direction direction) const {
+int Fern::GetBaseSpriteIndexForDirection(Direction direction) const {
   switch (direction) {
     case Direction::Up:
       return 6;
     case Direction::Down:
       return 0;
-    // Left and Right indicies on the fern sprite sheet are the same, they just
-    // need to be inverted when rendered.
+    // Left and right direction indicies on the fern sprite sheet are the same,
+    // they just need to be inverted when rendered.
     case Direction::Left:
     case Direction::Right:
       return 12;

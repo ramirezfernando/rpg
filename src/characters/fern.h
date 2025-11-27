@@ -8,7 +8,7 @@ class Fern : public Character {
  public:
   Fern();
   ~Fern() = default;
-  int GetSpriteIndex(Direction direction) const override;
+  int GetBaseSpriteIndexForDirection(Direction direction) const override;
   int GetSpriteSheetColumns() const override;
 
  private:
