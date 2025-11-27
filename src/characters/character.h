@@ -19,7 +19,7 @@ class Character {
 
  protected:
   // Pure-virtual hooks for derived classes to customize what is rendered.
-  virtual int GetBaseSpriteIndexForDirection(Direction direction) const = 0;
+  virtual int GetInitialAnimationFrame(Direction direction) const = 0;
   virtual int GetSpriteSheetColumns() const = 0;
 
   SpriteSheetRenderer* renderer() { return renderer_.get(); }

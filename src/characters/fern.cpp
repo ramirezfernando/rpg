@@ -13,7 +13,7 @@ Fern::Fern()
   std::cout << sprite_sheet_columns_;
 }
 
-int Fern::GetBaseSpriteIndexForDirection(Direction direction) const {
+int Fern::GetInitialAnimationFrame(Direction direction) const {
   switch (direction) {
     case Direction::Up:
       return 6;

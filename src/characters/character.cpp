@@ -14,12 +14,12 @@ void Character::Render() {
     return;
   }
 
-  int base_index = GetBaseSpriteIndexForDirection(direction_);
+  int initial_index = GetInitialAnimationFrame(direction_);
   int columns = GetSpriteSheetColumns();
 
   int frame = animation_frame_index_ % columns;
   // Render using current animation frame (wrap safely).
-  renderer()->RenderSprite(base_index + frame, /*dst_x=*/0, /*dst_y=*/0,
+  renderer()->RenderSprite(initial_index + frame, /*dst_x=*/0, /*dst_y=*/0,
                            /*scale=*/3,
                            /*invert=*/direction_ == Direction::Left);
 }
