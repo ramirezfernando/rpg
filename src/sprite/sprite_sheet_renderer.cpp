@@ -8,23 +8,14 @@
 
 SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
                                          int sprite_height, int margin,
-                                         int spacing)
-    : path_(path),
-      texture_(nullptr),
-      sprite_width_(sprite_width),
-      sprite_height_(sprite_height),
-      margin_(margin),
-      spacing_(spacing),
-      columns_(0) {}
-
-bool SpriteSheetRenderer::LoadSpriteSheet() {
+                                         int spacing) {
+  path_ = path;
+  std::cout << path_ << std::endl;
   texture_ = Util::LoadTexture(path_);
-  if (!texture_) {
-#if defined(DEBUG_MODE)
-    std::cerr << "Sprite sheet failed to load texture: " << path_ << std::endl;
-#endif  // DEBUG_MODE
-    return false;
-  }
+  sprite_width_ = sprite_width;
+  sprite_height_ = sprite_height;
+  margin_ = margin;
+  spacing_ = spacing;
 
   int texture_width = 0, texture_height = 0;
   if (SDL_QueryTexture(texture_, nullptr, nullptr, &texture_width,
@@ -32,7 +23,7 @@ bool SpriteSheetRenderer::LoadSpriteSheet() {
 #if defined(DEBUG_MODE)
     std::cerr << "SDL_QueryTexture failed: " << SDL_GetError() << std::endl;
 #endif  // DEBUG_MODE
-    return false;
+    return;
   }
 
   // Compute columns/rows using tile size, margin and spacing.
@@ -51,12 +42,11 @@ bool SpriteSheetRenderer::LoadSpriteSheet() {
   sprite_count_ = columns_ * rows_;
 
 #if defined(DEBUG_MODE)
-  std::cout << "Sprite sheet loaded: " << path_ << " tex=" << texture_width
-            << "x" << texture_height << " cols=" << columns_
-            << " rows=" << rows_ << " tiles=" << sprite_count_ << std::endl;
+  std::cout << "Sprite sheet loaded: " << path_
+            << " dimensions=" << texture_width << "x" << texture_height
+            << " cols=" << columns_ << " rows=" << rows_
+            << " tiles=" << sprite_count_ << std::endl;
 #endif  // DEBUG_MODE
-
-  return true;
 }
 
 void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,

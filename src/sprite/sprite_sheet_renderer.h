@@ -9,8 +9,6 @@ class SpriteSheetRenderer {
                       int margin = 0, int spacing = 0);
   ~SpriteSheetRenderer() = default;
 
-  // Loads and sets up the variables for the sprite sheet.
-  bool LoadSpriteSheet();
   // Renders a specific sprite from the sprite sheet at the given position.
   void RenderSprite(int sprite_index, int dst_x, int dst_y, int scale = 3);
   // Renders through an x by 1 sprite sheet as an animation.
@@ -19,6 +17,14 @@ class SpriteSheetRenderer {
   void RenderTileMap(const int* tile_map, int tile_map_columns,
                      int tile_map_rows, int dst_x = 0, int dst_y = 0,
                      int scale = 3);
+  // Getters
+  int GetSpriteWidth() { return sprite_width_; }
+  int GetSpriteHeight() { return sprite_height_; }
+  int GetMargin() { return margin_; }
+  int GetSpacing() { return spacing_; }
+  int GetColumns() { return columns_; }
+  int GetRows() { return rows_; }
+  int GetSpriteCount() { return sprite_count_; }
 
  private:
   const char* path_;

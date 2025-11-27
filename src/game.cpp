@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "characters/character.h"
-#include "characters/character_elf.h"
+#include "characters/fern.h"
 #include "constants/constants.h"
 #include "map/map_renderer.h"
 
@@ -41,8 +41,7 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
     is_running_ = false;
   }
 
-  player_ = std::unique_ptr<Character>(
-      new Elf(Constants::WINDOW_SIZE / 2, Constants::WINDOW_SIZE / 2));
+  player_ = std::unique_ptr<Character>(new Fern());
   if (player_) {
 #if defined(DEBUG_MODE)
     std::cout << "Character created" << std::endl;
@@ -57,7 +56,7 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
 }
 
 void Game::Update() {
-  player_->Update();
+  //player_->Update();
 }
 
 void Game::Render() {
@@ -81,30 +80,30 @@ void Game::HandleEvents() {
       break;
     case SDL_KEYDOWN:
       switch (event_.key.keysym.sym) {
-        case SDLK_UP:
-          player_->SetYPos(player_->GetYPos() -
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetFolderPathFromDirection(Constants::Direction::UP);
-          player_->SetDirectionFacing(Constants::Direction::UP);
-          break;
-        case SDLK_DOWN:
-          player_->SetYPos(player_->GetYPos() +
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetFolderPathFromDirection(Constants::Direction::DOWN);
-          player_->SetDirectionFacing(Constants::Direction::DOWN);
-          break;
-        case SDLK_LEFT:
-          player_->SetXPos(player_->GetXPos() -
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetFolderPathFromDirection(Constants::Direction::LEFT);
-          player_->SetDirectionFacing(Constants::Direction::LEFT);
-          break;
-        case SDLK_RIGHT:
-          player_->SetXPos(player_->GetXPos() +
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetFolderPathFromDirection(Constants::Direction::RIGHT);
-          player_->SetDirectionFacing(Constants::Direction::RIGHT);
-          break;
+        // case SDLK_UP:
+        //   player_->SetYPos(player_->GetYPos() -
+        //                    Constants::CHARACTER_MOVEMENT_GAP);
+        //   player_->SetFolderPathFromDirection(Constants::Direction::UP);
+        //   player_->SetDirectionFacing(Constants::Direction::UP);
+        //   break;
+        // case SDLK_DOWN:
+        //   player_->SetYPos(player_->GetYPos() +
+        //                    Constants::CHARACTER_MOVEMENT_GAP);
+        //   player_->SetFolderPathFromDirection(Constants::Direction::DOWN);
+        //   player_->SetDirectionFacing(Constants::Direction::DOWN);
+        //   break;
+        // case SDLK_LEFT:
+        //   player_->SetXPos(player_->GetXPos() -
+        //                    Constants::CHARACTER_MOVEMENT_GAP);
+        //   player_->SetFolderPathFromDirection(Constants::Direction::LEFT);
+        //   player_->SetDirectionFacing(Constants::Direction::LEFT);
+        //   break;
+        // case SDLK_RIGHT:
+        //   player_->SetXPos(player_->GetXPos() +
+        //                    Constants::CHARACTER_MOVEMENT_GAP);
+        //   player_->SetFolderPathFromDirection(Constants::Direction::RIGHT);
+        //   player_->SetDirectionFacing(Constants::Direction::RIGHT);
+        //   break;
         default:
           break;
       }

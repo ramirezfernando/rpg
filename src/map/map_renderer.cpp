@@ -8,7 +8,7 @@
 MapRenderer::MapRenderer() {
   tile_map_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
       Constants::TILE_SET_PATH, Constants::TILE_WIDTH, Constants::TILE_HEIGHT));
-  if (tile_map_ && tile_map_->LoadSpriteSheet()) {
+  if (tile_map_) {
 #if defined(DEBUG_MODE)
     std::cout << "Tile map created" << std::endl;
 #endif  // DEBUG_MODE
@@ -16,7 +16,7 @@ MapRenderer::MapRenderer() {
 
   tiny_house_ = std::unique_ptr<SpriteSheetRenderer>(
       new SpriteSheetRenderer("assets/sprites/map/tiny_house.png", 80, 100));
-  if (tiny_house_ && tiny_house_->LoadSpriteSheet()) {
+  if (tiny_house_) {
 #if defined(DEBUG_MODE)
     std::cout << "Tiny house created" << std::endl;
 #endif  // DEBUG_MODE
@@ -24,7 +24,7 @@ MapRenderer::MapRenderer() {
 
   wood_fence_ = std::unique_ptr<SpriteSheetRenderer>(
       new SpriteSheetRenderer("assets/sprites/map/wood_fence.png", 16, 16));
-  if (wood_fence_ && wood_fence_->LoadSpriteSheet()) {
+  if (wood_fence_) {
 #if defined(DEBUG_MODE)
     std::cout << "Wood fence created" << std::endl;
 #endif  // DEBUG_MODE
@@ -32,7 +32,7 @@ MapRenderer::MapRenderer() {
 
   waterfall_ = std::unique_ptr<SpriteSheetRenderer>(
       new SpriteSheetRenderer("assets/sprites/map/waterfall.png", 48, 80));
-  if (waterfall_ && waterfall_->LoadSpriteSheet()) {
+  if (waterfall_) {
 #if defined(DEBUG_MODE)
     std::cout << "Waterfall created" << std::endl;
 #endif  // DEBUG_MODE
@@ -40,7 +40,7 @@ MapRenderer::MapRenderer() {
 
   grass_water_ = std::unique_ptr<SpriteSheetRenderer>(
       new SpriteSheetRenderer("assets/sprites/map/grass_water.png", 16, 16));
-  if (grass_water_ && grass_water_->LoadSpriteSheet()) {
+  if (grass_water_) {
 #if defined(DEBUG_MODE)
     std::cout << "Grass water created" << std::endl;
 #endif  // DEBUG_MODE
@@ -48,7 +48,7 @@ MapRenderer::MapRenderer() {
 
   cliff_ = std::unique_ptr<SpriteSheetRenderer>(
       new SpriteSheetRenderer("assets/sprites/map/cliff.png", 16, 16));
-  if (cliff_ && cliff_->LoadSpriteSheet()) {
+  if (cliff_) {
 #if defined(DEBUG_MODE)
     std::cout << "Cliff created" << std::endl;
 #endif  // DEBUG_MODE

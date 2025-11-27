@@ -2,33 +2,23 @@
 
 #include <SDL2/SDL.h>
 
-#include "constants/constants.h"
+#include <memory>
+
+#include "sprite/sprite_sheet_renderer.h"
 
 class Character {
  public:
-  virtual ~Character();
+  explicit Character(std::unique_ptr<SpriteSheetRenderer> renderer);
+  virtual ~Character() = default;
   void Update();
   void Render();
-  void SetFolderPath(const char* folder_path) { folder_path_ = folder_path; }
-  virtual void SetFolderPathFromDirection(Constants::Direction direction) = 0;
-  void SetXPos(int x_pos);
-  void SetYPos(int y_pos);
-  int GetXPos() { return x_pos_; }
-  int GetYPos() { return y_pos_; }
-  void SetDirectionFacing(Constants::Direction direction) {
-    direction_facing_ = direction;
-  }
-
- private:
-  bool IsWithinWindowBounds();
-  bool ShouldUpdateTexture(Uint32 current_time);
-  bool ShouldIncrementTexture();
 
  protected:
-  SDL_Texture* character_texture_;
-  SDL_Rect src_rect_, dest_rect_;
-  const char* folder_path_;
-  int x_pos_, y_pos_, frames_, delay_ = 70, count_ = 0;
-  Uint32 last_frame_time_ = 0;
-  Constants::Direction direction_facing_;
+  // Pure-virtual hook for derived classes to customize what is rendered.
+  virtual int GetSpriteIndex() const = 0;
+
+  SpriteSheetRenderer* renderer() { return renderer_.get(); }
+
+ private:
+  std::unique_ptr<SpriteSheetRenderer> renderer_;
 };
