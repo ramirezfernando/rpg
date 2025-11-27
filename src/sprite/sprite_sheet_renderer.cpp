@@ -50,7 +50,7 @@ SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
 }
 
 void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
-                                       int scale) {
+                                       int scale, bool invert) {
   if (!texture_) {
     return;
   }
@@ -81,7 +81,12 @@ void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
   dst.w = sprite_width_ * scale;
   dst.h = sprite_height_ * scale;
 
-  SDL_RenderCopy(Game::renderer_, texture_, &src, &dst);
+  if (invert) {
+    SDL_RendererFlip flip = invert ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+    SDL_RenderCopyEx(Game::renderer_, texture_, &src, &dst, 0.0, NULL, flip);
+  } else {
+    SDL_RenderCopy(Game::renderer_, texture_, &src, &dst);
+  }
 
 #if defined(DEBUG_MODE)
   // Draw red border so you can see tile boundaries.

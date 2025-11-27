@@ -12,5 +12,6 @@ void Character::Render() {
     return;
   }
   renderer()->RenderSprite(GetSpriteIndex(direction_), /*dst_x=*/0,
-                           /*dst_y=*/0);
+                           /*dst_y=*/0, /*scale=*/3,
+                           /*invert=*/direction_ == Direction::Left);
 }

@@ -10,7 +10,8 @@ class SpriteSheetRenderer {
   ~SpriteSheetRenderer() = default;
 
   // Renders a specific sprite from the sprite sheet at the given position.
-  void RenderSprite(int sprite_index, int dst_x, int dst_y, int scale = 3);
+  void RenderSprite(int sprite_index, int dst_x, int dst_y, int scale = 3,
+                    bool invert = false);
   // Renders through an x by 1 sprite sheet as an animation.
   void RenderAnimatedSprite(int dst_x, int dst_y, int scale = 3);
   // Renders a tile map given an array of tile indices.

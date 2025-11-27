@@ -80,30 +80,26 @@ void Game::HandleEvents() {
       break;
     case SDL_KEYDOWN:
       switch (event_.key.keysym.sym) {
-        // case SDLK_UP:
-        //   player_->SetYPos(player_->GetYPos() -
-        //                    Constants::CHARACTER_MOVEMENT_GAP);
-        //   player_->SetFolderPathFromDirection(Constants::Direction::UP);
-        //   player_->SetDirectionFacing(Constants::Direction::UP);
-        //   break;
-        // case SDLK_DOWN:
-        //   player_->SetYPos(player_->GetYPos() +
-        //                    Constants::CHARACTER_MOVEMENT_GAP);
-        //   player_->SetFolderPathFromDirection(Constants::Direction::DOWN);
-        //   player_->SetDirectionFacing(Constants::Direction::DOWN);
-        //   break;
-        // case SDLK_LEFT:
-        //   player_->SetXPos(player_->GetXPos() -
-        //                    Constants::CHARACTER_MOVEMENT_GAP);
-        //   player_->SetFolderPathFromDirection(Constants::Direction::LEFT);
-        //   player_->SetDirectionFacing(Constants::Direction::LEFT);
-        //   break;
-        // case SDLK_RIGHT:
-        //   player_->SetXPos(player_->GetXPos() +
-        //                    Constants::CHARACTER_MOVEMENT_GAP);
-        //   player_->SetFolderPathFromDirection(Constants::Direction::RIGHT);
-        //   player_->SetDirectionFacing(Constants::Direction::RIGHT);
-        //   break;
+        case SDLK_UP:
+          // player_->SetYPos(player_->GetYPos() -
+          //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetDirectionFacing(Direction::Up);
+          break;
+        case SDLK_DOWN:
+          // player_->SetYPos(player_->GetYPos() +
+          //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetDirectionFacing(Direction::Down);
+          break;
+        case SDLK_LEFT:
+          // player_->SetXPos(player_->GetXPos() -
+          //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetDirectionFacing(Direction::Left);
+          break;
+        case SDLK_RIGHT:
+          // player_->SetXPos(player_->GetXPos() +
+          //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetDirectionFacing(Direction::Right);
+          break;
         default:
           break;
       }
