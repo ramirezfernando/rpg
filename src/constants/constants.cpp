@@ -3,15 +3,9 @@
 namespace Constants {
 const int FRAME_DELAY =
     1000 / 20;  // The number of milliseconds in a second divided by FPS
-const int WINDOW_SIZE = 768;    // The size of the GUI window (768 x 768)
-const int CHARACTER_SIZE = 64;  // The size of the character (64 x 64)
+const int WINDOW_SIZE = 768;  // The size of the GUI window (768 x 768)
 const int CHARACTER_MOVEMENT_GAP =
     20;  // The number of pixels to move the character
-const char* CHARACTER_ELF_DOWN_FOLDER_PATH = "assets/characters/elf/down/";
-const char* CHARACTER_ELF_LEFT_FOLDER_PATH = "assets/characters/elf/left/";
-const char* CHARACTER_ELF_RIGHT_FOLDER_PATH = "assets/characters/elf/right/";
-const char* CHARACTER_ELF_UP_FOLDER_PATH = "assets/characters/elf/up/";
-
 const char* TILE_SET_PATH = "assets/sprites/map/tile_set.png";
 const int TILE_WIDTH = 16;
 const int TILE_HEIGHT = 16;
