@@ -8,5 +8,5 @@ class Fern : public Character {
  public:
   Fern();
   ~Fern() = default;
-  int GetSpriteIndex() const override { return 0; }
+  int GetSpriteIndex(Direction direction) const override;
 };

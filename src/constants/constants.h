@@ -14,6 +14,5 @@ extern const char* TILE_SET_PATH;
 extern const int TILE_WIDTH;
 extern const int TILE_HEIGHT;
 extern const int TILE_MAP[];
-enum class Direction { UP, DOWN, LEFT, RIGHT };
 
 }  // namespace Constants
