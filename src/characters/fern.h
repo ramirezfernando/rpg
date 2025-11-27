@@ -9,4 +9,8 @@ class Fern : public Character {
   Fern();
   ~Fern() = default;
   int GetSpriteIndex(Direction direction) const override;
+  int GetSpriteSheetColumns() const override;
+
+ private:
+  int sprite_sheet_columns_;
 };

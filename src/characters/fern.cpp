@@ -7,7 +7,10 @@
 Fern::Fern()
     : Character(std::make_unique<SpriteSheetRenderer>(
           /*path=*/"assets/sprites/characters/fern/walk.png",
-          /*sprite_w=*/32, /*sprite_h=*/32)) {}
+          /*sprite_w=*/32, /*sprite_h=*/32)) {
+  sprite_sheet_columns_ = renderer()->GetColumns();
+  std::cout << sprite_sheet_columns_;
+}
 
 int Fern::GetSpriteIndex(Direction direction) const {
   switch (direction) {
@@ -21,4 +24,8 @@ int Fern::GetSpriteIndex(Direction direction) const {
     case Direction::Right:
       return 12;
   }
+}
+
+int Fern::GetSpriteSheetColumns() const {
+  return sprite_sheet_columns_;
 }
