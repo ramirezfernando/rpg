@@ -55,10 +55,6 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
   }
 }
 
-void Game::Update() {
-  //player_->Update();
-}
-
 void Game::Render() {
   SDL_RenderClear(renderer_);
   // Order of rendering matters: first rendered = back, last rendered = front.

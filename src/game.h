@@ -13,7 +13,6 @@ class Game {
  public:
   ~Game();
   void Init(const char* title, int x_pos, int y_pos, int width, int height);
-  void Update();
   void Render();
   void HandleEvents();
   void SetIsRunning(bool is_running) { is_running_ = is_running; }

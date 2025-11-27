@@ -13,7 +13,6 @@ class Character {
  public:
   explicit Character(std::unique_ptr<SpriteSheetRenderer> renderer);
   virtual ~Character() = default;
-  void Update();
   void Render();
   virtual void SetPathForAction(Action action) = 0;
   void SetDirectionFacing(Direction direction) { direction_ = direction; }

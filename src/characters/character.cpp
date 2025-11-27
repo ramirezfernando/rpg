@@ -7,8 +7,6 @@ Character::Character(std::unique_ptr<SpriteSheetRenderer> renderer)
       direction_(Direction::Down),
       animation_frame_index_(0) {}
 
-void Character::Update() {}
-
 void Character::Render() {
   if (!renderer()) {
     return;
