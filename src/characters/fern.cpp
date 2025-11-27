@@ -4,6 +4,7 @@
 
 #include "constants/constants.h"
 #include "sprite/sprite_sheet_renderer.h"
+
 Fern::Fern()
     : Character(std::make_unique<SpriteSheetRenderer>(
           /*path=*/"assets/sprites/characters/fern/walk.png",
@@ -29,4 +30,16 @@ int Fern::GetInitialAnimationFrame(Direction direction) const {
 
 int Fern::GetSpriteSheetColumns() const {
   return sprite_sheet_columns_;
+}
+
+void Fern::SetPathForAction(Action action) {
+  switch (action) {
+    case Action::Walk:
+      const char* walk_path = "assets/sprites/characters/fern/walk.png";
+      // Do not load an already loaded sprite sheet.
+      if (renderer()->GetPath() != walk_path) {
+        renderer()->SetPath("assets/sprites/characters/fern/walk.png");
+        renderer()->LoadSpriteSheet();
+      }
+  }
 }

@@ -21,6 +21,7 @@ class SpriteSheetRenderer {
                      int tile_map_rows, int dst_x = 0, int dst_y = 0,
                      int scale = 3);
   // Getters
+  const char* GetPath() { return path_; }
   int GetSpriteWidth() { return sprite_width_; }
   int GetSpriteHeight() { return sprite_height_; }
   int GetMargin() { return margin_; }
@@ -28,6 +29,9 @@ class SpriteSheetRenderer {
   int GetColumns() { return columns_; }
   int GetRows() { return rows_; }
   int GetSpriteCount() { return sprite_count_; }
+
+  // Setters
+  void SetPath(const char* path) { path = path_; }
 
  private:
   const char* path_;

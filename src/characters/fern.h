@@ -10,6 +10,7 @@ class Fern : public Character {
   ~Fern() = default;
   int GetInitialAnimationFrame(Direction direction) const override;
   int GetSpriteSheetColumns() const override;
+  void SetPathForAction(Action action) override;
 
  private:
   int sprite_sheet_columns_;

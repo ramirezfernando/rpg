@@ -83,24 +83,28 @@ void Game::HandleEvents() {
         case SDLK_UP:
           // player_->SetYPos(player_->GetYPos() -
           //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetPathForAction(Action::Walk);
           player_->SetDirectionFacing(Direction::Up);
           player_->IncrementAnimationFrameIndex();
           break;
         case SDLK_DOWN:
           // player_->SetYPos(player_->GetYPos() +
           //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetPathForAction(Action::Walk);
           player_->SetDirectionFacing(Direction::Down);
           player_->IncrementAnimationFrameIndex();
           break;
         case SDLK_LEFT:
           // player_->SetXPos(player_->GetXPos() -
           //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetPathForAction(Action::Walk);
           player_->SetDirectionFacing(Direction::Left);
           player_->IncrementAnimationFrameIndex();
           break;
         case SDLK_RIGHT:
           // player_->SetXPos(player_->GetXPos() +
           //                  Constants::CHARACTER_MOVEMENT_GAP);
+          player_->SetPathForAction(Action::Walk);
           player_->SetDirectionFacing(Direction::Right);
           player_->IncrementAnimationFrameIndex();
           break;
