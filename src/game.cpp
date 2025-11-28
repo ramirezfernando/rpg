@@ -104,11 +104,11 @@ void Game::HandleEvents() {
           player_->SetDirectionFacing(Direction::Right);
           player_->IncrementAnimationFrameIndex();
           break;
-        default:
-          player_->SetPathForAction(Action::Idle);
-          player_->ResetAnimationFrameIndex();
-          break;
       }
+      break;
+    case SDL_KEYUP:
+      player_->SetPathForAction(Action::Idle);
+      player_->ResetAnimationFrameIndex();
       break;
   }
 }

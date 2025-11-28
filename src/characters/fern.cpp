@@ -18,7 +18,6 @@ int Fern::GetInitialAnimationFrame(Action action, Direction direction) const {
   switch (action) {
     // 3x4
     case Action::Idle:
-      std::cout << "Idle\n";
       switch (direction) {
         case Direction::Up:
           return 4;
@@ -31,7 +30,6 @@ int Fern::GetInitialAnimationFrame(Action action, Direction direction) const {
       break;
     // 3x6
     case Action::Walk:
-      std::cout << "Walk\n";
       switch (direction) {
         case Direction::Up:
           return 6;
