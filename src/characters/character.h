@@ -7,7 +7,7 @@
 #include "sprite/sprite_sheet_renderer.h"
 
 enum class Direction { Up, Down, Left, Right };
-enum class Action { Idle, Walk };
+enum class Action { Idle, Walk, Run };
 
 class Character {
  public:
@@ -15,7 +15,6 @@ class Character {
   virtual ~Character() = default;
   void Render();
   void IncrementAnimationFrameIndex() { animation_frame_index_ += 1; }
-  void ResetAnimationFrameIndex() { animation_frame_index_ = 0; }
 
   // Getters
   int GetXPos() { return dst_x_; }

@@ -8,6 +8,7 @@ class Fern : public Character {
  public:
   Fern();
   ~Fern() = default;
+
   // Getters
   int GetInitialAnimationFrame(Action action,
                                Direction direction) const override;

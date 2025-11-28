@@ -1,5 +1,6 @@
 #include "game.h"
 
+#include <cmath>
 #include <iostream>
 
 #include "characters/character.h"
@@ -9,6 +10,28 @@
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
+
+namespace {
+
+bool IsMoving(int dx, int dy) {
+  return dx != 0 || dy != 0;
+}
+
+bool IsMovingDiagonally(int dx, int dy) {
+  return dx != 0 && dy != 0;
+}
+
+// Prevent faster diagonal movement using Pythagorean theorem. We want the
+// hypotenuse to equal `gap`, e.g., `gap = sqrt(dx^2 + dy^2)`.
+static void NormalizeDiagonalMovement(int& dx, int& dy, int gap) {
+  double hypotenuse =
+      std::hypot(static_cast<double>(dx), static_cast<double>(dy));
+  double factor = static_cast<double>(gap) / hypotenuse;
+  dx = static_cast<int>(std::round(dx * factor));
+  dy = static_cast<int>(std::round(dy * factor));
+}
+
+}  // namespace
 
 Game::~Game() {
   SDL_DestroyWindow(window_);
@@ -69,46 +92,57 @@ void Game::Render() {
 }
 
 void Game::HandleEvents() {
-  SDL_PollEvent(&event_);
-  switch (event_.type) {
-    case SDL_QUIT:
+  SDL_Event event;
+  while (SDL_PollEvent(&event)) {
+    if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE) {
       is_running_ = false;
-      break;
-    case SDL_KEYDOWN:
-      switch (event_.key.keysym.sym) {
-        case SDLK_w:
-          player_->SetYPos(player_->GetYPos() -
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetPathForAction(Action::Walk);
-          player_->SetDirectionFacing(Direction::Up);
-          player_->IncrementAnimationFrameIndex();
-          break;
-        case SDLK_s:
-          player_->SetYPos(player_->GetYPos() +
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetPathForAction(Action::Walk);
-          player_->SetDirectionFacing(Direction::Down);
-          player_->IncrementAnimationFrameIndex();
-          break;
-        case SDLK_a:
-          player_->SetXPos(player_->GetXPos() -
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetPathForAction(Action::Walk);
-          player_->SetDirectionFacing(Direction::Left);
-          player_->IncrementAnimationFrameIndex();
-          break;
-        case SDLK_d:
-          player_->SetXPos(player_->GetXPos() +
-                           Constants::CHARACTER_MOVEMENT_GAP);
-          player_->SetPathForAction(Action::Walk);
-          player_->SetDirectionFacing(Direction::Right);
-          player_->IncrementAnimationFrameIndex();
-          break;
-      }
-      break;
-    case SDL_KEYUP:
-      player_->SetPathForAction(Action::Idle);
-      player_->ResetAnimationFrameIndex();
-      break;
+    }
   }
+
+  // Continuous keyboard state for multi-key handling.
+  const Uint8* keyboard_state = SDL_GetKeyboardState(nullptr);
+  int base_gap = Constants::CHARACTER_WALK_GAP;
+  int gap = base_gap;
+  bool is_character_running = false;
+  if (keyboard_state[SDL_SCANCODE_LSHIFT] ||
+      keyboard_state[SDL_SCANCODE_RSHIFT]) {
+    gap = base_gap * 2;
+    is_character_running = true;
+  }
+
+  int dx = 0;
+  int dy = 0;
+
+  // Vertical movement.
+  if (keyboard_state[SDL_SCANCODE_W] && !keyboard_state[SDL_SCANCODE_S]) {
+    dy -= gap;
+    player_->SetDirectionFacing(Direction::Up);
+  } else if (keyboard_state[SDL_SCANCODE_S] &&
+             !keyboard_state[SDL_SCANCODE_W]) {
+    dy += gap;
+    player_->SetDirectionFacing(Direction::Down);
+  }
+
+  // Horizontal movement.
+  if (keyboard_state[SDL_SCANCODE_A] && !keyboard_state[SDL_SCANCODE_D]) {
+    dx -= gap;
+    player_->SetDirectionFacing(Direction::Left);
+  } else if (keyboard_state[SDL_SCANCODE_D] &&
+             !keyboard_state[SDL_SCANCODE_A]) {
+    dx += gap;
+    player_->SetDirectionFacing(Direction::Right);
+  }
+
+  if (!IsMoving(dx, dy)) {
+    player_->SetPathForAction(Action::Idle);
+    return;
+  }
+
+  if (IsMovingDiagonally(dx, dy)) {
+    NormalizeDiagonalMovement(dx, dy, gap);
+  }
+  player_->SetXPos(player_->GetXPos() + dx);
+  player_->SetYPos(player_->GetYPos() + dy);
+  player_->SetPathForAction(is_character_running ? Action::Run : Action::Walk);
+  player_->IncrementAnimationFrameIndex();
 }
