@@ -105,6 +105,8 @@ void Game::HandleEvents() {
           player_->IncrementAnimationFrameIndex();
           break;
         default:
+          player_->SetPathForAction(Action::Idle);
+          player_->ResetAnimationFrameIndex();
           break;
       }
       break;

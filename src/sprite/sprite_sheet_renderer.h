@@ -31,7 +31,7 @@ class SpriteSheetRenderer {
   int GetSpriteCount() { return sprite_count_; }
 
   // Setters
-  void SetPath(const char* path) { path = path_; }
+  void SetPath(const char* path) { path_ = path; }
 
  private:
   const char* path_;

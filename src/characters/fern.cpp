@@ -7,24 +7,41 @@
 
 Fern::Fern()
     : Character(std::make_unique<SpriteSheetRenderer>(
-          /*path=*/"assets/sprites/characters/fern/walk.png",
+          /*path=*/"assets/sprites/characters/fern/idle.png",
           /*sprite_w=*/32, /*sprite_h=*/32)) {
   renderer()->LoadSpriteSheet();
   sprite_sheet_columns_ = renderer()->GetColumns();
   std::cout << sprite_sheet_columns_;
 }
 
-int Fern::GetInitialAnimationFrame(Direction direction) const {
-  switch (direction) {
-    case Direction::Up:
-      return 6;
-    case Direction::Down:
-      return 0;
-    // Left and right direction indicies on the fern sprite sheet are the same,
-    // they just need to be inverted when rendered.
-    case Direction::Left:
-    case Direction::Right:
-      return 12;
+int Fern::GetInitialAnimationFrame(Action action, Direction direction) const {
+  switch (action) {
+    // 3x4
+    case Action::Idle:
+      std::cout << "Idle\n";
+      switch (direction) {
+        case Direction::Up:
+          return 4;
+        case Direction::Down:
+          return 0;
+        case Direction::Left:
+        case Direction::Right:
+          return 8;
+      }
+      break;
+    // 3x6
+    case Action::Walk:
+      std::cout << "Walk\n";
+      switch (direction) {
+        case Direction::Up:
+          return 6;
+        case Direction::Down:
+          return 0;
+        case Direction::Left:
+        case Direction::Right:
+          return 12;
+      }
+      break;
   }
 }
 
@@ -33,13 +50,20 @@ int Fern::GetSpriteSheetColumns() const {
 }
 
 void Fern::SetPathForAction(Action action) {
+  const char* action_path = nullptr;
   switch (action) {
+    case Action::Idle:
+      action_path = "assets/sprites/characters/fern/idle.png";
+      break;
     case Action::Walk:
-      const char* walk_path = "assets/sprites/characters/fern/walk.png";
-      // Do not load an already loaded sprite sheet.
-      if (renderer()->GetPath() != walk_path) {
-        renderer()->SetPath("assets/sprites/characters/fern/walk.png");
-        renderer()->LoadSpriteSheet();
-      }
+      action_path = "assets/sprites/characters/fern/walk.png";
+      break;
+  }
+
+  // Do not load an already loaded sprite sheet unless the action has changed.
+  if (renderer()->GetPath() != action_path) {
+    SetAction(action);
+    renderer()->SetPath(action_path);
+    renderer()->LoadSpriteSheet();
   }
 }

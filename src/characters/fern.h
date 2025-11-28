@@ -8,8 +8,12 @@ class Fern : public Character {
  public:
   Fern();
   ~Fern() = default;
-  int GetInitialAnimationFrame(Direction direction) const override;
+  // Getters
+  int GetInitialAnimationFrame(Action action,
+                               Direction direction) const override;
   int GetSpriteSheetColumns() const override;
+
+  // Setters
   void SetPathForAction(Action action) override;
 
  private:

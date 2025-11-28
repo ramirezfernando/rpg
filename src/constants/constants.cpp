@@ -5,7 +5,7 @@ const int FRAME_DELAY =
     1000 / 30;  // The number of milliseconds in a second divided by FPS
 const int WINDOW_SIZE = 768;  // The size of the GUI window (768 x 768)
 const int CHARACTER_MOVEMENT_GAP =
-    20;  // The number of pixels to move the character
+    10;  // The number of pixels to move the character
 const char* TILE_SET_PATH = "assets/sprites/map/tile_set.png";
 const int TILE_WIDTH = 16;
 const int TILE_HEIGHT = 16;
