@@ -13,11 +13,11 @@ SDL_Event Game::event_;
 
 namespace {
 
-bool IsMoving(int dx, int dy) {
+static bool IsPlayerMoving(int dx, int dy) {
   return dx != 0 || dy != 0;
 }
 
-bool IsMovingDiagonally(int dx, int dy) {
+static bool IsPlayerMovingDiagonally(int dx, int dy) {
   return dx != 0 && dy != 0;
 }
 
@@ -133,12 +133,12 @@ void Game::HandleEvents() {
     player_->SetDirectionFacing(Direction::Right);
   }
 
-  if (!IsMoving(dx, dy)) {
+  if (!IsPlayerMoving(dx, dy)) {
     player_->SetPathForAction(Action::Idle);
     return;
   }
 
-  if (IsMovingDiagonally(dx, dy)) {
+  if (IsPlayerMovingDiagonally(dx, dy)) {
     NormalizeDiagonalMovement(dx, dy, gap);
   }
   player_->SetXPos(player_->GetXPos() + dx);
