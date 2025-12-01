@@ -6,8 +6,9 @@
 #include "sprite/sprite_sheet_renderer.h"
 
 MapRenderer::MapRenderer() {
-  tile_map_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
-      Constants::TILE_SET_PATH, Constants::TILE_WIDTH, Constants::TILE_HEIGHT));
+  tile_map_ = std::unique_ptr<SpriteSheetRenderer>(
+      new SpriteSheetRenderer(Constants::GRASS_DIRT_TILE_SET_PATH,
+                              Constants::TILE_WIDTH, Constants::TILE_HEIGHT));
   if (tile_map_ && tile_map_->LoadSpriteSheet()) {
 #if defined(DEBUG_MODE)
     std::cout << "Tile map created" << std::endl;
@@ -57,8 +58,9 @@ MapRenderer::MapRenderer() {
 
 void MapRenderer::RenderGrassTiles() {
   if (tile_map_) {
-    tile_map_->RenderTileMap(Constants::TILE_MAP, Constants::TILE_WIDTH,
-                             Constants::TILE_HEIGHT, 0, 0);
+    tile_map_->RenderTileMap(Constants::GRASS_DIRT_TILE_MAP,
+                             Constants::TILE_WIDTH, Constants::TILE_HEIGHT, 0,
+                             0);
   }
 }
 

@@ -1,18 +1,20 @@
 #include "constants.h"
 
 namespace Constants {
-const int FRAME_DELAY =
-    1000 / 30;  // The number of milliseconds in a second divided by FPS
+const int MILISECONDS_PER_SECOND = 1000;
+const int FRAME_RATE = 30;
+const int FRAME_DELAY = MILISECONDS_PER_SECOND / FRAME_RATE;
 const int WINDOW_SIZE = 768;  // The size of the GUI window (768 x 768)
 const int CHARACTER_WALK_GAP = 5;
-const char* TILE_SET_PATH = "assets/sprites/map/tile_set.png";
 const int TILE_WIDTH = 16;
 const int TILE_HEIGHT = 16;
+const char* GRASS_DIRT_TILE_SET_PATH =
+    "assets/sprites/map/grass_dirt_tile_set.png";
 // TODO: Map only contains grass and dirt tiles, may need to expand later. `-1`
 // represents empty tile and a positive integer represents the index of the tile
 // in `tile_set.png`.
 // clang-format off
-const int TILE_MAP[TILE_WIDTH * TILE_HEIGHT] = {
+const int GRASS_DIRT_TILE_MAP[TILE_WIDTH * TILE_HEIGHT] = {
   // row 0
   -1,-1,-1,-1,-1,9,9,-1,-1,-1,-1,9,9,9,9,9,
   // row 1
