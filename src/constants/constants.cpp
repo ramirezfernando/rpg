@@ -12,7 +12,7 @@ const int SPRITE_HEIGHT = 16;
 const int MAP_ROWS = 16;
 const int MAP_COLUMNS = 16;
 // clang-format off
-const int GRASS_DIRT_TILE_MAP[MAP_ROWS * MAP_COLUMNS] = {
+const int GRASS_DIRT_TILE_MAP[MAP_COLUMNS * MAP_ROWS] = {
   // row 0 (y = 0)
   -1,-1,-1,-1,-1,9,9,-1,-1,-1,-1,9,9,9,9,9,
   // row 1 (y = 48)
@@ -47,7 +47,7 @@ const int GRASS_DIRT_TILE_MAP[MAP_ROWS * MAP_COLUMNS] = {
   9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 };
 
-const int GRASS_WATER_TILE_MAP_FIRST_LAYER[MAP_ROWS * 6] = {
+const int GRASS_WATER_TILE_MAP_FIRST_LAYER[MAP_COLUMNS * 6] = {
   // row 0 (y = 0)
   -1, -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, -1, 297, -1, -1, -1, -1, -1,
   // row 1 (y = 48)
@@ -63,7 +63,7 @@ const int GRASS_WATER_TILE_MAP_FIRST_LAYER[MAP_ROWS * 6] = {
   // row 6...15 unused for this tile map.
 };
 
-const int GRASS_WATER_TILE_MAP_SECOND_LAYER[MAP_ROWS * 6] = {
+const int GRASS_WATER_TILE_MAP_SECOND_LAYER[MAP_COLUMNS * 6] = {
   // row 0 (y = 0)
   297, -1,  -1,  -1,  -1,  -1,  -1,  -1,  297, 297, 299, -1, -1, -1, -1, -1,
   // row 1 (y = 48)
@@ -79,7 +79,7 @@ const int GRASS_WATER_TILE_MAP_SECOND_LAYER[MAP_ROWS * 6] = {
   // row 6...15 unused for this tile map.
 };
 
-const int WOOD_FENCE_TILE_MAP[MAP_ROWS * 11] = {
+const int WOOD_FENCE_TILE_MAP[MAP_COLUMNS * 11] = {
   // row 0 (y = 0)
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
   // row 1 (y = 48)
@@ -105,7 +105,7 @@ const int WOOD_FENCE_TILE_MAP[MAP_ROWS * 11] = {
   // row 11...15 unused for this tile map.
 };
 
-const int CLIFF_TILE_MAP[MAP_ROWS * 4] = {
+const int CLIFF_TILE_MAP[MAP_COLUMNS * 4] = {
   // row 0 (y = 0)
   81, 53, -1, -1, -1, -1, -1, 59, -1, -1, -1, -1, -1, -1, -1, -1,
   // row 1 (y = 48)
