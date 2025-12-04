@@ -7,7 +7,7 @@
 
 MapRenderer::MapRenderer() {
   grass_dirt_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
-      "assets/sprites/map/grass_dirt_tile_set.png", Constants::SPRITE_WIDTH,
+      "assets/sprites/map/grass_dirt.png", Constants::SPRITE_WIDTH,
       Constants::SPRITE_HEIGHT));
   if (grass_dirt_ && grass_dirt_->LoadSpriteSheet()) {
 #if defined(DEBUG_MODE)
