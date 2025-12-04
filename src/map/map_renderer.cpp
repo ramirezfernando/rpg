@@ -66,55 +66,12 @@ void MapRenderer::RenderGrassTiles() {
 
 void MapRenderer::RenderGrassWater() {
   if (grass_water_) {
-    // Sorted by dst_x (ascending), secondary sort by dst_y
-    grass_water_->RenderSprite(297, /*dst_x=*/0, /*dst_y=*/0);
-    grass_water_->RenderSprite(297, /*dst_x=*/0, /*dst_y=*/48);
-    grass_water_->RenderSprite(297, /*dst_x=*/0, /*dst_y=*/96);
-    grass_water_->RenderSprite(297, /*dst_x=*/0, /*dst_y=*/144);
-    grass_water_->RenderSprite(297, /*dst_x=*/0, /*dst_y=*/192);
-    grass_water_->RenderSprite(293, /*dst_x=*/0, /*dst_y=*/192);
-    grass_water_->RenderSprite(297, /*dst_x=*/0, /*dst_y=*/240);
-    grass_water_->RenderSprite(344, /*dst_x=*/0, /*dst_y=*/240);
-    grass_water_->RenderSprite(297, /*dst_x=*/48, /*dst_y=*/144);
-    grass_water_->RenderSprite(297, /*dst_x=*/48, /*dst_y=*/192);
-    grass_water_->RenderSprite(297, /*dst_x=*/48, /*dst_y=*/240);
-    grass_water_->RenderSprite(345, /*dst_x=*/48, /*dst_y=*/240);
-    grass_water_->RenderSprite(297, /*dst_x=*/96, /*dst_y=*/192);
-    grass_water_->RenderSprite(297, /*dst_x=*/96, /*dst_y=*/240);
-    grass_water_->RenderSprite(345, /*dst_x=*/96, /*dst_y=*/240);
-    grass_water_->RenderSprite(297, /*dst_x=*/144, /*dst_y=*/192);
-    grass_water_->RenderSprite(297, /*dst_x=*/144, /*dst_y=*/240);
-    grass_water_->RenderSprite(345, /*dst_x=*/144, /*dst_y=*/240);
-    grass_water_->RenderSprite(297, /*dst_x=*/192, /*dst_y=*/192);
-    grass_water_->RenderSprite(297, /*dst_x=*/192, /*dst_y=*/240);
-    grass_water_->RenderSprite(345, /*dst_x=*/192, /*dst_y=*/240);
-    grass_water_->RenderSprite(297, /*dst_x=*/240, /*dst_y=*/144);
-    grass_water_->RenderSprite(297, /*dst_x=*/240, /*dst_y=*/192);
-    grass_water_->RenderSprite(294, /*dst_x=*/240, /*dst_y=*/192);
-    grass_water_->RenderSprite(297, /*dst_x=*/240, /*dst_y=*/240);
-    grass_water_->RenderSprite(347, /*dst_x=*/240, /*dst_y=*/240);
-    grass_water_->RenderSprite(297, /*dst_x=*/288, /*dst_y=*/144);
-    grass_water_->RenderSprite(297, /*dst_x=*/288, /*dst_y=*/192);
-    grass_water_->RenderSprite(345, /*dst_x=*/288, /*dst_y=*/192);
-    grass_water_->RenderSprite(297, /*dst_x=*/336, /*dst_y=*/96);
-    grass_water_->RenderSprite(297, /*dst_x=*/336, /*dst_y=*/144);
-    grass_water_->RenderSprite(297, /*dst_x=*/336, /*dst_y=*/192);
-    grass_water_->RenderSprite(345, /*dst_x=*/336, /*dst_y=*/192);
-    grass_water_->RenderSprite(297, /*dst_x=*/384, /*dst_y=*/0);
-    grass_water_->RenderSprite(297, /*dst_x=*/384, /*dst_y=*/48);
-    grass_water_->RenderSprite(294, /*dst_x=*/384, /*dst_y=*/48);
-    grass_water_->RenderSprite(297, /*dst_x=*/384, /*dst_y=*/96);
-    grass_water_->RenderSprite(299, /*dst_x=*/384, /*dst_y=*/96);
-    grass_water_->RenderSprite(297, /*dst_x=*/384, /*dst_y=*/144);
-    grass_water_->RenderSprite(299, /*dst_x=*/384, /*dst_y=*/144);
-    grass_water_->RenderSprite(297, /*dst_x=*/384, /*dst_y=*/192);
-    grass_water_->RenderSprite(347, /*dst_x=*/384, /*dst_y=*/192);
-    grass_water_->RenderSprite(297, /*dst_x=*/432, /*dst_y=*/0);
-    grass_water_->RenderSprite(297, /*dst_x=*/432, /*dst_y=*/48);
-    grass_water_->RenderSprite(345, /*dst_x=*/432, /*dst_y=*/48);
-    grass_water_->RenderSprite(297, /*dst_x=*/480, /*dst_y=*/0);
-    grass_water_->RenderSprite(299, /*dst_x=*/480, /*dst_y=*/0);
-    grass_water_->RenderSprite(297, /*dst_x=*/480, /*dst_y=*/48);
+    grass_water_->RenderTileMap(Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER,
+                                Constants::TILE_WIDTH, Constants::TILE_HEIGHT,
+                                0, 0);
+    grass_water_->RenderTileMap(Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER,
+                                Constants::TILE_WIDTH, Constants::TILE_HEIGHT,
+                                0, 0);
   }
 }
 

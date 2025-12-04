@@ -11,5 +11,7 @@ extern const int TILE_WIDTH;
 extern const int TILE_HEIGHT;
 extern const char* GRASS_DIRT_TILE_SET_PATH;
 extern const int GRASS_DIRT_TILE_MAP[];
+extern const int GRASS_WATER_TILE_MAP_FIRST_LAYER[];
+extern const int GRASS_WATER_TILE_MAP_SECOND_LAYER[];
 
 }  // namespace Constants
