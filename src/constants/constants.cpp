@@ -7,18 +7,18 @@ const int FRAME_RATE = 30;
 const int FRAME_DELAY = MILISECONDS_PER_SECOND / FRAME_RATE;
 const int WINDOW_SIZE = 768;
 const int CHARACTER_WALK_GAP = 5;
+const int SPRITE_WIDTH = 16;
+const int SPRITE_HEIGHT = 16;
 const int MAP_ROWS = 16;
 const int MAP_COLUMNS = 16;
-const char* GRASS_DIRT_TILE_SET_PATH =
-    "assets/sprites/map/grass_dirt_tile_set.png";
 // clang-format off
 const int GRASS_DIRT_TILE_MAP[MAP_ROWS * MAP_COLUMNS] = {
   // row 0 (y = 0)
   -1,-1,-1,-1,-1,9,9,-1,-1,-1,-1,9,9,9,9,9,
   // row 1 (y = 48)
-  -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,9,9,9,9,
+  -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,9,9,9,9,9,
   // row 2 (y = 96)
-  -1,-1,-1,-1,-1,-1,-1,-1,-1,9,-1,-1,9,9,9,9,
+  -1,-1,-1,-1,-1,-1,-1,-1,-1,9,9,-1,9,9,9,9,
   // row 3 (y = 144)
   -1,-1,-1,-1,-1,-1,-1,-1,-1,9,-1,-1,9,9,9,9,
   // row 4 (y = 192)
@@ -51,7 +51,7 @@ const int GRASS_WATER_TILE_MAP_FIRST_LAYER[MAP_ROWS * 6] = {
   // row 0 (y = 0)
   -1, -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, -1, 297, -1, -1, -1, -1, -1,
   // row 1 (y = 48)
-  -1, -1,  -1,  -1,  -1,  -1,  -1,  -1,  297, 297, -1, -1, -1, -1, -1, -1,
+  -1, -1,  -1,  -1,  -1,  -1,  -1,  -1,  297, 297, 297, -1, -1, -1, -1, -1,
   // row 2 (y = 96)
   -1, -1,  -1,  -1,  -1,  -1,  -1,  -1, 297, -1,  -1,  -1, -1, -1, -1, -1,
   // row 3 (y = 144)
@@ -67,7 +67,7 @@ const int GRASS_WATER_TILE_MAP_SECOND_LAYER[MAP_ROWS * 6] = {
   // row 0 (y = 0)
   297, -1,  -1,  -1,  -1,  -1,  -1,  -1,  297, 297, 299, -1, -1, -1, -1, -1,
   // row 1 (y = 48)
-  297, -1,  -1,  -1,  -1,  -1,  -1,  -1,  294, 345, 297, -1, -1, -1, -1, -1,
+  297, -1,  -1,  -1,  -1,  -1,  -1,  -1,  294, 345, 347, -1, -1, -1, -1, -1,
   // row 2 (y = 96)
   297, -1,  -1,  -1,  -1,  -1,  -1,  297, 299, -1,  -1,  -1, -1, -1, -1, -1,
   // row 3 (y = 144)

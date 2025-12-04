@@ -6,10 +6,10 @@
 #include "sprite/sprite_sheet_renderer.h"
 
 MapRenderer::MapRenderer() {
-  tile_map_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer(Constants::GRASS_DIRT_TILE_SET_PATH,
-                              Constants::MAP_ROWS, Constants::MAP_COLUMNS));
-  if (tile_map_ && tile_map_->LoadSpriteSheet()) {
+  grass_dirt_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
+      "assets/sprites/map/grass_dirt_tile_set.png", Constants::SPRITE_WIDTH,
+      Constants::SPRITE_HEIGHT));
+  if (grass_dirt_ && grass_dirt_->LoadSpriteSheet()) {
 #if defined(DEBUG_MODE)
     std::cout << "Tile map created" << std::endl;
 #endif  // DEBUG_MODE
@@ -23,8 +23,9 @@ MapRenderer::MapRenderer() {
 #endif  // DEBUG_MODE
   }
 
-  wood_fence_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/sprites/map/wood_fence.png", 16, 16));
+  wood_fence_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
+      "assets/sprites/map/wood_fence.png", Constants::SPRITE_WIDTH,
+      Constants::SPRITE_HEIGHT));
   if (wood_fence_ && wood_fence_->LoadSpriteSheet()) {
 #if defined(DEBUG_MODE)
     std::cout << "Wood fence created" << std::endl;
@@ -39,16 +40,18 @@ MapRenderer::MapRenderer() {
 #endif  // DEBUG_MODE
   }
 
-  grass_water_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/sprites/map/grass_water.png", 16, 16));
+  grass_water_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
+      "assets/sprites/map/grass_water.png", Constants::SPRITE_WIDTH,
+      Constants::SPRITE_HEIGHT));
   if (grass_water_ && grass_water_->LoadSpriteSheet()) {
 #if defined(DEBUG_MODE)
     std::cout << "Grass water created" << std::endl;
 #endif  // DEBUG_MODE
   }
 
-  cliff_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/sprites/map/cliff.png", 16, 16));
+  cliff_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
+      "assets/sprites/map/cliff.png", Constants::SPRITE_WIDTH,
+      Constants::SPRITE_HEIGHT));
   if (cliff_ && cliff_->LoadSpriteSheet()) {
 #if defined(DEBUG_MODE)
     std::cout << "Cliff created" << std::endl;
@@ -56,10 +59,11 @@ MapRenderer::MapRenderer() {
   }
 }
 
-void MapRenderer::RenderGrassTiles() {
-  if (tile_map_) {
-    tile_map_->RenderTileMap(Constants::GRASS_DIRT_TILE_MAP,
-                             Constants::MAP_ROWS, Constants::MAP_COLUMNS, 0, 0);
+void MapRenderer::RenderGrassDirt() {
+  if (grass_dirt_) {
+    grass_dirt_->RenderTileMap(Constants::GRASS_DIRT_TILE_MAP,
+                               Constants::MAP_ROWS, Constants::MAP_COLUMNS, 0,
+                               0);
   }
 }
 
@@ -83,7 +87,7 @@ void MapRenderer::RenderTinyHouse() {
   if (tiny_house_) {
     // Renders the entire tiny house as a single sprite, not individual 48x48
     // tiles.
-    tiny_house_->RenderSprite(0, /*dst_x=*/424, /*dst_y=*/26);
+    tiny_house_->RenderSprite(0, /*dst_x=*/432, /*dst_y=*/48);
   }
 }
 

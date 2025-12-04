@@ -11,7 +11,7 @@ class MapRenderer {
  public:
   MapRenderer();
   ~MapRenderer() = default;
-  void RenderGrassTiles();
+  void RenderGrassDirt();
   void RenderGrassWater();
   void RenderTinyHouse();
   void RenderWoodFence();
@@ -19,7 +19,7 @@ class MapRenderer {
   void RenderCliff();
 
  private:
-  std::unique_ptr<SpriteSheetRenderer> tile_map_;
+  std::unique_ptr<SpriteSheetRenderer> grass_dirt_;
   std::unique_ptr<SpriteSheetRenderer> tiny_house_;
   std::unique_ptr<SpriteSheetRenderer> wood_fence_;
   std::unique_ptr<SpriteSheetRenderer> grass_water_;

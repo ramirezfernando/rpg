@@ -81,7 +81,7 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
 void Game::Render() {
   SDL_RenderClear(renderer_);
   // Order of rendering matters: first rendered = back, last rendered = front.
-  map_renderer_->RenderGrassTiles();
+  map_renderer_->RenderGrassDirt();
   map_renderer_->RenderGrassWater();
   map_renderer_->RenderWoodFence();
   map_renderer_->RenderTinyHouse();
