@@ -46,7 +46,6 @@ const int GRASS_DIRT_TILE_MAP[MAP_COLUMNS * MAP_ROWS] = {
   // row 15 (y = 720)
   9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 };
-
 const int GRASS_WATER_TILE_MAP_FIRST_LAYER[MAP_COLUMNS * 6] = {
   // row 0 (y = 0)
   -1, -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, -1, 297, -1, -1, -1, -1, -1,
@@ -62,7 +61,6 @@ const int GRASS_WATER_TILE_MAP_FIRST_LAYER[MAP_COLUMNS * 6] = {
   297, 297, 297, 297, 297, 297, -1,  -1,  -1,  -1,  -1,  -1, -1, -1, -1, -1,
   // row 6...15 unused for this tile map.
 };
-
 const int GRASS_WATER_TILE_MAP_SECOND_LAYER[MAP_COLUMNS * 6] = {
   // row 0 (y = 0)
   297, -1,  -1,  -1,  -1,  -1,  -1,  -1,  297, 297, 299, -1, -1, -1, -1, -1,
@@ -78,7 +76,6 @@ const int GRASS_WATER_TILE_MAP_SECOND_LAYER[MAP_COLUMNS * 6] = {
   344, 345, 345, 345, 345, 347, -1,  -1,  -1,  -1,  -1,  -1, -1, -1, -1, -1,
   // row 6...15 unused for this tile map.
 };
-
 const int WOOD_FENCE_TILE_MAP[MAP_COLUMNS * 11] = {
   // row 0 (y = 0)
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
@@ -104,7 +101,6 @@ const int WOOD_FENCE_TILE_MAP[MAP_COLUMNS * 11] = {
   -1,-1,-1,-1,-1,-1,-1,-1,-1,10, 7, 7, 7, 7, 8,-1,
   // row 11...15 unused for this tile map.
 };
-
 const int CLIFF_TILE_MAP[MAP_COLUMNS * 4] = {
   // row 0 (y = 0)
   81, 53, -1, -1, -1, -1, -1, 59, -1, -1, -1, -1, -1, -1, -1, -1,
