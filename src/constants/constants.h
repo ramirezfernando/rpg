@@ -24,5 +24,7 @@ extern const int GRASS_DIRT_TILE_MAP[];
 extern const int GRASS_WATER_TILE_MAP_FIRST_LAYER[];
 // Tile map for the second layer of grass and water.
 extern const int GRASS_WATER_TILE_MAP_SECOND_LAYER[];
+// Tile map for the wood fence.
+extern const int WOOD_FENCE_TILE_MAP[];
 
 }  // namespace Constants

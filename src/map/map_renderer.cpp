@@ -74,29 +74,8 @@ void MapRenderer::RenderGrassWater() {
 
 void MapRenderer::RenderWoodFence() {
   if (wood_fence_) {
-    // Sorted by dst_x (ascending), secondary sort by dst_y
-    wood_fence_->RenderSprite(13, /*dst_x=*/0, /*dst_y=*/302);
-    wood_fence_->RenderSprite(10, /*dst_x=*/136, /*dst_y=*/302);
-    wood_fence_->RenderSprite(11, /*dst_x=*/184, /*dst_y=*/302);
-    wood_fence_->RenderSprite(1, /*dst_x=*/232, /*dst_y=*/302);
-    wood_fence_->RenderSprite(0, /*dst_x=*/280, /*dst_y=*/206);
-    wood_fence_->RenderSprite(3, /*dst_x=*/280, /*dst_y=*/254);
-    wood_fence_->RenderSprite(13, /*dst_x=*/280, /*dst_y=*/302);
-    wood_fence_->RenderSprite(7, /*dst_x=*/328, /*dst_y=*/206);
-    wood_fence_->RenderSprite(7, /*dst_x=*/376, /*dst_y=*/206);
-    wood_fence_->RenderSprite(11, /*dst_x=*/424, /*dst_y=*/206);
-    wood_fence_->RenderSprite(10, /*dst_x=*/424, /*dst_y=*/446);
-    wood_fence_->RenderSprite(7, /*dst_x=*/472, /*dst_y=*/446);
-    wood_fence_->RenderSprite(7, /*dst_x=*/520, /*dst_y=*/446);
-    wood_fence_->RenderSprite(7, /*dst_x=*/568, /*dst_y=*/446);
-    wood_fence_->RenderSprite(10, /*dst_x=*/616, /*dst_y=*/206);
-    wood_fence_->RenderSprite(7, /*dst_x=*/616, /*dst_y=*/446);
-    wood_fence_->RenderSprite(2, /*dst_x=*/664, /*dst_y=*/206);
-    wood_fence_->RenderSprite(3, /*dst_x=*/664, /*dst_y=*/254);
-    wood_fence_->RenderSprite(3, /*dst_x=*/664, /*dst_y=*/302);
-    wood_fence_->RenderSprite(3, /*dst_x=*/664, /*dst_y=*/350);
-    wood_fence_->RenderSprite(3, /*dst_x=*/664, /*dst_y=*/398);
-    wood_fence_->RenderSprite(8, /*dst_x=*/664, /*dst_y=*/446);
+    wood_fence_->RenderTileMap(Constants::WOOD_FENCE_TILE_MAP,
+                               Constants::MAP_ROWS, 11, 0, 0);
   }
 }
 
