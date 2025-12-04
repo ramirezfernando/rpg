@@ -1,55 +1,53 @@
 #include "constants.h"
 
 namespace Constants {
+
 const int MILISECONDS_PER_SECOND = 1000;
 const int FRAME_RATE = 30;
 const int FRAME_DELAY = MILISECONDS_PER_SECOND / FRAME_RATE;
-const int WINDOW_SIZE = 768;  // The size of the GUI window (768 x 768)
+const int WINDOW_SIZE = 768;
 const int CHARACTER_WALK_GAP = 5;
-const int TILE_WIDTH = 16;
-const int TILE_HEIGHT = 16;
+const int MAP_ROWS = 16;
+const int MAP_COLUMNS = 16;
 const char* GRASS_DIRT_TILE_SET_PATH =
     "assets/sprites/map/grass_dirt_tile_set.png";
-// TODO: Map only contains grass and dirt tiles, may need to expand later. `-1`
-// represents empty tile and a positive integer represents the index of the tile
-// in `tile_set.png`.
 // clang-format off
-const int GRASS_DIRT_TILE_MAP[TILE_WIDTH * TILE_HEIGHT] = {
-  // row 0
+const int GRASS_DIRT_TILE_MAP[MAP_ROWS * MAP_COLUMNS] = {
+  // row 0 (y = 0)
   -1,-1,-1,-1,-1,9,9,-1,-1,-1,-1,9,9,9,9,9,
-  // row 1
+  // row 1 (y = 48)
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,9,9,9,9,
-  // row 2
+  // row 2 (y = 96)
   -1,-1,-1,-1,-1,-1,-1,-1,-1,9,-1,-1,9,9,9,9,
-  // row 3
+  // row 3 (y = 144)
   -1,-1,-1,-1,-1,-1,-1,-1,-1,9,-1,-1,9,9,9,9,
-  // row 4
+  // row 4 (y = 192)
   -1,-1,-1,-1,-1,-1,-1,-1,-1,9,-1,-1,9,9,9,9,
-  // row 5
+  // row 5 (y = 240)
   -1,-1,-1,-1,-1,-1,9,9,9,9,9,9,9,9,9,9,
-  // row 6
+  // row 6 (y = 288)
   9,9,9,9,9,9,9,9,9,9,9,32,35,9,9,9,
-  // row 7
+  // row 7 (y = 336)
   9,9,9,9,9,9,9,32,34,34,34,41,43,9,9,9,
-  // row 8
+  // row 8 (y = 384)
   9,9,9,9,32,34,34,37,45,45,45,45,47,9,9,9,
-  // row 9
+  // row 9 (y = 432)
   9,9,9,9,44,45,45,47,9,9,9,9,9,9,9,9,
-  // row 10
+  // row 10 (y = 480)
   9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
-  // row 11
+  // row 11 (y = 528)
   34,34,34,35,9,9,9,9,9,9,9,32,34,34,34,34,
-  // row 12
+  // row 12 (y = 576)
   41,41,41,43,9,9,9,9,9,9,32,37,45,45,45,45,
-  // row 13
+  // row 13 (y = 624)
   45,45,45,42,34,34,34,34,34,34,41,43,9,9,9,9,
-  // row 14
+  // row 14 (y = 672)
   9,9,9,44,45,45,45,45,45,45,45,47,9,9,9,9,
-  // row 15
+  // row 15 (y = 720)
   9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 };
 
-const int GRASS_WATER_TILE_MAP_FIRST_LAYER[TILE_WIDTH * TILE_HEIGHT] = {
+const int GRASS_WATER_TILE_MAP_FIRST_LAYER[MAP_ROWS * 6] = {
   // row 0 (y = 0)
   -1, -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, -1, 297, -1, -1, -1, -1, -1,
   // row 1 (y = 48)
@@ -62,20 +60,10 @@ const int GRASS_WATER_TILE_MAP_FIRST_LAYER[TILE_WIDTH * TILE_HEIGHT] = {
   297, -1, -1, -1, -1, 297, 297, 297, 297, -1,  -1,  -1, -1, -1, -1, -1,
   // row 5 (y = 240)
   297, 297, 297, 297, 297, 297, -1,  -1,  -1,  -1,  -1,  -1, -1, -1, -1, -1,
-  // row 6..15 (unused for grass_water)
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 6
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 7
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 8
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 9
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 10
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 11
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 12
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 13
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 14
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1   // row 15
+  // row 6...15 (unused for grass_water)
 };
 
-const int GRASS_WATER_TILE_MAP_SECOND_LAYER[TILE_WIDTH * TILE_HEIGHT] = {
+const int GRASS_WATER_TILE_MAP_SECOND_LAYER[MAP_ROWS * 6] = {
   // row 0 (y = 0)
   297, -1,  -1,  -1,  -1,  -1,  -1,  -1,  297, 297, 299, -1, -1, -1, -1, -1,
   // row 1 (y = 48)
@@ -88,17 +76,8 @@ const int GRASS_WATER_TILE_MAP_SECOND_LAYER[TILE_WIDTH * TILE_HEIGHT] = {
   293, 297, 297, 297, 297, 294, 345, 345, 347, -1,  -1,  -1, -1, -1, -1, -1,
   // row 5 (y = 240)
   344, 345, 345, 345, 345, 347, -1,  -1,  -1,  -1,  -1,  -1, -1, -1, -1, -1,
-  // row 6..15 (unused for grass_water)
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 6
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 7
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 8
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 9
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 10
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 11
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 12
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 13
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // row 14
-  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1   // row 15
+  // row 6...15 (unused for grass_water)
 };
 // clang-format on
+
 }  // namespace Constants

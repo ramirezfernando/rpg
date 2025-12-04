@@ -8,7 +8,7 @@
 MapRenderer::MapRenderer() {
   tile_map_ = std::unique_ptr<SpriteSheetRenderer>(
       new SpriteSheetRenderer(Constants::GRASS_DIRT_TILE_SET_PATH,
-                              Constants::TILE_WIDTH, Constants::TILE_HEIGHT));
+                              Constants::MAP_ROWS, Constants::MAP_COLUMNS));
   if (tile_map_ && tile_map_->LoadSpriteSheet()) {
 #if defined(DEBUG_MODE)
     std::cout << "Tile map created" << std::endl;
@@ -59,19 +59,16 @@ MapRenderer::MapRenderer() {
 void MapRenderer::RenderGrassTiles() {
   if (tile_map_) {
     tile_map_->RenderTileMap(Constants::GRASS_DIRT_TILE_MAP,
-                             Constants::TILE_WIDTH, Constants::TILE_HEIGHT, 0,
-                             0);
+                             Constants::MAP_ROWS, Constants::MAP_COLUMNS, 0, 0);
   }
 }
 
 void MapRenderer::RenderGrassWater() {
   if (grass_water_) {
     grass_water_->RenderTileMap(Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER,
-                                Constants::TILE_WIDTH, Constants::TILE_HEIGHT,
-                                0, 0);
+                                Constants::MAP_ROWS, 6, 0, 0);
     grass_water_->RenderTileMap(Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER,
-                                Constants::TILE_WIDTH, Constants::TILE_HEIGHT,
-                                0, 0);
+                                Constants::MAP_ROWS, 6, 0, 0);
   }
 }
 
