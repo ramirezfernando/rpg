@@ -81,12 +81,16 @@ void MapRenderer::RenderWoodFence() {
 
 void MapRenderer::RenderTinyHouse() {
   if (tiny_house_) {
+    // Renders the entire tiny house as a single sprite, not individual 48x48
+    // tiles.
     tiny_house_->RenderSprite(0, /*dst_x=*/424, /*dst_y=*/26);
   }
 }
 
 void MapRenderer::RenderWaterfall() {
   if (waterfall_) {
+    // Renders the entire waterfall as an animated sprite, not individual
+    // animated, 48x48 tiles.
     waterfall_->RenderAnimatedSprite(/*dst_x=*/96, /*dst_y=*/0);
   }
 }
