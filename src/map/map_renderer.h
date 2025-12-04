@@ -4,6 +4,9 @@
 
 #include "sprite/sprite_sheet_renderer.h"
 
+// This class manages rendering of the game map using various tile sets. The map
+// consists of multiple layers such as grass, water, buildings, etc. The map is
+// 16x16 tiles, each tile is 48x48 pixels.
 class MapRenderer {
  public:
   MapRenderer();
