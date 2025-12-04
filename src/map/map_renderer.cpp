@@ -93,19 +93,7 @@ void MapRenderer::RenderWaterfall() {
 
 void MapRenderer::RenderCliff() {
   if (cliff_) {
-    // Sorted by dst_x (ascending), secondary sort by dst_y
-    cliff_->RenderSprite(81, /*dst_x=*/0, /*dst_y=*/0);
-    cliff_->RenderSprite(53, /*dst_x=*/48, /*dst_y=*/0);
-    cliff_->RenderSprite(32, /*dst_x=*/48, /*dst_y=*/48);
-    cliff_->RenderSprite(80, /*dst_x=*/48, /*dst_y=*/96);
-    cliff_->RenderSprite(120, /*dst_x=*/48, /*dst_y=*/144);
-    cliff_->RenderSprite(54, /*dst_x=*/240, /*dst_y=*/48);
-    cliff_->RenderSprite(83, /*dst_x=*/240, /*dst_y=*/96);
-    cliff_->RenderSprite(122, /*dst_x=*/240, /*dst_y=*/144);
-    cliff_->RenderSprite(81, /*dst_x=*/288, /*dst_y=*/48);
-    cliff_->RenderSprite(121, /*dst_x=*/288, /*dst_y=*/96);
-    cliff_->RenderSprite(59, /*dst_x=*/336, /*dst_y=*/0);
-    cliff_->RenderSprite(83, /*dst_x=*/336, /*dst_y=*/48);
-    cliff_->RenderSprite(122, /*dst_x=*/336, /*dst_y=*/96);
+    cliff_->RenderTileMap(Constants::CLIFF_TILE_MAP, Constants::MAP_ROWS, 4, 0,
+                          0);
   }
 }
