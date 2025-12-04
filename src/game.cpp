@@ -103,11 +103,11 @@ void Game::HandleEvents() {
   const Uint8* keyboard_state = SDL_GetKeyboardState(nullptr);
   int base_gap = Constants::CHARACTER_WALK_GAP;
   int gap = base_gap;
-  bool is_character_running = false;
+  bool is_player_running = false;
   if (keyboard_state[SDL_SCANCODE_LSHIFT] ||
       keyboard_state[SDL_SCANCODE_RSHIFT]) {
     gap = base_gap * 2;
-    is_character_running = true;
+    is_player_running = true;
   }
 
   int dx = 0;
@@ -143,6 +143,6 @@ void Game::HandleEvents() {
   }
   player_->SetXPos(player_->GetXPos() + dx);
   player_->SetYPos(player_->GetYPos() + dy);
-  player_->SetPathForAction(is_character_running ? Action::Run : Action::Walk);
+  player_->SetPathForAction(is_player_running ? Action::Run : Action::Walk);
   player_->IncrementAnimationFrameIndex();
 }
