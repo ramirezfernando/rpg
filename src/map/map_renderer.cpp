@@ -15,11 +15,11 @@ MapRenderer::MapRenderer() {
 #endif  // DEBUG_MODE
   }
 
-  tiny_house_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/sprites/map/tiny_house.png", 80, 100));
-  if (tiny_house_ && tiny_house_->LoadSpriteSheet()) {
+  house_ = std::unique_ptr<SpriteSheetRenderer>(
+      new SpriteSheetRenderer("assets/sprites/map/house.png", 80, 100));
+  if (house_ && house_->LoadSpriteSheet()) {
 #if defined(DEBUG_MODE)
-    std::cout << "Tiny house created" << std::endl;
+    std::cout << "House created" << std::endl;
 #endif  // DEBUG_MODE
   }
 
@@ -87,11 +87,10 @@ void MapRenderer::RenderWoodFence() {
   }
 }
 
-void MapRenderer::RenderTinyHouse() {
-  if (tiny_house_) {
-    // Renders the entire tiny house as a single sprite, not individual 48x48
-    // tiles.
-    tiny_house_->RenderSprite(0, /*dst_x=*/432, /*dst_y=*/48);
+void MapRenderer::RenderHouse() {
+  if (house_) {
+    // Renders the entire house as a single sprite, not individual 48x48 tiles.
+    house_->RenderSprite(0, /*dst_x=*/432, /*dst_y=*/48);
   }
 }
 

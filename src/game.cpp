@@ -84,7 +84,7 @@ void Game::Render() {
   map_renderer_->RenderGrassDirt();
   map_renderer_->RenderGrassWater();
   map_renderer_->RenderWoodFence();
-  map_renderer_->RenderTinyHouse();
+  map_renderer_->RenderHouse();
   map_renderer_->RenderWaterfall();
   map_renderer_->RenderCliff();
   player_->Render();

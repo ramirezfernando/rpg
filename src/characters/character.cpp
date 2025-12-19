@@ -7,7 +7,7 @@ Character::Character(std::unique_ptr<SpriteSheetRenderer> renderer)
       direction_(Direction::Down),
       action_(Action::Idle),
       animation_frame_index_(0),
-      // Initial position in front of the tiny house.
+      // Initial position in front of the house.
       dst_x_(529),
       dst_y_(224) {}
 
