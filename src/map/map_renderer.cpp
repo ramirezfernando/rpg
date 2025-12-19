@@ -62,24 +62,28 @@ MapRenderer::MapRenderer() {
 void MapRenderer::RenderGrassDirt() {
   if (grass_dirt_) {
     grass_dirt_->RenderTileMap(Constants::GRASS_DIRT_TILE_MAP,
-                               Constants::MAP_COLUMNS, Constants::MAP_ROWS, 0,
-                               0);
+                               Constants::MAP_COLUMNS, Constants::MAP_ROWS,
+                               /*dst_x=*/0,
+                               /*dst_y=*/0);
   }
 }
 
 void MapRenderer::RenderGrassWater() {
   if (grass_water_) {
     grass_water_->RenderTileMap(Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER,
-                                Constants::MAP_COLUMNS, 6, 0, 0);
+                                Constants::MAP_COLUMNS, 6, /*dst_x=*/0,
+                                /*dst_y=*/0);
     grass_water_->RenderTileMap(Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER,
-                                Constants::MAP_COLUMNS, 6, 0, 0);
+                                Constants::MAP_COLUMNS, /*tile_map_rows=*/6,
+                                /*dst_x=*/0, /*dst_y=*/0);
   }
 }
 
 void MapRenderer::RenderWoodFence() {
   if (wood_fence_) {
     wood_fence_->RenderTileMap(Constants::WOOD_FENCE_TILE_MAP,
-                               Constants::MAP_COLUMNS, 11, 0, 0);
+                               Constants::MAP_COLUMNS, /*tile_map_rows=*/11,
+                               /*dst_x=*/0, /*dst_y=*/0);
   }
 }
 
@@ -101,7 +105,8 @@ void MapRenderer::RenderWaterfall() {
 
 void MapRenderer::RenderCliff() {
   if (cliff_) {
-    cliff_->RenderTileMap(Constants::CLIFF_TILE_MAP, Constants::MAP_COLUMNS, 4,
-                          0, 0);
+    cliff_->RenderTileMap(Constants::CLIFF_TILE_MAP, Constants::MAP_COLUMNS,
+                          /*tile_map_rows=*/4,
+                          /*dst_x=*/0, /*dst_y=*/0);
   }
 }
