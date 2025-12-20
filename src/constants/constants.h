@@ -8,17 +8,19 @@ extern const int MILISECONDS_PER_SECOND;
 extern const int FRAME_RATE;
 // Delay between frames in milliseconds.
 extern const int FRAME_DELAY;
-// The size of the GUI window (768 x 768).
+// The size of the GUI window.
 extern const int WINDOW_SIZE;
 // Gap in pixels for character movement.
 extern const int CHARACTER_WALK_GAP;
-// Width of each tile in pixels (16).
+// Width of each tile in pixels.
 extern const int SPRITE_WIDTH;
-// Height of each tile in pixels (16).
+// Height of each tile in pixels.
 extern const int SPRITE_HEIGHT;
-// Number of rows in the map (16).
+// Scale factor for sprites.
+extern const int SPRITE_SCALE;
+// Number of rows in the map.
 extern const int MAP_ROWS;
-// Number of columns in the map (16).
+// Number of columns in the map.
 extern const int MAP_COLUMNS;
 // Tile map for the grass and dirt tile set.
 extern const int GRASS_DIRT_TILE_MAP[];
@@ -30,5 +32,7 @@ extern const int GRASS_WATER_TILE_MAP_SECOND_LAYER[];
 extern const int WOOD_FENCE_TILE_MAP[];
 // Tile map for the cliff.
 extern const int CLIFF_TILE_MAP[];
+// Tile map for collision detection. 1 indicates collision tile.
+extern const int COLLISION_TILE_MAP[];
 
 }  // namespace Constants

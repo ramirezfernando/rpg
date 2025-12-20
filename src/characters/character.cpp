@@ -9,7 +9,7 @@ Character::Character(std::unique_ptr<SpriteSheetRenderer> renderer)
       animation_frame_index_(0),
       // Initial position in front of the house.
       dst_x_(529),
-      dst_y_(224) {}
+      dst_y_(300) {}
 
 void Character::Render() {
   if (!renderer()) {

@@ -6,7 +6,7 @@
 
 // This class manages rendering of the game map using various tile sets. The map
 // consists of multiple layers such as grass, water, buildings, etc. The map is
-// 16x16 tiles, each tile is 48x48 pixels (scaled up by 3 from 16x16).
+// 16x16 tiles, each tile is 48x48 pixels (scaled up by SPRITE_SCALE from 16x16).
 class MapRenderer {
  public:
   MapRenderer();
@@ -17,6 +17,7 @@ class MapRenderer {
   void RenderWoodFence();
   void RenderWaterfall();
   void RenderCliff();
+  bool IsCollisionTile(int x, int y);
 
  private:
   std::unique_ptr<SpriteSheetRenderer> grass_dirt_;

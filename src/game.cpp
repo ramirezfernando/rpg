@@ -141,8 +141,16 @@ void Game::HandleEvents() {
   if (IsPlayerMovingDiagonally(dx, dy)) {
     NormalizeDiagonalMovement(dx, dy, gap);
   }
-  player_->SetXPos(player_->GetXPos() + dx);
-  player_->SetYPos(player_->GetYPos() + dy);
+  // Check for collision before updating position.
+  int new_x = player_->GetXPos() + dx;
+  int new_y = player_->GetYPos() + dy;
+  if (map_renderer_->IsCollisionTile(new_x, new_y)) {
+    // Collision detected; do not move.
+    player_->SetPathForAction(Action::Idle);
+    return;
+  }
+  player_->SetXPos(new_x);
+  player_->SetYPos(new_y);
   player_->SetPathForAction(is_player_running ? Action::Run : Action::Walk);
   player_->IncrementAnimationFrameIndex();
 }

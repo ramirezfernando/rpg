@@ -109,3 +109,13 @@ void MapRenderer::RenderCliff() {
                           /*dst_x=*/0, /*dst_y=*/0);
   }
 }
+
+bool MapRenderer::IsCollisionTile(int x, int y) {
+  int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE);
+  int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE);
+  int index = row * Constants::MAP_COLUMNS + column;
+  if (index < 0 || index >= Constants::MAP_ROWS * Constants::MAP_COLUMNS) {
+    return false;
+  }
+  return Constants::COLLISION_TILE_MAP[index] == 1;
+}
