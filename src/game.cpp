@@ -94,7 +94,7 @@ void Game::Render() {
 void Game::HandleEvents() {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
-    if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE) {
+    if (event.type == SDL_QUIT) {
       is_running_ = false;
     }
   }
