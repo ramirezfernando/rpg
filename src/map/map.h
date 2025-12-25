@@ -7,10 +7,10 @@
 // This class manages rendering of the game map using various tile sets. The map
 // consists of multiple layers such as grass, water, buildings, etc. The map is
 // 16x16 tiles, each tile is 48x48 pixels (scaled up by SPRITE_SCALE from 16x16).
-class MapRenderer {
+class Map {
  public:
-  MapRenderer();
-  ~MapRenderer() = default;
+  Map();
+  ~Map() = default;
   void RenderGrassDirt();
   void RenderGrassWater();
   void RenderHouse();

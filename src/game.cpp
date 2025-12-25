@@ -6,7 +6,7 @@
 #include "characters/character.h"
 #include "characters/fern.h"
 #include "constants/constants.h"
-#include "map/map_renderer.h"
+#include "map/map.h"
 
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
@@ -70,8 +70,8 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
     std::cout << "Character created" << std::endl;
 #endif  // DEBUG_MODE
   }
-  map_renderer_ = std::unique_ptr<MapRenderer>(new MapRenderer());
-  if (map_renderer_) {
+  map_ = std::unique_ptr<Map>(new Map());
+  if (map_) {
 #if defined(DEBUG_MODE)
     std::cout << "Map renderer created" << std::endl;
 #endif  // DEBUG_MODE
@@ -81,12 +81,12 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
 void Game::Render() {
   SDL_RenderClear(renderer_);
   // Order of rendering matters: first rendered = back, last rendered = front.
-  map_renderer_->RenderGrassDirt();
-  map_renderer_->RenderGrassWater();
-  map_renderer_->RenderWoodFence();
-  map_renderer_->RenderHouse();
-  map_renderer_->RenderWaterfall();
-  map_renderer_->RenderCliff();
+  map_->RenderGrassDirt();
+  map_->RenderGrassWater();
+  map_->RenderWoodFence();
+  map_->RenderHouse();
+  map_->RenderWaterfall();
+  map_->RenderCliff();
   player_->Render();
   SDL_RenderPresent(renderer_);  // Double buffering
 }
@@ -144,7 +144,7 @@ void Game::HandleEvents() {
   // Check for collision before updating position.
   int new_x = player_->GetXPos() + dx;
   int new_y = player_->GetYPos() + dy;
-  if (map_renderer_->IsCollisionTile(new_x, new_y)) {
+  if (map_->IsCollisionTile(new_x, new_y)) {
     // Collision detected; do not move.
     player_->SetPathForAction(Action::Idle);
     return;

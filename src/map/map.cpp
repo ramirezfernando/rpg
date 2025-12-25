@@ -1,11 +1,11 @@
-#include "map/map_renderer.h"
+#include "map.h"
 
 #include <iostream>
 
 #include "constants/constants.h"
 #include "sprite/sprite_sheet_renderer.h"
 
-MapRenderer::MapRenderer() {
+Map::Map() {
   grass_dirt_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
       "assets/sprites/map/grass_dirt.png", Constants::SPRITE_WIDTH,
       Constants::SPRITE_HEIGHT));
@@ -59,7 +59,7 @@ MapRenderer::MapRenderer() {
   }
 }
 
-void MapRenderer::RenderGrassDirt() {
+void Map::RenderGrassDirt() {
   if (grass_dirt_) {
     grass_dirt_->RenderTileMap(Constants::GRASS_DIRT_TILE_MAP,
                                Constants::MAP_COLUMNS, Constants::MAP_ROWS,
@@ -68,7 +68,7 @@ void MapRenderer::RenderGrassDirt() {
   }
 }
 
-void MapRenderer::RenderGrassWater() {
+void Map::RenderGrassWater() {
   if (grass_water_) {
     grass_water_->RenderTileMap(Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER,
                                 Constants::MAP_COLUMNS, 6, /*dst_x=*/0,
@@ -79,7 +79,7 @@ void MapRenderer::RenderGrassWater() {
   }
 }
 
-void MapRenderer::RenderWoodFence() {
+void Map::RenderWoodFence() {
   if (wood_fence_) {
     wood_fence_->RenderTileMap(Constants::WOOD_FENCE_TILE_MAP,
                                Constants::MAP_COLUMNS, /*tile_map_rows=*/11,
@@ -87,14 +87,14 @@ void MapRenderer::RenderWoodFence() {
   }
 }
 
-void MapRenderer::RenderHouse() {
+void Map::RenderHouse() {
   if (house_) {
     // Renders the entire house as a single sprite, not individual 48x48 tiles.
     house_->RenderSprite(0, /*dst_x=*/432, /*dst_y=*/48);
   }
 }
 
-void MapRenderer::RenderWaterfall() {
+void Map::RenderWaterfall() {
   if (waterfall_) {
     // Renders the entire waterfall as an animated sprite, not individual
     // animated, 48x48 tiles.
@@ -102,7 +102,7 @@ void MapRenderer::RenderWaterfall() {
   }
 }
 
-void MapRenderer::RenderCliff() {
+void Map::RenderCliff() {
   if (cliff_) {
     cliff_->RenderTileMap(Constants::CLIFF_TILE_MAP, Constants::MAP_COLUMNS,
                           /*tile_map_rows=*/4,
@@ -110,7 +110,7 @@ void MapRenderer::RenderCliff() {
   }
 }
 
-bool MapRenderer::IsCollisionTile(int x, int y) {
+bool Map::IsCollisionTile(int x, int y) {
   int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE);
   int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE);
   int index = row * Constants::MAP_COLUMNS + column;

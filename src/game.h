@@ -7,7 +7,7 @@
 #include <memory>
 
 #include "characters/character.h"
-#include "map/map_renderer.h"
+#include "map/map.h"
 
 class Game {
  public:
@@ -23,5 +23,5 @@ class Game {
   SDL_Window* window_;
   bool is_running_;
   std::unique_ptr<Character> player_;
-  std::unique_ptr<MapRenderer> map_renderer_;
+  std::unique_ptr<Map> map_;
 };
