@@ -1,7 +1,10 @@
 #pragma once
 
+#include <array>
 #include <memory>
+#include <vector>
 
+#include "constants/constants.h"
 #include "sprite/sprite_sheet_renderer.h"
 
 // This class manages rendering of the game map using various tile sets. The map
@@ -17,7 +20,8 @@ class Map {
   void RenderWoodFence();
   void RenderWaterfall();
   void RenderCliff();
-  bool IsCollisionTile(int x, int y);
+  int GetTopmostTile(int x, int y);
+  bool IsCollisionTile(int tile);
 
  private:
   std::unique_ptr<SpriteSheetRenderer> grass_dirt_;

@@ -1,6 +1,7 @@
 #include "map.h"
 
 #include <iostream>
+#include <iterator>
 
 #include "constants/constants.h"
 #include "sprite/sprite_sheet_renderer.h"
@@ -110,12 +111,53 @@ void Map::RenderCliff() {
   }
 }
 
-bool Map::IsCollisionTile(int x, int y) {
-  int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE);
-  int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE);
+// bool Map::IsCollisionTile(int x, int y) {
+//   int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE);
+//   int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE);
+//   int index = row * Constants::MAP_COLUMNS + column;
+//   if (index < 0 || index >= Constants::MAP_ROWS * Constants::MAP_COLUMNS) {
+//     return false;
+//   }
+//   return Constants::COLLISION_TILE_MAP[index] == 1;
+// }
+//
+
+// Since tiles can overlap, we want to check from the top most tile.
+int Map::GetTopmostTile(int x, int y) {
+  int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE) + 1;
+  int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE) + 1;
   int index = row * Constants::MAP_COLUMNS + column;
-  if (index < 0 || index >= Constants::MAP_ROWS * Constants::MAP_COLUMNS) {
-    return false;
+
+  if (index >= 0 && index < Constants::MAP_COLUMNS * 11 &&
+      Constants::WOOD_FENCE_TILE_MAP[index] >= 0) {
+    return Constants::WOOD_FENCE_TILE_MAP[index];
+  } else if (index >= 0 && index < Constants::MAP_COLUMNS * 6 &&
+             Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER[index] >= 0) {
+    return Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER[index];
+  } else if (index >= 0 && index < Constants::MAP_COLUMNS * 6 &&
+             Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER[index] >= 0) {
+    return Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER[index];
   }
-  return Constants::COLLISION_TILE_MAP[index] == 1;
+  return 1000;
+}
+
+bool Map::IsCollisionTile(int tile) {
+  switch (tile) {
+    case 0:    // Fence.
+    case 1:    // Fence.
+    case 2:    // Fence.
+    case 3:    // Fence.
+    case 7:    // Fence.
+    case 8:    // Fence.
+    case 10:   // Fence.
+    case 11:   // Fence.
+    case 13:   // Fence.
+    case 294:  // Bottom right grass water shore corner edge tile.
+    case 297:  // Water tile.
+    case 299:  // Right grass water shore corner tile.
+    case 345:  // Bottom grass water shore tile.
+    case 347:  // Bottom right grass water shore corner tile.
+      return true;
+  }
+  return false;
 }

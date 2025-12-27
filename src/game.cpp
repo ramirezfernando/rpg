@@ -144,7 +144,9 @@ void Game::HandleEvents() {
   // Check for collision before updating position.
   int new_x = player_->GetXPos() + dx;
   int new_y = player_->GetYPos() + dy;
-  if (map_->IsCollisionTile(new_x, new_y)) {
+  int tile = map_->GetTopmostTile(new_x, new_y);
+  std::cout << "Tile: " << tile << std::endl;
+  if (map_->IsCollisionTile(tile)) {
     // Collision detected; do not move.
     player_->SetPathForAction(Action::Idle);
     return;
