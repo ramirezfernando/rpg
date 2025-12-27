@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <optional>
 
 #include "characters/character.h"
 #include "characters/fern.h"
@@ -144,13 +145,23 @@ void Game::HandleEvents() {
   // Check for collision before updating position.
   int new_x = player_->GetXPos() + dx;
   int new_y = player_->GetYPos() + dy;
-  int tile = map_->GetTopmostTile(new_x, new_y);
-  std::cout << "Tile: " << tile << std::endl;
-  if (map_->IsCollisionTile(tile)) {
-    // Collision detected; do not move.
+  std::optional<int> tile = map_->GetTopmostTile(new_x, new_y);
+  if (tile.has_value()) {
+#if defined(DEBUG_MODE)
+    std::cout << "Tile: " << tile.value() << std::endl;
+#endif  // DEBUG_MODE
+
+    if (map_->IsCollisionTile(tile.value())) {
+      // Collision detected; do not move.
+      player_->SetPathForAction(Action::Idle);
+      return;
+    }
+  } else {
+    // Treat empty tiles as collisions.
     player_->SetPathForAction(Action::Idle);
     return;
   }
+
   player_->SetXPos(new_x);
   player_->SetYPos(new_y);
   player_->SetPathForAction(is_player_running ? Action::Run : Action::Walk);

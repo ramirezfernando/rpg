@@ -2,6 +2,7 @@
 
 #include <array>
 #include <memory>
+#include <optional>
 #include <vector>
 
 #include "constants/constants.h"
@@ -20,7 +21,7 @@ class Map {
   void RenderWoodFence();
   void RenderWaterfall();
   void RenderCliff();
-  int GetTopmostTile(int x, int y);
+  std::optional<int> GetTopmostTile(int x, int y);
   bool IsCollisionTile(int tile);
 
  private:

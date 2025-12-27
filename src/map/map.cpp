@@ -123,11 +123,12 @@ void Map::RenderCliff() {
 //
 
 // Since tiles can overlap, we want to check from the top most tile.
-int Map::GetTopmostTile(int x, int y) {
+std::optional<int> Map::GetTopmostTile(int x, int y) {
   int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE) + 1;
   int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE) + 1;
   int index = row * Constants::MAP_COLUMNS + column;
 
+  // TODO: Make getter to return all tile maps in order from top most to bottom most tile.
   if (index >= 0 && index < Constants::MAP_COLUMNS * 11 &&
       Constants::WOOD_FENCE_TILE_MAP[index] >= 0) {
     return Constants::WOOD_FENCE_TILE_MAP[index];
@@ -137,8 +138,12 @@ int Map::GetTopmostTile(int x, int y) {
   } else if (index >= 0 && index < Constants::MAP_COLUMNS * 6 &&
              Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER[index] >= 0) {
     return Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER[index];
+  } else if (index >= 0 &&
+             index < Constants::MAP_COLUMNS * Constants::MAP_ROWS &&
+             Constants::GRASS_DIRT_TILE_MAP[index] >= 0) {
+    return Constants::GRASS_DIRT_TILE_MAP[index];
   }
-  return 1000;
+  return std::nullopt;
 }
 
 bool Map::IsCollisionTile(int tile) {
