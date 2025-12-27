@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+#include "constants/constants.h"
 #include "util/util.h"
 
 SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
@@ -123,13 +124,10 @@ void SpriteSheetRenderer::RenderAnimatedSprite(int dst_x, int dst_y,
   RenderSprite(current_frame, dst_x, dst_y, scale);
 }
 
-void SpriteSheetRenderer::RenderTileMap(const int* tile_map,
+void SpriteSheetRenderer::RenderTileMap(const std::array<int, 256> tile_map,
                                         int tile_map_columns, int tile_map_rows,
                                         int dst_x, int dst_y, int scale) {
   if (!texture_) {
-    return;
-  }
-  if (!tile_map) {
     return;
   }
 

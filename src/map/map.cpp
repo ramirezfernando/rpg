@@ -72,10 +72,11 @@ void Map::RenderGrassDirt() {
 void Map::RenderGrassWater() {
   if (grass_water_) {
     grass_water_->RenderTileMap(Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER,
-                                Constants::MAP_COLUMNS, 6, /*dst_x=*/0,
+                                Constants::MAP_COLUMNS, Constants::MAP_ROWS,
+                                /*dst_x=*/0,
                                 /*dst_y=*/0);
     grass_water_->RenderTileMap(Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER,
-                                Constants::MAP_COLUMNS, /*tile_map_rows=*/6,
+                                Constants::MAP_COLUMNS, Constants::MAP_ROWS,
                                 /*dst_x=*/0, /*dst_y=*/0);
   }
 }
@@ -83,7 +84,7 @@ void Map::RenderGrassWater() {
 void Map::RenderWoodFence() {
   if (wood_fence_) {
     wood_fence_->RenderTileMap(Constants::WOOD_FENCE_TILE_MAP,
-                               Constants::MAP_COLUMNS, /*tile_map_rows=*/11,
+                               Constants::MAP_COLUMNS, Constants::MAP_ROWS,
                                /*dst_x=*/0, /*dst_y=*/0);
   }
 }
@@ -106,21 +107,10 @@ void Map::RenderWaterfall() {
 void Map::RenderCliff() {
   if (cliff_) {
     cliff_->RenderTileMap(Constants::CLIFF_TILE_MAP, Constants::MAP_COLUMNS,
-                          /*tile_map_rows=*/4,
+                          Constants::MAP_ROWS,
                           /*dst_x=*/0, /*dst_y=*/0);
   }
 }
-
-// bool Map::IsCollisionTile(int x, int y) {
-//   int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE);
-//   int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE);
-//   int index = row * Constants::MAP_COLUMNS + column;
-//   if (index < 0 || index >= Constants::MAP_ROWS * Constants::MAP_COLUMNS) {
-//     return false;
-//   }
-//   return Constants::COLLISION_TILE_MAP[index] == 1;
-// }
-//
 
 // Since tiles can overlap, we want to check from the top most tile.
 std::optional<int> Map::GetTopmostTile(int x, int y) {
@@ -128,21 +118,35 @@ std::optional<int> Map::GetTopmostTile(int x, int y) {
   int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE) + 1;
   int index = row * Constants::MAP_COLUMNS + column;
 
-  // TODO: Make getter to return all tile maps in order from top most to bottom most tile.
-  if (index >= 0 && index < Constants::MAP_COLUMNS * 11 &&
-      Constants::WOOD_FENCE_TILE_MAP[index] >= 0) {
-    return Constants::WOOD_FENCE_TILE_MAP[index];
-  } else if (index >= 0 && index < Constants::MAP_COLUMNS * 6 &&
-             Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER[index] >= 0) {
-    return Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER[index];
-  } else if (index >= 0 && index < Constants::MAP_COLUMNS * 6 &&
-             Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER[index] >= 0) {
-    return Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER[index];
-  } else if (index >= 0 &&
-             index < Constants::MAP_COLUMNS * Constants::MAP_ROWS &&
-             Constants::GRASS_DIRT_TILE_MAP[index] >= 0) {
-    return Constants::GRASS_DIRT_TILE_MAP[index];
+  auto ordered_tile_maps = {Constants::WOOD_FENCE_TILE_MAP,
+                            Constants::CLIFF_TILE_MAP,
+                            Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER,
+                            Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER,
+                            Constants::GRASS_DIRT_TILE_MAP};
+
+  for (const auto& tile_map : ordered_tile_maps) {
+    if (index >= 0 && index < tile_map.size() && tile_map[index] >= 0) {
+      return tile_map[index];
+    }
   }
+
+  // // TODO: Make getter to return all tile maps in order from top most to bottom most tile.
+  // if (index >= 0 && index < Constants::MAP_COLUMNS * 11 &&
+  //     Constants::WOOD_FENCE_TILE_MAP[index] >= 0) {
+  //   return Constants::WOOD_FENCE_TILE_MAP[index];
+  // }
+  // else if (index >= 0 && index < Constants::MAP_COLUMNS * 6 &&
+  //          Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER[index] >= 0) {
+  //   return Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER[index];
+  // }
+  // else if (index >= 0 && index < Constants::MAP_COLUMNS * 6 &&
+  //          Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER[index] >= 0) {
+  //   return Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER[index];
+  // }
+  // else if (index >= 0 && index < Constants::MAP_COLUMNS * Constants::MAP_ROWS &&
+  //          Constants::GRASS_DIRT_TILE_MAP[index] >= 0) {
+  //   return Constants::GRASS_DIRT_TILE_MAP[index];
+  // }
   return std::nullopt;
 }
 

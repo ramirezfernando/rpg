@@ -2,6 +2,8 @@
 
 #include <SDL2/SDL.h>
 
+#include <array>
+
 #include "constants/constants.h"
 
 // This class manages loading and rendering of sprite sheets.
@@ -20,7 +22,7 @@ class SpriteSheetRenderer {
   void RenderAnimatedSprite(int dst_x, int dst_y,
                             int scale = Constants::SPRITE_SCALE);
   // Renders a tile map given an array of tile indices.
-  void RenderTileMap(const int* tile_map, int tile_map_columns,
+  void RenderTileMap(const std::array<int, 256> tile_map, int tile_map_columns,
                      int tile_map_rows, int dst_x = 0, int dst_y = 0,
                      int scale = Constants::SPRITE_SCALE);
   // Getters

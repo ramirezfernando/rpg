@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 namespace Constants {
 
 // Number of milliseconds in a second.
@@ -23,16 +25,14 @@ extern const int MAP_ROWS;
 // Number of columns in the map.
 extern const int MAP_COLUMNS;
 // Tile map for the grass and dirt tile set.
-extern const int GRASS_DIRT_TILE_MAP[];
+extern const std::array<int, 256> GRASS_DIRT_TILE_MAP;
 // Tile map for the first layer of grass and water (just water tiles).
-extern const int GRASS_WATER_TILE_MAP_FIRST_LAYER[];
+extern const std::array<int, 256> GRASS_WATER_TILE_MAP_FIRST_LAYER;
 // Tile map for the second layer of grass and water.
-extern const int GRASS_WATER_TILE_MAP_SECOND_LAYER[];
+extern const std::array<int, 256> GRASS_WATER_TILE_MAP_SECOND_LAYER;
 // Tile map for the wood fence.
-extern const int WOOD_FENCE_TILE_MAP[];
+extern const std::array<int, 256> WOOD_FENCE_TILE_MAP;
 // Tile map for the cliff.
-extern const int CLIFF_TILE_MAP[];
-// Tile map for collision detection. 1 indicates collision tile.
-extern const int COLLISION_TILE_MAP[];
+extern const std::array<int, 256> CLIFF_TILE_MAP;
 
 }  // namespace Constants
