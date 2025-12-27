@@ -23,6 +23,7 @@ class Map {
   void RenderCliff();
   std::optional<int> GetTopmostTile(int x, int y);
   bool IsCollisionTile(int tile);
+  bool IsOutOfBounds(int x, int y);
 
  private:
   std::unique_ptr<SpriteSheetRenderer> grass_dirt_;

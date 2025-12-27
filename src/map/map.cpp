@@ -152,3 +152,11 @@ bool Map::IsCollisionTile(int tile) {
   }
   return false;
 }
+
+bool Map::IsOutOfBounds(int x, int y) {
+  if (x < 0 || x >= Constants::WINDOW_SIZE || y < 0 ||
+      y >= Constants::WINDOW_SIZE) {
+    return true;
+  }
+  return false;
+}

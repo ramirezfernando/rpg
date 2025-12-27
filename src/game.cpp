@@ -162,6 +162,11 @@ void Game::HandleEvents() {
     return;
   }
 
+  if (map_->IsOutOfBounds(new_x, new_y)) {
+    player_->SetPathForAction(Action::Idle);
+    return;
+  }
+
   player_->SetXPos(new_x);
   player_->SetYPos(new_y);
   player_->SetPathForAction(is_player_running ? Action::Run : Action::Walk);
