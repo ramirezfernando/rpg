@@ -129,24 +129,6 @@ std::optional<int> Map::GetTopmostTile(int x, int y) {
       return tile_map[index];
     }
   }
-
-  // // TODO: Make getter to return all tile maps in order from top most to bottom most tile.
-  // if (index >= 0 && index < Constants::MAP_COLUMNS * 11 &&
-  //     Constants::WOOD_FENCE_TILE_MAP[index] >= 0) {
-  //   return Constants::WOOD_FENCE_TILE_MAP[index];
-  // }
-  // else if (index >= 0 && index < Constants::MAP_COLUMNS * 6 &&
-  //          Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER[index] >= 0) {
-  //   return Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER[index];
-  // }
-  // else if (index >= 0 && index < Constants::MAP_COLUMNS * 6 &&
-  //          Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER[index] >= 0) {
-  //   return Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER[index];
-  // }
-  // else if (index >= 0 && index < Constants::MAP_COLUMNS * Constants::MAP_ROWS &&
-  //          Constants::GRASS_DIRT_TILE_MAP[index] >= 0) {
-  //   return Constants::GRASS_DIRT_TILE_MAP[index];
-  // }
   return std::nullopt;
 }
 
