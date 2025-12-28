@@ -1,10 +1,21 @@
 #include "map.h"
 
+#include <array>
 #include <iostream>
-#include <iterator>
+#include <vector>
 
 #include "constants/constants.h"
 #include "sprite/sprite_sheet_renderer.h"
+
+namespace {
+
+static int GetIndex(int x, int y) {
+  int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE) + 1;
+  int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE) + 1;
+  return row * Constants::MAP_COLUMNS + column;
+}
+
+}  // namespace
 
 Map::Map() {
   grass_dirt_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
@@ -112,19 +123,22 @@ void Map::RenderCliff() {
   }
 }
 
-// Since tiles can overlap, we want to check from the top most tile.
+const std::vector<std::array<int, 256>> Map::GetOrderedTileMapLayers() {
+  return {Constants::GRASS_DIRT_TILE_MAP,
+          Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER,
+          Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER,
+          Constants::CLIFF_TILE_MAP, Constants::WOOD_FENCE_TILE_MAP};
+}
+
 std::optional<int> Map::GetTopmostTile(int x, int y) {
-  int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE) + 1;
-  int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE) + 1;
-  int index = row * Constants::MAP_COLUMNS + column;
-
-  auto ordered_tile_maps = {Constants::WOOD_FENCE_TILE_MAP,
-                            Constants::CLIFF_TILE_MAP,
-                            Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER,
-                            Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER,
-                            Constants::GRASS_DIRT_TILE_MAP};
-
-  for (const auto& tile_map : ordered_tile_maps) {
+  int index = GetIndex(x, y);
+  auto ordered_tile_map_layers = GetOrderedTileMapLayers();
+  // Iterate in reverse order without modifying `GetOrderedTileMapLayers`.
+  // Start by checking the topmost rendered tile and make your way down to
+  // the bottommost rendered tile.
+  for (auto it = ordered_tile_map_layers.rbegin();
+       it != ordered_tile_map_layers.rend(); ++it) {
+    auto tile_map = *it;
     if (index >= 0 && index < tile_map.size() && tile_map[index] >= 0) {
       return tile_map[index];
     }
@@ -134,20 +148,22 @@ std::optional<int> Map::GetTopmostTile(int x, int y) {
 
 bool Map::IsCollisionTile(int tile) {
   switch (tile) {
-    case 0:    // Fence.
-    case 1:    // Fence.
-    case 2:    // Fence.
-    case 3:    // Fence.
-    case 7:    // Fence.
-    case 8:    // Fence.
-    case 10:   // Fence.
-    case 11:   // Fence.
-    case 13:   // Fence.
-    case 294:  // Bottom right grass water shore corner edge tile.
-    case 297:  // Water tile.
-    case 299:  // Right grass water shore corner tile.
-    case 345:  // Bottom grass water shore tile.
-    case 347:  // Bottom right grass water shore corner tile.
+    // Fences:
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 7:
+    case 8:
+    case 10:
+    case 11:
+    case 13:
+    // Grass water:
+    case 294:
+    case 297:
+    case 299:
+    case 345:
+    case 347:
       return true;
   }
   return false;
