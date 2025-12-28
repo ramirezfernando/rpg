@@ -8,8 +8,8 @@ Character::Character(std::unique_ptr<SpriteSheetRenderer> renderer)
       action_(Action::Idle),
       animation_frame_index_(0),
       // Initial position in front of the house.
-      dst_x_(529),
-      dst_y_(300) {}
+      dst_x_(Constants::PLAYER_START_X),
+      dst_y_(Constants::PLAYER_START_Y) {}
 
 void Character::Render() {
   if (!renderer()) {

@@ -14,6 +14,10 @@ constexpr int MAP_COLUMNS = 16;
 constexpr int MAP_ROWS = 16;
 // Number of rows * columns in the map.
 constexpr int MAP_ROWS_BY_COLUMNS = MAP_ROWS * MAP_COLUMNS;
+// The starting X position of the player when the game starts.
+extern const int PLAYER_START_X;
+// The starting Y position of the player when the game starts.
+extern const int PLAYER_START_Y;
 // Height of each tile in pixels.
 extern const int SPRITE_HEIGHT;
 // Scale factor for sprites.

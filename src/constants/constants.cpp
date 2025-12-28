@@ -11,6 +11,8 @@ namespace Constants {
 
 const int CHARACTER_WALK_GAP = 5;
 const int FRAME_DELAY = MILISECONDS_PER_SECOND / FRAME_RATE;
+const int PLAYER_START_X = 536;
+const int PLAYER_START_Y = 260;
 const int SPRITE_HEIGHT = 16;
 const int SPRITE_SCALE = 3;
 const int SPRITE_WIDTH = 16;
