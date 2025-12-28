@@ -32,6 +32,18 @@ static void NormalizeDiagonalMovement(int& dx, int& dy, int gap) {
   dy = static_cast<int>(std::round(dy * factor));
 }
 
+static bool IsPlayerBehindFence(int x, int y) {
+  return (y >= 400 && y <= 440) || (y >= 260 && y <= 300 && x <= 260);
+}
+
+static bool IsPlayerBehindHouse(int x, int y) {
+  return y <= 200 && x <= 670;
+}
+
+static bool ShouldRenderPlayerFirst(int x, int y) {
+  return IsPlayerBehindFence(x, y) || IsPlayerBehindHouse(x, y);
+}
+
 }  // namespace
 
 Game::~Game() {
@@ -84,11 +96,19 @@ void Game::Render() {
   // Order of rendering matters: first rendered = back, last rendered = front.
   map_->RenderGrassDirt();
   map_->RenderGrassWater();
-  map_->RenderWoodFence();
-  map_->RenderHouse();
   map_->RenderWaterfall();
   map_->RenderCliff();
-  player_->Render();
+
+  if (ShouldRenderPlayerFirst(player_->GetXPos(), player_->GetYPos())) {
+    player_->Render();
+    map_->RenderWoodFence();
+    map_->RenderHouse();
+  } else {
+    map_->RenderWoodFence();
+    map_->RenderHouse();
+    player_->Render();
+  }
+
   SDL_RenderPresent(renderer_);  // Double buffering
 }
 
