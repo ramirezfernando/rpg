@@ -17,14 +17,12 @@ class SpriteSheetRenderer {
   bool LoadSpriteSheet();
   // Renders a specific sprite from the sprite sheet at the given position.
   void RenderSprite(int sprite_index, int dst_x, int dst_y,
-                    int scale = Constants::SPRITE_SCALE, bool invert = false);
+                    bool invert = false);
   // Renders through an x by 1 sprite sheet as an animation.
-  void RenderAnimatedSprite(int dst_x, int dst_y,
-                            int scale = Constants::SPRITE_SCALE);
+  void RenderAnimatedSprite(int dst_x, int dst_y);
   // Renders a tile map given an array of tile indices.
   void RenderTileMap(const std::array<int, 256> tile_map, int tile_map_columns,
-                     int tile_map_rows, int dst_x = 0, int dst_y = 0,
-                     int scale = Constants::SPRITE_SCALE);
+                     int tile_map_rows, int dst_x = 0, int dst_y = 0);
   // Getters
   const char* GetPath() { return path_; }
   int GetSpriteWidth() { return sprite_width_; }

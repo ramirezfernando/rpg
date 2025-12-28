@@ -61,7 +61,7 @@ bool SpriteSheetRenderer::LoadSpriteSheet() {
 }
 
 void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
-                                       int scale, bool invert) {
+                                       bool invert) {
   if (!texture_) {
     return;
   }
@@ -89,8 +89,8 @@ void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
   SDL_Rect dst;
   dst.x = dst_x;
   dst.y = dst_y;
-  dst.w = sprite_width_ * scale;
-  dst.h = sprite_height_ * scale;
+  dst.w = sprite_width_ * Constants::SPRITE_SCALE;
+  dst.h = sprite_height_ * Constants::SPRITE_SCALE;
 
   if (invert) {
     SDL_RendererFlip flip = invert ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
@@ -110,8 +110,7 @@ void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
 }
 
 // TODO: Generalize for any number of frames and frame rate.
-void SpriteSheetRenderer::RenderAnimatedSprite(int dst_x, int dst_y,
-                                               int scale) {
+void SpriteSheetRenderer::RenderAnimatedSprite(int dst_x, int dst_y) {
   // Simple animation by cycling through frames.
   static Uint32 last_time = 0;
   static int current_frame = 0;
@@ -121,12 +120,12 @@ void SpriteSheetRenderer::RenderAnimatedSprite(int dst_x, int dst_y,
     current_frame = (current_frame + 1) % sprite_count_;
     last_time = current_time;
   }
-  RenderSprite(current_frame, dst_x, dst_y, scale);
+  RenderSprite(current_frame, dst_x, dst_y);
 }
 
 void SpriteSheetRenderer::RenderTileMap(const std::array<int, 256> tile_map,
                                         int tile_map_columns, int tile_map_rows,
-                                        int dst_x, int dst_y, int scale) {
+                                        int dst_x, int dst_y) {
   if (!texture_) {
     return;
   }
@@ -138,8 +137,8 @@ void SpriteSheetRenderer::RenderTileMap(const std::array<int, 256> tile_map,
       if (idx < 0) {
         continue;
       }
-      RenderSprite(idx, dst_x + x * sprite_width_ * scale,
-                   dst_y + y * sprite_height_ * scale, scale);
+      RenderSprite(idx, dst_x + x * sprite_width_ * Constants::SPRITE_SCALE,
+                   dst_y + y * sprite_height_ * Constants::SPRITE_SCALE);
     }
   }
 }

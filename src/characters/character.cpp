@@ -34,6 +34,6 @@ void Character::Render() {
   }
 
   renderer()->RenderSprite(final_index, /*dst_x=*/dst_x_,
-                           /*dst_y=*/dst_y_, /*scale=*/3,
+                           /*dst_y=*/dst_y_,
                            /*invert=*/direction_ == Direction::Left);
 }
