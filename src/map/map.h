@@ -10,7 +10,8 @@
 
 // This class manages rendering of the game map using various tile sets. The map
 // consists of multiple layers such as grass, water, buildings, etc. The map is
-// 16x16 tiles, each tile is 48x48 pixels (scaled up by SPRITE_SCALE from 16x16).
+// 16x16 tiles, each tile is 48x48 pixels (scaled up by SPRITE_SCALE from
+// 16x16).
 class Map {
  public:
   Map();
@@ -23,7 +24,8 @@ class Map {
   void RenderCliff();
   // Returns the rendering order of all the tile maps. Necessary to ensure
   // the map is rendered properly, e.g. fence rendered on top of grass.
-  static const std::vector<std::array<int, 256>> GetOrderedTileMapLayers();
+  static const std::vector<std::array<int, Constants::MAP_ROWS_BY_COLUMNS>>
+  GetOrderedTileMapLayers();
   // Returns the index of the tile found at `x`, `y` on the map. The index is
   // the position of the tile from its sprite sheet, e.g. 9 is the index of the
   // grass tile from grass_dirt.png. Since tiles can overlap, we check the top

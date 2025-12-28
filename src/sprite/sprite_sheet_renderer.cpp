@@ -123,9 +123,9 @@ void SpriteSheetRenderer::RenderAnimatedSprite(int dst_x, int dst_y) {
   RenderSprite(current_frame, dst_x, dst_y);
 }
 
-void SpriteSheetRenderer::RenderTileMap(const std::array<int, 256> tile_map,
-                                        int tile_map_columns, int tile_map_rows,
-                                        int dst_x, int dst_y) {
+void SpriteSheetRenderer::RenderTileMap(
+    const std::array<int, Constants::MAP_ROWS_BY_COLUMNS> tile_map,
+    int tile_map_columns, int tile_map_rows, int dst_x, int dst_y) {
   if (!texture_) {
     return;
   }

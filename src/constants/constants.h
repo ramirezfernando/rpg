@@ -4,35 +4,37 @@
 
 namespace Constants {
 
-// Number of milliseconds in a second.
-extern const int MILISECONDS_PER_SECOND;
-// Frames per second.
-extern const int FRAME_RATE;
-// Delay between frames in milliseconds.
-extern const int FRAME_DELAY;
-// The size of the GUI window.
-extern const int WINDOW_SIZE;
 // Gap in pixels for character movement.
 extern const int CHARACTER_WALK_GAP;
-// Width of each tile in pixels.
-extern const int SPRITE_WIDTH;
+// Delay between frames in milliseconds.
+extern const int FRAME_DELAY;
+// Number of columns in the map.
+constexpr int MAP_COLUMNS = 16;
+// Number of rows in the map.
+constexpr int MAP_ROWS = 16;
+// Number of rows * columns in the map.
+constexpr int MAP_ROWS_BY_COLUMNS = MAP_ROWS * MAP_COLUMNS;
 // Height of each tile in pixels.
 extern const int SPRITE_HEIGHT;
 // Scale factor for sprites.
 extern const int SPRITE_SCALE;
-// Number of rows in the map.
-extern const int MAP_ROWS;
-// Number of columns in the map.
-extern const int MAP_COLUMNS;
-// Tile map for the grass and dirt tile set.
-extern const std::array<int, 256> GRASS_DIRT_TILE_MAP;
-// Tile map for the first layer of grass and water (just water tiles).
-extern const std::array<int, 256> GRASS_WATER_TILE_MAP_FIRST_LAYER;
-// Tile map for the second layer of grass and water.
-extern const std::array<int, 256> GRASS_WATER_TILE_MAP_SECOND_LAYER;
-// Tile map for the wood fence.
-extern const std::array<int, 256> WOOD_FENCE_TILE_MAP;
-// Tile map for the cliff.
-extern const std::array<int, 256> CLIFF_TILE_MAP;
+// Width of each tile in pixels.
+extern const int SPRITE_WIDTH;
+// 1D matrix representation of the tile map for the cliff sprite sheet.
+extern const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_CLIFF;
+// 1D matrix representation of the tile map for the fence sprite sheet.
+extern const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_FENCE;
+// 1D matrix representation of the tile map for the grass and dirt sprite sheet.
+extern const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_GRASS_DIRT;
+// 1D matrix representation of the first layer tile map for the grass and water
+// sprite sheet.
+extern const std::array<int, MAP_ROWS_BY_COLUMNS>
+    TILE_MAP_GRASS_WATER_FIRST_LAYER;
+// 1D matrix representation of the second layer tile map for the grass and water
+// sprite sheet.
+extern const std::array<int, MAP_ROWS_BY_COLUMNS>
+    TILE_MAP_GRASS_WATER_SECOND_LAYER;
+// The size of the SDL2 window.
+extern const int WINDOW_SIZE;
 
 }  // namespace Constants

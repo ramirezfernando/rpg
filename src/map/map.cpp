@@ -73,7 +73,7 @@ Map::Map() {
 
 void Map::RenderGrassDirt() {
   if (grass_dirt_) {
-    grass_dirt_->RenderTileMap(Constants::GRASS_DIRT_TILE_MAP,
+    grass_dirt_->RenderTileMap(Constants::TILE_MAP_GRASS_DIRT,
                                Constants::MAP_COLUMNS, Constants::MAP_ROWS,
                                /*dst_x=*/0,
                                /*dst_y=*/0);
@@ -82,11 +82,11 @@ void Map::RenderGrassDirt() {
 
 void Map::RenderGrassWater() {
   if (grass_water_) {
-    grass_water_->RenderTileMap(Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER,
+    grass_water_->RenderTileMap(Constants::TILE_MAP_GRASS_WATER_FIRST_LAYER,
                                 Constants::MAP_COLUMNS, Constants::MAP_ROWS,
                                 /*dst_x=*/0,
                                 /*dst_y=*/0);
-    grass_water_->RenderTileMap(Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER,
+    grass_water_->RenderTileMap(Constants::TILE_MAP_GRASS_WATER_SECOND_LAYER,
                                 Constants::MAP_COLUMNS, Constants::MAP_ROWS,
                                 /*dst_x=*/0, /*dst_y=*/0);
   }
@@ -94,7 +94,7 @@ void Map::RenderGrassWater() {
 
 void Map::RenderWoodFence() {
   if (wood_fence_) {
-    wood_fence_->RenderTileMap(Constants::WOOD_FENCE_TILE_MAP,
+    wood_fence_->RenderTileMap(Constants::TILE_MAP_FENCE,
                                Constants::MAP_COLUMNS, Constants::MAP_ROWS,
                                /*dst_x=*/0, /*dst_y=*/0);
   }
@@ -117,17 +117,18 @@ void Map::RenderWaterfall() {
 
 void Map::RenderCliff() {
   if (cliff_) {
-    cliff_->RenderTileMap(Constants::CLIFF_TILE_MAP, Constants::MAP_COLUMNS,
+    cliff_->RenderTileMap(Constants::TILE_MAP_CLIFF, Constants::MAP_COLUMNS,
                           Constants::MAP_ROWS,
                           /*dst_x=*/0, /*dst_y=*/0);
   }
 }
 
-const std::vector<std::array<int, 256>> Map::GetOrderedTileMapLayers() {
-  return {Constants::GRASS_DIRT_TILE_MAP,
-          Constants::GRASS_WATER_TILE_MAP_FIRST_LAYER,
-          Constants::GRASS_WATER_TILE_MAP_SECOND_LAYER,
-          Constants::CLIFF_TILE_MAP, Constants::WOOD_FENCE_TILE_MAP};
+const std::vector<std::array<int, Constants::MAP_ROWS_BY_COLUMNS>>
+Map::GetOrderedTileMapLayers() {
+  return {Constants::TILE_MAP_GRASS_DIRT,
+          Constants::TILE_MAP_GRASS_WATER_FIRST_LAYER,
+          Constants::TILE_MAP_GRASS_WATER_SECOND_LAYER,
+          Constants::TILE_MAP_CLIFF, Constants::TILE_MAP_FENCE};
 }
 
 std::optional<int> Map::GetTopmostTile(int x, int y) {

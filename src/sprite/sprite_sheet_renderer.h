@@ -21,8 +21,9 @@ class SpriteSheetRenderer {
   // Renders through an x by 1 sprite sheet as an animation.
   void RenderAnimatedSprite(int dst_x, int dst_y);
   // Renders a tile map given an array of tile indices.
-  void RenderTileMap(const std::array<int, 256> tile_map, int tile_map_columns,
-                     int tile_map_rows, int dst_x = 0, int dst_y = 0);
+  void RenderTileMap(
+      const std::array<int, Constants::MAP_ROWS_BY_COLUMNS> tile_map,
+      int tile_map_columns, int tile_map_rows, int dst_x = 0, int dst_y = 0);
   // Getters
   const char* GetPath() { return path_; }
   int GetSpriteWidth() { return sprite_width_; }
