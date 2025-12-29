@@ -6,6 +6,7 @@
 
 #include "characters/character.h"
 #include "characters/fern.h"
+#include "characters/kat.h"
 #include "constants/constants.h"
 #include "map/map.h"
 
@@ -83,6 +84,12 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
     std::cout << "Character created" << std::endl;
 #endif  // DEBUG_MODE
   }
+  npc_ = std::unique_ptr<Character>(new Kat());
+  if (npc_) {
+#if defined(DEBUG_MODE)
+    std::cout << "Character created" << std::endl;
+#endif  // DEBUG_MODE
+  }
   map_ = std::unique_ptr<Map>(new Map());
   if (map_) {
 #if defined(DEBUG_MODE)
@@ -108,6 +115,8 @@ void Game::Render() {
     map_->RenderHouse();
     player_->Render();
   }
+
+  npc_->Render();
 
   SDL_RenderPresent(renderer_);  // Double buffering
 }

@@ -23,5 +23,6 @@ class Game {
   SDL_Window* window_;
   bool is_running_;
   std::unique_ptr<Character> player_;
+  std::unique_ptr<Character> npc_;
   std::unique_ptr<Map> map_;
 };
