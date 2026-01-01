@@ -40,6 +40,7 @@ class Map {
   std::unique_ptr<SpriteSheetRenderer> grass_dirt_;
   std::unique_ptr<SpriteSheetRenderer> grass_water_;
   std::unique_ptr<SpriteSheetRenderer> house_;
+  std::unique_ptr<SpriteSheetRenderer> house_chimney_smoke_;
   std::unique_ptr<SpriteSheetRenderer> wood_fence_;
   std::unique_ptr<SpriteSheetRenderer> waterfall_;
   std::unique_ptr<SpriteSheetRenderer> cliff_;

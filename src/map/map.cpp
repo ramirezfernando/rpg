@@ -35,6 +35,15 @@ Map::Map() {
 #endif  // DEBUG_MODE
   }
 
+  house_chimney_smoke_ =
+      std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
+          "assets/sprites/map/house_chimney_smoke.png", 32, 64));
+  if (house_chimney_smoke_ && house_chimney_smoke_->LoadSpriteSheet()) {
+#if defined(DEBUG_MODE)
+    std::cout << "House chimney smoke created" << std::endl;
+#endif  // DEBUG_MODE
+  }
+
   wood_fence_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
       "assets/sprites/map/wood_fence.png", Constants::SPRITE_WIDTH,
       Constants::SPRITE_HEIGHT));
@@ -104,6 +113,9 @@ void Map::RenderHouse() {
   if (house_) {
     // Renders the entire house as a single sprite, not individual 48x48 tiles.
     house_->RenderSprite(0, /*dst_x=*/432, /*dst_y=*/48);
+  }
+  if (house_chimney_smoke_) {
+    house_chimney_smoke_->RenderAnimatedSprite(/*dst_x=*/566, /*dst_y=*/-92);
   }
 }
 
