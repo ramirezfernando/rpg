@@ -13,8 +13,6 @@
 SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
 
-namespace {
-
 static bool IsPlayerMoving(int dx, int dy) {
   return dx != 0 || dy != 0;
 }
@@ -44,8 +42,6 @@ static bool IsPlayerBehindHouse(int x, int y) {
 static bool ShouldRenderPlayerFirst(int x, int y) {
   return IsPlayerBehindFence(x, y) || IsPlayerBehindHouse(x, y);
 }
-
-}  // namespace
 
 Game::~Game() {
   SDL_DestroyWindow(window_);

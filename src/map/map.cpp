@@ -183,8 +183,9 @@ bool Map::IsCollisionTile(int tile) {
 }
 
 bool Map::IsOutOfBounds(int x, int y) {
-  if (x < 0 || x >= Constants::WINDOW_SIZE || y < 0 ||
-      y >= Constants::WINDOW_SIZE) {
+  // Add padding to take character dimensions into account.
+  if (x < -30 || x >= Constants::WINDOW_SIZE - 60 || y < -30 ||
+      y >= Constants::WINDOW_SIZE - 72) {
     return true;
   }
   return false;
