@@ -1,8 +1,8 @@
 CXX = clang++
 CXXFLAGS = -std=c++20 $(shell pkg-config --cflags sdl2) -Isrc
 LDFLAGS = $(shell pkg-config --libs sdl2) $(shell pkg-config --libs sdl2_image)
-SRCS = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
-HDRS = $(wildcard src/*.h) $(wildcard src/*/*.h)
+SRCS = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp)
+HDRS = $(wildcard src/*.h) $(wildcard src/*/*.h) $(wildcard src/*/*/*.h)
 OBJS = $(SRCS:.cpp=.o)
 
 # Build the game
