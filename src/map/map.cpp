@@ -8,15 +8,11 @@
 #include "resource/resource_manager.h"
 #include "sprite/sprite_sheet_renderer.h"
 
-namespace {
-
 static int GetIndex(int x, int y) {
   int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE) + 1;
   int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE) + 1;
   return row * Constants::MAP_COLUMNS + column;
 }
-
-}  // namespace
 
 Map::Map() {
   ResourceManager& rm = ResourceManager::GetInstance();

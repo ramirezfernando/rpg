@@ -3,10 +3,13 @@
 #include <SDL2/SDL.h>
 
 #include <iostream>
+#include <sstream>
 
 #include "constants/constants.h"
 #include "game.h"  // For Game::renderer_
 #include "resource/resource_manager.h"
+#include "util/logger.h"
+
 SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
                                          int sprite_height, int margin,
                                          int spacing)
@@ -21,18 +24,16 @@ SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
 bool SpriteSheetRenderer::LoadSpriteSheet() {
   texture_ = ResourceManager::GetInstance().GetTexture(path_);
   if (!texture_) {
-#if defined(DEBUG_MODE)
-    std::cerr << "Sprite sheet failed to load texture: " << path_ << std::endl;
-#endif  // DEBUG_MODE
+    Logger::Error("SpriteSheetRenderer",
+                  std::string("Failed to load texture: ") + path_);
     return false;
   }
 
   int texture_width = 0, texture_height = 0;
   if (SDL_QueryTexture(texture_, nullptr, nullptr, &texture_width,
                        &texture_height) != 0) {
-#if defined(DEBUG_MODE)
-    std::cerr << "SDL_QueryTexture failed: " << SDL_GetError() << std::endl;
-#endif  // DEBUG_MODE
+    Logger::Error("SpriteSheetRenderer",
+                  std::string("SDL_QueryTexture failed: ") + SDL_GetError());
     return false;
   }
 
@@ -51,11 +52,11 @@ bool SpriteSheetRenderer::LoadSpriteSheet() {
 
   sprite_count_ = columns_ * rows_;
 
-#if defined(DEBUG_MODE)
-  std::cout << "Sprite sheet loaded: " << path_ << " tex=" << texture_width
-            << "x" << texture_height << " cols=" << columns_
-            << " rows=" << rows_ << " tiles=" << sprite_count_ << std::endl;
-#endif  // DEBUG_MODE
+  std::ostringstream oss;
+  oss << "Sprite sheet loaded: " << path_ << " tex=" << texture_width << "x"
+      << texture_height << " cols=" << columns_ << " rows=" << rows_
+      << " tiles=" << sprite_count_;
+  Logger::Debug("SpriteSheetRenderer", oss.str());
 
   return true;
 }
@@ -70,10 +71,10 @@ void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
     return;
   }
   if (sprite_index >= sprite_count_) {
-#if defined(DEBUG_MODE)
-    std::cerr << "RenderSprite: sprite_index " << sprite_index
-              << " out of range (0.." << (sprite_count_ - 1) << ")\n";
-#endif  // DEBUG_MODE
+    std::ostringstream oss;
+    oss << "RenderSprite: sprite_index " << sprite_index << " out of range (0.."
+        << (sprite_count_ - 1) << ")";
+    Logger::Warning("SpriteSheetRenderer", oss.str());
     return;
   }
 

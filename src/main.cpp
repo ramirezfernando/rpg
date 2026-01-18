@@ -16,7 +16,7 @@ int main() {
   while (game->IsRunning()) {
     frame_start = SDL_GetTicks();
     game->Render();
-    game->HandleEvents();
+    game->Update();
 
     // Handle frame rate.
     frame_time = SDL_GetTicks() - frame_start;

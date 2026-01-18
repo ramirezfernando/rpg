@@ -1,6 +1,9 @@
 #include "character.h"
 
 #include <iostream>
+#include <sstream>
+
+#include "util/logger.h"
 
 Character::Character(SpriteSheetRenderer* renderer)
     : renderer_(renderer),
@@ -26,10 +29,10 @@ void Character::Render() {
   int final_index = initial_index + frame;
   int sprite_count = renderer()->GetSpriteCount();
   if (final_index >= sprite_count) {
-#if defined(DEBUG_MODE)
-    std::cerr << "Character::Render: final_index " << final_index
-              << " >= sprite_count " << sprite_count << ", wrapping\n";
-#endif
+    std::ostringstream oss;
+    oss << "Character::Render: final_index " << final_index
+        << " >= sprite_count " << sprite_count << ", wrapping";
+    Logger::Warning("Character", oss.str());
     final_index %= sprite_count;
   }
 

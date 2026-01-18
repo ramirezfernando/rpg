@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "util/logger.h"
 #include "util/util.h"
 
 ResourceManager& ResourceManager::GetInstance() {
@@ -11,7 +12,7 @@ ResourceManager& ResourceManager::GetInstance() {
 
 SDL_Texture* ResourceManager::GetTexture(const char* file_name) {
   if (!file_name) {
-    std::cerr << "Error: file_name is null" << std::endl;
+    Logger::Error("ResourceManager", "file_name is null");
     return nullptr;
   }
 
@@ -19,9 +20,8 @@ SDL_Texture* ResourceManager::GetTexture(const char* file_name) {
 
   // Check if texture is already cached.
   if (texture_cache_.find(key) != texture_cache_.end()) {
-#if defined(DEBUG_MODE)
-    std::cout << "Loaded texture from cache: " << file_name << std::endl;
-#endif
+    Logger::Debug("ResourceManager",
+                  std::string("Texture cached: ") + file_name);
     return texture_cache_[key];
   }
 
@@ -29,16 +29,15 @@ SDL_Texture* ResourceManager::GetTexture(const char* file_name) {
   // checking).
   SDL_Texture* texture = Util::LoadTexture(file_name);
   if (!texture) {
-    std::cerr << "Error loading texture " << file_name << std::endl;
+    Logger::Error("ResourceManager",
+                  std::string("Failed to load texture: ") + file_name);
     return nullptr;
   }
 
   // Cache the texture.
   texture_cache_[key] = texture;
 
-#if defined(DEBUG_MODE)
-  std::cout << "Loaded texture from file: " << file_name << std::endl;
-#endif
+  Logger::Debug("ResourceManager", std::string("Texture loaded: ") + file_name);
 
   return texture;
 }
@@ -48,7 +47,7 @@ SpriteSheetRenderer* ResourceManager::GetSpriteSheet(const char* path,
                                                      int sprite_height,
                                                      int margin, int spacing) {
   if (!path) {
-    std::cerr << "Error: path is null" << std::endl;
+    Logger::Error("ResourceManager", "path is null");
     return nullptr;
   }
 
@@ -56,9 +55,8 @@ SpriteSheetRenderer* ResourceManager::GetSpriteSheet(const char* path,
 
   // Check if sprite sheet is already cached.
   if (sprite_sheet_cache_.find(key) != sprite_sheet_cache_.end()) {
-#if defined(DEBUG_MODE)
-    std::cout << "Loaded sprite sheet from cache: " << path << std::endl;
-#endif
+    Logger::Debug("ResourceManager",
+                  std::string("Sprite sheet cached: ") + path);
     return sprite_sheet_cache_[key].get();
   }
 
@@ -67,7 +65,8 @@ SpriteSheetRenderer* ResourceManager::GetSpriteSheet(const char* path,
       path, sprite_width, sprite_height, margin, spacing);
 
   if (!renderer->LoadSpriteSheet()) {
-    std::cerr << "Error loading sprite sheet: " << path << std::endl;
+    Logger::Error("ResourceManager",
+                  std::string("Failed to load sprite sheet: ") + path);
     return nullptr;
   }
 
@@ -75,9 +74,7 @@ SpriteSheetRenderer* ResourceManager::GetSpriteSheet(const char* path,
   SpriteSheetRenderer* raw_ptr = renderer.get();
   sprite_sheet_cache_[key] = std::move(renderer);
 
-#if defined(DEBUG_MODE)
-  std::cout << "Loaded sprite sheet from file: " << path << std::endl;
-#endif
+  Logger::Debug("ResourceManager", std::string("Sprite sheet loaded: ") + path);
 
   return raw_ptr;
 }
@@ -94,9 +91,7 @@ void ResourceManager::Clear() {
   // Clear sprite sheet cache (unique_ptrs will auto-destruct).
   sprite_sheet_cache_.clear();
 
-#if defined(DEBUG_MODE)
-  std::cout << "Resource cache cleared" << std::endl;
-#endif
+  Logger::Debug("ResourceManager", "Resource cache cleared");
 }
 
 ResourceManager::~ResourceManager() {

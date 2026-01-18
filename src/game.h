@@ -15,7 +15,7 @@ class Game {
   ~Game();
   void Init(const char* title, int x_pos, int y_pos, int width, int height);
   void Render();
-  void HandleEvents();
+  void Update();
   void SetIsRunning(bool is_running) { is_running_ = is_running; }
   bool IsRunning() { return is_running_; }
   static SDL_Renderer* renderer_;
