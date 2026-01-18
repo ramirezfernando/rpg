@@ -38,13 +38,15 @@ bool InputHandler::HandleInput(Character* player, Map* map) {
 
   // Get movement input from keyboard.
   GetMovementInput(dx, dy, is_running, facing_direction);
-  player->SetDirectionFacing(facing_direction);
 
   // No input: return to idle.
   if (!IsPlayerMoving(dx, dy)) {
     player->SetPathForAction(Action::Idle);
+    player->IncrementAnimationFrameIndex();
     return false;
   }
+
+  player->SetDirectionFacing(facing_direction);
 
   // Normalize diagonal movement.
   if (IsPlayerMovingDiagonally(dx, dy)) {
@@ -60,6 +62,7 @@ bool InputHandler::HandleInput(Character* player, Map* map) {
   // Validate movement.
   if (!IsMovementValid(new_x, new_y, map)) {
     player->SetPathForAction(Action::Idle);
+    player->IncrementAnimationFrameIndex();
     return false;
   }
 
