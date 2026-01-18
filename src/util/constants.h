@@ -4,6 +4,10 @@
 
 namespace Constants {
 
+// Speed of idle animation frame changes.
+extern const int CHARACTER_IDLE_ANIMATION_SPEED;
+// Speed of walk and run animation frame changes.
+extern const int CHARACTER_WALK_AND_RUN_ANIMATION_SPEED;
 // Gap in pixels for character movement.
 extern const int CHARACTER_WALK_GAP;
 // Delay between frames in milliseconds.

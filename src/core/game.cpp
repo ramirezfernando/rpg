@@ -7,6 +7,7 @@
 #include "entity/kat.h"
 #include "graphics/map.h"
 #include "input/input_handler.h"
+#include "input/npc_movement_handler.h"
 #include "util/constants.h"
 #include "util/logger.h"
 
@@ -84,19 +85,30 @@ void Game::Render() {
   map_->RenderCliff();
   map_->RenderMailbox();
 
-  if (ShouldRenderPlayerFirst(player_->GetXPos(), player_->GetYPos())) {
+  bool player_behind =
+      ShouldRenderPlayerFirst(player_->GetXPos(), player_->GetYPos());
+  bool npc_behind = ShouldRenderPlayerFirst(npc_->GetXPos(), npc_->GetYPos());
+
+  // Render characters that should appear behind fence/house
+  if (player_behind) {
     player_->Render();
-    map_->RenderWoodFence();
-    map_->RenderHouse();
-  } else {
-    map_->RenderWoodFence();
-    map_->RenderHouse();
+  }
+  if (npc_behind) {
+    npc_->Render();
+  }
+
+  map_->RenderWoodFence();
+  map_->RenderHouse();
+
+  // Render characters that should appear in front of fence/house
+  if (!player_behind) {
     player_->Render();
+  }
+  if (!npc_behind) {
+    npc_->Render();
   }
 
   map_->RenderClothingRack();
-
-  npc_->Render();
 
   SDL_RenderPresent(renderer_);  // Double buffering
 }
@@ -109,4 +121,5 @@ void Game::Update() {
     }
   }
   InputHandler::HandleInput(player_.get(), map_.get());
+  NpcMovementHandler::UpdateNpcMovement(npc_.get(), map_.get());
 }

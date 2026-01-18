@@ -9,6 +9,8 @@ constexpr int FRAME_RATE = 30;
 
 namespace Constants {
 
+const int CHARACTER_IDLE_ANIMATION_SPEED = 6;
+const int CHARACTER_WALK_AND_RUN_ANIMATION_SPEED = 2;
 const int CHARACTER_WALK_GAP = 5;
 const int FRAME_DELAY = MILISECONDS_PER_SECOND / FRAME_RATE;
 const int PLAYER_START_X = 536;

@@ -8,6 +8,10 @@
 #include "util/constants.h"
 #include "util/logger.h"
 
+// Counters to control animation speed.
+static int idle_animation_counter = 0;
+static int walk_and_run_animation_counter = 0;
+
 bool IsPlayerMoving(int dx, int dy) {
   return dx != 0 || dy != 0;
 }
@@ -42,7 +46,11 @@ bool InputHandler::HandleInput(Character* player, Map* map) {
   // No input: return to idle.
   if (!IsPlayerMoving(dx, dy)) {
     player->SetPathForAction(Action::Idle);
-    player->IncrementAnimationFrameIndex();
+    idle_animation_counter++;
+    if (idle_animation_counter >= Constants::CHARACTER_IDLE_ANIMATION_SPEED) {
+      player->IncrementAnimationFrameIndex();
+      idle_animation_counter = 0;
+    }
     return false;
   }
 
@@ -62,7 +70,11 @@ bool InputHandler::HandleInput(Character* player, Map* map) {
   // Validate movement.
   if (!IsMovementValid(new_x, new_y, map)) {
     player->SetPathForAction(Action::Idle);
-    player->IncrementAnimationFrameIndex();
+    idle_animation_counter++;
+    if (idle_animation_counter >= Constants::CHARACTER_IDLE_ANIMATION_SPEED) {
+      player->IncrementAnimationFrameIndex();
+      idle_animation_counter = 0;
+    }
     return false;
   }
 
@@ -70,7 +82,12 @@ bool InputHandler::HandleInput(Character* player, Map* map) {
   player->SetXPos(new_x);
   player->SetYPos(new_y);
   player->SetPathForAction(is_running ? Action::Run : Action::Walk);
-  player->IncrementAnimationFrameIndex();
+  walk_and_run_animation_counter++;
+  if (walk_and_run_animation_counter >=
+      Constants::CHARACTER_WALK_AND_RUN_ANIMATION_SPEED) {
+    player->IncrementAnimationFrameIndex();
+    walk_and_run_animation_counter = 0;
+  }
 
   return true;
 }
