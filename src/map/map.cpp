@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "constants/constants.h"
+#include "resource/resource_manager.h"
 #include "sprite/sprite_sheet_renderer.h"
 
 namespace {
@@ -18,66 +19,34 @@ static int GetIndex(int x, int y) {
 }  // namespace
 
 Map::Map() {
-  grass_dirt_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
-      "assets/sprites/map/grass_dirt.png", Constants::SPRITE_WIDTH,
-      Constants::SPRITE_HEIGHT));
-  if (grass_dirt_ && grass_dirt_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE)
-    std::cout << "Tile map created" << std::endl;
-#endif  // DEBUG_MODE
-  }
+  ResourceManager& rm = ResourceManager::GetInstance();
 
-  house_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/sprites/map/house.png", 80, 100));
-  if (house_ && house_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE)
-    std::cout << "House created" << std::endl;
-#endif  // DEBUG_MODE
-  }
+  grass_dirt_ =
+      rm.GetSpriteSheet("assets/sprites/map/grass_dirt.png",
+                        Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+
+  house_ = rm.GetSpriteSheet("assets/sprites/map/house.png", 80, 100);
 
   house_chimney_smoke_ =
-      std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
-          "assets/sprites/map/house_chimney_smoke.png", 32, 64));
-  if (house_chimney_smoke_ && house_chimney_smoke_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE)
-    std::cout << "House chimney smoke created" << std::endl;
-#endif  // DEBUG_MODE
-  }
+      rm.GetSpriteSheet("assets/sprites/map/house_chimney_smoke.png", 32, 64);
 
-  wood_fence_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
-      "assets/sprites/map/wood_fence.png", Constants::SPRITE_WIDTH,
-      Constants::SPRITE_HEIGHT));
-  if (wood_fence_ && wood_fence_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE)
-    std::cout << "Wood fence created" << std::endl;
-#endif  // DEBUG_MODE
-  }
+  wood_fence_ =
+      rm.GetSpriteSheet("assets/sprites/map/wood_fence.png",
+                        Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
 
-  waterfall_ = std::unique_ptr<SpriteSheetRenderer>(
-      new SpriteSheetRenderer("assets/sprites/map/waterfall.png", 48, 80));
-  if (waterfall_ && waterfall_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE)
-    std::cout << "Waterfall created" << std::endl;
-#endif  // DEBUG_MODE
-  }
+  clothing_rack_ =
+      rm.GetSpriteSheet("assets/sprites/map/clothing_rack.png", 64, 35);
 
-  grass_water_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
-      "assets/sprites/map/grass_water.png", Constants::SPRITE_WIDTH,
-      Constants::SPRITE_HEIGHT));
-  if (grass_water_ && grass_water_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE)
-    std::cout << "Grass water created" << std::endl;
-#endif  // DEBUG_MODE
-  }
+  mailbox_ = rm.GetSpriteSheet("assets/sprites/map/mailbox.png", 16, 32);
 
-  cliff_ = std::unique_ptr<SpriteSheetRenderer>(new SpriteSheetRenderer(
-      "assets/sprites/map/cliff.png", Constants::SPRITE_WIDTH,
-      Constants::SPRITE_HEIGHT));
-  if (cliff_ && cliff_->LoadSpriteSheet()) {
-#if defined(DEBUG_MODE)
-    std::cout << "Cliff created" << std::endl;
-#endif  // DEBUG_MODE
-  }
+  waterfall_ = rm.GetSpriteSheet("assets/sprites/map/waterfall.png", 48, 80);
+
+  grass_water_ =
+      rm.GetSpriteSheet("assets/sprites/map/grass_water.png",
+                        Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+
+  cliff_ = rm.GetSpriteSheet("assets/sprites/map/cliff.png",
+                             Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
 }
 
 void Map::RenderGrassDirt() {
@@ -106,6 +75,18 @@ void Map::RenderWoodFence() {
     wood_fence_->RenderTileMap(Constants::TILE_MAP_FENCE,
                                Constants::MAP_COLUMNS, Constants::MAP_ROWS,
                                /*dst_x=*/0, /*dst_y=*/0);
+  }
+}
+
+void Map::RenderClothingRack() {
+  if (clothing_rack_) {
+    clothing_rack_->RenderSprite(0, /*dst_x=*/330, /*dst_y=*/262);
+  }
+}
+
+void Map::RenderMailbox() {
+  if (mailbox_) {
+    mailbox_->RenderSprite(0, /*dst_x=*/630, /*dst_y=*/236);
   }
 }
 

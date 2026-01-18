@@ -44,6 +44,9 @@ static bool ShouldRenderPlayerFirst(int x, int y) {
 }
 
 Game::~Game() {
+  // Clear resource cache before destroying SDL objects.
+  ResourceManager::GetInstance().Clear();
+
   SDL_DestroyWindow(window_);
   SDL_DestroyRenderer(renderer_);
   SDL_Quit();
@@ -101,6 +104,7 @@ void Game::Render() {
   map_->RenderGrassWater();
   map_->RenderWaterfall();
   map_->RenderCliff();
+  map_->RenderMailbox();
 
   if (ShouldRenderPlayerFirst(player_->GetXPos(), player_->GetYPos())) {
     player_->Render();
@@ -111,6 +115,8 @@ void Game::Render() {
     map_->RenderHouse();
     player_->Render();
   }
+
+  map_->RenderClothingRack();
 
   npc_->Render();
 

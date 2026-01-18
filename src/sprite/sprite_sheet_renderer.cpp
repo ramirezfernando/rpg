@@ -5,8 +5,8 @@
 #include <iostream>
 
 #include "constants/constants.h"
-#include "util/util.h"
-
+#include "game.h"  // For Game::renderer_
+#include "resource/resource_manager.h"
 SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
                                          int sprite_height, int margin,
                                          int spacing)
@@ -19,7 +19,7 @@ SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
       columns_(0) {}
 
 bool SpriteSheetRenderer::LoadSpriteSheet() {
-  texture_ = Util::LoadTexture(path_);
+  texture_ = ResourceManager::GetInstance().GetTexture(path_);
   if (!texture_) {
 #if defined(DEBUG_MODE)
     std::cerr << "Sprite sheet failed to load texture: " << path_ << std::endl;

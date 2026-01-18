@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-Character::Character(std::unique_ptr<SpriteSheetRenderer> renderer)
-    : renderer_(std::move(renderer)),
+Character::Character(SpriteSheetRenderer* renderer)
+    : renderer_(renderer),
       direction_(Direction::Down),
       action_(Action::Idle),
       animation_frame_index_(0),

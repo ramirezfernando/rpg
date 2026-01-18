@@ -3,15 +3,14 @@
 #include <iostream>
 
 #include "constants/constants.h"
+#include "resource/resource_manager.h"
 #include "sprite/sprite_sheet_renderer.h"
 
 Fern::Fern()
-    : Character(std::make_unique<SpriteSheetRenderer>(
+    : Character(ResourceManager::GetInstance().GetSpriteSheet(
           /*path=*/"assets/sprites/characters/fern/idle.png",
           /*sprite_w=*/32, /*sprite_h=*/32)) {
-  renderer()->LoadSpriteSheet();
   sprite_sheet_columns_ = renderer()->GetColumns();
-  std::cout << sprite_sheet_columns_;
 }
 
 int Fern::GetInitialAnimationFrame(Action action, Direction direction) const {
@@ -73,10 +72,12 @@ void Fern::SetPathForAction(Action action) {
       break;
   }
 
-  // Do not load an already loaded sprite sheet unless the action has changed.
-  if (renderer()->GetPath() != action_path) {
-    SetAction(action);
-    renderer()->SetPath(action_path);
-    renderer()->LoadSpriteSheet();
+  SetAction(action);
+  // Use the ResourceManager to load/cache the sprite sheet.
+  SpriteSheetRenderer* new_renderer =
+      ResourceManager::GetInstance().GetSpriteSheet(
+          action_path, /*sprite_w=*/32, /*sprite_h=*/32);
+  if (new_renderer) {
+    SetRenderer(new_renderer);
   }
 }

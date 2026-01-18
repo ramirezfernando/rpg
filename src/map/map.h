@@ -20,6 +20,8 @@ class Map {
   void RenderGrassWater();
   void RenderHouse();
   void RenderWoodFence();
+  void RenderClothingRack();
+  void RenderMailbox();
   void RenderWaterfall();
   void RenderCliff();
   // Returns the rendering order of all the tile maps. Necessary to ensure
@@ -37,11 +39,13 @@ class Map {
   bool IsOutOfBounds(int x, int y);
 
  private:
-  std::unique_ptr<SpriteSheetRenderer> grass_dirt_;
-  std::unique_ptr<SpriteSheetRenderer> grass_water_;
-  std::unique_ptr<SpriteSheetRenderer> house_;
-  std::unique_ptr<SpriteSheetRenderer> house_chimney_smoke_;
-  std::unique_ptr<SpriteSheetRenderer> wood_fence_;
-  std::unique_ptr<SpriteSheetRenderer> waterfall_;
-  std::unique_ptr<SpriteSheetRenderer> cliff_;
+  SpriteSheetRenderer* grass_dirt_;
+  SpriteSheetRenderer* grass_water_;
+  SpriteSheetRenderer* house_;
+  SpriteSheetRenderer* house_chimney_smoke_;
+  SpriteSheetRenderer* wood_fence_;
+  SpriteSheetRenderer* clothing_rack_;
+  SpriteSheetRenderer* mailbox_;
+  SpriteSheetRenderer* waterfall_;
+  SpriteSheetRenderer* cliff_;
 };

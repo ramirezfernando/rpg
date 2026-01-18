@@ -8,6 +8,7 @@
 
 #include "characters/character.h"
 #include "map/map.h"
+#include "resource/resource_manager.h"
 
 class Game {
  public:

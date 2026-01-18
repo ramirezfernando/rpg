@@ -2,8 +2,6 @@
 
 #include <SDL2/SDL.h>
 
-#include <memory>
-
 #include "sprite/sprite_sheet_renderer.h"
 
 enum class Direction { Up, Down, Left, Right };
@@ -11,7 +9,7 @@ enum class Action { Idle, Walk, Run };
 
 class Character {
  public:
-  explicit Character(std::unique_ptr<SpriteSheetRenderer> renderer);
+  explicit Character(SpriteSheetRenderer* renderer);
   virtual ~Character() = default;
   void Render();
   void IncrementAnimationFrameIndex() { animation_frame_index_ += 1; }
@@ -33,10 +31,11 @@ class Character {
                                        Direction direction) const = 0;
   virtual int GetSpriteSheetColumns() const = 0;
 
-  SpriteSheetRenderer* renderer() { return renderer_.get(); }
+  SpriteSheetRenderer* renderer() { return renderer_; }
+  void SetRenderer(SpriteSheetRenderer* renderer) { renderer_ = renderer; }
 
  private:
-  std::unique_ptr<SpriteSheetRenderer> renderer_;
+  SpriteSheetRenderer* renderer_;
   Direction direction_;
   Action action_;
   int animation_frame_index_;
