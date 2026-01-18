@@ -59,6 +59,11 @@ int Fern::GetSpriteSheetColumns() const {
 }
 
 void Fern::SetPathForAction(Action action) {
+  // Only load new sprite sheet if action has changed.
+  if (GetCurrentAction() == action) {
+    return;
+  }
+
   const char* action_path = nullptr;
   switch (action) {
     case Action::Idle:

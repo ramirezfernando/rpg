@@ -17,6 +17,7 @@ class Character {
   // Getters
   int GetXPos() { return dst_x_; }
   int GetYPos() { return dst_y_; }
+  Action GetCurrentAction() const { return action_; }
 
   // Setters
   void SetAction(Action action) { action_ = action; }

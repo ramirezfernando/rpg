@@ -59,6 +59,11 @@ int Kat::GetSpriteSheetColumns() const {
 }
 
 void Kat::SetPathForAction(Action action) {
+  // Only load new sprite sheet if action has changed.
+  if (GetCurrentAction() == action) {
+    return;
+  }
+
   const char* action_path = nullptr;
   switch (action) {
     case Action::Idle:
