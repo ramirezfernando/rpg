@@ -5,8 +5,8 @@
 #include <optional>
 #include <vector>
 
-#include "constants/constants.h"
-#include "sprite/sprite_sheet_renderer.h"
+#include "graphics/sprite_sheet_renderer.h"
+#include "util/constants.h"
 
 // This class manages rendering of the game map using various tile sets. The map
 // consists of multiple layers such as grass, water, buildings, etc. The map is

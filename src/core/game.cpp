@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-#include "characters/character.h"
-#include "characters/fern.h"
-#include "characters/kat.h"
-#include "constants/constants.h"
+#include "entity/character.h"
+#include "entity/fern.h"
+#include "entity/kat.h"
+#include "graphics/map.h"
 #include "input/input_handler.h"
-#include "map/map.h"
+#include "util/constants.h"
 #include "util/logger.h"
 
 SDL_Renderer* Game::renderer_ = nullptr;

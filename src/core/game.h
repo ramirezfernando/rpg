@@ -6,8 +6,8 @@
 
 #include <memory>
 
-#include "characters/character.h"
-#include "map/map.h"
+#include "entity/character.h"
+#include "graphics/map.h"
 #include "resource/resource_manager.h"
 
 class Game {

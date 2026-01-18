@@ -1,6 +1,6 @@
 #pragma once
 
-#include "characters/character.h"
+#include "entity/character.h"
 
 // Encapsulates all input handling logic for the player character.
 class InputHandler {

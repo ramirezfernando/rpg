@@ -3,9 +3,9 @@
 #include <cmath>
 #include <optional>
 
-#include "characters/character.h"
-#include "constants/constants.h"
-#include "map/map.h"
+#include "entity/character.h"
+#include "graphics/map.h"
+#include "util/constants.h"
 #include "util/logger.h"
 
 bool IsPlayerMoving(int dx, int dy) {

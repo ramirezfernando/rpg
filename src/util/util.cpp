@@ -1,5 +1,7 @@
 #include "util.h"
 
+#include "core/game.h"
+
 SDL_Texture* Util::LoadTexture(const char* file_name) {
   SDL_Surface* tmp_surface = IMG_Load(file_name);
   SDL_Texture* texture =

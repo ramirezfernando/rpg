@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-#include "constants/constants.h"
+#include "graphics/sprite_sheet_renderer.h"
 #include "resource/resource_manager.h"
-#include "sprite/sprite_sheet_renderer.h"
+#include "util/constants.h"
 
 Fern::Fern()
     : Character(ResourceManager::GetInstance().GetSpriteSheet(

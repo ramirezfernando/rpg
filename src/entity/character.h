@@ -2,7 +2,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "sprite/sprite_sheet_renderer.h"
+#include "graphics/sprite_sheet_renderer.h"
 
 enum class Direction { Up, Down, Left, Right };
 enum class Action { Idle, Walk, Run };

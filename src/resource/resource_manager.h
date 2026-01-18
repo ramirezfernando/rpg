@@ -6,7 +6,7 @@
 #include <memory>
 #include <string>
 
-#include "sprite/sprite_sheet_renderer.h"
+#include "graphics/sprite_sheet_renderer.h"
 
 // Singleton resource manager for loading and caching assets (textures, sprite
 // sheets, etc.). Prevents duplicate loads and provides centralized cleanup.

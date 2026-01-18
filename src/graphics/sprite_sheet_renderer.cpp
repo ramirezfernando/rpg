@@ -1,13 +1,13 @@
-#include "sprite/sprite_sheet_renderer.h"
+#include "sprite_sheet_renderer.h"
 
 #include <SDL2/SDL.h>
 
 #include <iostream>
 #include <sstream>
 
-#include "constants/constants.h"
-#include "game.h"  // For Game::renderer_
+#include "core/game.h"  // For Game::renderer_
 #include "resource/resource_manager.h"
+#include "util/constants.h"
 #include "util/logger.h"
 
 SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,

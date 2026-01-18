@@ -4,7 +4,7 @@
 
 #include <array>
 
-#include "constants/constants.h"
+#include "util/constants.h"
 
 // This class manages loading and rendering of sprite sheets.
 class SpriteSheetRenderer {

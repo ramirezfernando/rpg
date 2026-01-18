@@ -4,9 +4,9 @@
 #include <iostream>
 #include <vector>
 
-#include "constants/constants.h"
+#include "graphics/sprite_sheet_renderer.h"
 #include "resource/resource_manager.h"
-#include "sprite/sprite_sheet_renderer.h"
+#include "util/constants.h"
 
 static int GetIndex(int x, int y) {
   int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE) + 1;
