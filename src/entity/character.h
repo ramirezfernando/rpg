@@ -18,12 +18,14 @@ class Character {
   int GetXPos() { return dst_x_; }
   int GetYPos() { return dst_y_; }
   Action GetCurrentAction() const { return action_; }
+  bool IsNpc() const { return is_npc_; }
 
   // Setters
   void SetAction(Action action) { action_ = action; }
   void SetXPos(int dst_x) { dst_x_ = dst_x; }
   void SetYPos(int dst_y) { dst_y_ = dst_y; }
   void SetDirectionFacing(Direction direction) { direction_ = direction; }
+  void SetIsNpc(bool is_npc) { is_npc_ = is_npc; }
   virtual void SetPathForAction(Action action) = 0;
 
  protected:
@@ -42,4 +44,5 @@ class Character {
   int animation_frame_index_;
   int dst_x_;
   int dst_y_;
+  bool is_npc_;
 };

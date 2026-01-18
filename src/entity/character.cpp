@@ -12,7 +12,8 @@ Character::Character(SpriteSheetRenderer* renderer)
       animation_frame_index_(0),
       // Initial position in front of the house.
       dst_x_(Constants::PLAYER_START_X),
-      dst_y_(Constants::PLAYER_START_Y) {}
+      dst_y_(Constants::PLAYER_START_Y),
+      is_npc_(false) {}
 
 void Character::Render() {
   if (!renderer()) {
