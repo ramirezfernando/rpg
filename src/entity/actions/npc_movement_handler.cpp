@@ -11,11 +11,6 @@
 static const int MOVEMENT_FREQUENCY = 100;
 // How long the NPC stays idle or moving before deciding again.
 static const int DECISION_DURATION = 80;
-static int frame_counter = 0;
-
-// Counters to control animation speed.
-static int idle_animation_counter = 0;
-static int walk_and_run_animation_counter = 0;
 // Counter for how long NPC stays in current state.
 static int decision_counter = 0;
 // Current direction the NPC is committed to.
@@ -45,20 +40,11 @@ void NpcMovementHandler::UpdateNpcMovement(Character* npc, Map* map) {
   if (TryMove(npc, map, current_committed_direction)) {
     npc->SetDirectionFacing(current_committed_direction);
     npc->SetPathForAction(Action::Walk);
-    walk_and_run_animation_counter++;
-    if (walk_and_run_animation_counter >=
-        Constants::CHARACTER_WALK_AND_RUN_ANIMATION_SPEED) {
-      npc->IncrementAnimationFrameIndex();
-      walk_and_run_animation_counter = 0;
-    }
+    npc->IncrementAnimationFrameIndexAfterInterval();
   } else {
     // No movement or blocked: idle
     npc->SetPathForAction(Action::Idle);
-    idle_animation_counter++;
-    if (idle_animation_counter >= Constants::CHARACTER_IDLE_ANIMATION_SPEED) {
-      npc->IncrementAnimationFrameIndex();
-      idle_animation_counter = 0;
-    }
+    npc->IncrementAnimationFrameIndexAfterInterval();
   }
 }
 

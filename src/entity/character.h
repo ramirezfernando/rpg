@@ -12,7 +12,7 @@ class Character {
   explicit Character(SpriteSheetRenderer* renderer);
   virtual ~Character() = default;
   void Render();
-  void IncrementAnimationFrameIndex() { animation_frame_index_ += 1; }
+  void IncrementAnimationFrameIndexAfterInterval();
 
   // Getters
   int GetXPos() { return dst_x_; }
@@ -42,6 +42,9 @@ class Character {
   Direction direction_;
   Action action_;
   int animation_frame_index_;
+  int idle_animation_counter_;
+  int walk_animation_counter_;
+  int run_animation_counter_;
   int dst_x_;
   int dst_y_;
   bool is_npc_;

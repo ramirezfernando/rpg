@@ -10,6 +10,10 @@ Character::Character(SpriteSheetRenderer* renderer)
       direction_(Direction::Down),
       action_(Action::Idle),
       animation_frame_index_(0),
+      // Counters to control animation speed.
+      idle_animation_counter_(0),
+      walk_animation_counter_(0),
+      run_animation_counter_(0),
       // Initial position in front of the house.
       dst_x_(Constants::PLAYER_START_X),
       dst_y_(Constants::PLAYER_START_Y),
@@ -40,4 +44,33 @@ void Character::Render() {
   renderer()->RenderSprite(final_index, /*dst_x=*/dst_x_,
                            /*dst_y=*/dst_y_,
                            /*invert=*/direction_ == Direction::Left);
+}
+
+void Character::IncrementAnimationFrameIndexAfterInterval() {
+  switch (action_) {
+    case Action::Idle:
+      if (idle_animation_counter_ >=
+          Constants::CHARACTER_IDLE_ANIMATION_SPEED) {
+        animation_frame_index_ += 1;
+        idle_animation_counter_ = 0;
+      }
+      idle_animation_counter_++;
+      break;
+    case Action::Walk:
+      if (walk_animation_counter_ >=
+          Constants::CHARACTER_WALK_AND_RUN_ANIMATION_SPEED) {
+        animation_frame_index_ += 1;
+        walk_animation_counter_ = 0;
+      }
+      walk_animation_counter_++;
+      break;
+    case Action::Run:
+      if (run_animation_counter_ >=
+          Constants::CHARACTER_WALK_AND_RUN_ANIMATION_SPEED) {
+        animation_frame_index_ += 1;
+        run_animation_counter_ = 0;
+      }
+      run_animation_counter_++;
+      break;
+  }
 }
