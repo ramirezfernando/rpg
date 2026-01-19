@@ -7,6 +7,7 @@
 #include "entity/character.h"
 #include "entity/fern.h"
 #include "entity/kat.h"
+#include "graphics/hud.h"
 #include "graphics/map.h"
 #include "util/constants.h"
 #include "util/logger.h"
@@ -74,6 +75,9 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
 
   map_ = std::make_unique<Map>();
   Logger::Debug("Game", "Map created");
+
+  hud_ = std::make_unique<HUD>();
+  Logger::Debug("Game", "HUD created");
 }
 
 void Game::Render() {
@@ -110,6 +114,8 @@ void Game::Render() {
   }
 
   map_->RenderClothingRack();
+
+  hud_->RenderInventory();
 
   SDL_RenderPresent(renderer_);  // Double buffering
 }

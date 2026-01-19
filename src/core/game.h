@@ -7,6 +7,7 @@
 #include <memory>
 
 #include "entity/character.h"
+#include "graphics/hud.h"
 #include "graphics/map.h"
 #include "resource/resource_manager.h"
 
@@ -26,4 +27,5 @@ class Game {
   std::unique_ptr<Character> player_;
   std::unique_ptr<Character> npc_;
   std::unique_ptr<Map> map_;
+  std::unique_ptr<HUD> hud_;
 };
