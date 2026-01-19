@@ -17,6 +17,10 @@ static int GetIndex(int x, int y) {
 Map::Map() {
   ResourceManager& rm = ResourceManager::GetInstance();
 
+  plants_ =
+      rm.GetSpriteSheet("assets/sprites/map/plants.png",
+                        Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+
   grass_dirt_ =
       rm.GetSpriteSheet("assets/sprites/map/grass_dirt.png",
                         Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
@@ -43,6 +47,15 @@ Map::Map() {
 
   cliff_ = rm.GetSpriteSheet("assets/sprites/map/cliff.png",
                              Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+}
+
+void Map::RenderPlants() {
+  // Plants rendering not implemented yet.
+  if (plants_) {
+    plants_->RenderTileMap(Constants::TILE_MAP_PLANTS, Constants::MAP_COLUMNS,
+                           Constants::MAP_ROWS,
+                           /*dst_x=*/0, /*dst_y=*/0);
+  }
 }
 
 void Map::RenderGrassDirt() {
@@ -114,6 +127,8 @@ void Map::RenderCliff() {
 
 const std::vector<std::array<int, Constants::MAP_ROWS_BY_COLUMNS>>
 Map::GetOrderedTileMapLayers() {
+  // Don't include all tile maps, only those that affect rendering order, i.e.
+  // plants are decorative and can be ignored for rendering order.
   return {Constants::TILE_MAP_GRASS_DIRT,
           Constants::TILE_MAP_GRASS_WATER_FIRST_LAYER,
           Constants::TILE_MAP_GRASS_WATER_SECOND_LAYER,

@@ -32,6 +32,8 @@ extern const int SPRITE_WIDTH;
 extern const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_CLIFF;
 // 1D matrix representation of the tile map for the fence sprite sheet.
 extern const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_FENCE;
+// 1D matrix representation of the tile map for the plants sprite sheet.
+extern const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_PLANTS;
 // 1D matrix representation of the tile map for the grass and dirt sprite sheet.
 extern const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_GRASS_DIRT;
 // 1D matrix representation of the first layer tile map for the grass and water

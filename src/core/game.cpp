@@ -84,6 +84,7 @@ void Game::Render() {
   map_->RenderWaterfall();
   map_->RenderCliff();
   map_->RenderMailbox();
+  map_->RenderPlants();
 
   bool player_behind =
       ShouldRenderPlayerFirst(player_->GetXPos(), player_->GetYPos());

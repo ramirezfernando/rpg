@@ -16,6 +16,7 @@ class Map {
  public:
   Map();
   ~Map() = default;
+  void RenderPlants();
   void RenderGrassDirt();
   void RenderGrassWater();
   void RenderHouse();
@@ -39,6 +40,7 @@ class Map {
   bool IsOutOfBounds(int x, int y);
 
  private:
+  SpriteSheetRenderer* plants_;
   SpriteSheetRenderer* grass_dirt_;
   SpriteSheetRenderer* grass_water_;
   SpriteSheetRenderer* house_;
