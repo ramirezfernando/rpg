@@ -115,7 +115,7 @@ void Game::Render() {
 
   map_->RenderClothingRack();
 
-  hud_->RenderInventory();
+  hud_->RenderHotBar();
 
   SDL_RenderPresent(renderer_);  // Double buffering
 }
@@ -127,6 +127,6 @@ void Game::Update() {
       is_running_ = false;
     }
   }
-  InputHandler::HandleInput(player_.get(), map_.get());
+  InputHandler::HandleInput(player_.get(), map_.get(), hud_.get());
   NpcMovementHandler::UpdateNpcMovement(npc_.get(), map_.get());
 }

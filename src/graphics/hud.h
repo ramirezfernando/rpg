@@ -6,8 +6,12 @@ class HUD {
  public:
   HUD();
   ~HUD() = default;
-  void RenderInventory();
+  void RenderHotBar();
+  void SetSelectedSlot(int slot) { selected_slot_ = slot; }
 
  private:
-  SpriteSheetRenderer* inventory_;
+  SpriteSheetRenderer* hotbar_;
+  SpriteSheetRenderer* hotbar_select_tile_;
+  SpriteSheetRenderer* hotbar_select_border_;
+  int selected_slot_;
 };
