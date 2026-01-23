@@ -1,5 +1,12 @@
 CXX = clang++
-CXXFLAGS = -std=c++20 $(shell pkg-config --cflags sdl2) -Isrc
+# Use C++20 standard:
+CXXFLAGS = -std=c++20
+# Include SDL2 headers and src directory:
+CXXFLAGS += $(shell pkg-config --cflags sdl2) -Isrc
+# Increase warning levels:
+CXXFLAGS += -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion
+# Treat warnings as errors:
+CXXFLAGS += -Werror
 LDFLAGS = $(shell pkg-config --libs sdl2) $(shell pkg-config --libs sdl2_image)
 SRCS = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp)
 HDRS = $(wildcard src/*.h) $(wildcard src/*/*.h) $(wildcard src/*/*/*.h)
