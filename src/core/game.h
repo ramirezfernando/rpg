@@ -6,7 +6,7 @@
 
 #include <memory>
 
-#include "entity/character.h"
+#include "entities/character.h"
 #include "graphics/hud.h"
 #include "graphics/map.h"
 #include "graphics/renderer.h"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "entity/character.h"
+#include "entities/character.h"
 
 // Handles random movement for NPC characters.
 class NpcMovementHandler {

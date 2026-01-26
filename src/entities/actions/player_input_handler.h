@@ -1,6 +1,6 @@
 #pragma once
 
-#include "entity/character.h"
+#include "entities/character.h"
 #include "graphics/hud.h"
 #include "graphics/map.h"
 

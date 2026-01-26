@@ -2,11 +2,11 @@
 
 #include <iostream>
 
-#include "entity/actions/npc_movement_handler.h"
-#include "entity/actions/player_input_handler.h"
-#include "entity/character.h"
-#include "entity/fern.h"
-#include "entity/kat.h"
+#include "entities/actions/npc_movement_handler.h"
+#include "entities/actions/player_input_handler.h"
+#include "entities/character.h"
+#include "entities/fern.h"
+#include "entities/kat.h"
 #include "graphics/hud.h"
 #include "graphics/map.h"
 #include "util/constants.h"

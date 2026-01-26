@@ -3,7 +3,7 @@
 #include <cmath>
 #include <optional>
 
-#include "entity/character.h"
+#include "entities/character.h"
 #include "graphics/hud.h"
 #include "graphics/map.h"
 #include "util/constants.h"
