@@ -4,8 +4,8 @@
 #include <optional>
 
 #include "entities/character.h"
-#include "graphics/hud.h"
 #include "graphics/map.h"
+#include "ui/hud.h"
 #include "util/constants.h"
 #include "util/logger.h"
 

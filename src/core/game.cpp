@@ -7,8 +7,8 @@
 #include "entities/character.h"
 #include "entities/fern.h"
 #include "entities/kat.h"
-#include "graphics/hud.h"
 #include "graphics/map.h"
+#include "ui/hud.h"
 #include "util/constants.h"
 #include "util/logger.h"
 

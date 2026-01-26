@@ -1,8 +1,8 @@
 #pragma once
 
 #include "entities/character.h"
-#include "graphics/hud.h"
 #include "graphics/map.h"
+#include "ui/hud.h"
 
 // Encapsulates all input handling logic for the player character.
 class InputHandler {

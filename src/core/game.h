@@ -7,10 +7,10 @@
 #include <memory>
 
 #include "entities/character.h"
-#include "graphics/hud.h"
 #include "graphics/map.h"
 #include "graphics/renderer.h"
 #include "resource/resource_manager.h"
+#include "ui/hud.h"
 #include "window.h"
 
 class Game {
