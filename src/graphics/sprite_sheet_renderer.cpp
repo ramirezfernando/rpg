@@ -9,6 +9,7 @@
 #include "resource/resource_manager.h"
 #include "util/constants.h"
 #include "util/logger.h"
+#include "util/util.h"
 
 SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
                                          int sprite_height, int margin,
@@ -129,19 +130,17 @@ void SpriteSheetRenderer::RenderTileMap(
   if (!texture_) {
     return;
   }
-
   const int scaled_tile_width = sprite_width_ * Constants::SPRITE_SCALE;
   const int scaled_tile_height = sprite_height_ * Constants::SPRITE_SCALE;
-
-  for (int y = 0; y < Constants::MAP_ROWS; ++y) {
-    for (int x = 0; x < Constants::MAP_COLUMNS; ++x) {
-      int sprite_index =
-          tile_map[static_cast<size_t>(y * Constants::MAP_COLUMNS + x)];
+  for (int row = 0; row < Constants::MAP_ROWS; ++row) {
+    for (int column = 0; column < Constants::MAP_COLUMNS; ++column) {
+      int tile = tile_map[static_cast<size_t>(
+          Util::GetRowMajorOrderIndex(row, column))];
       // Skip negative tiles as they are reserved for empty tiles.
-      if (sprite_index < 0) {
+      if (tile < 0) {
         continue;
       }
-      RenderSprite(sprite_index, x * scaled_tile_width, y * scaled_tile_height);
+      RenderSprite(tile, column * scaled_tile_width, row * scaled_tile_height);
     }
   }
 }

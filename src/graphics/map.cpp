@@ -8,12 +8,7 @@
 #include "graphics/sprite_sheet_renderer.h"
 #include "resource/resource_manager.h"
 #include "util/constants.h"
-
-static int GetIndex(int x, int y) {
-  int column = x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE) + 1;
-  int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE) + 1;
-  return row * Constants::MAP_COLUMNS + column;
-}
+#include "util/util.h"
 
 Map::Map() {
   ResourceManager& rm = ResourceManager::GetInstance();
@@ -123,7 +118,7 @@ Map::GetOrderedTileMapLayers() {
 }
 
 std::optional<int> Map::GetTopmostTile(int x, int y) {
-  int index = GetIndex(x, y);
+  int index = Util::GetRowMajorOrderIndexFromCoordinates(x, y);
   auto ordered_tile_map_layers = GetOrderedTileMapLayers();
   // Iterate in reverse order without modifying `GetOrderedTileMapLayers`.
   // Start by checking the topmost rendered tile and make your way down to
