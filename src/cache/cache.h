@@ -20,7 +20,8 @@ class Cache {
   Cache& operator=(Cache&&) = delete;       // Move assignment operator.
 
   SDL_Texture* GetOrCreateTexture(const char* file_name);
-  Sprite* GetOrCreateSprite(const char* file_path, int sprite_width, int sprite_height);
+  Sprite* GetOrCreateSprite(const char* file_path, int sprite_width,
+                            int sprite_height);
   void Clear();
 
  private:

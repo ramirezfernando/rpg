@@ -45,7 +45,7 @@ SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
 }
 
 Sprite* Cache::GetOrCreateSprite(const char* file_path, int sprite_width,
-                         int sprite_height) {
+                                 int sprite_height) {
   if (!file_path) {
     Logger::Error("Cache", "path is null");
     return nullptr;
