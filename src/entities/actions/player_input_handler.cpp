@@ -4,10 +4,10 @@
 #include <optional>
 
 #include "entities/character.h"
-#include "graphics/map.h"
 #include "ui/hud.h"
 #include "util/constants.h"
 #include "util/logger.h"
+#include "world/map.h"
 
 bool IsPlayerMoving(int dx, int dy) {
   return dx != 0 || dy != 0;

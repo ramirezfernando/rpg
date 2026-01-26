@@ -3,9 +3,9 @@
 #include <cstdlib>
 #include <optional>
 
-#include "graphics/map.h"
 #include "util/constants.h"
 #include "util/logger.h"
+#include "world/map.h"
 
 // How long the NPC stays idle or moving before deciding again.
 static const int DECISION_DURATION = 80;

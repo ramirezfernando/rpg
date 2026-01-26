@@ -7,10 +7,10 @@
 #include "entities/character.h"
 #include "entities/fern.h"
 #include "entities/kat.h"
-#include "graphics/map.h"
 #include "ui/hud.h"
 #include "util/constants.h"
 #include "util/logger.h"
+#include "world/map.h"
 
 SDL_Event Game::event_;
 
