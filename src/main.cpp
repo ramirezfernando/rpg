@@ -12,7 +12,7 @@ int main() {
              Constants::WINDOW_SIZE, Constants::WINDOW_SIZE);
 
   Uint32 frame_start;
-  int frame_time;
+  Uint32 frame_time;
   while (game->IsRunning()) {
     frame_start = SDL_GetTicks();
     game->Render();

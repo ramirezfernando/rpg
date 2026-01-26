@@ -2,6 +2,7 @@
 
 #include <array>
 #include <iostream>
+#include <numeric>
 #include <vector>
 
 #include "graphics/sprite_sheet_renderer.h"
@@ -144,8 +145,11 @@ std::optional<int> Map::GetTopmostTile(int x, int y) {
   for (auto it = ordered_tile_map_layers.rbegin();
        it != ordered_tile_map_layers.rend(); ++it) {
     auto tile_map = *it;
-    if (index >= 0 && index < tile_map.size() && tile_map[index] >= 0) {
-      return tile_map[index];
+    if (index >= 0) {
+      auto u_index = static_cast<std::size_t>(index);
+      if (u_index < tile_map.size() && tile_map.at(u_index) >= 0) {
+        return tile_map[u_index];
+      }
     }
   }
   return std::nullopt;

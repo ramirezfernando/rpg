@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SDL2/SDL.h>
+
 #include <array>
 
 namespace Constants {
@@ -11,7 +13,7 @@ extern const int CHARACTER_WALK_AND_RUN_ANIMATION_SPEED;
 // Gap in pixels for character movement.
 extern const int CHARACTER_WALK_GAP;
 // Delay between frames in milliseconds.
-extern const int FRAME_DELAY;
+extern const Uint32 FRAME_DELAY;
 // Number of columns in the map.
 constexpr int MAP_COLUMNS = 16;
 // Number of rows in the map.

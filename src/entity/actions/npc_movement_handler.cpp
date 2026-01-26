@@ -7,8 +7,6 @@
 #include "util/constants.h"
 #include "util/logger.h"
 
-// How often the NPC decides to move (in frames).
-static const int MOVEMENT_FREQUENCY = 100;
 // How long the NPC stays idle or moving before deciding again.
 static const int DECISION_DURATION = 80;
 // Counter for how long NPC stays in current state.
