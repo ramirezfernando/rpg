@@ -10,7 +10,7 @@ Npc::Npc()
     : Entity(Cache::GetInstance()->GetOrCreateSpriteSheet(
           /*path=*/"assets/sprites/characters/kat/idle.png",
           /*sprite_w=*/32, /*sprite_h=*/32)) {
-  sprite_sheet_columns_ = renderer()->GetColumns();
+  sprite_sheet_columns_ = sprite()->GetColumns();
   SetIsNpc(true);
 }
 

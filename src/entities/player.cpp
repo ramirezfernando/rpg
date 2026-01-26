@@ -10,7 +10,7 @@ Player::Player()
     : Entity(Cache::GetInstance()->GetOrCreateSpriteSheet(
           /*path=*/"assets/sprites/characters/fern/idle.png",
           /*sprite_w=*/32, /*sprite_h=*/32)) {
-  sprite_sheet_columns_ = renderer()->GetColumns();
+  sprite_sheet_columns_ = sprite()->GetColumns();
 }
 
 int Player::GetInitialAnimationFrame(Action action, Direction direction) const {
@@ -79,9 +79,9 @@ void Player::SetPathForAction(Action action) {
 
   SetAction(action);
   // Use the Cache to load/cache the sprite sheet.
-  Sprite* new_renderer = Cache::GetInstance()->GetOrCreateSpriteSheet(
+  Sprite* sprite = Cache::GetInstance()->GetOrCreateSpriteSheet(
       action_path, /*sprite_w=*/32, /*sprite_h=*/32);
-  if (new_renderer) {
-    SetRenderer(new_renderer);
+  if (sprite) {
+    SetRenderer(sprite);
   }
 }

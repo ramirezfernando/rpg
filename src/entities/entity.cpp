@@ -5,8 +5,8 @@
 
 #include "util/logger.h"
 
-Entity::Entity(Sprite* renderer)
-    : renderer_(renderer),
+Entity::Entity(Sprite* sprite)
+    : sprite_(sprite),
       direction_(Direction::Down),
       action_(Action::Idle),
       animation_frame_index_(0),
@@ -20,7 +20,7 @@ Entity::Entity(Sprite* renderer)
       is_npc_(false) {}
 
 void Entity::Render() {
-  if (!renderer()) {
+  if (!sprite()) {
     return;
   }
 
@@ -32,7 +32,7 @@ void Entity::Render() {
 
   // Compute final index and guard against exceeding sprite_count_.
   int final_index = initial_index + frame;
-  int sprite_count = renderer()->GetSpriteCount();
+  int sprite_count = sprite()->GetSpriteCount();
   if (final_index >= sprite_count) {
     std::ostringstream oss;
     oss << "Entity::Render: final_index " << final_index << " >= sprite_count "
@@ -41,7 +41,7 @@ void Entity::Render() {
     final_index %= sprite_count;
   }
 
-  renderer()->RenderSprite(final_index, /*dst_x=*/dst_x_,
+  sprite()->RenderSprite(final_index, /*dst_x=*/dst_x_,
                            /*dst_y=*/dst_y_,
                            /*invert=*/direction_ == Direction::Left);
 }

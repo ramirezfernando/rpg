@@ -9,7 +9,7 @@ enum class Action { Idle, Walk, Run };
 
 class Entity {
  public:
-  explicit Entity(Sprite* renderer);
+  explicit Entity(Sprite* sprite);
   virtual ~Entity() = default;
   void Render();
   void IncrementAnimationFrameIndexAfterInterval();
@@ -34,11 +34,11 @@ class Entity {
                                        Direction direction) const = 0;
   virtual int GetSpriteSheetColumns() const = 0;
 
-  Sprite* renderer() { return renderer_; }
-  void SetRenderer(Sprite* renderer) { renderer_ = renderer; }
+  Sprite* sprite() { return sprite_; }
+  void SetRenderer(Sprite* sprite) { sprite_ = sprite; }
 
  private:
-  Sprite* renderer_;
+  Sprite* sprite_;
   Direction direction_;
   Action action_;
   int animation_frame_index_;
