@@ -14,7 +14,7 @@ Cache::~Cache() {
   Clear();
 }
 
-SDL_Texture* Cache::GetTexture(const char* file_name) {
+SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
   if (!file_name) {
     Logger::Error("Cache", "file_name is null");
     return nullptr;
@@ -44,7 +44,7 @@ SDL_Texture* Cache::GetTexture(const char* file_name) {
   return texture;
 }
 
-Sprite* Cache::GetSprite(const char* file_path, int sprite_width,
+Sprite* Cache::GetOrCreateSprite(const char* file_path, int sprite_width,
                          int sprite_height) {
   if (!file_path) {
     Logger::Error("Cache", "path is null");
@@ -86,9 +86,6 @@ void Cache::Clear() {
     }
   }
   texture_cache_.clear();
-
-  // Clear sprite sheet cache (unique_ptrs will auto-destruct).
   sprite_sheet_cache_.clear();
-
   Logger::Debug("Cache", "Resource cache cleared");
 }

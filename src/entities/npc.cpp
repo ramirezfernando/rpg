@@ -7,7 +7,7 @@
 #include "util/constants.h"
 
 Npc::Npc()
-    : Entity(Cache::GetInstance()->GetSprite(
+    : Entity(Cache::GetInstance()->GetOrCreateSprite(
           /*path=*/"assets/sprites/characters/kat/idle.png",
           /*sprite_w=*/32, /*sprite_h=*/32)) {
   sprite_sheet_columns_ = renderer()->GetColumns();
@@ -80,7 +80,7 @@ void Npc::SetPathForAction(Action action) {
 
   SetAction(action);
   // Use the Cache to load/cache the sprite sheet.
-  Sprite* new_renderer = Cache::GetInstance()->GetSprite(
+  Sprite* new_renderer = Cache::GetInstance()->GetOrCreateSprite(
       action_path, /*sprite_w=*/32, /*sprite_h=*/32);
   if (new_renderer) {
     SetRenderer(new_renderer);

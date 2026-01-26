@@ -5,10 +5,11 @@
 
 HUD::HUD() {
   Cache* rm = Cache::GetInstance();
-  hotbar_ = rm->GetSprite("assets/sprites/hud/inventory/hotbar.png", 165, 28);
-  hotbar_select_tile_ = rm->GetSprite(
+  hotbar_ =
+      rm->GetOrCreateSprite("assets/sprites/hud/inventory/hotbar.png", 165, 28);
+  hotbar_select_tile_ = rm->GetOrCreateSprite(
       "assets/sprites/hud/inventory/hotbar_select_tile.png", 18, 18);
-  hotbar_select_border_ = rm->GetSprite(
+  hotbar_select_border_ = rm->GetOrCreateSprite(
       "assets/sprites/hud/inventory/hotbar_select_border.png", 18, 18);
   selected_slot_ = 0;
 }

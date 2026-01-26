@@ -23,7 +23,7 @@ Sprite::Sprite(const char* path, int sprite_width, int sprite_height,
       columns_(0) {}
 
 bool Sprite::LoadSpriteSheet() {
-  texture_ = Cache::GetInstance()->GetTexture(path_);
+  texture_ = Cache::GetInstance()->GetOrCreateTexture(path_);
   if (!texture_) {
     Logger::Error("Sprite", std::string("Failed to load texture: ") + path_);
     return false;
