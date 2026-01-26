@@ -35,15 +35,17 @@ void Log(Level level, const std::string& message) {
   if (!ShouldLog(level)) {
     return;
   }
-  std::cerr << LevelToString(level) << " " << message << std::endl;
+  // Note: Do not use `std::endl` as it implicitly flushes the buffer.
+  std::cerr << LevelToString(level) << " " << message << '\n';
 }
 
 void Log(Level level, const std::string& context, const std::string& message) {
   if (!ShouldLog(level)) {
     return;
   }
+  // Note: Do not use `std::endl` as it implicitly flushes the buffer.
   std::cerr << LevelToString(level) << " [" << context << "] " << message
-            << std::endl;
+            << '\n';
 }
 
 void Debug(const std::string& message) {
