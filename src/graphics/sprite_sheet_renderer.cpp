@@ -6,6 +6,7 @@
 #include <sstream>
 
 #include "core/game.h"  // For Game::renderer_
+#include "renderer.h"
 #include "resource/resource_manager.h"
 #include "util/constants.h"
 #include "util/logger.h"
@@ -96,18 +97,20 @@ void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
 
   if (invert) {
     SDL_RendererFlip flip = invert ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    SDL_RenderCopyEx(Game::renderer_, texture_, &src, &dst, 0.0, NULL, flip);
+    SDL_RenderCopyEx(Renderer::renderer_, texture_, &src, &dst, 0.0, NULL,
+                     flip);
   } else {
-    SDL_RenderCopy(Game::renderer_, texture_, &src, &dst);
+    SDL_RenderCopy(Renderer::renderer_, texture_, &src, &dst);
   }
 
 #if defined(DEBUG_MODE)
   // Draw red border so you can see tile boundaries.
   Uint8 prev_r, prev_g, prev_b, prev_a;
-  SDL_GetRenderDrawColor(Game::renderer_, &prev_r, &prev_g, &prev_b, &prev_a);
-  SDL_SetRenderDrawColor(Game::renderer_, 255, 0, 0, 255);
-  SDL_RenderDrawRect(Game::renderer_, &dst);
-  SDL_SetRenderDrawColor(Game::renderer_, prev_r, prev_g, prev_b, prev_a);
+  SDL_GetRenderDrawColor(Renderer::renderer_, &prev_r, &prev_g, &prev_b,
+                         &prev_a);
+  SDL_SetRenderDrawColor(Renderer::renderer_, 255, 0, 0, 255);
+  SDL_RenderDrawRect(Renderer::renderer_, &dst);
+  SDL_SetRenderDrawColor(Renderer::renderer_, prev_r, prev_g, prev_b, prev_a);
 #endif  // DEBUG_MODE
 }
 

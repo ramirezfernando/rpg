@@ -12,7 +12,6 @@
 #include "util/constants.h"
 #include "util/logger.h"
 
-SDL_Renderer* Game::renderer_ = nullptr;
 SDL_Event Game::event_;
 
 static bool IsPlayerBehindFence(int x, int y) {
@@ -31,8 +30,6 @@ Game::~Game() {
   // Clear resource cache before destroying SDL objects.
   ResourceManager::GetInstance().Clear();
 
-  SDL_DestroyWindow(window_);
-  SDL_DestroyRenderer(renderer_);
   SDL_Quit();
   IMG_Quit();
 
@@ -42,25 +39,10 @@ Game::~Game() {
 void Game::Init(const char* title, int x_pos, int y_pos, int width,
                 int height) {
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-    window_ = SDL_CreateWindow(title, x_pos, y_pos, width, height, 0);
-    if (window_) {
-      Logger::Debug("Game", "Window created");
-    } else {
-      Logger::Error("Game", "Failed to create window");
-      is_running_ = false;
-      return;
-    }
-
-    renderer_ = SDL_CreateRenderer(window_, -1, 0);
-    if (renderer_) {
-      SDL_SetRenderDrawColor(renderer_, 255, 255, 255, 255);
-      Logger::Debug("Game", "Renderer created");
-    } else {
-      Logger::Error("Game", "Failed to create renderer");
-      is_running_ = false;
-      return;
-    }
+    window_ = std::make_unique<Window>(title, x_pos, y_pos, width, height);
+    renderer_ = std::make_unique<Renderer>(window_->GetSDLWindow());
     is_running_ = true;
+    Logger::Debug("Game", "Initialized SDL");
   } else {
     Logger::Error("Game", "Failed to initialize SDL");
     is_running_ = false;
@@ -81,7 +63,7 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width,
 }
 
 void Game::Render() {
-  SDL_RenderClear(renderer_);
+  SDL_RenderClear(Renderer::renderer_);
   // Order of rendering matters: first rendered = back, last rendered = front.
   map_->RenderGrassDirt();
   map_->RenderGrassWater();
@@ -117,7 +99,7 @@ void Game::Render() {
 
   hud_->RenderHotBar();
 
-  SDL_RenderPresent(renderer_);  // Double buffering
+  SDL_RenderPresent(Renderer::renderer_);  // Double buffering
 }
 
 void Game::Update() {
