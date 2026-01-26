@@ -79,10 +79,9 @@ void Npc::SetPathForAction(Action action) {
   }
 
   SetAction(action);
-  // Use the Cache to load/cache the sprite sheet.
-  Sprite* new_renderer = Cache::GetInstance()->GetOrCreateSpriteSheet(
+  Sprite* sprite = Cache::GetInstance()->GetOrCreateSpriteSheet(
       action_path, /*sprite_w=*/32, /*sprite_h=*/32);
-  if (new_renderer) {
-    SetRenderer(new_renderer);
+  if (sprite) {
+    SetSprite(sprite);
   }
 }

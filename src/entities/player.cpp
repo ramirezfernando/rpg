@@ -78,10 +78,9 @@ void Player::SetPathForAction(Action action) {
   }
 
   SetAction(action);
-  // Use the Cache to load/cache the sprite sheet.
   Sprite* sprite = Cache::GetInstance()->GetOrCreateSpriteSheet(
       action_path, /*sprite_w=*/32, /*sprite_h=*/32);
   if (sprite) {
-    SetRenderer(sprite);
+    SetSprite(sprite);
   }
 }

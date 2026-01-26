@@ -35,7 +35,7 @@ class Entity {
   virtual int GetSpriteSheetColumns() const = 0;
 
   Sprite* sprite() { return sprite_; }
-  void SetRenderer(Sprite* sprite) { sprite_ = sprite; }
+  void SetSprite(Sprite* sprite) { sprite_ = sprite; }
 
  private:
   Sprite* sprite_;
