@@ -4,12 +4,12 @@
 #include "util/constants.h"
 
 HUD::HUD() {
-  Cache* rm = Cache::GetInstance();
-  hotbar_ =
-      rm->GetOrCreateSprite("assets/sprites/hud/inventory/hotbar.png", 165, 28);
-  hotbar_select_tile_ = rm->GetOrCreateSprite(
+  Cache* cache = Cache::GetInstance();
+  hotbar_ = cache->GetOrCreateSpriteSheet(
+      "assets/sprites/hud/inventory/hotbar.png", 165, 28);
+  hotbar_select_tile_ = cache->GetOrCreateSpriteSheet(
       "assets/sprites/hud/inventory/hotbar_select_tile.png", 18, 18);
-  hotbar_select_border_ = rm->GetOrCreateSprite(
+  hotbar_select_border_ = cache->GetOrCreateSpriteSheet(
       "assets/sprites/hud/inventory/hotbar_select_border.png", 18, 18);
   selected_slot_ = 0;
 }

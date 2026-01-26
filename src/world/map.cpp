@@ -11,40 +11,42 @@
 #include "util/util.h"
 
 Map::Map() {
-  Cache* rm = Cache::GetInstance();
+  Cache* cache = Cache::GetInstance();
 
-  plants_ =
-      rm->GetOrCreateSprite("assets/sprites/map/plants.png",
-                            Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+  plants_ = cache->GetOrCreateSpriteSheet("assets/sprites/map/plants.png",
+                                          Constants::SPRITE_WIDTH,
+                                          Constants::SPRITE_HEIGHT);
 
-  grass_dirt_ =
-      rm->GetOrCreateSprite("assets/sprites/map/grass_dirt.png",
-                            Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+  grass_dirt_ = cache->GetOrCreateSpriteSheet(
+      "assets/sprites/map/grass_dirt.png", Constants::SPRITE_WIDTH,
+      Constants::SPRITE_HEIGHT);
 
-  house_ = rm->GetOrCreateSprite("assets/sprites/map/house.png", 80, 100);
+  house_ =
+      cache->GetOrCreateSpriteSheet("assets/sprites/map/house.png", 80, 100);
 
-  house_chimney_smoke_ = rm->GetOrCreateSprite(
+  house_chimney_smoke_ = cache->GetOrCreateSpriteSheet(
       "assets/sprites/map/house_chimney_smoke.png", 32, 64);
 
-  wood_fence_ =
-      rm->GetOrCreateSprite("assets/sprites/map/wood_fence.png",
-                            Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+  wood_fence_ = cache->GetOrCreateSpriteSheet(
+      "assets/sprites/map/wood_fence.png", Constants::SPRITE_WIDTH,
+      Constants::SPRITE_HEIGHT);
 
-  clothing_rack_ =
-      rm->GetOrCreateSprite("assets/sprites/map/clothing_rack.png", 64, 35);
+  clothing_rack_ = cache->GetOrCreateSpriteSheet(
+      "assets/sprites/map/clothing_rack.png", 64, 35);
 
-  mailbox_ = rm->GetOrCreateSprite("assets/sprites/map/mailbox.png", 16, 32);
+  mailbox_ =
+      cache->GetOrCreateSpriteSheet("assets/sprites/map/mailbox.png", 16, 32);
 
   waterfall_ =
-      rm->GetOrCreateSprite("assets/sprites/map/waterfall.png", 48, 80);
+      cache->GetOrCreateSpriteSheet("assets/sprites/map/waterfall.png", 48, 80);
 
-  grass_water_ =
-      rm->GetOrCreateSprite("assets/sprites/map/grass_water.png",
-                            Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+  grass_water_ = cache->GetOrCreateSpriteSheet(
+      "assets/sprites/map/grass_water.png", Constants::SPRITE_WIDTH,
+      Constants::SPRITE_HEIGHT);
 
-  cliff_ =
-      rm->GetOrCreateSprite("assets/sprites/map/cliff.png",
-                            Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+  cliff_ = cache->GetOrCreateSpriteSheet("assets/sprites/map/cliff.png",
+                                         Constants::SPRITE_WIDTH,
+                                         Constants::SPRITE_HEIGHT);
 }
 
 void Map::RenderPlants() {
