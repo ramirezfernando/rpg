@@ -13,3 +13,4 @@ A 2D RPG written in C++ from scratch (in development).
    - [ES.20: Always initialize an object](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#es20-always-initialize-an-object)
 - Use `'\n'` rather than `std::endl` unless I need to explicitly flush the buffer.
    - Also ensure to use single quotes unless adding it into existing double quote text.
+- Use std::string_view
