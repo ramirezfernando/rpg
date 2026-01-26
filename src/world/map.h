@@ -5,7 +5,7 @@
 #include <optional>
 #include <vector>
 
-#include "graphics/sprite_sheet_renderer.h"
+#include "graphics/sprite.h"
 #include "util/constants.h"
 
 // This class manages rendering of the game map using various tile sets. The map
@@ -40,14 +40,14 @@ class Map {
   bool IsOutOfBounds(int x, int y);
 
  private:
-  SpriteSheetRenderer* plants_;
-  SpriteSheetRenderer* grass_dirt_;
-  SpriteSheetRenderer* grass_water_;
-  SpriteSheetRenderer* house_;
-  SpriteSheetRenderer* house_chimney_smoke_;
-  SpriteSheetRenderer* wood_fence_;
-  SpriteSheetRenderer* clothing_rack_;
-  SpriteSheetRenderer* mailbox_;
-  SpriteSheetRenderer* waterfall_;
-  SpriteSheetRenderer* cliff_;
+  Sprite* plants_;
+  Sprite* grass_dirt_;
+  Sprite* grass_water_;
+  Sprite* house_;
+  Sprite* house_chimney_smoke_;
+  Sprite* wood_fence_;
+  Sprite* clothing_rack_;
+  Sprite* mailbox_;
+  Sprite* waterfall_;
+  Sprite* cliff_;
 };

@@ -6,7 +6,7 @@
 #include <memory>
 #include <string>
 
-#include "graphics/sprite_sheet_renderer.h"
+#include "graphics/sprite.h"
 
 // Singleton resource manager for loading and caching assets (textures, sprite
 // sheets, etc.). Prevents duplicate loads and provides centralized cleanup.
@@ -22,9 +22,8 @@ class ResourceManager {
   SDL_Texture* GetTexture(const char* file_name);
 
   // Load or retrieve a cached sprite sheet renderer.
-  SpriteSheetRenderer* GetSpriteSheet(const char* path, int sprite_width,
-                                      int sprite_height, int margin = 0,
-                                      int spacing = 0);
+  Sprite* GetSpriteSheet(const char* path, int sprite_width, int sprite_height,
+                         int margin = 0, int spacing = 0);
 
   // Clear all cached resources (called on shutdown).
   void Clear();
@@ -38,7 +37,6 @@ class ResourceManager {
   // Texture cache: filename -> SDL_Texture*
   std::map<std::string, SDL_Texture*> texture_cache_;
 
-  // Sprite sheet cache: path -> unique_ptr<SpriteSheetRenderer>
-  std::map<std::string, std::unique_ptr<SpriteSheetRenderer>>
-      sprite_sheet_cache_;
+  // Sprite sheet cache: path -> unique_ptr<Sprite>
+  std::map<std::string, std::unique_ptr<Sprite>> sprite_sheet_cache_;
 };

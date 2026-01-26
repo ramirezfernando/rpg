@@ -42,10 +42,9 @@ SDL_Texture* ResourceManager::GetTexture(const char* file_name) {
   return texture;
 }
 
-SpriteSheetRenderer* ResourceManager::GetSpriteSheet(const char* path,
-                                                     int sprite_width,
-                                                     int sprite_height,
-                                                     int margin, int spacing) {
+Sprite* ResourceManager::GetSpriteSheet(const char* path, int sprite_width,
+                                        int sprite_height, int margin,
+                                        int spacing) {
   if (!path) {
     Logger::Error("ResourceManager", "path is null");
     return nullptr;
@@ -61,8 +60,8 @@ SpriteSheetRenderer* ResourceManager::GetSpriteSheet(const char* path,
   }
 
   // Create and load sprite sheet.
-  auto renderer = std::make_unique<SpriteSheetRenderer>(
-      path, sprite_width, sprite_height, margin, spacing);
+  auto renderer = std::make_unique<Sprite>(path, sprite_width, sprite_height,
+                                           margin, spacing);
 
   if (!renderer->LoadSpriteSheet()) {
     Logger::Error("ResourceManager",
@@ -71,7 +70,7 @@ SpriteSheetRenderer* ResourceManager::GetSpriteSheet(const char* path,
   }
 
   // Cache the sprite sheet and return raw pointer.
-  SpriteSheetRenderer* raw_ptr = renderer.get();
+  Sprite* raw_ptr = renderer.get();
   sprite_sheet_cache_[key] = std::move(renderer);
 
   Logger::Debug("ResourceManager", std::string("Sprite sheet loaded: ") + path);

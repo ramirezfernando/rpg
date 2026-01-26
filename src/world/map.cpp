@@ -5,7 +5,7 @@
 #include <numeric>
 #include <vector>
 
-#include "graphics/sprite_sheet_renderer.h"
+#include "graphics/sprite.h"
 #include "resource/resource_manager.h"
 #include "util/constants.h"
 #include "util/util.h"

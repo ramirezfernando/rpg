@@ -1,4 +1,4 @@
-#include "sprite_sheet_renderer.h"
+#include "sprite.h"
 
 #include <SDL2/SDL.h>
 
@@ -12,9 +12,8 @@
 #include "util/logger.h"
 #include "util/util.h"
 
-SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
-                                         int sprite_height, int margin,
-                                         int spacing)
+Sprite::Sprite(const char* path, int sprite_width, int sprite_height,
+               int margin, int spacing)
     : path_(path),
       texture_(nullptr),
       sprite_width_(sprite_width),
@@ -23,18 +22,17 @@ SpriteSheetRenderer::SpriteSheetRenderer(const char* path, int sprite_width,
       spacing_(spacing),
       columns_(0) {}
 
-bool SpriteSheetRenderer::LoadSpriteSheet() {
+bool Sprite::LoadSpriteSheet() {
   texture_ = ResourceManager::GetInstance().GetTexture(path_);
   if (!texture_) {
-    Logger::Error("SpriteSheetRenderer",
-                  std::string("Failed to load texture: ") + path_);
+    Logger::Error("Sprite", std::string("Failed to load texture: ") + path_);
     return false;
   }
 
   int texture_width = 0, texture_height = 0;
   if (SDL_QueryTexture(texture_, nullptr, nullptr, &texture_width,
                        &texture_height) != 0) {
-    Logger::Error("SpriteSheetRenderer",
+    Logger::Error("Sprite",
                   std::string("SDL_QueryTexture failed: ") + SDL_GetError());
     return false;
   }
@@ -58,13 +56,12 @@ bool SpriteSheetRenderer::LoadSpriteSheet() {
   oss << "Sprite sheet loaded: " << path_ << " tex=" << texture_width << "x"
       << texture_height << " cols=" << columns_ << " rows=" << rows_
       << " tiles=" << sprite_count_;
-  Logger::Debug("SpriteSheetRenderer", oss.str());
+  Logger::Debug("Sprite", oss.str());
 
   return true;
 }
 
-void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
-                                       bool invert) {
+void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y, bool invert) {
   if (!texture_) {
     return;
   }
@@ -76,7 +73,7 @@ void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
     std::ostringstream oss;
     oss << "RenderSprite: sprite_index " << sprite_index << " out of range (0.."
         << (sprite_count_ - 1) << ")";
-    Logger::Warning("SpriteSheetRenderer", oss.str());
+    Logger::Warning("Sprite", oss.str());
     return;
   }
 
@@ -115,7 +112,7 @@ void SpriteSheetRenderer::RenderSprite(int sprite_index, int dst_x, int dst_y,
 }
 
 // TODO: Generalize for any number of frames and frame rate.
-void SpriteSheetRenderer::RenderAnimatedSprite(int dst_x, int dst_y) {
+void Sprite::RenderAnimatedSprite(int dst_x, int dst_y) {
   // Simple animation by cycling through frames.
   static Uint32 last_time = 0;
   static int current_frame = 0;
@@ -128,7 +125,7 @@ void SpriteSheetRenderer::RenderAnimatedSprite(int dst_x, int dst_y) {
   RenderSprite(current_frame, dst_x, dst_y);
 }
 
-void SpriteSheetRenderer::RenderTileMap(
+void Sprite::RenderTileMap(
     const std::array<int, Constants::MAP_ROWS_BY_COLUMNS>& tile_map) {
   if (!texture_) {
     return;

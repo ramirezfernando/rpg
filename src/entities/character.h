@@ -2,14 +2,14 @@
 
 #include <SDL2/SDL.h>
 
-#include "graphics/sprite_sheet_renderer.h"
+#include "graphics/sprite.h"
 
 enum class Direction { Up, Down, Left, Right };
 enum class Action { Idle, Walk, Run };
 
 class Character {
  public:
-  explicit Character(SpriteSheetRenderer* renderer);
+  explicit Character(Sprite* renderer);
   virtual ~Character() = default;
   void Render();
   void IncrementAnimationFrameIndexAfterInterval();
@@ -34,11 +34,11 @@ class Character {
                                        Direction direction) const = 0;
   virtual int GetSpriteSheetColumns() const = 0;
 
-  SpriteSheetRenderer* renderer() { return renderer_; }
-  void SetRenderer(SpriteSheetRenderer* renderer) { renderer_ = renderer; }
+  Sprite* renderer() { return renderer_; }
+  void SetRenderer(Sprite* renderer) { renderer_ = renderer; }
 
  private:
-  SpriteSheetRenderer* renderer_;
+  Sprite* renderer_;
   Direction direction_;
   Action action_;
   int animation_frame_index_;

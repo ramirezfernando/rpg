@@ -5,7 +5,7 @@
 
 #include "util/logger.h"
 
-Character::Character(SpriteSheetRenderer* renderer)
+Character::Character(Sprite* renderer)
     : renderer_(renderer),
       direction_(Direction::Down),
       action_(Action::Idle),

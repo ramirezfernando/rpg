@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "graphics/sprite_sheet_renderer.h"
+#include "graphics/sprite.h"
 #include "resource/resource_manager.h"
 #include "util/constants.h"
 
@@ -80,9 +80,8 @@ void Kat::SetPathForAction(Action action) {
 
   SetAction(action);
   // Use the ResourceManager to load/cache the sprite sheet.
-  SpriteSheetRenderer* new_renderer =
-      ResourceManager::GetInstance().GetSpriteSheet(
-          action_path, /*sprite_w=*/32, /*sprite_h=*/32);
+  Sprite* new_renderer = ResourceManager::GetInstance().GetSpriteSheet(
+      action_path, /*sprite_w=*/32, /*sprite_h=*/32);
   if (new_renderer) {
     SetRenderer(new_renderer);
   }
