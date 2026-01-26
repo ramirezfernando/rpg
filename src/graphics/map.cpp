@@ -53,38 +53,26 @@ Map::Map() {
 void Map::RenderPlants() {
   // Plants rendering not implemented yet.
   if (plants_) {
-    plants_->RenderTileMap(Constants::TILE_MAP_PLANTS, Constants::MAP_COLUMNS,
-                           Constants::MAP_ROWS,
-                           /*dst_x=*/0, /*dst_y=*/0);
+    plants_->RenderTileMap(Constants::TILE_MAP_PLANTS);
   }
 }
 
 void Map::RenderGrassDirt() {
   if (grass_dirt_) {
-    grass_dirt_->RenderTileMap(Constants::TILE_MAP_GRASS_DIRT,
-                               Constants::MAP_COLUMNS, Constants::MAP_ROWS,
-                               /*dst_x=*/0,
-                               /*dst_y=*/0);
+    grass_dirt_->RenderTileMap(Constants::TILE_MAP_GRASS_DIRT);
   }
 }
 
 void Map::RenderGrassWater() {
   if (grass_water_) {
-    grass_water_->RenderTileMap(Constants::TILE_MAP_GRASS_WATER_FIRST_LAYER,
-                                Constants::MAP_COLUMNS, Constants::MAP_ROWS,
-                                /*dst_x=*/0,
-                                /*dst_y=*/0);
-    grass_water_->RenderTileMap(Constants::TILE_MAP_GRASS_WATER_SECOND_LAYER,
-                                Constants::MAP_COLUMNS, Constants::MAP_ROWS,
-                                /*dst_x=*/0, /*dst_y=*/0);
+    grass_water_->RenderTileMap(Constants::TILE_MAP_GRASS_WATER_FIRST_LAYER);
+    grass_water_->RenderTileMap(Constants::TILE_MAP_GRASS_WATER_SECOND_LAYER);
   }
 }
 
 void Map::RenderWoodFence() {
   if (wood_fence_) {
-    wood_fence_->RenderTileMap(Constants::TILE_MAP_FENCE,
-                               Constants::MAP_COLUMNS, Constants::MAP_ROWS,
-                               /*dst_x=*/0, /*dst_y=*/0);
+    wood_fence_->RenderTileMap(Constants::TILE_MAP_FENCE);
   }
 }
 
@@ -120,9 +108,7 @@ void Map::RenderWaterfall() {
 
 void Map::RenderCliff() {
   if (cliff_) {
-    cliff_->RenderTileMap(Constants::TILE_MAP_CLIFF, Constants::MAP_COLUMNS,
-                          Constants::MAP_ROWS,
-                          /*dst_x=*/0, /*dst_y=*/0);
+    cliff_->RenderTileMap(Constants::TILE_MAP_CLIFF);
   }
 }
 

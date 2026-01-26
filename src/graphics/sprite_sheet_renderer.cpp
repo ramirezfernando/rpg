@@ -125,8 +125,7 @@ void SpriteSheetRenderer::RenderAnimatedSprite(int dst_x, int dst_y) {
 }
 
 void SpriteSheetRenderer::RenderTileMap(
-    const std::array<int, Constants::MAP_ROWS_BY_COLUMNS>& tile_map,
-    int tile_map_columns, int tile_map_rows, int dst_x, int dst_y) {
+    const std::array<int, Constants::MAP_ROWS_BY_COLUMNS>& tile_map) {
   if (!texture_) {
     return;
   }
@@ -134,18 +133,15 @@ void SpriteSheetRenderer::RenderTileMap(
   const int scaled_tile_width = sprite_width_ * Constants::SPRITE_SCALE;
   const int scaled_tile_height = sprite_height_ * Constants::SPRITE_SCALE;
 
-  for (int y = 0; y < tile_map_rows; ++y) {
-    int render_y = dst_y + y * scaled_tile_height;
-
-    for (int x = 0; x < tile_map_columns; ++x) {
+  for (int y = 0; y < Constants::MAP_ROWS; ++y) {
+    for (int x = 0; x < Constants::MAP_COLUMNS; ++x) {
       int sprite_index =
-          tile_map[static_cast<size_t>(y * tile_map_columns + x)];
+          tile_map[static_cast<size_t>(y * Constants::MAP_COLUMNS + x)];
       // Skip negative tiles as they are reserved for empty tiles.
       if (sprite_index < 0) {
         continue;
       }
-      int render_x = dst_x + x * scaled_tile_width;
-      RenderSprite(sprite_index, render_x, render_y);
+      RenderSprite(sprite_index, x * scaled_tile_width, y * scaled_tile_height);
     }
   }
 }
