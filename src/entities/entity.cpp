@@ -1,11 +1,11 @@
-#include "character.h"
+#include "entity.h"
 
 #include <iostream>
 #include <sstream>
 
 #include "util/logger.h"
 
-Character::Character(Sprite* renderer)
+Entity::Entity(Sprite* renderer)
     : renderer_(renderer),
       direction_(Direction::Down),
       action_(Action::Idle),
@@ -19,7 +19,7 @@ Character::Character(Sprite* renderer)
       dst_y_(Constants::PLAYER_START_Y),
       is_npc_(false) {}
 
-void Character::Render() {
+void Entity::Render() {
   if (!renderer()) {
     return;
   }
@@ -35,9 +35,9 @@ void Character::Render() {
   int sprite_count = renderer()->GetSpriteCount();
   if (final_index >= sprite_count) {
     std::ostringstream oss;
-    oss << "Character::Render: final_index " << final_index
-        << " >= sprite_count " << sprite_count << ", wrapping";
-    Logger::Warning("Character", oss.str());
+    oss << "Entity::Render: final_index " << final_index << " >= sprite_count "
+        << sprite_count << ", wrapping";
+    Logger::Warning("Entity", oss.str());
     final_index %= sprite_count;
   }
 
@@ -46,7 +46,7 @@ void Character::Render() {
                            /*invert=*/direction_ == Direction::Left);
 }
 
-void Character::IncrementAnimationFrameIndexAfterInterval() {
+void Entity::IncrementAnimationFrameIndexAfterInterval() {
   switch (action_) {
     case Action::Idle:
       if (idle_animation_counter_ >=

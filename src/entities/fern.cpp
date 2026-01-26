@@ -7,7 +7,7 @@
 #include "util/constants.h"
 
 Fern::Fern()
-    : Character(ResourceManager::GetInstance().GetSpriteSheet(
+    : Entity(ResourceManager::GetInstance().GetSpriteSheet(
           /*path=*/"assets/sprites/characters/fern/idle.png",
           /*sprite_w=*/32, /*sprite_h=*/32)) {
   sprite_sheet_columns_ = renderer()->GetColumns();

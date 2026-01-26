@@ -7,10 +7,10 @@
 enum class Direction { Up, Down, Left, Right };
 enum class Action { Idle, Walk, Run };
 
-class Character {
+class Entity {
  public:
-  explicit Character(Sprite* renderer);
-  virtual ~Character() = default;
+  explicit Entity(Sprite* renderer);
+  virtual ~Entity() = default;
   void Render();
   void IncrementAnimationFrameIndexAfterInterval();
 

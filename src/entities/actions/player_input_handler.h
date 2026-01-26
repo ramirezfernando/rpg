@@ -1,6 +1,6 @@
 #pragma once
 
-#include "entities/character.h"
+#include "entities/entity.h"
 #include "ui/hud.h"
 #include "world/map.h"
 
@@ -9,7 +9,7 @@ class InputHandler {
  public:
   // Process input for the given character and map.
   // Returns true if the character moved, false otherwise.
-  static bool HandleInput(Character* player, class Map* map, HUD* hud);
+  static bool HandleInput(Entity* player, class Map* map, HUD* hud);
 
  private:
   // Get keyboard state and compute movement delta.

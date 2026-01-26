@@ -7,7 +7,7 @@
 #include "util/constants.h"
 
 Kat::Kat()
-    : Character(ResourceManager::GetInstance().GetSpriteSheet(
+    : Entity(ResourceManager::GetInstance().GetSpriteSheet(
           /*path=*/"assets/sprites/characters/kat/idle.png",
           /*sprite_w=*/32, /*sprite_h=*/32)) {
   sprite_sheet_columns_ = renderer()->GetColumns();

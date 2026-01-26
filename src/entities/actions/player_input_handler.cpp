@@ -3,7 +3,7 @@
 #include <cmath>
 #include <optional>
 
-#include "entities/character.h"
+#include "entities/entity.h"
 #include "ui/hud.h"
 #include "util/constants.h"
 #include "util/logger.h"
@@ -26,7 +26,7 @@ void NormalizeDiagonalMovement(int& dx, int& dy, int gap) {
   dy = static_cast<int>(std::round(dy * factor));
 }
 
-bool InputHandler::HandleInput(Character* player, Map* map, HUD* hud) {
+bool InputHandler::HandleInput(Entity* player, Map* map, HUD* hud) {
   if (!player || !map || !hud) {
     Logger::Error("InputHandler", "Player, map, or HUD is null");
     return false;

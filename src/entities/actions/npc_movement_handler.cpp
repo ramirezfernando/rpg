@@ -14,7 +14,7 @@ static int decision_counter = 0;
 // Current direction the NPC is committed to.
 static Direction current_committed_direction = Direction::Down;
 
-void NpcMovementHandler::UpdateNpcMovement(Character* npc, Map* map) {
+void NpcMovementHandler::UpdateNpcMovement(Entity* npc, Map* map) {
   if (!npc || !map) {
     Logger::Error("NpcMovementHandler", "NPC or map is null");
     return;
@@ -62,8 +62,7 @@ Direction NpcMovementHandler::GetRandomDirection() {
   }
 }
 
-bool NpcMovementHandler::TryMove(Character* npc, Map* map,
-                                 Direction direction) {
+bool NpcMovementHandler::TryMove(Entity* npc, Map* map, Direction direction) {
   int gap = Constants::CHARACTER_WALK_GAP;
   int dx = 0;
   int dy = 0;

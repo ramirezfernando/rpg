@@ -4,7 +4,7 @@
 
 #include "entities/actions/npc_movement_handler.h"
 #include "entities/actions/player_input_handler.h"
-#include "entities/character.h"
+#include "entities/entity.h"
 #include "entities/fern.h"
 #include "entities/kat.h"
 #include "ui/hud.h"

@@ -6,7 +6,7 @@
 
 #include <memory>
 
-#include "entities/character.h"
+#include "entities/entity.h"
 #include "graphics/renderer.h"
 #include "resource/resource_manager.h"
 #include "ui/hud.h"
@@ -26,8 +26,8 @@ class Game {
   bool is_running_;
   std::unique_ptr<Window> window_;
   std::unique_ptr<Renderer> renderer_;
-  std::unique_ptr<Character> player_;
-  std::unique_ptr<Character> npc_;
+  std::unique_ptr<Entity> player_;
+  std::unique_ptr<Entity> npc_;
   std::unique_ptr<Map> map_;
   std::unique_ptr<HUD> hud_;
 };

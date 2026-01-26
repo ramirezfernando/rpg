@@ -2,9 +2,9 @@
 
 #include <SDL2/SDL.h>
 
-#include "character.h"
+#include "entity.h"
 
-class Kat : public Character {
+class Kat : public Entity {
  public:
   Kat();
   ~Kat() = default;

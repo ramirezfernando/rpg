@@ -2,9 +2,9 @@
 
 #include <SDL2/SDL.h>
 
-#include "character.h"
+#include "entity.h"
 
-class Fern : public Character {
+class Fern : public Entity {
  public:
   Fern();
   ~Fern() = default;
