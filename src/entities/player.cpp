@@ -1,4 +1,4 @@
-#include "kat.h"
+#include "player.h"
 
 #include <iostream>
 
@@ -6,15 +6,14 @@
 #include "resource/resource_manager.h"
 #include "util/constants.h"
 
-Kat::Kat()
+Player::Player()
     : Entity(ResourceManager::GetInstance().GetSpriteSheet(
-          /*path=*/"assets/sprites/characters/kat/idle.png",
+          /*path=*/"assets/sprites/characters/fern/idle.png",
           /*sprite_w=*/32, /*sprite_h=*/32)) {
   sprite_sheet_columns_ = renderer()->GetColumns();
-  SetIsNpc(true);
 }
 
-int Kat::GetInitialAnimationFrame(Action action, Direction direction) const {
+int Player::GetInitialAnimationFrame(Action action, Direction direction) const {
   switch (action) {
     // 3x4
     case Action::Idle:
@@ -55,11 +54,11 @@ int Kat::GetInitialAnimationFrame(Action action, Direction direction) const {
   }
 }
 
-int Kat::GetSpriteSheetColumns() const {
+int Player::GetSpriteSheetColumns() const {
   return sprite_sheet_columns_;
 }
 
-void Kat::SetPathForAction(Action action) {
+void Player::SetPathForAction(Action action) {
   // Only load new sprite sheet if action has changed.
   if (GetCurrentAction() == action) {
     return;
@@ -68,13 +67,13 @@ void Kat::SetPathForAction(Action action) {
   const char* action_path = nullptr;
   switch (action) {
     case Action::Idle:
-      action_path = "assets/sprites/characters/kat/idle.png";
+      action_path = "assets/sprites/characters/fern/idle.png";
       break;
     case Action::Walk:
-      action_path = "assets/sprites/characters/kat/walk.png";
+      action_path = "assets/sprites/characters/fern/walk.png";
       break;
     case Action::Run:
-      action_path = "assets/sprites/characters/kat/run.png";
+      action_path = "assets/sprites/characters/fern/run.png";
       break;
   }
 

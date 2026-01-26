@@ -4,10 +4,10 @@
 
 #include "entity.h"
 
-class Fern : public Entity {
+class Player : public Entity {
  public:
-  Fern();
-  ~Fern() = default;
+  Player();
+  ~Player() = default;
 
   // Getters
   int GetInitialAnimationFrame(Action action,

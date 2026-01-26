@@ -4,10 +4,10 @@
 
 #include "entity.h"
 
-class Kat : public Entity {
+class Npc : public Entity {
  public:
-  Kat();
-  ~Kat() = default;
+  Npc();
+  ~Npc() = default;
 
   // Getters
   int GetInitialAnimationFrame(Action action,

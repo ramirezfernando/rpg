@@ -1,4 +1,4 @@
-#include "fern.h"
+#include "npc.h"
 
 #include <iostream>
 
@@ -6,14 +6,15 @@
 #include "resource/resource_manager.h"
 #include "util/constants.h"
 
-Fern::Fern()
+Npc::Npc()
     : Entity(ResourceManager::GetInstance().GetSpriteSheet(
-          /*path=*/"assets/sprites/characters/fern/idle.png",
+          /*path=*/"assets/sprites/characters/kat/idle.png",
           /*sprite_w=*/32, /*sprite_h=*/32)) {
   sprite_sheet_columns_ = renderer()->GetColumns();
+  SetIsNpc(true);
 }
 
-int Fern::GetInitialAnimationFrame(Action action, Direction direction) const {
+int Npc::GetInitialAnimationFrame(Action action, Direction direction) const {
   switch (action) {
     // 3x4
     case Action::Idle:
@@ -54,11 +55,11 @@ int Fern::GetInitialAnimationFrame(Action action, Direction direction) const {
   }
 }
 
-int Fern::GetSpriteSheetColumns() const {
+int Npc::GetSpriteSheetColumns() const {
   return sprite_sheet_columns_;
 }
 
-void Fern::SetPathForAction(Action action) {
+void Npc::SetPathForAction(Action action) {
   // Only load new sprite sheet if action has changed.
   if (GetCurrentAction() == action) {
     return;
@@ -67,13 +68,13 @@ void Fern::SetPathForAction(Action action) {
   const char* action_path = nullptr;
   switch (action) {
     case Action::Idle:
-      action_path = "assets/sprites/characters/fern/idle.png";
+      action_path = "assets/sprites/characters/kat/idle.png";
       break;
     case Action::Walk:
-      action_path = "assets/sprites/characters/fern/walk.png";
+      action_path = "assets/sprites/characters/kat/walk.png";
       break;
     case Action::Run:
-      action_path = "assets/sprites/characters/fern/run.png";
+      action_path = "assets/sprites/characters/kat/run.png";
       break;
   }
 

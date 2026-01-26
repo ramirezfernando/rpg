@@ -5,8 +5,8 @@
 #include "entities/actions/npc_movement_handler.h"
 #include "entities/actions/player_input_handler.h"
 #include "entities/entity.h"
-#include "entities/fern.h"
-#include "entities/kat.h"
+#include "entities/npc.h"
+#include "entities/player.h"
 #include "ui/hud.h"
 #include "util/constants.h"
 #include "util/logger.h"
@@ -50,10 +50,10 @@ void Game::Init() {
     return;
   }
 
-  player_ = std::make_unique<Fern>();
+  player_ = std::make_unique<Player>();
   Logger::Debug("Game", "Player character created");
 
-  npc_ = std::make_unique<Kat>();
+  npc_ = std::make_unique<Npc>();
   Logger::Debug("Game", "NPC character created");
 
   map_ = std::make_unique<Map>();
