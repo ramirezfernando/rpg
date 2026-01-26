@@ -8,7 +8,7 @@
 
 Player::Player()
     : Entity(Cache::GetInstance()->GetOrCreateSpriteSheet(
-          /*path=*/"assets/sprites/characters/fern/idle.png",
+          /*path=*/"assets/sprites/entities/fern/idle.png",
           /*sprite_w=*/32, /*sprite_h=*/32)) {
   sprite_sheet_columns_ = sprite()->GetColumns();
 }
@@ -67,13 +67,13 @@ void Player::SetPathForAction(Action action) {
   const char* action_path = nullptr;
   switch (action) {
     case Action::Idle:
-      action_path = "assets/sprites/characters/fern/idle.png";
+      action_path = "assets/sprites/entities/fern/idle.png";
       break;
     case Action::Walk:
-      action_path = "assets/sprites/characters/fern/walk.png";
+      action_path = "assets/sprites/entities/fern/walk.png";
       break;
     case Action::Run:
-      action_path = "assets/sprites/characters/fern/run.png";
+      action_path = "assets/sprites/entities/fern/run.png";
       break;
   }
 

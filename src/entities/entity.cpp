@@ -42,8 +42,8 @@ void Entity::Render() {
   }
 
   sprite()->RenderSprite(final_index, /*dst_x=*/dst_x_,
-                           /*dst_y=*/dst_y_,
-                           /*invert=*/direction_ == Direction::Left);
+                         /*dst_y=*/dst_y_,
+                         /*invert=*/direction_ == Direction::Left);
 }
 
 void Entity::IncrementAnimationFrameIndexAfterInterval() {
