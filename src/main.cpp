@@ -8,8 +8,7 @@
 
 int main() {
   std::unique_ptr<Game> game(new Game());
-  game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-             Constants::WINDOW_SIZE, Constants::WINDOW_SIZE);
+  game->Init();
 
   Uint32 frame_start;
   Uint32 frame_time;

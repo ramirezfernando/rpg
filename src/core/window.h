@@ -8,7 +8,6 @@ class Window {
   Window(const char* title, int x, int y, int width, int height);
   ~Window();
   SDL_Window* GetSDLWindow() const { return window_; }
-  // SDL_Renderer* GetSDLRenderer() const { return renderer_; }
 
  private:
   SDL_Window* window_;

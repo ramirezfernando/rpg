@@ -36,10 +36,11 @@ Game::~Game() {
   Logger::Debug("Game", "Game destroyed");
 }
 
-void Game::Init(const char* title, int x_pos, int y_pos, int width,
-                int height) {
+void Game::Init() {
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-    window_ = std::make_unique<Window>(title, x_pos, y_pos, width, height);
+    window_ = std::make_unique<Window>(
+        "RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+        Constants::WINDOW_SIZE, Constants::WINDOW_SIZE);
     renderer_ = std::make_unique<Renderer>(window_->GetSDLWindow());
     is_running_ = true;
     Logger::Debug("Game", "Initialized SDL");
