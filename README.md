@@ -8,3 +8,8 @@ A 2D RPG written in C++ from scratch (in development).
 
 ## TODO
 - Explore C++20 modules
+- Use List-initialization / Brace initialization over copy-initialization (for some complex types) to prevent narrowing conversions.
+   - Bjarne Stroustrup (creator of C++) and Herb Sutter (C++ expert) also recommend using list-initialization to initialize your variables.
+   - [ES.20: Always initialize an object](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#es20-always-initialize-an-object)
+- Use `'\n'` rather than `std::endl` unless I need to explicitly flush the buffer.
+   - Also ensure to use single quotes unless adding it into existing double quote text.
