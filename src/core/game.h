@@ -6,9 +6,9 @@
 
 #include <memory>
 
+#include "cache/cache.h"
 #include "entities/entity.h"
 #include "graphics/renderer.h"
-#include "resource/resource_manager.h"
 #include "ui/hud.h"
 #include "window.h"
 #include "world/map.h"

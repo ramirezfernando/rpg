@@ -5,44 +5,43 @@
 #include <numeric>
 #include <vector>
 
+#include "cache/cache.h"
 #include "graphics/sprite.h"
-#include "resource/resource_manager.h"
 #include "util/constants.h"
 #include "util/util.h"
 
 Map::Map() {
-  ResourceManager& rm = ResourceManager::GetInstance();
+  Cache* rm = Cache::GetInstance();
 
-  plants_ =
-      rm.GetSpriteSheet("assets/sprites/map/plants.png",
-                        Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+  plants_ = rm->GetSprite("assets/sprites/map/plants.png",
+                          Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
 
   grass_dirt_ =
-      rm.GetSpriteSheet("assets/sprites/map/grass_dirt.png",
-                        Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+      rm->GetSprite("assets/sprites/map/grass_dirt.png",
+                    Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
 
-  house_ = rm.GetSpriteSheet("assets/sprites/map/house.png", 80, 100);
+  house_ = rm->GetSprite("assets/sprites/map/house.png", 80, 100);
 
   house_chimney_smoke_ =
-      rm.GetSpriteSheet("assets/sprites/map/house_chimney_smoke.png", 32, 64);
+      rm->GetSprite("assets/sprites/map/house_chimney_smoke.png", 32, 64);
 
   wood_fence_ =
-      rm.GetSpriteSheet("assets/sprites/map/wood_fence.png",
-                        Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+      rm->GetSprite("assets/sprites/map/wood_fence.png",
+                    Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
 
   clothing_rack_ =
-      rm.GetSpriteSheet("assets/sprites/map/clothing_rack.png", 64, 35);
+      rm->GetSprite("assets/sprites/map/clothing_rack.png", 64, 35);
 
-  mailbox_ = rm.GetSpriteSheet("assets/sprites/map/mailbox.png", 16, 32);
+  mailbox_ = rm->GetSprite("assets/sprites/map/mailbox.png", 16, 32);
 
-  waterfall_ = rm.GetSpriteSheet("assets/sprites/map/waterfall.png", 48, 80);
+  waterfall_ = rm->GetSprite("assets/sprites/map/waterfall.png", 48, 80);
 
   grass_water_ =
-      rm.GetSpriteSheet("assets/sprites/map/grass_water.png",
-                        Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+      rm->GetSprite("assets/sprites/map/grass_water.png",
+                    Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
 
-  cliff_ = rm.GetSpriteSheet("assets/sprites/map/cliff.png",
-                             Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
+  cliff_ = rm->GetSprite("assets/sprites/map/cliff.png",
+                         Constants::SPRITE_WIDTH, Constants::SPRITE_HEIGHT);
 }
 
 void Map::RenderPlants() {

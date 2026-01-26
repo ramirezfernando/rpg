@@ -5,9 +5,9 @@
 #include <iostream>
 #include <sstream>
 
+#include "cache/cache.h"
 #include "core/game.h"  // For Game::renderer_
 #include "renderer.h"
-#include "resource/resource_manager.h"
 #include "util/constants.h"
 #include "util/logger.h"
 #include "util/util.h"
@@ -23,7 +23,7 @@ Sprite::Sprite(const char* path, int sprite_width, int sprite_height,
       columns_(0) {}
 
 bool Sprite::LoadSpriteSheet() {
-  texture_ = ResourceManager::GetInstance().GetTexture(path_);
+  texture_ = Cache::GetInstance()->GetTexture(path_);
   if (!texture_) {
     Logger::Error("Sprite", std::string("Failed to load texture: ") + path_);
     return false;

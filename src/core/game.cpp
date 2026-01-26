@@ -28,7 +28,7 @@ static bool ShouldRenderPlayerFirst(int x, int y) {
 
 Game::~Game() {
   // Clear resource cache before destroying SDL objects.
-  ResourceManager::GetInstance().Clear();
+  Cache::GetInstance()->Clear();
 
   SDL_Quit();
   IMG_Quit();
