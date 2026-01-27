@@ -6,8 +6,10 @@
 #include <vector>
 
 #include "cache/cache.h"
+#include "constants/game_constants.h"
+#include "constants/map_constants.h"
+#include "constants/sprite_constants.h"
 #include "graphics/sprite.h"
-#include "util/constants.h"
 #include "util/math.h"
 
 Map::Map() {

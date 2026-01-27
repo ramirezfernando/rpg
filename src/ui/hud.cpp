@@ -1,7 +1,7 @@
 #include "hud.h"
 
 #include "cache/cache.h"
-#include "util/constants.h"
+#include "constants/game_constants.h"
 
 HUD::HUD() {
   Cache* cache = Cache::GetInstance();

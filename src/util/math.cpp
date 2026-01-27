@@ -1,6 +1,7 @@
 #include "math.h"
 
-#include "constants.h"
+#include "constants/map_constants.h"
+#include "constants/sprite_constants.h"
 
 int Math::GetRowMajorOrderIndex(int row, int column) {
   return row * Constants::MAP_COLUMNS + column;

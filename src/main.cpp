@@ -3,8 +3,8 @@
 #include <iostream>
 #include <string>
 
+#include "constants/game_constants.h"
 #include "core/game.h"
-#include "util/constants.h"
 
 int main() {
   std::unique_ptr<Game> game(new Game());

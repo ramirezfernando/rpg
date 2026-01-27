@@ -3,9 +3,9 @@
 #include <cmath>
 #include <optional>
 
+#include "constants/entity_constants.h"
 #include "entities/entity.h"
 #include "ui/hud.h"
-#include "util/constants.h"
 #include "util/logger.h"
 #include "world/map.h"
 
@@ -52,7 +52,7 @@ bool InputHandler::HandleInput(Entity* player, Map* map, HUD* hud) {
 
   // Normalize diagonal movement.
   if (IsPlayerMovingDiagonally(dx, dy)) {
-    int base_gap = Constants::CHARACTER_WALK_GAP;
+    int base_gap = Constants::ENTITY_WALK_GAP;
     int gap = is_running ? base_gap * 2 : base_gap;
     NormalizeDiagonalMovement(dx, dy, gap);
   }
@@ -80,7 +80,7 @@ bool InputHandler::HandleInput(Entity* player, Map* map, HUD* hud) {
 void InputHandler::GetMovementInput(int& dx, int& dy, bool& is_running,
                                     Direction& facing_direction) {
   const Uint8* keyboard_state = SDL_GetKeyboardState(nullptr);
-  int base_gap = Constants::CHARACTER_WALK_GAP;
+  int base_gap = Constants::ENTITY_WALK_GAP;
   int gap = base_gap;
 
   // Check for running modifier.

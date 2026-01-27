@@ -4,7 +4,6 @@
 
 #include "cache/cache.h"
 #include "graphics/sprite.h"
-#include "util/constants.h"
 
 Player::Player()
     : Entity(Cache::GetInstance()->GetOrCreateSpriteSheet(

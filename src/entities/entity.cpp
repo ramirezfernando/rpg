@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "constants/entity_constants.h"
 #include "util/logger.h"
 
 Entity::Entity(Sprite* sprite)
@@ -49,16 +50,16 @@ void Entity::Render() {
 void Entity::IncrementAnimationFrameIndexAfterInterval() {
   switch (action_) {
     case Action::Idle:
-      if (idle_animation_counter_ >=
-          Constants::CHARACTER_IDLE_ANIMATION_SPEED) {
+      if (idle_animation_counter_ >= Constants::ENTITY_IDLE_ANIMATION_SPEED) {
         animation_frame_index_ += 1;
         idle_animation_counter_ = 0;
       }
       idle_animation_counter_++;
       break;
+    // TODO: Merge walk and run action cases.
     case Action::Walk:
       if (walk_animation_counter_ >=
-          Constants::CHARACTER_WALK_AND_RUN_ANIMATION_SPEED) {
+          Constants::ENTITY_WALK_AND_RUN_ANIMATION_SPEED) {
         animation_frame_index_ += 1;
         walk_animation_counter_ = 0;
       }
@@ -66,7 +67,7 @@ void Entity::IncrementAnimationFrameIndexAfterInterval() {
       break;
     case Action::Run:
       if (run_animation_counter_ >=
-          Constants::CHARACTER_WALK_AND_RUN_ANIMATION_SPEED) {
+          Constants::ENTITY_WALK_AND_RUN_ANIMATION_SPEED) {
         animation_frame_index_ += 1;
         run_animation_counter_ = 0;
       }

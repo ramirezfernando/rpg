@@ -4,7 +4,6 @@
 
 #include "cache/cache.h"
 #include "graphics/sprite.h"
-#include "util/constants.h"
 
 Npc::Npc()
     : Entity(Cache::GetInstance()->GetOrCreateSpriteSheet(

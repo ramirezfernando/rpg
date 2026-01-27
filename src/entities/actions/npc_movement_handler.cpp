@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <optional>
 
-#include "util/constants.h"
+#include "constants/entity_constants.h"
 #include "util/logger.h"
 #include "world/map.h"
 
@@ -63,7 +63,7 @@ Direction NpcMovementHandler::GetRandomDirection() {
 }
 
 bool NpcMovementHandler::TryMove(Entity* npc, Map* map, Direction direction) {
-  int gap = Constants::CHARACTER_WALK_GAP;
+  int gap = Constants::ENTITY_WALK_GAP;
   int dx = 0;
   int dy = 0;
 

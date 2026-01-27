@@ -6,8 +6,8 @@
 #include <sstream>
 
 #include "cache/cache.h"
+#include "constants/sprite_constants.h"
 #include "renderer.h"
-#include "util/constants.h"
 #include "util/logger.h"
 #include "util/math.h"
 

@@ -2,13 +2,13 @@
 
 #include <iostream>
 
+#include "constants/game_constants.h"
 #include "entities/actions/npc_movement_handler.h"
 #include "entities/actions/player_input_handler.h"
 #include "entities/entity.h"
 #include "entities/npc.h"
 #include "entities/player.h"
 #include "ui/hud.h"
-#include "util/constants.h"
 #include "util/logger.h"
 #include "world/map.h"
 

@@ -1,23 +1,7 @@
-#include "constants.h"
-
-#include <array>
-
-// Number of milliseconds in a second.
-constexpr int MILISECONDS_PER_SECOND = 1000;
-// Frames per second.
-constexpr int FRAME_RATE = 30;
+#include "map_constants.h"
 
 namespace Constants {
 
-const int CHARACTER_IDLE_ANIMATION_SPEED = 6;
-const int CHARACTER_WALK_AND_RUN_ANIMATION_SPEED = 2;
-const int CHARACTER_WALK_GAP = 5;
-const Uint32 FRAME_DELAY = MILISECONDS_PER_SECOND / FRAME_RATE;
-const int PLAYER_START_X = 536;
-const int PLAYER_START_Y = 260;
-const int SPRITE_HEIGHT = 16;
-const int SPRITE_SCALE = 3;
-const int SPRITE_WIDTH = 16;
 // clang-format off
 const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_CLIFF = {
   // row 0 (y = 0)
@@ -42,6 +26,7 @@ const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_CLIFF = {
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 };
+
 const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_FENCE = {
   // row 0 (y = 0)
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
@@ -72,6 +57,7 @@ const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_FENCE = {
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 };
+
 const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_PLANTS = {
   // row 0 (y = 0)
   -1,-1,-1,-1,-1,2,1,-1,-1,-1,-1,-1,2,2,-1,-1,
@@ -106,6 +92,7 @@ const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_PLANTS = {
   // row 15 (y = 720)
   5,1,2,-1,-1,-1,-1,-1,1,13,-1,-1,-1,2,2,2,
 };
+
 const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_GRASS_DIRT = {
   // row 0 (y = 0)
   -1,-1,-1,-1,-1,9,9,-1,-1,-1,-1,9,9,9,9,9,
@@ -140,6 +127,7 @@ const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_GRASS_DIRT = {
   // row 15 (y = 720)
   9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 };
+
 const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_GRASS_WATER_FIRST_LAYER = {
   // row 0 (y = 0)
   -1, -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, -1, 297, -1, -1, -1, -1, -1,
@@ -165,6 +153,7 @@ const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_GRASS_WATER_FIRST_LAYER = {
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 };
+
 const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_GRASS_WATER_SECOND_LAYER = {
   // row 0 (y = 0)
   297, -1,  -1,  -1,  -1,  -1,  -1,  -1,  297, 297, 299, -1, -1, -1, -1, -1,
@@ -191,6 +180,5 @@ const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_GRASS_WATER_SECOND_LAYER = {
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 };
 // clang-format on
-const int WINDOW_SIZE = 768;
 
 }  // namespace Constants

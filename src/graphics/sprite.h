@@ -4,7 +4,7 @@
 
 #include <array>
 
-#include "util/constants.h"
+#include "constants/map_constants.h"
 
 // This class manages loading and rendering of sprite sheets.
 class Sprite {
