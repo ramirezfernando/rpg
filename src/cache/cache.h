@@ -1,11 +1,13 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include <map>
 #include <memory>
 #include <string>
 
+#include "graphics/renderer.h"
 #include "graphics/sprite.h"
 
 // Lazily-initialized Meyer's Singleton class for caching textures and sprites.
@@ -26,6 +28,7 @@ class Cache {
 
  private:
   Cache() = default;
+  SDL_Texture* CreateTexture(const char* file_name);
 
   // Texture cache: file_name -> SDL_Texture*
   std::map<std::string, SDL_Texture*> texture_cache_;

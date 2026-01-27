@@ -29,7 +29,7 @@ SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
   }
 
   // Create texture since it's not cached.
-  SDL_Texture* texture = Util::LoadTexture(file_name);
+  SDL_Texture* texture = CreateTexture(file_name);
   if (!texture) {
     Logger::Error("Cache", std::string("Failed to load texture: ") + file_name);
     return nullptr;
@@ -85,4 +85,12 @@ void Cache::Clear() {
   texture_cache_.clear();
   sprite_sheet_cache_.clear();
   Logger::Debug("Cache", "Resource cache cleared");
+}
+
+SDL_Texture* Cache::CreateTexture(const char* file_name) {
+  SDL_Surface* tmp_surface = IMG_Load(file_name);
+  SDL_Texture* texture =
+      SDL_CreateTextureFromSurface(Renderer::renderer_, tmp_surface);
+  SDL_FreeSurface(tmp_surface);
+  return texture;
 }
