@@ -6,11 +6,10 @@
 #include <sstream>
 
 #include "cache/cache.h"
-#include "core/game.h"  // For Game::renderer_
 #include "renderer.h"
 #include "util/constants.h"
 #include "util/logger.h"
-#include "util/util.h"
+#include "util/math.h"
 
 Sprite::Sprite(const char* path, int sprite_width, int sprite_height,
                int margin, int spacing)
@@ -135,7 +134,7 @@ void Sprite::RenderTileMap(
   for (int row = 0; row < Constants::MAP_ROWS; ++row) {
     for (int column = 0; column < Constants::MAP_COLUMNS; ++column) {
       int tile = tile_map[static_cast<size_t>(
-          Util::GetRowMajorOrderIndex(row, column))];
+          Math::GetRowMajorOrderIndex(row, column))];
       // Skip negative tiles as they are reserved for empty tiles.
       if (tile < 0) {
         continue;

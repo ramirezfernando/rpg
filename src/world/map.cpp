@@ -8,7 +8,7 @@
 #include "cache/cache.h"
 #include "graphics/sprite.h"
 #include "util/constants.h"
-#include "util/util.h"
+#include "util/math.h"
 
 Map::Map() {
   Cache* cache = Cache::GetInstance();
@@ -122,7 +122,7 @@ Map::GetOrderedTileMapLayers() {
 }
 
 std::optional<int> Map::GetTopmostTile(int x, int y) {
-  int index = Util::GetRowMajorOrderIndexFromCoordinates(x, y);
+  int index = Math::GetRowMajorOrderIndexFromCoordinates(x, y);
   auto ordered_tile_map_layers = GetOrderedTileMapLayers();
   // Iterate in reverse order without modifying `GetOrderedTileMapLayers`.
   // Start by checking the topmost rendered tile and make your way down to

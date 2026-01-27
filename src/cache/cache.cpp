@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "util/logger.h"
-#include "util/util.h"
+#include "util/math.h"
 
 Cache* Cache::GetInstance() {
   static Cache instance;  // Thread-safe in C++11+.
