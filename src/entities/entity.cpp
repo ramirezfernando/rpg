@@ -56,7 +56,6 @@ void Entity::IncrementAnimationFrameIndexAfterInterval() {
       }
       idle_animation_counter_++;
       break;
-    // TODO: Merge walk and run action cases.
     case Action::Walk:
       if (walk_animation_counter_ >=
           Constants::ENTITY_WALK_AND_RUN_ANIMATION_SPEED) {
