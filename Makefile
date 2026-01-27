@@ -2,7 +2,9 @@ CXX = clang++
 # Use C++20 standard:
 CXXFLAGS = -std=c++20
 # Include SDL2 headers and src directory:
-CXXFLAGS += $(shell pkg-config --cflags sdl2) -Isrc
+CXXFLAGS += -Isrc
+# Treat SDL2 as system headers (suppresses warnings):
+CXXFLAGS += -isystem $(shell pkg-config --variable=includedir sdl2)
 # Increase warning levels:
 CXXFLAGS += -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion
 # Treat warnings as errors:
@@ -39,3 +41,13 @@ clean:
 # Format files using clang-format
 format:
 	clang-format --style=file:.clang-format -i $(SRCS) $(HDRS)
+
+# Run clang-tidy on source files
+tidy:
+	clang-tidy --header-filter='src/.*' $(SRCS) -- $(CXXFLAGS)
+
+# Run clang-tidy with automatic fixes
+tidy-fix:
+	clang-tidy --header-filter='src/.*' $(SRCS) --fix -- $(CXXFLAGS)
+
+.PHONY: build game debug clean format tidy tidy-fix
