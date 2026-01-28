@@ -4,8 +4,8 @@
 
 #include "graphics/sprite.h"
 
-enum class Direction { Up, Down, Left, Right };
-enum class Action { Idle, Walk, Run };
+enum class Direction : std::uint8_t { Up, Down, Left, Right };
+enum class Action : std::uint8_t { Idle, Walk, Run };
 
 class Entity {
  public:
