@@ -2,6 +2,38 @@
 
 namespace Constants {
 
+const char* PLANTS_FILE_PATH = "assets/sprites/map/plants.png";
+const char* HOUSE_FILE_PATH = "assets/sprites/map/house.png";
+const int HOUSE_WIDTH = 80;
+const int HOUSE_HEIGHT = 100;
+const int HOUSE_DST_X = 432;
+const int HOUSE_DST_Y = 48;
+const char* HOUSE_CHIMNEY_SMOKE_FILE_PATH =
+    "assets/sprites/map/house_chimney_smoke.png";
+const int HOUSE_CHIMNEY_SMOKE_WIDTH = 32;
+const int HOUSE_CHIMNEY_SMOKE_HEIGHT = 64;
+const int HOUSE_CHIMNEY_SMOKE_DST_X = 566;
+const int HOUSE_CHIMNEY_SMOKE_DST_Y = -92;
+const char* WOOD_FENCE_FILE_PATH = "assets/sprites/map/wood_fence.png";
+const char* CLOTHING_RACK_FILE_PATH = "assets/sprites/map/clothing_rack.png";
+const int CLOTHING_RACK_WIDTH = 64;
+const int CLOTHING_RACK_HEIGHT = 35;
+const int CLOTHING_RACK_DST_X = 330;
+const int CLOTHING_RACK_DST_Y = 262;
+const char* MAILBOX_FILE_PATH = "assets/sprites/map/mailbox.png";
+const int MAILBOX_WIDTH = 16;
+const int MAILBOX_HEIGHT = 32;
+const int MAILBOX_DST_X = 630;
+const int MAILBOX_DST_Y = 236;
+const char* WATERFALL_FILE_PATH = "assets/sprites/map/waterfall.png";
+const int WATERFALL_WIDTH = 48;
+const int WATERFALL_HEIGHT = 80;
+const int WATERFALL_DST_X = 96;
+const int WATERFALL_DST_Y = 0;
+const char* GRASS_AND_WATER_FILE_PATH = "assets/sprites/map/grass_water.png";
+const char* GRASS_AND_DIRT_FILE_PATH = "assets/sprites/map/grass_dirt.png";
+const char* CLIFF_FILE_PATH = "assets/sprites/map/cliff.png";
+
 // clang-format off
 const std::array<int, MAP_ROWS_BY_COLUMNS> TILE_MAP_CLIFF = {
   // row 0 (y = 0)

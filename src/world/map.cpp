@@ -15,38 +15,44 @@
 Map::Map() {
   Cache* cache = Cache::GetInstance();
 
-  plants_ = cache->GetOrCreateSpriteSheet("assets/sprites/map/plants.png",
+  plants_ = cache->GetOrCreateSpriteSheet(Constants::PLANTS_FILE_PATH,
                                           Constants::SPRITE_WIDTH,
                                           Constants::SPRITE_HEIGHT);
 
   grass_dirt_ = cache->GetOrCreateSpriteSheet(
-      "assets/sprites/map/grass_dirt.png", Constants::SPRITE_WIDTH,
+      Constants::GRASS_AND_DIRT_FILE_PATH, Constants::SPRITE_WIDTH,
       Constants::SPRITE_HEIGHT);
 
-  house_ =
-      cache->GetOrCreateSpriteSheet("assets/sprites/map/house.png", 80, 100);
+  house_ = cache->GetOrCreateSpriteSheet(Constants::HOUSE_FILE_PATH,
+                                         Constants::HOUSE_WIDTH,
+                                         Constants::HOUSE_HEIGHT);
 
-  house_chimney_smoke_ = cache->GetOrCreateSpriteSheet(
-      "assets/sprites/map/house_chimney_smoke.png", 32, 64);
+  house_chimney_smoke_ =
+      cache->GetOrCreateSpriteSheet(Constants::HOUSE_CHIMNEY_SMOKE_FILE_PATH,
+                                    Constants::HOUSE_CHIMNEY_SMOKE_WIDTH,
+                                    Constants::HOUSE_CHIMNEY_SMOKE_HEIGHT);
 
-  wood_fence_ = cache->GetOrCreateSpriteSheet(
-      "assets/sprites/map/wood_fence.png", Constants::SPRITE_WIDTH,
-      Constants::SPRITE_HEIGHT);
+  wood_fence_ = cache->GetOrCreateSpriteSheet(Constants::WOOD_FENCE_FILE_PATH,
+                                              Constants::SPRITE_WIDTH,
+                                              Constants::SPRITE_HEIGHT);
 
   clothing_rack_ = cache->GetOrCreateSpriteSheet(
-      "assets/sprites/map/clothing_rack.png", 64, 35);
+      Constants::CLOTHING_RACK_FILE_PATH, Constants::CLOTHING_RACK_WIDTH,
+      Constants::CLOTHING_RACK_HEIGHT);
 
-  mailbox_ =
-      cache->GetOrCreateSpriteSheet("assets/sprites/map/mailbox.png", 16, 32);
+  mailbox_ = cache->GetOrCreateSpriteSheet(Constants::MAILBOX_FILE_PATH,
+                                           Constants::MAILBOX_WIDTH,
+                                           Constants::MAILBOX_HEIGHT);
 
-  waterfall_ =
-      cache->GetOrCreateSpriteSheet("assets/sprites/map/waterfall.png", 48, 80);
+  waterfall_ = cache->GetOrCreateSpriteSheet(Constants::WATERFALL_FILE_PATH,
+                                             Constants::WATERFALL_WIDTH,
+                                             Constants::WATERFALL_HEIGHT);
 
   grass_water_ = cache->GetOrCreateSpriteSheet(
-      "assets/sprites/map/grass_water.png", Constants::SPRITE_WIDTH,
+      Constants::GRASS_AND_WATER_FILE_PATH, Constants::SPRITE_WIDTH,
       Constants::SPRITE_HEIGHT);
 
-  cliff_ = cache->GetOrCreateSpriteSheet("assets/sprites/map/cliff.png",
+  cliff_ = cache->GetOrCreateSpriteSheet(Constants::CLIFF_FILE_PATH,
                                          Constants::SPRITE_WIDTH,
                                          Constants::SPRITE_HEIGHT);
 }
@@ -79,23 +85,30 @@ void Map::RenderWoodFence() {
 
 void Map::RenderClothingRack() {
   if (clothing_rack_) {
-    clothing_rack_->RenderSprite(0, /*dst_x=*/330, /*dst_y=*/262);
+    clothing_rack_->RenderSprite(/*sprite_index=*/0,
+                                 /*dst_x=*/Constants::CLOTHING_RACK_DST_X,
+                                 /*dst_y=*/Constants::CLOTHING_RACK_DST_Y);
   }
 }
 
 void Map::RenderMailbox() {
   if (mailbox_) {
-    mailbox_->RenderSprite(0, /*dst_x=*/630, /*dst_y=*/236);
+    mailbox_->RenderSprite(/*sprite_index=*/0,
+                           /*dst_x=*/Constants::MAILBOX_DST_X,
+                           /*dst_y=*/Constants::MAILBOX_DST_Y);
   }
 }
 
 void Map::RenderHouse() {
   if (house_) {
     // Renders the entire house as a single sprite, not individual 48x48 tiles.
-    house_->RenderSprite(0, /*dst_x=*/432, /*dst_y=*/48);
+    house_->RenderSprite(/*sprite_index=*/0, /*dst_x=*/Constants::HOUSE_DST_X,
+                         /*dst_y=*/Constants::HOUSE_DST_Y);
   }
   if (house_chimney_smoke_) {
-    house_chimney_smoke_->RenderAnimatedSprite(/*dst_x=*/566, /*dst_y=*/-92);
+    house_chimney_smoke_->RenderAnimatedSprite(
+        /*dst_x=*/Constants::HOUSE_CHIMNEY_SMOKE_DST_X,
+        /*dst_y=*/Constants::HOUSE_CHIMNEY_SMOKE_DST_Y);
   }
 }
 
@@ -103,7 +116,8 @@ void Map::RenderWaterfall() {
   if (waterfall_) {
     // Renders the entire waterfall as an animated sprite, not individual
     // animated, 48x48 tiles.
-    waterfall_->RenderAnimatedSprite(/*dst_x=*/96, /*dst_y=*/0);
+    waterfall_->RenderAnimatedSprite(/*dst_x=*/Constants::WATERFALL_DST_X,
+                                     /*dst_y=*/Constants::WATERFALL_DST_Y);
   }
 }
 
