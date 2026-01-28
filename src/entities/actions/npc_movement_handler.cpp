@@ -61,6 +61,7 @@ Direction NpcMovementHandler::GetRandomDirection() {
   }
 }
 
+// TODO: Refactor. Maybe add to entity class, use map class methods.
 bool NpcMovementHandler::TryMove(Entity* npc, Map* map, Direction direction) {
   int gap = Constants::ENTITY_WALK_GAP;
   int dx = 0;
