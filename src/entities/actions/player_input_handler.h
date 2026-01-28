@@ -7,8 +7,8 @@
 // Encapsulates all input handling logic for the player character.
 class InputHandler {
  public:
-  // Process input for the given character and map.
-  // Returns true if the character moved, false otherwise.
+  // Process input for the given character and map. Returns `true` if the
+  // character moved, `false` otherwise.
   static bool HandleInput(Entity* player, class Map* map, HUD* hud);
 
  private:

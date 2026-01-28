@@ -24,7 +24,7 @@ void NpcMovementHandler::UpdateNpcMovement(Entity* npc, Map* map) {
 
   decision_counter++;
 
-  // Make a new decision every DECISION_DURATION frames.
+  // Make a new decision every `DECISION_DURATION` frames.
   if (decision_counter >= DECISION_DURATION) {
     decision_counter = 0;
 
