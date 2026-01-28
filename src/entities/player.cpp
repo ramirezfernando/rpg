@@ -8,7 +8,7 @@
 Player::Player()
     : Entity(Cache::GetInstance()->GetOrCreateSpriteSheet(
           /*path=*/"assets/sprites/entities/fern/idle.png",
-          /*sprite_w=*/32, /*sprite_h=*/32)) {
+          /*sprite_width=*/32, /*sprite_h=*/32)) {
   sprite_sheet_columns_ = sprite()->GetColumns();
 }
 
@@ -78,7 +78,7 @@ void Player::SetPathForAction(Action action) {
 
   SetAction(action);
   Sprite* sprite = Cache::GetInstance()->GetOrCreateSpriteSheet(
-      action_path, /*sprite_w=*/32, /*sprite_h=*/32);
+      action_path, /*sprite_width=*/32, /*sprite_h=*/32);
   if (sprite) {
     SetSprite(sprite);
   }
