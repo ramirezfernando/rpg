@@ -5,6 +5,7 @@
 
 #include "constants/entity_constants.h"
 #include "util/logger.h"
+#include "util/math.h"
 #include "world/map.h"
 
 // How long the NPC stays idle or moving before deciding again.
@@ -28,8 +29,7 @@ void NpcMovementHandler::UpdateNpcMovement(Entity* npc, Map* map) {
     decision_counter = 0;
 
     // 60% chance to move, 40% chance to stay idle
-    int random_value = rand() % 100;
-    if (random_value < 60) {
+    if (Math::GetRandomInt(0, 99) < 60) {
       current_committed_direction = GetRandomDirection();
     }
   }
@@ -47,8 +47,7 @@ void NpcMovementHandler::UpdateNpcMovement(Entity* npc, Map* map) {
 }
 
 Direction NpcMovementHandler::GetRandomDirection() {
-  int random_value = rand() % 4;
-  switch (random_value) {
+  switch (Math::GetRandomInt(0, 3)) {
     case 0:
       return Direction::Up;
     case 1:

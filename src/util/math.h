@@ -2,6 +2,8 @@
 
 namespace Math {
 
+int GetRandomInt(int min, int max);
+
 // Calculates the 1D index from a 2D matrix's row and column (both zero-based).
 int GetRowMajorOrderIndex(int row, int column);
 
