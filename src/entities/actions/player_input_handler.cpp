@@ -7,24 +7,8 @@
 #include "entities/entity.h"
 #include "ui/hud.h"
 #include "util/logger.h"
+#include "util/movement.h"
 #include "world/map.h"
-
-bool IsPlayerMoving(int dx, int dy) {
-  return dx != 0 || dy != 0;
-}
-
-bool IsPlayerMovingDiagonally(int dx, int dy) {
-  return dx != 0 && dy != 0;
-}
-
-// Normalize diagonal movement to prevent faster diagonal movement.
-void NormalizeDiagonalMovement(int& dx, int& dy, int gap) {
-  double hypotenuse =
-      std::hypot(static_cast<double>(dx), static_cast<double>(dy));
-  double factor = static_cast<double>(gap) / hypotenuse;
-  dx = static_cast<int>(std::round(dx * factor));
-  dy = static_cast<int>(std::round(dy * factor));
-}
 
 bool InputHandler::HandleInput(Entity* player, Map* map, HUD* hud) {
   if (!player || !map || !hud) {
@@ -42,7 +26,7 @@ bool InputHandler::HandleInput(Entity* player, Map* map, HUD* hud) {
   GetHudInput(hud);
 
   // No input: return to idle.
-  if (!IsPlayerMoving(dx, dy)) {
+  if (!Movement::IsMoving(dx, dy)) {
     player->SetPathForAction(Action::Idle);
     player->IncrementAnimationFrameIndexAfterInterval();
     return false;
@@ -51,30 +35,15 @@ bool InputHandler::HandleInput(Entity* player, Map* map, HUD* hud) {
   player->SetDirectionFacing(facing_direction);
 
   // Normalize diagonal movement.
-  if (IsPlayerMovingDiagonally(dx, dy)) {
+  if (Movement::IsMovingDiagonally(dx, dy)) {
     int base_gap = Constants::ENTITY_WALK_GAP;
     int gap = is_running ? base_gap * 2 : base_gap;
-    NormalizeDiagonalMovement(dx, dy, gap);
-  }
-
-  // Calculate new position.
-  int new_x = player->GetXPos() + dx;
-  int new_y = player->GetYPos() + dy;
-
-  // Validate movement.
-  if (!IsMovementValid(new_x, new_y, map)) {
-    player->SetPathForAction(Action::Idle);
-    player->IncrementAnimationFrameIndexAfterInterval();
-    return false;
+    Movement::NormalizeDiagonalMovement(dx, dy, gap);
   }
 
   // Apply movement.
-  player->SetXPos(new_x);
-  player->SetYPos(new_y);
-  player->SetPathForAction(is_running ? Action::Run : Action::Walk);
-  player->IncrementAnimationFrameIndexAfterInterval();
-
-  return true;
+  Action action = is_running ? Action::Run : Action::Walk;
+  return Movement::ApplyMovement(player, dx, dy, map, action);
 }
 
 void InputHandler::GetMovementInput(int& dx, int& dy, bool& is_running,
@@ -122,19 +91,4 @@ void InputHandler::GetHudInput(HUD* hud) {
       break;
     }
   }
-}
-
-bool InputHandler::IsMovementValid(int x, int y, Map* map) {
-  // Check bounds.
-  if (map->IsOutOfBounds(x, y)) {
-    return false;
-  }
-
-  // Check collision.
-  std::optional<int> tile = map->GetTopmostTile(x, y);
-  if (!tile.has_value() || map->IsCollisionTile(tile.value())) {
-    return false;
-  }
-
-  return true;
 }

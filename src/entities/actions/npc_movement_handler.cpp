@@ -6,6 +6,7 @@
 #include "constants/entity_constants.h"
 #include "util/logger.h"
 #include "util/math.h"
+#include "util/movement.h"
 #include "world/map.h"
 
 // How long the NPC stays idle or moving before deciding again.
@@ -21,10 +22,9 @@ void NpcMovementHandler::UpdateNpcMovement(Entity* npc, Map* map) {
     return;
   }
 
-  // Increment decision counter
   decision_counter++;
 
-  // Make a new decision every DECISION_DURATION frames
+  // Make a new decision every DECISION_DURATION frames.
   if (decision_counter >= DECISION_DURATION) {
     decision_counter = 0;
 
@@ -34,15 +34,14 @@ void NpcMovementHandler::UpdateNpcMovement(Entity* npc, Map* map) {
     }
   }
 
-  // Try to move in committed direction
-  if (TryMove(npc, map, current_committed_direction)) {
+  // Try to move in committed direction.
+  if (Movement::ApplyDirectionalMovement(npc, current_committed_direction,
+                                         Constants::ENTITY_WALK_GAP, map,
+                                         Action::Walk)) {
     npc->SetDirectionFacing(current_committed_direction);
-    npc->SetPathForAction(Action::Walk);
-    npc->IncrementAnimationFrameIndexAfterInterval();
   } else {
-    // No movement or blocked: idle
-    npc->SetPathForAction(Action::Idle);
-    npc->IncrementAnimationFrameIndexAfterInterval();
+    // Movement was blocked or failed - entity is already set to idle by
+    // `ApplyDirectionalMovement`. No additional action needed.
   }
 }
 
@@ -59,52 +58,4 @@ Direction NpcMovementHandler::GetRandomDirection() {
     default:
       return Direction::Down;
   }
-}
-
-// TODO: Refactor. Maybe add to entity class, use map class methods.
-bool NpcMovementHandler::TryMove(Entity* npc, Map* map, Direction direction) {
-  int gap = Constants::ENTITY_WALK_GAP;
-  int dx = 0;
-  int dy = 0;
-
-  switch (direction) {
-    case Direction::Up:
-      dy = -gap;
-      break;
-    case Direction::Down:
-      dy = gap;
-      break;
-    case Direction::Left:
-      dx = -gap;
-      break;
-    case Direction::Right:
-      dx = gap;
-      break;
-  }
-
-  int new_x = npc->GetXPos() + dx;
-  int new_y = npc->GetYPos() + dy;
-
-  if (!IsMovementValid(new_x, new_y, map)) {
-    return false;
-  }
-
-  npc->SetXPos(new_x);
-  npc->SetYPos(new_y);
-  return true;
-}
-
-bool NpcMovementHandler::IsMovementValid(int x, int y, Map* map) {
-  // Check bounds.
-  if (map->IsOutOfBounds(x, y)) {
-    return false;
-  }
-
-  // Check collision.
-  std::optional<int> tile = map->GetTopmostTile(x, y);
-  if (!tile.has_value() || map->IsCollisionTile(tile.value())) {
-    return false;
-  }
-
-  return true;
 }

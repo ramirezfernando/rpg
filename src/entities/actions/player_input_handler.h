@@ -18,7 +18,4 @@ class InputHandler {
 
   // Process HUD input.
   static void GetHudInput(HUD* hud);
-
-  // Check if movement is valid (not out of bounds, no collision).
-  static bool IsMovementValid(int x, int y, Map* map);
 };
