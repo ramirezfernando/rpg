@@ -1,6 +1,6 @@
-CXX = clang++
+CXX = /opt/homebrew/opt/llvm/bin/clang++
 # Use C++20 standard:
-CXXFLAGS = -std=c++2b
+CXXFLAGS = -std=c++23
 # Include SDL2 headers and src directory:
 CXXFLAGS += -Isrc
 # Treat SDL2 as system headers (suppresses warnings):
