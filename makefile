@@ -1,6 +1,6 @@
 CXX = clang++
 # Use C++20 standard:
-CXXFLAGS = -std=c++20
+CXXFLAGS = -std=c++2b
 # Include SDL2 headers and src directory:
 CXXFLAGS += -Isrc
 # Treat SDL2 as system headers (suppresses warnings):
