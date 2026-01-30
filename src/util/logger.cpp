@@ -18,8 +18,9 @@ std::string LevelToString(Level level) {
       return "[WARNING]";
     case Level::Error:
       return "[ERROR]";
+    default:
+      std::unreachable();
   }
-  return "[UNKNOWN]";
 }
 
 bool ShouldLog(Level level) {

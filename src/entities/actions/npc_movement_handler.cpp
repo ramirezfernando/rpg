@@ -56,6 +56,6 @@ Direction NpcMovementHandler::GetRandomDirection() {
     case 3:
       return Direction::Right;
     default:
-      return Direction::Down;
+      std::unreachable();
   }
 }
