@@ -6,7 +6,7 @@ CXXFLAGS += -Isrc
 # Treat SDL2 as system headers (suppresses warnings):
 CXXFLAGS += -isystem $(shell pkg-config --variable=includedir sdl2)
 # Increase warning levels:
-CXXFLAGS += -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion
+CXXFLAGS += -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -Wimplicit-fallthrough
 # Treat warnings as errors:
 CXXFLAGS += -Werror
 LDFLAGS = $(shell pkg-config --libs sdl2) $(shell pkg-config --libs sdl2_image)
