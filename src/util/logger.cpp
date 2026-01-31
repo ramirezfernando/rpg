@@ -6,6 +6,7 @@
 namespace Logger {
 
 namespace {
+
 Level current_level = Level::Debug;
 
 std::string LevelToString(Level level) {
@@ -23,9 +24,14 @@ std::string LevelToString(Level level) {
   }
 }
 
-bool ShouldLog(Level level) {
+bool ShouldLog([[maybe_unused]] Level level) {
+#if defined(DEBUG_MODE)
   return level >= current_level;
+#else
+  return false;
+#endif  // DEBUG_MODE
 }
+
 }  // namespace
 
 void SetLevel(Level level) {
