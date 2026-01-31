@@ -1,7 +1,7 @@
 #include "logger.h"
 
+#include <format>
 #include <iostream>
-#include <sstream>
 
 namespace Logger {
 
@@ -43,7 +43,7 @@ void Log(Level level, const std::string& message) {
     return;
   }
   // Note: Do not use `std::endl` as it implicitly flushes the buffer.
-  std::cerr << LevelToString(level) << " " << message << '\n';
+  std::cout << std::format("{} {}\n", LevelToString(level), message);
 }
 
 void Log(Level level, const std::string& context, const std::string& message) {
@@ -51,8 +51,8 @@ void Log(Level level, const std::string& context, const std::string& message) {
     return;
   }
   // Note: Do not use `std::endl` as it implicitly flushes the buffer.
-  std::cerr << LevelToString(level) << " [" << context << "] " << message
-            << '\n';
+  std::cout << std::format("{}[{}] {}\n", LevelToString(level), context,
+                           message);
 }
 
 void Debug(const std::string& message) {
