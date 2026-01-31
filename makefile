@@ -1,5 +1,5 @@
 CXX = /opt/homebrew/opt/llvm/bin/clang++
-# Use C++20 standard:
+# Use C++23 standard:
 CXXFLAGS = -std=c++23
 # Include SDL2 headers and src directory:
 CXXFLAGS += -Isrc
