@@ -12,3 +12,4 @@ A 2D RPG written in C++ from scratch (in development).
    - Bjarne Stroustrup (creator of C++) and Herb Sutter (C++ expert) also recommend using list-initialization to initialize your variables.
    - [ES.20: Always initialize an object](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#es20-always-initialize-an-object)
 - Use std::string_view
+- Use std::ranges where applicable
