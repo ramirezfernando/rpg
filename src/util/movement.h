@@ -6,7 +6,7 @@
 namespace Movement {
 
 // Movement validation.
-bool IsMovementValid(int x, int y, Map* map);
+bool IsMovementValid(int x, int y, Map& map);
 
 // Direction and delta helpers.
 void DirectionToDelta(Direction direction, int gap, int& dx, int& dy);
