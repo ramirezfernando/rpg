@@ -7,20 +7,15 @@
 
 namespace Movement {
 
-bool IsMovementValid(int x, int y, Map* map) {
-  if (!map) {
-    Logger::Error("Movement", "Map is null");
-    return false;
-  }
-
+bool IsMovementValid(int x, int y, Map& map) {
   // Check bounds.
-  if (map->IsOutOfBounds(x, y)) {
+  if (map.IsOutOfBounds(x, y)) {
     return false;
   }
 
   // Check collision.
-  std::optional<int> tile = map->GetTopmostTile(x, y);
-  if (!tile.has_value() || map->IsCollisionTile(tile.value())) {
+  std::optional<int> tile = map.GetTopmostTile(x, y);
+  if (!tile.has_value() || map.IsCollisionTile(tile.value())) {
     return false;
   }
 
@@ -63,34 +58,29 @@ void NormalizeDiagonalMovement(int& dx, int& dy, int gap) {
   dy = static_cast<int>(std::round(dy * factor));
 }
 
-bool ApplyMovement(Entity* entity, int dx, int dy, Map* map, Action action) {
-  if (!entity) {
-    Logger::Error(" Movement", "Entity is null");
-    return false;
-  }
-
+bool ApplyMovement(Entity& entity, int dx, int dy, Map& map, Action action) {
   // Calculate new position.
-  int new_x = entity->GetXPos() + dx;
-  int new_y = entity->GetYPos() + dy;
+  int new_x = entity.GetXPos() + dx;
+  int new_y = entity.GetYPos() + dy;
 
   // Validate movement.
   if (!IsMovementValid(new_x, new_y, map)) {
-    entity->SetPathForAction(Action::Idle);
-    entity->IncrementAnimationFrameIndexAfterInterval();
+    entity.SetPathForAction(Action::Idle);
+    entity.IncrementAnimationFrameIndexAfterInterval();
     return false;
   }
 
   // Apply movement.
-  entity->SetXPos(new_x);
-  entity->SetYPos(new_y);
-  entity->SetPathForAction(action);
-  entity->IncrementAnimationFrameIndexAfterInterval();
+  entity.SetXPos(new_x);
+  entity.SetYPos(new_y);
+  entity.SetPathForAction(action);
+  entity.IncrementAnimationFrameIndexAfterInterval();
 
   return true;
 }
 
-bool ApplyDirectionalMovement(Entity* entity, Direction direction, int gap,
-                              Map* map, Action action) {
+bool ApplyDirectionalMovement(Entity& entity, Direction direction, int gap,
+                              Map& map, Action action) {
   int dx, dy;
   DirectionToDelta(direction, gap, dx, dy);
   return ApplyMovement(entity, dx, dy, map, action);

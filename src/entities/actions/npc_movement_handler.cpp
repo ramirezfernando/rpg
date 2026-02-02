@@ -16,12 +16,7 @@ static int decision_counter = 0;
 // Current direction the NPC is committed to.
 static Direction current_committed_direction = Direction::Down;
 
-void NpcMovementHandler::UpdateNpcMovement(Entity* npc, Map* map) {
-  if (!npc || !map) {
-    Logger::Error("NpcMovementHandler", "NPC or map is null");
-    return;
-  }
-
+void NpcMovementHandler::UpdateNpcMovement(Entity& npc, Map& map) {
   decision_counter++;
 
   // Make a new decision every `DECISION_DURATION` frames.
@@ -38,7 +33,7 @@ void NpcMovementHandler::UpdateNpcMovement(Entity* npc, Map* map) {
   if (Movement::ApplyDirectionalMovement(npc, current_committed_direction,
                                          Constants::ENTITY_WALK_GAP, map,
                                          Action::Walk)) {
-    npc->SetDirectionFacing(current_committed_direction);
+    npc.SetDirectionFacing(current_committed_direction);
   } else {
     // Movement was blocked or failed - entity is already set to idle by
     // `ApplyDirectionalMovement`. No additional action needed.

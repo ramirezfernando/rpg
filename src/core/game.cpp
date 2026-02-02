@@ -110,6 +110,6 @@ void Game::Update() {
       is_running_ = false;
     }
   }
-  InputHandler::HandleInput(player_.get(), map_.get(), hud_.get());
-  NpcMovementHandler::UpdateNpcMovement(npc_.get(), map_.get());
+  InputHandler::HandleInput(*player_, *map_, *hud_);
+  NpcMovementHandler::UpdateNpcMovement(*npc_, *map_);
 }

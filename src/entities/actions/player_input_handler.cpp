@@ -10,12 +10,7 @@
 #include "util/movement.h"
 #include "world/map.h"
 
-bool InputHandler::HandleInput(Entity* player, Map* map, HUD* hud) {
-  if (!player || !map || !hud) {
-    Logger::Error("InputHandler", "Player, map, or HUD is null");
-    return false;
-  }
-
+bool InputHandler::HandleInput(Entity& player, Map& map, HUD& hud) {
   int dx = 0;
   int dy = 0;
   bool is_running = false;
@@ -27,12 +22,12 @@ bool InputHandler::HandleInput(Entity* player, Map* map, HUD* hud) {
 
   // No input: return to idle.
   if (!Movement::IsMoving(dx, dy)) {
-    player->SetPathForAction(Action::Idle);
-    player->IncrementAnimationFrameIndexAfterInterval();
+    player.SetPathForAction(Action::Idle);
+    player.IncrementAnimationFrameIndexAfterInterval();
     return false;
   }
 
-  player->SetDirectionFacing(facing_direction);
+  player.SetDirectionFacing(facing_direction);
 
   // Normalize diagonal movement.
   if (Movement::IsMovingDiagonally(dx, dy)) {
@@ -80,12 +75,12 @@ void InputHandler::GetMovementInput(int& dx, int& dy, bool& is_running,
   }
 }
 
-void InputHandler::GetHudInput(HUD* hud) {
+void InputHandler::GetHudInput(HUD& hud) {
   const Uint8* keyboard_state = SDL_GetKeyboardState(nullptr);
 
   for (int i = 0; i < 8; ++i) {
     if (keyboard_state[SDL_SCANCODE_1 + i]) {
-      hud->SetSelectedSlot(i);
+      hud.SetSelectedSlot(i);
       Logger::Debug("InputHandler",
                     "Hotbar slot " + std::to_string(i + 1) + " selected");
       break;

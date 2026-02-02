@@ -17,10 +17,10 @@ bool IsMovingDiagonally(int dx, int dy);
 void NormalizeDiagonalMovement(int& dx, int& dy, int gap);
 
 // Returns true if movement was successful, false if blocked.
-bool ApplyMovement(Entity* entity, int dx, int dy, Map* map, Action action);
+bool ApplyMovement(Entity& entity, int dx, int dy, Map& map, Action action);
 
 // Convenience overload for directional movement.
-bool ApplyDirectionalMovement(Entity* entity, Direction direction, int gap,
-                              Map* map, Action action);
+bool ApplyDirectionalMovement(Entity& entity, Direction direction, int gap,
+                              Map& map, Action action);
 
 }  // namespace Movement
