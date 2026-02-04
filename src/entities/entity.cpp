@@ -3,22 +3,9 @@
 #include <iostream>
 #include <sstream>
 
-#include "constants/entity_constants.h"
 #include "util/logger.h"
 
-Entity::Entity(Sprite* sprite)
-    : sprite_(sprite),
-      direction_(Direction::Down),
-      action_(Action::Idle),
-      animation_frame_index_(0),
-      // Counters to control animation speed.
-      idle_animation_counter_(0),
-      walk_animation_counter_(0),
-      run_animation_counter_(0),
-      // Initial position in front of the house.
-      dst_x_(Constants::PLAYER_START_X),
-      dst_y_(Constants::PLAYER_START_Y),
-      is_npc_(false) {}
+Entity::Entity(Sprite* sprite) : sprite_(sprite) {}
 
 void Entity::Render() {
   if (!sprite()) {

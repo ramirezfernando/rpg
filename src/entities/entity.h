@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 
+#include "constants/entity_constants.h"
 #include "graphics/sprite.h"
 
 enum class Direction : std::uint8_t { Up, Down, Left, Right };
@@ -39,13 +40,13 @@ class Entity {
 
  private:
   Sprite* sprite_;
-  Direction direction_;
-  Action action_;
-  int animation_frame_index_;
-  int idle_animation_counter_;
-  int walk_animation_counter_;
-  int run_animation_counter_;
-  int dst_x_;
-  int dst_y_;
-  bool is_npc_;
+  Direction direction_{Direction::Down};
+  Action action_{Action::Idle};
+  int animation_frame_index_{0};
+  int idle_animation_counter_{0};
+  int walk_animation_counter_{0};
+  int run_animation_counter_{0};
+  int dst_x_{Constants::PLAYER_START_X};
+  int dst_y_{Constants::PLAYER_START_Y};
+  bool is_npc_{false};
 };
