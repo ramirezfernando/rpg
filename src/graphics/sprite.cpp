@@ -14,12 +14,10 @@
 Sprite::Sprite(const char* path, int sprite_width, int sprite_height,
                int margin, int spacing)
     : path_(path),
-      texture_(nullptr),
       sprite_width_(sprite_width),
       sprite_height_(sprite_height),
       margin_(margin),
-      spacing_(spacing),
-      columns_(0) {}
+      spacing_(spacing) {}
 
 bool Sprite::LoadSpriteSheet() {
   texture_ = Cache::GetInstance()->GetOrCreateTexture(path_);
