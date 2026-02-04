@@ -8,9 +8,8 @@
 Player::Player()
     : Entity(Cache::GetInstance()->GetOrCreateSpriteSheet(
           /*path=*/"assets/sprites/entities/fern/idle.png",
-          /*sprite_width=*/32, /*sprite_h=*/32)) {
-  sprite_sheet_columns_ = sprite()->GetColumns();
-}
+          /*sprite_width=*/32, /*sprite_h=*/32)),
+      sprite_sheet_columns_(sprite()->GetColumns()) {}
 
 int Player::GetInitialAnimationFrame(Action action, Direction direction) const {
   switch (action) {
