@@ -37,13 +37,13 @@ class Sprite {
   void SetPath(const char* path) { path_ = path; }
 
  private:
-  SDL_Texture* texture_{nullptr};
-  int columns_{0};
-  int rows_{0};
-  int sprite_count_{0};
   const char* path_;
   int sprite_width_;
   int sprite_height_;
   int margin_;
   int spacing_;
+  SDL_Texture* texture_{nullptr};
+  int columns_{0};
+  int rows_{0};
+  int sprite_count_{0};
 };
