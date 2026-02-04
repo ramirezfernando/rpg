@@ -11,7 +11,6 @@ HUD::HUD() {
       "assets/sprites/hud/inventory/hotbar_select_tile.png", 18, 18);
   hotbar_select_border_ = cache->GetOrCreateSpriteSheet(
       "assets/sprites/hud/inventory/hotbar_select_border.png", 18, 18);
-  selected_slot_ = 0;
 }
 
 void HUD::RenderHotBar() {

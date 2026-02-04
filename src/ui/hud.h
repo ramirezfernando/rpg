@@ -13,5 +13,5 @@ class HUD {
   Sprite* hotbar_;
   Sprite* hotbar_select_tile_;
   Sprite* hotbar_select_border_;
-  int selected_slot_;
+  int selected_slot_{0};
 };
