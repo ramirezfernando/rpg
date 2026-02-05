@@ -23,7 +23,7 @@ class Game {
   bool IsRunning() { return is_running_; }
   static SDL_Event event_;
 
-  bool is_running_;
+  bool is_running_{false};
   std::unique_ptr<Window> window_;
   std::unique_ptr<Renderer> renderer_;
   std::unique_ptr<Entity> player_;
