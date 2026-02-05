@@ -92,7 +92,7 @@ void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y, bool invert) {
 
   if (invert) {
     SDL_RendererFlip flip = invert ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    SDL_RenderCopyEx(Renderer::renderer_, texture_, &src, &dst, 0.0, NULL,
+    SDL_RenderCopyEx(Renderer::renderer_, texture_, &src, &dst, 0.0, nullptr,
                      flip);
   } else {
     SDL_RenderCopy(Renderer::renderer_, texture_, &src, &dst);
