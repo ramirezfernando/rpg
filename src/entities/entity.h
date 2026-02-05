@@ -18,8 +18,8 @@ class Entity {
   // Getters
   int GetXPos() { return dst_x_; }
   int GetYPos() { return dst_y_; }
-  Action GetCurrentAction() const { return action_; }
-  bool IsNpc() const { return is_npc_; }
+  [[nodiscard]] Action GetCurrentAction() const { return action_; }
+  [[nodiscard]] bool IsNpc() const { return is_npc_; }
 
   // Setters
   void SetAction(Action action) { action_ = action; }
@@ -31,9 +31,9 @@ class Entity {
 
  protected:
   // Pure-virtual hooks for derived classes to customize what is rendered.
-  virtual int GetInitialAnimationFrame(Action action,
+  [[nodiscard]] virtual int GetInitialAnimationFrame(Action action,
                                        Direction direction) const = 0;
-  virtual int GetSpriteSheetColumns() const = 0;
+  [[nodiscard]] virtual int GetSpriteSheetColumns() const = 0;
 
   Sprite* sprite() { return sprite_; }
   void SetSprite(Sprite* sprite) { sprite_ = sprite; }
