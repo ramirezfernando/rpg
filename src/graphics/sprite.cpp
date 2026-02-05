@@ -109,7 +109,7 @@ void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y, bool invert) {
 #endif  // DEBUG_MODE
 }
 
-// TODO: Generalize for any number of frames and frame rate.
+// TODO(fernandoramirez): Generalize for any number of frames and frame rate.
 void Sprite::RenderAnimatedSprite(int dst_x, int dst_y) {
   // Simple animation by cycling through frames.
   static Uint32 last_time = 0;

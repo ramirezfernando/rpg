@@ -1,6 +1,7 @@
 # https://clang.llvm.org/extra/clang-tidy/checks/list.html
 
-Checks: 'bugprone-*,clang-analyzer-*,modernize-*,performance-*,readability-*'
+# TODO(fernandoramirez): Enable more checks as the codebase improves.
+Checks: 'cppcoreguidelines-*, -cppcoreguidelines-avoid-non-const-global-variables'
 WarningsAsErrors: ''
 HeaderFilterRegex: '.*'
 FormatStyle: file
