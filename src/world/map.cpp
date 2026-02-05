@@ -3,6 +3,7 @@
 #include <array>
 #include <iostream>
 #include <numeric>
+#include <ranges>
 #include <vector>
 
 #include "cache/cache.h"
@@ -143,9 +144,7 @@ std::optional<int> Map::GetTopmostTile(int x, int y) {
   // Iterate in reverse order without modifying `GetOrderedTileMapLayers`.
   // Start by checking the topmost rendered tile and make your way down to
   // the bottommost rendered tile.
-  for (auto it = ordered_tile_map_layers.rbegin();
-       it != ordered_tile_map_layers.rend(); ++it) {
-    auto tile_map = *it;
+  for (auto tile_map : std::ranges::reverse_view(ordered_tile_map_layers)) {
     if (index >= 0) {
       auto u_index = static_cast<std::size_t>(index);
       if (u_index < tile_map.size() && tile_map.at(u_index) >= 0) {
