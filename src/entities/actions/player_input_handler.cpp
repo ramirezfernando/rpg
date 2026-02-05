@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <optional>
+#include <ranges>
 
 #include "constants/entity_constants.h"
 #include "entities/entity.h"
@@ -77,8 +78,8 @@ void InputHandler::GetMovementInput(int& dx, int& dy, bool& is_running,
 
 void InputHandler::GetHudInput(HUD& hud) {
   const Uint8* keyboard_state = SDL_GetKeyboardState(nullptr);
-
-  for (int i = 0; i < 8; ++i) {
+  const int hud_slots = 8;
+  for (int i : std::ranges::iota_view{0, hud_slots}) {
     if (keyboard_state[SDL_SCANCODE_1 + i]) {
       hud.SetSelectedSlot(i);
       Logger::Debug("InputHandler",

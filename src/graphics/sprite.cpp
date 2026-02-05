@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <ranges>
 
 #include "cache/cache.h"
 #include "constants/sprite_constants.h"
@@ -129,8 +130,8 @@ void Sprite::RenderTileMap(
   }
   const int scaled_tile_width = sprite_width_ * Constants::SPRITE_SCALE;
   const int scaled_tile_height = sprite_height_ * Constants::SPRITE_SCALE;
-  for (int row = 0; row < Constants::MAP_ROWS; ++row) {
-    for (int column = 0; column < Constants::MAP_COLUMNS; ++column) {
+  for (int row : std::ranges::iota_view{0, Constants::MAP_ROWS}) {
+    for (int column : std::ranges::iota_view{0, Constants::MAP_COLUMNS}) {
       int tile = tile_map[static_cast<size_t>(
           Math::GetRowMajorOrderIndex(row, column))];
       // Skip negative tiles as they are reserved for empty tiles.
