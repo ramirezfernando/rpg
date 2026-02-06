@@ -33,6 +33,17 @@ inline constexpr const int CLOTHING_RACK_WIDTH = 64;
 inline constexpr const int CLOTHING_RACK_HEIGHT = 35;
 inline constexpr const int CLOTHING_RACK_DST_X = 330;
 inline constexpr const int CLOTHING_RACK_DST_Y = 262;
+// Refer to `assets/sprites/map/wood_fence.png` to see which tile index
+// corresponds to which fence piece.
+inline constexpr const int FENCE_TILE_AT_INDEX_0 = 0;
+inline constexpr const int FENCE_TILE_AT_INDEX_1 = 1;
+inline constexpr const int FENCE_TILE_AT_INDEX_2 = 2;
+inline constexpr const int FENCE_TILE_AT_INDEX_3 = 3;
+inline constexpr const int FENCE_TILE_AT_INDEX_7 = 7;
+inline constexpr const int FENCE_TILE_AT_INDEX_8 = 8;
+inline constexpr const int FENCE_TILE_AT_INDEX_10 = 10;
+inline constexpr const int FENCE_TILE_AT_INDEX_11 = 11;
+inline constexpr const int FENCE_TILE_AT_INDEX_13 = 13;
 inline constexpr const char* MAILBOX_FILE_PATH =
     "assets/sprites/map/mailbox.png";
 inline constexpr const int MAILBOX_WIDTH = 16;
@@ -47,6 +58,13 @@ inline constexpr const int WATERFALL_DST_X = 96;
 inline constexpr const int WATERFALL_DST_Y = 0;
 inline constexpr const char* GRASS_AND_WATER_FILE_PATH =
     "assets/sprites/map/grass_water.png";
+// Refer to `assets/sprites/map/grass_water.png` to see which tile index
+// corresponds to which grass/water piece.
+inline constexpr const int GRASS_AND_WATER_TILE_INDEX_294 = 294;
+inline constexpr const int GRASS_AND_WATER_TILE_INDEX_297 = 297;
+inline constexpr const int GRASS_AND_WATER_TILE_INDEX_299 = 299;
+inline constexpr const int GRASS_AND_WATER_TILE_INDEX_345 = 345;
+inline constexpr const int GRASS_AND_WATER_TILE_INDEX_347 = 347;
 inline constexpr const char* GRASS_AND_DIRT_FILE_PATH =
     "assets/sprites/map/grass_dirt.png";
 inline constexpr const char* CLIFF_FILE_PATH = "assets/sprites/map/cliff.png";

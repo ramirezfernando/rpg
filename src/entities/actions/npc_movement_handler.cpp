@@ -9,21 +9,20 @@
 #include "util/movement.h"
 #include "world/map.h"
 
-// How long the NPC stays idle or moving before deciding again.
-inline constexpr const int DECISION_DURATION = 80;
-
 Direction NpcMovementHandler::current_committed_direction_ = Direction::Down;
 int NpcMovementHandler::decision_counter_ = 0;
 
 void NpcMovementHandler::UpdateNpcMovement(Entity& npc, Map& map) {
   decision_counter_++;
 
-  // Make a new decision every `DECISION_DURATION` frames.
-  if (decision_counter_ >= DECISION_DURATION) {
+  // Make a new decision every `DECISION_DURATION` frames, in other words, how
+  // long the NPC stays in its current state (idle or moving in a direction).
+  if (decision_counter_ >= Constants::DECISION_DURATION) {
     decision_counter_ = 0;
 
     // 60% chance to move, 40% chance to stay idle
-    if (Math::GetRandomInt(0, 99) < 60) {
+    if (Math::GetRandomInt(0, Constants::RANDOM_INT_UPPER_BOUND) <
+        Constants::MOVE_PROBABILITY_PERCENT) {
       current_committed_direction_ = GetRandomDirection();
     }
   }

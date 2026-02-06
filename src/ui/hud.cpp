@@ -2,25 +2,39 @@
 
 #include "cache/cache.h"
 #include "constants/game_constants.h"
+#include "constants/hud_constants.h"
 
 HUD::HUD() {
   Cache* cache = Cache::GetInstance();
   hotbar_ = cache->GetOrCreateSpriteSheet(
-      "assets/sprites/hud/inventory/hotbar.png", 165, 28);
+      "assets/sprites/hud/inventory/hotbar.png", Constants::HOTBAR_WIDTH,
+      Constants::HOTBAR_HEIGHT);
   hotbar_select_tile_ = cache->GetOrCreateSpriteSheet(
-      "assets/sprites/hud/inventory/hotbar_select_tile.png", 18, 18);
+      "assets/sprites/hud/inventory/hotbar_select_tile.png",
+      Constants::SELECT_TILE_WIDTH, Constants::SELECT_TILE_HEIGHT);
   hotbar_select_border_ = cache->GetOrCreateSpriteSheet(
-      "assets/sprites/hud/inventory/hotbar_select_border.png", 18, 18);
+      "assets/sprites/hud/inventory/hotbar_select_border.png",
+      Constants::SELECT_TILE_WIDTH, Constants::SELECT_TILE_HEIGHT);
 }
 
 void HUD::RenderHotBar() {
   if (hotbar_ && hotbar_select_tile_ && hotbar_select_border_) {
-    hotbar_->RenderSprite(0, /*dst_x=*/Constants::WINDOW_SIZE - 632,
-                          /*dst_y=*/Constants::WINDOW_SIZE - 84);
+    const int HOTBAR_X_POSITION =
+        Constants::WINDOW_SIZE - Constants::HOTBAR_POS_X_OFFSET;
+    const int HOTBAR_Y_POSITION =
+        Constants::WINDOW_SIZE - Constants::HOTBAR_POS_Y_OFFSET;
+    hotbar_->RenderSprite(0, /*dst_x=*/HOTBAR_X_POSITION,
+                          /*dst_y=*/HOTBAR_Y_POSITION);
+
     // Render selection tile and border around selected slot.
-    int slot_x = (Constants::WINDOW_SIZE - 632 + 8 + selected_slot_ * 57) + 10;
-    int slot_y = (Constants::WINDOW_SIZE - 84 + 8) + 8;
-    hotbar_select_tile_->RenderSprite(0, /*dst_x=*/slot_x, /*dst_y=*/slot_y);
-    hotbar_select_border_->RenderSprite(0, /*dst_x=*/slot_x, /*dst_y=*/slot_y);
+    int slot_x = (HOTBAR_X_POSITION + Constants::SELECTED_SLOT_X_OFFSET +
+                  selected_slot_ * Constants::SELECTED_SLOT_GAP);
+    int slot_y = HOTBAR_Y_POSITION + Constants::SELECTED_SLOT_Y_OFFSET;
+    hotbar_select_tile_->RenderSprite(Constants::SELECTED_SLOT_DEFAULT,
+                                      /*dst_x=*/slot_x,
+                                      /*dst_y=*/slot_y);
+    hotbar_select_border_->RenderSprite(Constants::SELECTED_SLOT_DEFAULT,
+                                        /*dst_x=*/slot_x,
+                                        /*dst_y=*/slot_y);
   }
 }

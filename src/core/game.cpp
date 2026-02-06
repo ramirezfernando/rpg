@@ -15,11 +15,25 @@
 SDL_Event Game::event_;
 
 static bool IsPlayerBehindFence(int x, int y) {
-  return (y >= 400 && y <= 440) || (y >= 260 && y <= 300 && x <= 260);
+  // Left-most fence where player can be behind.
+  const int left_fence_y_top_position = 260;
+  const int left_fence_y_bottom_position = 300;
+  const int left_fence_x_right_position = 260;
+
+  // Right-most fence where player can be behind.
+  const int right_fence_y_top_position = 400;
+  const int right_fence_y_bottom_position = 440;
+
+  return (y >= right_fence_y_top_position &&
+          y <= right_fence_y_bottom_position) ||
+         (y >= left_fence_y_top_position && y <= left_fence_y_bottom_position &&
+          x <= left_fence_x_right_position);
 }
 
 static bool IsPlayerBehindHouse(int x, int y) {
-  return y <= 200 && x <= 670;
+  const int house_x_position = 670;
+  const int house_y_position = 200;
+  return y <= house_y_position && x <= house_x_position;
 }
 
 static bool ShouldRenderPlayerFirst(int x, int y) {

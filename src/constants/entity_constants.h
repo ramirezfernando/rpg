@@ -17,4 +17,19 @@ inline constexpr const int PLAYER_START_X = 536;
 // The starting Y position of the player when the game starts.
 inline constexpr const int PLAYER_START_Y = 260;
 
+inline constexpr int ENTITY_SPRITE_WIDTH = 32;
+inline constexpr int ENTITY_SPRITE_HEIGHT = 32;
+inline constexpr int IDLE_UP_INITIAL_FRAME = 4;
+inline constexpr int IDLE_DOWN_INITIAL_FRAME = 0;
+inline constexpr int IDLE_LEFT_AND_RIGHT_INITIAL_FRAME = 8;
+inline constexpr int WALK_UP_INITIAL_FRAME = 6;
+inline constexpr int WALK_DOWN_INITIAL_FRAME = 0;
+inline constexpr int WALK_LEFT_AND_RIGHT_INITIAL_FRAME = 12;
+inline constexpr int RUN_UP_INITIAL_FRAME = 8;
+inline constexpr int RUN_DOWN_INITIAL_FRAME = 0;
+inline constexpr int RUN_LEFT_AND_RIGHT_INITIAL_FRAME = 16;
+inline constexpr const int DECISION_DURATION = 80;
+inline constexpr const int RANDOM_INT_UPPER_BOUND = 99;
+inline constexpr const int MOVE_PROBABILITY_PERCENT = 60;
+
 }  // namespace Constants

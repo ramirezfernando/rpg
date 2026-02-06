@@ -158,21 +158,21 @@ std::optional<int> Map::GetTopmostTile(int x, int y) {
 bool Map::IsCollisionTile(int tile) {
   switch (tile) {
     // Fences:
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 7:
-    case 8:
-    case 10:
-    case 11:
-    case 13:
+    case Constants::FENCE_TILE_AT_INDEX_0:
+    case Constants::FENCE_TILE_AT_INDEX_1:
+    case Constants::FENCE_TILE_AT_INDEX_2:
+    case Constants::FENCE_TILE_AT_INDEX_3:
+    case Constants::FENCE_TILE_AT_INDEX_7:
+    case Constants::FENCE_TILE_AT_INDEX_8:
+    case Constants::FENCE_TILE_AT_INDEX_10:
+    case Constants::FENCE_TILE_AT_INDEX_11:
+    case Constants::FENCE_TILE_AT_INDEX_13:
     // Grass water:
-    case 294:
-    case 297:
-    case 299:
-    case 345:
-    case 347:
+    case Constants::GRASS_AND_WATER_TILE_INDEX_294:
+    case Constants::GRASS_AND_WATER_TILE_INDEX_297:
+    case Constants::GRASS_AND_WATER_TILE_INDEX_299:
+    case Constants::GRASS_AND_WATER_TILE_INDEX_345:
+    case Constants::GRASS_AND_WATER_TILE_INDEX_347:
       return true;
   }
   return false;
@@ -180,8 +180,11 @@ bool Map::IsCollisionTile(int tile) {
 
 bool Map::IsOutOfBounds(int x, int y) {
   // Add padding to take character dimensions into account.
-  if (x < -30 || x >= Constants::WINDOW_SIZE - 60 || y < -30 ||
-      y >= Constants::WINDOW_SIZE - 72) {
+  const int padding = 30;
+  const int padding_right = 60;
+  const int padding_bottom = 72;
+  if (x < -padding || x >= Constants::WINDOW_SIZE - padding_right ||
+      y < -padding || y >= Constants::WINDOW_SIZE - padding_bottom) {
     return true;
   }
   return false;

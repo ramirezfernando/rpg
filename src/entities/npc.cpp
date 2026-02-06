@@ -3,12 +3,14 @@
 #include <iostream>
 
 #include "cache/cache.h"
+#include "constants/entity_constants.h"
 #include "graphics/sprite.h"
 
 Npc::Npc()
     : Entity(Cache::GetInstance()->GetOrCreateSpriteSheet(
-          /*path=*/"assets/sprites/entities/kat/idle.png",
-          /*sprite_width=*/32, /*sprite_h=*/32)),
+          /*file_path=*/"assets/sprites/entities/kat/idle.png",
+          /*sprite_width=*/Constants::ENTITY_SPRITE_WIDTH,
+          /*sprite_height=*/Constants::ENTITY_SPRITE_HEIGHT)),
       sprite_sheet_columns_(sprite()->GetColumns()) {
   SetIsNpc(true);
 }
@@ -19,36 +21,36 @@ int Npc::GetInitialAnimationFrame(Action action, Direction direction) const {
     case Action::Idle:
       switch (direction) {
         case Direction::Up:
-          return 4;
+          return Constants::IDLE_UP_INITIAL_FRAME;
         case Direction::Down:
-          return 0;
+          return Constants::IDLE_DOWN_INITIAL_FRAME;
         case Direction::Left:
         case Direction::Right:
-          return 8;
+          return Constants::IDLE_LEFT_AND_RIGHT_INITIAL_FRAME;
       }
       break;
     // 3x6
     case Action::Walk:
       switch (direction) {
         case Direction::Up:
-          return 6;
+          return Constants::WALK_UP_INITIAL_FRAME;
         case Direction::Down:
-          return 0;
+          return Constants::WALK_DOWN_INITIAL_FRAME;
         case Direction::Left:
         case Direction::Right:
-          return 12;
+          return Constants::WALK_LEFT_AND_RIGHT_INITIAL_FRAME;
       }
       break;
     // 3x8
     case Action::Run:
       switch (direction) {
         case Direction::Up:
-          return 8;
+          return Constants::RUN_UP_INITIAL_FRAME;
         case Direction::Down:
-          return 0;
+          return Constants::RUN_DOWN_INITIAL_FRAME;
         case Direction::Left:
         case Direction::Right:
-          return 16;
+          return Constants::RUN_LEFT_AND_RIGHT_INITIAL_FRAME;
       }
       break;
   }
@@ -79,7 +81,8 @@ void Npc::SetPathForAction(Action action) {
 
   SetAction(action);
   Sprite* sprite = Cache::GetInstance()->GetOrCreateSpriteSheet(
-      action_path, /*sprite_width=*/32, /*sprite_h=*/32);
+      action_path, /*sprite_width=*/Constants::ENTITY_SPRITE_WIDTH,
+      /*sprite_height=*/Constants::ENTITY_SPRITE_HEIGHT);
   if (sprite) {
     SetSprite(sprite);
   }
