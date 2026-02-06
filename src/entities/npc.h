@@ -10,8 +10,8 @@ class Npc : public Entity {
   ~Npc() = default;
 
   // Getters
-  [[nodiscard]] int GetInitialAnimationFrame(Action action,
-                               Direction direction) const override;
+  [[nodiscard]] int GetInitialAnimationFrame(
+      Action action, Direction direction) const override;
   [[nodiscard]] int GetSpriteSheetColumns() const override;
 
   // Setters

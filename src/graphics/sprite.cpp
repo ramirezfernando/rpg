@@ -3,8 +3,8 @@
 #include <SDL2/SDL.h>
 
 #include <iostream>
-#include <sstream>
 #include <ranges>
+#include <sstream>
 
 #include "cache/cache.h"
 #include "constants/sprite_constants.h"

@@ -3,12 +3,12 @@
 namespace Constants {
 
 // Height of each tile in pixels.
-extern const int SPRITE_HEIGHT;
+inline constexpr const int SPRITE_HEIGHT = 16;
 
 // Scale factor for sprites.
-extern const int SPRITE_SCALE;
+inline constexpr const int SPRITE_SCALE = 3;
 
 // Width of each tile in pixels.
-extern const int SPRITE_WIDTH;
+inline constexpr const int SPRITE_WIDTH = 16;
 
 }  // namespace Constants

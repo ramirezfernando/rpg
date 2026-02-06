@@ -7,9 +7,6 @@ namespace Logger {
 // Logging levels
 enum class Level : std::uint8_t { Debug, Info, Warning, Error };
 
-// Set the logging level (only logs at this level or higher will be printed)
-void SetLevel(Level level);
-
 // Log a message with a specific level
 void Log(Level level, const std::string& message);
 void Log(Level level, const std::string& context, const std::string& message);

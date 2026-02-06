@@ -31,8 +31,8 @@ class Entity {
 
  protected:
   // Pure-virtual hooks for derived classes to customize what is rendered.
-  [[nodiscard]] virtual int GetInitialAnimationFrame(Action action,
-                                       Direction direction) const = 0;
+  [[nodiscard]] virtual int GetInitialAnimationFrame(
+      Action action, Direction direction) const = 0;
   [[nodiscard]] virtual int GetSpriteSheetColumns() const = 0;
 
   Sprite* sprite() { return sprite_; }
