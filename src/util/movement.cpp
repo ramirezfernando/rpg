@@ -81,7 +81,7 @@ bool ApplyMovement(Entity& entity, int dx, int dy, Map& map, Action action) {
 
 bool ApplyDirectionalMovement(Entity& entity, Direction direction, int gap,
                               Map& map, Action action) {
-  int dx, dy;
+  int dx{}, dy{};
   DirectionToDelta(direction, gap, dx, dy);
   return ApplyMovement(entity, dx, dy, map, action);
 }
