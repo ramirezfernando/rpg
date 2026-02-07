@@ -7,11 +7,10 @@
 #include "core/game.h"
 
 int main() {
-  std::unique_ptr<Game> game(new Game());
-  game->Init();
-
   Uint32 frame_start{};
   Uint32 frame_time{};
+  auto game = std::make_unique<Game>();
+
   while (game->IsRunning()) {
     frame_start = SDL_GetTicks();
     game->Render();
@@ -23,5 +22,6 @@ int main() {
       SDL_Delay(Constants::FRAME_DELAY - frame_time);
     }
   }
+
   return 0;
 }

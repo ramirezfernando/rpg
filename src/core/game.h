@@ -15,8 +15,8 @@
 
 class Game {
  public:
+  Game();
   ~Game();
-  void Init();
   void Render();
   void Update();
   void SetIsRunning(bool is_running) { is_running_ = is_running; }

@@ -40,17 +40,7 @@ static bool ShouldRenderPlayerFirst(int x, int y) {
   return IsPlayerBehindFence(x, y) || IsPlayerBehindHouse(x, y);
 }
 
-Game::~Game() {
-  // Clear resource cache before destroying SDL objects.
-  Cache::GetInstance()->Clear();
-
-  SDL_Quit();
-  IMG_Quit();
-
-  Logger::Debug("Game", "Game destroyed");
-}
-
-void Game::Init() {
+Game::Game() {
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
     window_ = std::make_unique<Window>(
         "RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -75,6 +65,16 @@ void Game::Init() {
 
   hud_ = std::make_unique<HUD>();
   Logger::Debug("Game", "HUD created");
+}
+
+Game::~Game() {
+  // Clear resource cache before destroying SDL objects.
+  Cache::GetInstance()->Clear();
+
+  SDL_Quit();
+  IMG_Quit();
+
+  Logger::Debug("Game", "Game destroyed");
 }
 
 void Game::Render() {
