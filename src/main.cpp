@@ -10,8 +10,8 @@ int main() {
   std::unique_ptr<Game> game(new Game());
   game->Init();
 
-  Uint32 frame_start;
-  Uint32 frame_time;
+  Uint32 frame_start{};
+  Uint32 frame_time{};
   while (game->IsRunning()) {
     frame_start = SDL_GetTicks();
     game->Render();
