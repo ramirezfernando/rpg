@@ -1,5 +1,7 @@
 #pragma once
 
+#include <span>
+
 #include "entities/entity.h"
 #include "ui/hud.h"
 #include "world/map.h"
@@ -12,6 +14,9 @@ class InputHandler {
   static bool HandleInput(Entity& player, class Map& map, HUD& hud);
 
  private:
+  // Getter that turns `SDL_GetKeyboardState` dumb pointer into a smart pointer.
+  static std::span<const Uint8> GetKeyboardState();
+
   // Get keyboard state and compute movement delta.
   static void GetMovementInput(int& dx, int& dy, bool& is_running,
                                Direction& facing_direction);

@@ -3,6 +3,7 @@
 #include <cmath>
 #include <optional>
 #include <ranges>
+#include <span>
 
 #include "constants/entity_constants.h"
 #include "entities/entity.h"
@@ -42,11 +43,18 @@ bool InputHandler::HandleInput(Entity& player, Map& map, HUD& hud) {
   return Movement::ApplyMovement(player, dx, dy, map, action);
 }
 
+std::span<const Uint8> InputHandler::GetKeyboardState() {
+  int num_keys = 0;
+  const Uint8* raw_keyboard_state = SDL_GetKeyboardState(&num_keys);
+  // Wrap the raw pointer in a span to make it "bounds-aware" and safer to use.
+  return {raw_keyboard_state, static_cast<size_t>(num_keys)};
+}
+
 void InputHandler::GetMovementInput(int& dx, int& dy, bool& is_running,
                                     Direction& facing_direction) {
-  const Uint8* keyboard_state = SDL_GetKeyboardState(nullptr);
   int base_gap = Constants::ENTITY_WALK_GAP;
   int gap = base_gap;
+  auto keyboard_state = GetKeyboardState();
 
   // Check for running modifier.
   if (keyboard_state[SDL_SCANCODE_LSHIFT] ||
@@ -77,10 +85,10 @@ void InputHandler::GetMovementInput(int& dx, int& dy, bool& is_running,
 }
 
 void InputHandler::GetHudInput(HUD& hud) {
-  const Uint8* keyboard_state = SDL_GetKeyboardState(nullptr);
+  auto keyboard_state = GetKeyboardState();
   const int hud_slots = 8;
   for (int i : std::ranges::iota_view{0, hud_slots}) {
-    if (keyboard_state[SDL_SCANCODE_1 + i]) {
+    if (keyboard_state[static_cast<size_t>(SDL_SCANCODE_1 + i)]) {
       hud.SetSelectedSlot(i);
       Logger::Debug("InputHandler",
                     "Hotbar slot " + std::to_string(i + 1) + " selected");
