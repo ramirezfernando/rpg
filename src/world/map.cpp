@@ -148,7 +148,7 @@ std::optional<int> Map::GetTopmostTile(int x, int y) {
     if (index >= 0) {
       auto u_index = static_cast<std::size_t>(index);
       if (u_index < tile_map.size() && tile_map.at(u_index) >= 0) {
-        return tile_map[u_index];
+        return tile_map.at(u_index);
       }
     }
   }

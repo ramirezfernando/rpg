@@ -132,8 +132,8 @@ void Sprite::RenderTileMap(
   const int scaled_tile_height = sprite_height_ * Constants::SPRITE_SCALE;
   for (int row : std::ranges::iota_view{0, Constants::MAP_ROWS}) {
     for (int column : std::ranges::iota_view{0, Constants::MAP_COLUMNS}) {
-      int tile = tile_map[static_cast<size_t>(
-          Math::GetRowMajorOrderIndex(row, column))];
+      int tile = tile_map.at(
+          static_cast<size_t>(Math::GetRowMajorOrderIndex(row, column)));
       // Skip negative tiles as they are reserved for empty tiles.
       if (tile < 0) {
         continue;
