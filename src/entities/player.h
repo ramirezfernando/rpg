@@ -7,7 +7,7 @@
 class Player : public Entity {
  public:
   Player();
-  ~Player() = default;
+  ~Player() override = default;
 
   // Getters
   [[nodiscard]] int GetInitialAnimationFrame(

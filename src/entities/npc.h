@@ -7,7 +7,7 @@
 class Npc : public Entity {
  public:
   Npc();
-  ~Npc() = default;
+ ~Npc() override = default;
 
   // Getters
   [[nodiscard]] int GetInitialAnimationFrame(
