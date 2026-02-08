@@ -41,6 +41,7 @@ class Entity {
  private:
   // Non-owning pointer to cached sprite.
   Sprite* sprite_;
+
   Direction direction_{Direction::Down};
   Action action_{Action::Idle};
   int animation_frame_index_{0};

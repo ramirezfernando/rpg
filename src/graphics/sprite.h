@@ -42,6 +42,7 @@ class Sprite {
   int sprite_height_;
   int margin_;
   int spacing_;
+
   SDL_Texture* texture_{nullptr};
   int columns_{0};
   int rows_{0};
