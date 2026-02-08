@@ -40,14 +40,14 @@ class Map {
   bool IsOutOfBounds(int x, int y);
 
  private:
-  Sprite* plants_;
-  Sprite* grass_dirt_;
-  Sprite* grass_water_;
-  Sprite* house_;
-  Sprite* house_chimney_smoke_;
-  Sprite* wood_fence_;
-  Sprite* clothing_rack_;
-  Sprite* mailbox_;
-  Sprite* waterfall_;
-  Sprite* cliff_;
+  Sprite* plants_{nullptr};
+  Sprite* grass_dirt_{nullptr};
+  Sprite* grass_water_{nullptr};
+  Sprite* house_{nullptr};
+  Sprite* house_chimney_smoke_{nullptr};
+  Sprite* wood_fence_{nullptr};
+  Sprite* clothing_rack_{nullptr};
+  Sprite* mailbox_{nullptr};
+  Sprite* waterfall_{nullptr};
+  Sprite* cliff_{nullptr};
 };
