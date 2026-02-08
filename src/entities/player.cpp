@@ -11,7 +11,7 @@ Player::Player()
           /*file_path=*/"assets/sprites/entities/fern/idle.png",
           /*sprite_width=*/Constants::ENTITY_SPRITE_WIDTH,
           /*sprite_height=*/Constants::ENTITY_SPRITE_HEIGHT)),
-      sprite_sheet_columns_(sprite()->GetColumns()) {}
+      sprite_sheet_columns_{sprite()->GetColumns()} {}
 
 int Player::GetInitialAnimationFrame(Action action, Direction direction) const {
   switch (action) {
