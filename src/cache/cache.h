@@ -24,7 +24,6 @@ class Cache {
   SDL_Texture* GetOrCreateTexture(const char* file_name);
   Sprite* GetOrCreateSpriteSheet(const char* file_path, int sprite_width,
                                  int sprite_height);
-  void Clear();
 
  private:
   Cache() = default;

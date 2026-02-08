@@ -11,7 +11,15 @@ Cache* Cache::GetInstance() {
 }
 
 Cache::~Cache() {
-  Clear();
+  // Destroy all cached textures.
+  for (auto& pair : texture_cache_) {
+    if (pair.second) {
+      SDL_DestroyTexture(pair.second);
+    }
+  }
+  texture_cache_.clear();
+  sprite_sheet_cache_.clear();
+  Logger::Debug("Cache", "Resource cache cleared");
 }
 
 SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
@@ -73,18 +81,6 @@ Sprite* Cache::GetOrCreateSpriteSheet(const char* file_path, int sprite_width,
   Logger::Debug("Cache", std::string("Sprite sheet loaded: ") + file_path);
 
   return raw_ptr;
-}
-
-void Cache::Clear() {
-  // Destroy all cached textures.
-  for (auto& pair : texture_cache_) {
-    if (pair.second) {
-      SDL_DestroyTexture(pair.second);
-    }
-  }
-  texture_cache_.clear();
-  sprite_sheet_cache_.clear();
-  Logger::Debug("Cache", "Resource cache cleared");
 }
 
 SDL_Texture* Cache::CreateTexture(const char* file_name) {

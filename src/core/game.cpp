@@ -68,12 +68,8 @@ Game::Game() {
 }
 
 Game::~Game() {
-  // Clear resource cache before destroying SDL objects.
-  Cache::GetInstance()->Clear();
-
   SDL_Quit();
   IMG_Quit();
-
   Logger::Debug("Game", "Game destroyed");
 }
 
