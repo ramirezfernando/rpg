@@ -39,8 +39,7 @@ class Entity {
   void SetSprite(Sprite* sprite) { sprite_ = sprite; }
 
  private:
-  // TODO(fernandoramirez): Clean up raw pointer or check if I can use unique
-  // pointer.
+  // Non-owning pointer to cached sprite.
   Sprite* sprite_;
   Direction direction_{Direction::Down};
   Action action_{Action::Idle};
