@@ -6,6 +6,11 @@ class HUD {
  public:
   HUD();
   ~HUD() = default;
+  HUD(const HUD&) = delete;
+  HUD& operator=(const HUD&) = delete;
+  HUD(HUD&&) = delete;
+  HUD& operator=(HUD&&) = delete;
+
   void RenderHotBar();
   void SetSelectedSlot(int slot) { selected_slot_ = slot; }
 

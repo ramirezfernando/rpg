@@ -16,6 +16,11 @@ class Map {
  public:
   Map();
   ~Map() = default;
+  Map(const Map&) = delete;
+  Map& operator=(const Map&) = delete;
+  Map(Map&&) = delete;
+  Map& operator=(Map&&) = delete;
+
   void RenderPlants();
   void RenderGrassDirt();
   void RenderGrassWater();

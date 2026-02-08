@@ -8,6 +8,10 @@ class Player : public Entity {
  public:
   Player();
   ~Player() override = default;
+  Player(const Player&) = delete;
+  Player& operator=(const Player&) = delete;
+  Player(Player&&) = delete;
+  Player& operator=(Player&&) = delete;
 
   // Getters
   [[nodiscard]] int GetInitialAnimationFrame(

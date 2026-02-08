@@ -7,5 +7,10 @@ class Renderer {
  public:
   Renderer(SDL_Window* window);
   ~Renderer();
+  Renderer(const Renderer&) = delete;
+  Renderer& operator=(const Renderer&) = delete;
+  Renderer(Renderer&&) = delete;
+  Renderer& operator=(Renderer&&) = delete;
+
   static SDL_Renderer* renderer_;
 };

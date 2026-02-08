@@ -12,6 +12,11 @@ class Entity {
  public:
   explicit Entity(Sprite* sprite);
   virtual ~Entity() = default;
+  Entity(const Entity&) = delete;
+  Entity& operator=(const Entity&) = delete;
+  Entity(Entity&&) = delete;
+  Entity& operator=(Entity&&) = delete;
+
   void Render();
   void IncrementAnimationFrameIndexAfterInterval();
 

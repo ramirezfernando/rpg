@@ -12,6 +12,10 @@ class Sprite {
   Sprite(const char* path, int sprite_width, int sprite_height, int margin = 0,
          int spacing = 0);
   ~Sprite() = default;
+  Sprite(const Sprite&) = delete;
+  Sprite& operator=(const Sprite&) = delete;
+  Sprite(Sprite&&) = delete;
+  Sprite& operator=(Sprite&&) = delete;
 
   // Loads and sets up the variables for the sprite sheet.
   bool LoadSpriteSheet();

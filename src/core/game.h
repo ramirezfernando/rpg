@@ -17,6 +17,11 @@ class Game {
  public:
   Game();
   ~Game();
+  Game(const Game&) = delete;
+  Game& operator=(const Game&) = delete;
+  Game(Game&&) = delete;
+  Game& operator=(Game&&) = delete;
+
   void Render();
   void Update();
   void SetIsRunning(bool is_running) { is_running_ = is_running; }

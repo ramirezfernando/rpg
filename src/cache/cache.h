@@ -16,10 +16,10 @@ class Cache {
   static Cache* GetInstance();
 
   ~Cache();
-  Cache(const Cache&) = delete;             // Copy constructor.
-  Cache(Cache&&) = delete;                  // Move constructor.
-  Cache& operator=(const Cache&) = delete;  // Copy assignment operator.
-  Cache& operator=(Cache&&) = delete;       // Move assignment operator.
+  Cache(const Cache&) = delete;
+  Cache& operator=(const Cache&) = delete;
+  Cache(Cache&&) = delete;
+  Cache& operator=(Cache&&) = delete;
 
   SDL_Texture* GetOrCreateTexture(const char* file_name);
   Sprite* GetOrCreateSpriteSheet(const char* file_path, int sprite_width,
