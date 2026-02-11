@@ -22,7 +22,7 @@ Sprite::Sprite(const char* path, int sprite_width, int sprite_height,
 
 bool Sprite::LoadSpriteSheet() {
   texture_ = Cache::GetInstance()->GetOrCreateTexture(path_);
-  if (!texture_) {
+  if (texture_ == nullptr) {
     Logger::Error("Sprite", std::string("Failed to load texture: ") + path_);
     return false;
   }
@@ -60,7 +60,7 @@ bool Sprite::LoadSpriteSheet() {
 }
 
 void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y, bool invert) {
-  if (!texture_) {
+  if (texture_ == nullptr) {
     return;
   }
   // Negative reserved for empty tiles.
@@ -125,7 +125,7 @@ void Sprite::RenderAnimatedSprite(int dst_x, int dst_y) {
 
 void Sprite::RenderTileMap(
     const std::array<int, Constants::MAP_ROWS_BY_COLUMNS>& tile_map) {
-  if (!texture_) {
+  if (texture_ == nullptr) {
     return;
   }
   const int scaled_tile_width = sprite_width_ * Constants::SPRITE_SCALE;

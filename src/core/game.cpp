@@ -115,7 +115,7 @@ void Game::Render() {
 
 void Game::Update() {
   SDL_Event event;
-  while (SDL_PollEvent(&event)) {
+  while (SDL_PollEvent(&event) != 0) {
     if (event.type == SDL_QUIT) {
       is_running_ = false;
     }

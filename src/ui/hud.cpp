@@ -18,7 +18,8 @@ HUD::HUD() {
 }
 
 void HUD::RenderHotBar() {
-  if (hotbar_ && hotbar_select_tile_ && hotbar_select_border_) {
+  if (hotbar_ != nullptr && hotbar_select_tile_ != nullptr &&
+      hotbar_select_border_ != nullptr) {
     const int HOTBAR_X_POSITION =
         Constants::WINDOW_SIZE - Constants::HOTBAR_POS_X_OFFSET;
     const int HOTBAR_Y_POSITION =

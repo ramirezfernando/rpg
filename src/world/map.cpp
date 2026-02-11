@@ -60,32 +60,32 @@ Map::Map() {
 
 void Map::RenderPlants() {
   // Plants rendering not implemented yet.
-  if (plants_) {
+  if (plants_ != nullptr) {
     plants_->RenderTileMap(Constants::TILE_MAP_PLANTS);
   }
 }
 
 void Map::RenderGrassDirt() {
-  if (grass_dirt_) {
+  if (grass_dirt_ != nullptr) {
     grass_dirt_->RenderTileMap(Constants::TILE_MAP_GRASS_DIRT);
   }
 }
 
 void Map::RenderGrassWater() {
-  if (grass_water_) {
+  if (grass_water_ != nullptr) {
     grass_water_->RenderTileMap(Constants::TILE_MAP_GRASS_WATER_FIRST_LAYER);
     grass_water_->RenderTileMap(Constants::TILE_MAP_GRASS_WATER_SECOND_LAYER);
   }
 }
 
 void Map::RenderWoodFence() {
-  if (wood_fence_) {
+  if (wood_fence_ != nullptr) {
     wood_fence_->RenderTileMap(Constants::TILE_MAP_FENCE);
   }
 }
 
 void Map::RenderClothingRack() {
-  if (clothing_rack_) {
+  if (clothing_rack_ != nullptr) {
     clothing_rack_->RenderSprite(/*sprite_index=*/0,
                                  /*dst_x=*/Constants::CLOTHING_RACK_DST_X,
                                  /*dst_y=*/Constants::CLOTHING_RACK_DST_Y);
@@ -93,7 +93,7 @@ void Map::RenderClothingRack() {
 }
 
 void Map::RenderMailbox() {
-  if (mailbox_) {
+  if (mailbox_ != nullptr) {
     mailbox_->RenderSprite(/*sprite_index=*/0,
                            /*dst_x=*/Constants::MAILBOX_DST_X,
                            /*dst_y=*/Constants::MAILBOX_DST_Y);
@@ -101,12 +101,12 @@ void Map::RenderMailbox() {
 }
 
 void Map::RenderHouse() {
-  if (house_) {
+  if (house_ != nullptr) {
     // Renders the entire house as a single sprite, not individual 48x48 tiles.
     house_->RenderSprite(/*sprite_index=*/0, /*dst_x=*/Constants::HOUSE_DST_X,
                          /*dst_y=*/Constants::HOUSE_DST_Y);
   }
-  if (house_chimney_smoke_) {
+  if (house_chimney_smoke_ != nullptr) {
     house_chimney_smoke_->RenderAnimatedSprite(
         /*dst_x=*/Constants::HOUSE_CHIMNEY_SMOKE_DST_X,
         /*dst_y=*/Constants::HOUSE_CHIMNEY_SMOKE_DST_Y);
@@ -114,7 +114,7 @@ void Map::RenderHouse() {
 }
 
 void Map::RenderWaterfall() {
-  if (waterfall_) {
+  if (waterfall_ != nullptr) {
     // Renders the entire waterfall as an animated sprite, not individual
     // animated, 48x48 tiles.
     waterfall_->RenderAnimatedSprite(/*dst_x=*/Constants::WATERFALL_DST_X,
@@ -123,7 +123,7 @@ void Map::RenderWaterfall() {
 }
 
 void Map::RenderCliff() {
-  if (cliff_) {
+  if (cliff_ != nullptr) {
     cliff_->RenderTileMap(Constants::TILE_MAP_CLIFF);
   }
 }

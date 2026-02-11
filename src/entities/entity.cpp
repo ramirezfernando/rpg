@@ -8,7 +8,7 @@
 Entity::Entity(Sprite* sprite) : sprite_(sprite) {}
 
 void Entity::Render() {
-  if (!sprite()) {
+  if (sprite() == nullptr) {
     return;
   }
 

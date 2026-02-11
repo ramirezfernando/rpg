@@ -81,7 +81,7 @@ void Player::SetPathForAction(Action action) {
   Sprite* sprite = Cache::GetInstance()->GetOrCreateSpriteSheet(
       action_path, /*sprite_width=*/Constants::ENTITY_SPRITE_WIDTH,
       /*sprite_height=*/Constants::ENTITY_SPRITE_HEIGHT);
-  if (sprite) {
+  if (sprite != nullptr) {
     SetSprite(sprite);
   }
 }

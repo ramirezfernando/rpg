@@ -13,7 +13,7 @@ Cache* Cache::GetInstance() {
 Cache::~Cache() {
   // Destroy all cached textures.
   for (auto& pair : texture_cache_) {
-    if (pair.second) {
+    if (pair.second != nullptr) {
       SDL_DestroyTexture(pair.second);
     }
   }
@@ -23,7 +23,7 @@ Cache::~Cache() {
 }
 
 SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
-  if (!file_name) {
+  if (file_name == nullptr) {
     Logger::Error("Cache", "file_name is null");
     return nullptr;
   }
@@ -38,7 +38,7 @@ SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
 
   // Create texture since it's not cached.
   SDL_Texture* texture = CreateTexture(file_name);
-  if (!texture) {
+  if (texture == nullptr) {
     Logger::Error("Cache", std::string("Failed to load texture: ") + file_name);
     return nullptr;
   }
@@ -52,7 +52,7 @@ SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
 
 Sprite* Cache::GetOrCreateSpriteSheet(const char* file_path, int sprite_width,
                                       int sprite_height) {
-  if (!file_path) {
+  if (file_path == nullptr) {
     Logger::Error("Cache", "path is null");
     return nullptr;
   }
