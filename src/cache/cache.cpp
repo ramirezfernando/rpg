@@ -31,7 +31,7 @@ SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
   std::string key{file_name};
 
   // Check if texture is already cached.
-  if (texture_cache_.find(key) != texture_cache_.end()) {
+  if (texture_cache_.contains(key)) {
     Logger::Debug("Cache", std::string("Texture cached: ") + file_name);
     return texture_cache_[key];
   }
@@ -60,7 +60,7 @@ Sprite* Cache::GetOrCreateSpriteSheet(const char* file_path, int sprite_width,
   std::string key{file_path};
 
   // Check if sprite is already cached.
-  if (sprite_sheet_cache_.find(key) != sprite_sheet_cache_.end()) {
+  if (sprite_sheet_cache_.contains(key)) {
     Logger::Debug("Cache", std::string("Sprite sheet cached: ") + file_path);
     return sprite_sheet_cache_[key].get();
   }
