@@ -27,25 +27,23 @@ class Sprite {
   // Renders a tile map given an array of tile indices.
   void RenderTileMap(
       const std::array<int, Constants::MAP_ROWS_BY_COLUMNS>& tile_map);
-  // Getters
-  char* GetPath() const { return path_; }
-  int GetSpriteWidth() const { return sprite_width_; }
-  int GetSpriteHeight() const { return sprite_height_; }
-  int GetMargin() const { return margin_; }
-  int GetSpacing() const { return spacing_; }
-  int GetColumns() const { return columns_; }
-  int GetRows() const { return rows_; }
-  int GetSpriteCount() const { return sprite_count_; }
 
-  // Setters
-  void SetPath(const char* path) { path_ = path; }
+  // Getters:
+  [[nodiscard]] const char* GetPath() const { return path_; }
+  [[nodiscard]] int GetSpriteWidth() const { return sprite_width_; }
+  [[nodiscard]] int GetSpriteHeight() const { return sprite_height_; }
+  [[nodiscard]] int GetMargin() const { return margin_; }
+  [[nodiscard]] int GetSpacing() const { return spacing_; }
+  [[nodiscard]] int GetColumns() const { return columns_; }
+  [[nodiscard]] int GetRows() const { return rows_; }
+  [[nodiscard]] int GetSpriteCount() const { return sprite_count_; }
 
  private:
   const char* path_;
-  int sprite_width_;
-  int sprite_height_;
-  int margin_;
-  int spacing_;
+  const int sprite_width_;
+  const int sprite_height_;
+  const int margin_;
+  const int spacing_;
 
   SDL_Texture* texture_{nullptr};
   int columns_{0};

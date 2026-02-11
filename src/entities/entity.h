@@ -20,13 +20,13 @@ class Entity {
   void Render();
   void IncrementAnimationFrameIndexAfterInterval();
 
-  // Getters
-  int GetXPos() const { return dst_x_; }
-  int GetYPos() const { return dst_y_; }
+  // Getters:
+  [[nodiscard]] int GetXPos() const { return dst_x_; }
+  [[nodiscard]] int GetYPos() const { return dst_y_; }
   [[nodiscard]] Action GetCurrentAction() const { return action_; }
   [[nodiscard]] bool IsNpc() const { return is_npc_; }
 
-  // Setters
+  // Setters:
   void SetAction(Action action) { action_ = action; }
   void SetXPos(int dst_x) { dst_x_ = dst_x; }
   void SetYPos(int dst_y) { dst_y_ = dst_y; }
