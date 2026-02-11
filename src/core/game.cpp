@@ -12,9 +12,9 @@
 #include "util/logger.h"
 #include "world/map.h"
 
-SDL_Event Game::event_;
+namespace {
 
-static bool IsPlayerBehindFence(int x, int y) {
+bool IsPlayerBehindFence(int x, int y) {
   // Left-most fence where player can be behind.
   const int left_fence_y_top_position = 260;
   const int left_fence_y_bottom_position = 300;
@@ -30,15 +30,19 @@ static bool IsPlayerBehindFence(int x, int y) {
           x <= left_fence_x_right_position);
 }
 
-static bool IsPlayerBehindHouse(int x, int y) {
+bool IsPlayerBehindHouse(int x, int y) {
   const int house_x_position = 670;
   const int house_y_position = 200;
   return y <= house_y_position && x <= house_x_position;
 }
 
-static bool ShouldRenderPlayerFirst(int x, int y) {
+bool ShouldRenderPlayerFirst(int x, int y) {
   return IsPlayerBehindFence(x, y) || IsPlayerBehindHouse(x, y);
 }
+
+}  // anonymous namespace
+
+SDL_Event Game::event_;
 
 Game::Game() {
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
