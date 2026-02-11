@@ -28,14 +28,14 @@ class Sprite {
   void RenderTileMap(
       const std::array<int, Constants::MAP_ROWS_BY_COLUMNS>& tile_map);
   // Getters
-  const char* GetPath() { return path_; }
-  int GetSpriteWidth() { return sprite_width_; }
-  int GetSpriteHeight() { return sprite_height_; }
-  int GetMargin() { return margin_; }
-  int GetSpacing() { return spacing_; }
-  int GetColumns() { return columns_; }
-  int GetRows() { return rows_; }
-  int GetSpriteCount() { return sprite_count_; }
+  char* GetPath() const { return path_; }
+  int GetSpriteWidth() const { return sprite_width_; }
+  int GetSpriteHeight() const { return sprite_height_; }
+  int GetMargin() const { return margin_; }
+  int GetSpacing() const { return spacing_; }
+  int GetColumns() const { return columns_; }
+  int GetRows() const { return rows_; }
+  int GetSpriteCount() const { return sprite_count_; }
 
   // Setters
   void SetPath(const char* path) { path_ = path; }

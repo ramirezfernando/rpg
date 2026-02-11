@@ -21,8 +21,8 @@ class Entity {
   void IncrementAnimationFrameIndexAfterInterval();
 
   // Getters
-  int GetXPos() { return dst_x_; }
-  int GetYPos() { return dst_y_; }
+  int GetXPos() const { return dst_x_; }
+  int GetYPos() const { return dst_y_; }
   [[nodiscard]] Action GetCurrentAction() const { return action_; }
   [[nodiscard]] bool IsNpc() const { return is_npc_; }
 

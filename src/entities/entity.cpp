@@ -12,15 +12,15 @@ void Entity::Render() {
     return;
   }
 
-  int initial_index = GetInitialAnimationFrame(action_, direction_);
-  int columns = GetSpriteSheetColumns();
+  const int initial_index = GetInitialAnimationFrame(action_, direction_);
+  const int columns = GetSpriteSheetColumns();
 
   // Use columns (frames per row) to wrap the animation frame.
-  int frame = animation_frame_index_ % columns;
+  const int frame = animation_frame_index_ % columns;
 
   // Compute final index and guard against exceeding sprite_count_.
   int final_index = initial_index + frame;
-  int sprite_count = sprite()->GetSpriteCount();
+  const int sprite_count = sprite()->GetSpriteCount();
   if (final_index >= sprite_count) {
     std::ostringstream oss;
     oss << "Entity::Render: final_index " << final_index << " >= sprite_count "

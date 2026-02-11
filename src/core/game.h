@@ -25,7 +25,7 @@ class Game {
   void Render();
   void Update();
   void SetIsRunning(bool is_running) { is_running_ = is_running; }
-  bool IsRunning() { return is_running_; }
+  bool IsRunning() const { return is_running_; }
   static SDL_Event event_;
 
  private:
