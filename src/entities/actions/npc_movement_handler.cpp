@@ -1,10 +1,10 @@
 #include "npc_movement_handler.h"
 
 #include <cstdlib>
-#include <optional>
+#include <utility>
 
 #include "constants/entity_constants.h"
-#include "util/logger.h"
+#include "entities/entity.h"
 #include "util/math.h"
 #include "util/movement.h"
 #include "world/map.h"

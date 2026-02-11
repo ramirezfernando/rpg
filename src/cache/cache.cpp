@@ -1,9 +1,15 @@
 #include "cache.h"
 
-#include <iostream>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_surface.h>
 
+#include <memory>
+#include <utility>
+
+#include "graphics/renderer.h"
+#include "graphics/sprite.h"
 #include "util/logger.h"
-#include "util/math.h"
 
 Cache* Cache::GetInstance() {
   static Cache instance;  // Thread-safe in C++11+.

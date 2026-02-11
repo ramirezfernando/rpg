@@ -1,5 +1,7 @@
 #include "window.h"
 
+#include <SDL2/SDL_video.h>
+
 #include "util/logger.h"
 
 Window::Window(const char* title, int x, int y, int width, int height)

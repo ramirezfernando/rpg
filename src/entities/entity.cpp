@@ -3,6 +3,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "constants/entity_constants.h"
+#include "graphics/sprite.h"
 #include "util/logger.h"
 
 Entity::Entity(Sprite* sprite) : sprite_(sprite) {}

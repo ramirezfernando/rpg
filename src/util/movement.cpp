@@ -3,7 +3,8 @@
 #include <cmath>
 #include <optional>
 
-#include "util/logger.h"
+#include "entities/entity.h"
+#include "world/map.h"
 
 namespace Movement {
 

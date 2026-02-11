@@ -1,12 +1,19 @@
 #include "sprite.h"
 
-#include <SDL2/SDL.h>
+#include <SDL2/SDL_error.h>
+#include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_stdinc.h>
+#include <SDL2/SDL_timer.h>
 
+#include <array>
+#include <cstddef>
 #include <iostream>
 #include <ranges>
 #include <sstream>
 
 #include "cache/cache.h"
+#include "constants/map_constants.h"
 #include "constants/sprite_constants.h"
 #include "renderer.h"
 #include "util/logger.h"

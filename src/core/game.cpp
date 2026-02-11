@@ -1,13 +1,21 @@
 #include "game.h"
 
-#include <iostream>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_video.h>
+
+#include <memory>
 
 #include "constants/game_constants.h"
+#include "core/window.h"
 #include "entities/actions/npc_movement_handler.h"
 #include "entities/actions/player_input_handler.h"
 #include "entities/entity.h"
 #include "entities/npc.h"
 #include "entities/player.h"
+#include "graphics/renderer.h"
 #include "ui/hud.h"
 #include "util/logger.h"
 #include "world/map.h"

@@ -1,9 +1,13 @@
 #include "player_input_handler.h"
 
-#include <cmath>
-#include <optional>
+#include <SDL2/SDL_keyboard.h>
+#include <SDL2/SDL_scancode.h>
+#include <SDL2/SDL_stdinc.h>
+
+#include <cstddef>
 #include <ranges>
 #include <span>
+#include <string>
 
 #include "constants/entity_constants.h"
 #include "entities/entity.h"

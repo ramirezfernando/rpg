@@ -1,9 +1,8 @@
 #include "npc.h"
 
-#include <iostream>
-
 #include "cache/cache.h"
 #include "constants/entity_constants.h"
+#include "entities/entity.h"
 #include "graphics/sprite.h"
 
 Npc::Npc()
