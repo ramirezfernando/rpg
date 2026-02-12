@@ -183,9 +183,6 @@ bool Map::IsOutOfBounds(int x, int y) {
   const int padding = 30;
   const int padding_right = 60;
   const int padding_bottom = 72;
-  if (x < -padding || x >= Constants::WINDOW_SIZE - padding_right ||
-      y < -padding || y >= Constants::WINDOW_SIZE - padding_bottom) {
-    return true;
-  }
-  return false;
+  return x < -padding || x >= Constants::WINDOW_SIZE - padding_right ||
+         y < -padding || y >= Constants::WINDOW_SIZE - padding_bottom;
 }

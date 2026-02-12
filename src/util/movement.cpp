@@ -16,11 +16,7 @@ bool IsMovementValid(int x, int y, Map& map) {
 
   // Check collision.
   std::optional<int> tile = map.GetTopmostTile(x, y);
-  if (!tile.has_value() || map.IsCollisionTile(tile.value())) {
-    return false;
-  }
-
-  return true;
+  return tile.has_value() && !map.IsCollisionTile(tile.value());
 }
 
 void DirectionToDelta(Direction direction, int gap, int& dx, int& dy) {
