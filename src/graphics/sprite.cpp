@@ -82,8 +82,8 @@ void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y, bool invert) {
     return;
   }
 
-  int col = sprite_index % columns_;
-  int row = sprite_index / columns_;
+  const int col = sprite_index % columns_;
+  const int row = sprite_index / columns_;
 
   SDL_Rect src;
   src.x = margin_ + col * (sprite_width_ + spacing_);
@@ -98,7 +98,7 @@ void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y, bool invert) {
   dst.h = sprite_height_ * Constants::SPRITE_SCALE;
 
   if (invert) {
-    SDL_RendererFlip flip = invert ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+    const SDL_RendererFlip flip = invert ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     SDL_RenderCopyEx(Renderer::renderer_, texture_, &src, &dst, 0.0, nullptr,
                      flip);
   } else {
@@ -121,7 +121,7 @@ void Sprite::RenderAnimatedSprite(int dst_x, int dst_y) {
   // Simple animation by cycling through frames.
   static Uint32 last_time = 0;
   static int current_frame = 0;
-  Uint32 current_time = SDL_GetTicks();
+  const Uint32 current_time = SDL_GetTicks();
   const Uint32 FRAME_DELAY = 140;
   if (current_time - last_time >= FRAME_DELAY) {
     current_frame = (current_frame + 1) % sprite_count_;
@@ -137,9 +137,9 @@ void Sprite::RenderTileMap(
   }
   const int scaled_tile_width = sprite_width_ * Constants::SPRITE_SCALE;
   const int scaled_tile_height = sprite_height_ * Constants::SPRITE_SCALE;
-  for (int row : std::ranges::iota_view{0, Constants::MAP_ROWS}) {
-    for (int column : std::ranges::iota_view{0, Constants::MAP_COLUMNS}) {
-      int tile = tile_map.at(
+  for (const int row : std::ranges::iota_view{0, Constants::MAP_ROWS}) {
+    for (const int column : std::ranges::iota_view{0, Constants::MAP_COLUMNS}) {
+      const int tile = tile_map.at(
           static_cast<size_t>(Math::GetRowMajorOrderIndex(row, column)));
       // Skip negative tiles as they are reserved for empty tiles.
       if (tile < 0) {

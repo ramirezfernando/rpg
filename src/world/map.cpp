@@ -139,7 +139,7 @@ Map::GetOrderedTileMapLayers() {
 }
 
 std::optional<int> Map::GetTopmostTile(int x, int y) {
-  int index = Math::GetRowMajorOrderIndexFromCoordinates(x, y);
+  const int index = Math::GetRowMajorOrderIndexFromCoordinates(x, y);
   auto ordered_tile_map_layers = GetOrderedTileMapLayers();
   // Iterate in reverse order without modifying `GetOrderedTileMapLayers`.
   // Start by checking the topmost rendered tile and make your way down to

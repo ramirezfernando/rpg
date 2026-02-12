@@ -95,9 +95,10 @@ void Game::Render() {
   map_->RenderMailbox();
   map_->RenderPlants();
 
-  bool player_behind =
+  const bool player_behind =
       ShouldRenderPlayerFirst(player_->GetXPos(), player_->GetYPos());
-  bool npc_behind = ShouldRenderPlayerFirst(npc_->GetXPos(), npc_->GetYPos());
+  const bool npc_behind =
+      ShouldRenderPlayerFirst(npc_->GetXPos(), npc_->GetYPos());
 
   // Render characters that should appear behind fence/house
   if (player_behind) {

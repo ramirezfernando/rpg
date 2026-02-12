@@ -37,13 +37,13 @@ bool InputHandler::HandleInput(Entity& player, Map& map, HUD& hud) {
 
   // Normalize diagonal movement.
   if (Movement::IsMovingDiagonally(dx, dy)) {
-    int base_gap = Constants::ENTITY_WALK_GAP;
-    int gap = is_running ? base_gap * 2 : base_gap;
+    const int base_gap = Constants::ENTITY_WALK_GAP;
+    const int gap = is_running ? base_gap * 2 : base_gap;
     Movement::NormalizeDiagonalMovement(dx, dy, gap);
   }
 
   // Apply movement.
-  Action action = is_running ? Action::Run : Action::Walk;
+  const Action action = is_running ? Action::Run : Action::Walk;
   return Movement::ApplyMovement(player, dx, dy, map, action);
 }
 
@@ -56,7 +56,7 @@ std::span<const Uint8> InputHandler::GetKeyboardState() {
 
 void InputHandler::GetMovementInput(int& dx, int& dy, bool& is_running,
                                     Direction& facing_direction) {
-  int base_gap = Constants::ENTITY_WALK_GAP;
+  const int base_gap = Constants::ENTITY_WALK_GAP;
   int gap = base_gap;
   auto keyboard_state = GetKeyboardState();
 
@@ -93,7 +93,7 @@ void InputHandler::GetMovementInput(int& dx, int& dy, bool& is_running,
 void InputHandler::GetHudInput(HUD& hud) {
   auto keyboard_state = GetKeyboardState();
   const int hud_slots = 8;
-  for (int i : std::ranges::iota_view{0, hud_slots}) {
+  for (const int i : std::ranges::iota_view{0, hud_slots}) {
     if (keyboard_state[static_cast<size_t>(SDL_SCANCODE_1 + i)] != 0u) {
       hud.SetSelectedSlot(i);
       Logger::Debug("InputHandler",

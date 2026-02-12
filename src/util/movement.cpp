@@ -48,17 +48,17 @@ bool IsMovingDiagonally(int dx, int dy) {
 }
 
 void NormalizeDiagonalMovement(int& dx, int& dy, int gap) {
-  double hypotenuse =
+  const double hypotenuse =
       std::hypot(static_cast<double>(dx), static_cast<double>(dy));
-  double factor = static_cast<double>(gap) / hypotenuse;
+  const double factor = static_cast<double>(gap) / hypotenuse;
   dx = static_cast<int>(std::round(dx * factor));
   dy = static_cast<int>(std::round(dy * factor));
 }
 
 bool ApplyMovement(Entity& entity, int dx, int dy, Map& map, Action action) {
   // Calculate new position.
-  int new_x = entity.GetXPos() + dx;
-  int new_y = entity.GetYPos() + dy;
+  const int new_x = entity.GetXPos() + dx;
+  const int new_y = entity.GetYPos() + dy;
 
   // Validate movement.
   if (!IsMovementValid(new_x, new_y, map)) {
