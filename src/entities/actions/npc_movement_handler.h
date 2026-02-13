@@ -6,7 +6,7 @@
 class NpcMovementHandler {
  public:
   // Update NPC movement.
-  static void UpdateNpcMovement(Entity& npc, class Map& map);
+  static void UpdateNpcMovement(Entity& npc);
 
  private:
   // Generate a random direction for the NPC to face.

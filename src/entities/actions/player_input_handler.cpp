@@ -16,7 +16,7 @@
 #include "util/movement.h"
 #include "world/map.h"
 
-bool InputHandler::HandleInput(Entity& player, Map& map, HUD& hud) {
+bool InputHandler::HandleInput(Entity& player, HUD& hud) {
   int dx = 0;
   int dy = 0;
   bool is_running = false;
@@ -44,7 +44,7 @@ bool InputHandler::HandleInput(Entity& player, Map& map, HUD& hud) {
 
   // Apply movement.
   const Action action = is_running ? Action::Run : Action::Walk;
-  return Movement::ApplyMovement(player, dx, dy, map, action);
+  return Movement::ApplyMovement(player, dx, dy, action);
 }
 
 std::span<const Uint8> InputHandler::GetKeyboardState() {

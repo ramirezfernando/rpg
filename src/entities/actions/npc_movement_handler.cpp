@@ -12,7 +12,7 @@
 Direction NpcMovementHandler::current_committed_direction_ = Direction::Down;
 int NpcMovementHandler::decision_counter_ = 0;
 
-void NpcMovementHandler::UpdateNpcMovement(Entity& npc, Map& map) {
+void NpcMovementHandler::UpdateNpcMovement(Entity& npc) {
   decision_counter_++;
 
   // Make a new decision every `DECISION_DURATION` frames, in other words, how
@@ -29,7 +29,7 @@ void NpcMovementHandler::UpdateNpcMovement(Entity& npc, Map& map) {
 
   // Try to move in committed direction.
   if (Movement::ApplyDirectionalMovement(npc, current_committed_direction_,
-                                         Constants::ENTITY_WALK_GAP, map,
+                                         Constants::ENTITY_WALK_GAP,
                                          Action::Walk)) {
     npc.SetDirectionFacing(current_committed_direction_);
   } else {

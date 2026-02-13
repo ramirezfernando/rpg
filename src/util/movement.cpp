@@ -8,15 +8,15 @@
 
 namespace Movement {
 
-bool IsMovementValid(int x, int y, Map& map) {
+bool IsMovementValid(int x, int y) {
   // Check bounds.
-  if (map.IsOutOfBounds(x, y)) {
+  if (Map::IsOutOfBounds(x, y)) {
     return false;
   }
 
   // Check collision.
-  std::optional<int> tile = map.GetTopmostTile(x, y);
-  return tile.has_value() && !map.IsCollisionTile(tile.value());
+  std::optional<int> tile = Map::GetTopmostTile(x, y);
+  return tile.has_value() && !Map::IsCollisionTile(tile.value());
 }
 
 void DirectionToDelta(Direction direction, int gap, int& dx, int& dy) {
@@ -55,13 +55,13 @@ void NormalizeDiagonalMovement(int& dx, int& dy, int gap) {
   dy = static_cast<int>(std::round(dy * factor));
 }
 
-bool ApplyMovement(Entity& entity, int dx, int dy, Map& map, Action action) {
+bool ApplyMovement(Entity& entity, int dx, int dy, Action action) {
   // Calculate new position.
   const int new_x = entity.GetXPos() + dx;
   const int new_y = entity.GetYPos() + dy;
 
   // Validate movement.
-  if (!IsMovementValid(new_x, new_y, map)) {
+  if (!IsMovementValid(new_x, new_y)) {
     entity.SetPathForAction(Action::Idle);
     entity.IncrementAnimationFrameIndexAfterInterval();
     return false;
@@ -77,10 +77,10 @@ bool ApplyMovement(Entity& entity, int dx, int dy, Map& map, Action action) {
 }
 
 bool ApplyDirectionalMovement(Entity& entity, Direction direction, int gap,
-                              Map& map, Action action) {
+                              Action action) {
   int dx{}, dy{};
   DirectionToDelta(direction, gap, dx, dy);
-  return ApplyMovement(entity, dx, dy, map, action);
+  return ApplyMovement(entity, dx, dy, action);
 }
 
 }  // namespace Movement
