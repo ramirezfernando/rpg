@@ -95,7 +95,7 @@ void InputHandler::GetHudInput(HUD& hud) {
   auto keyboard_state = GetKeyboardState();
   const int hud_slots = 8;
   for (const int i : std::ranges::iota_view{0, hud_slots}) {
-    if (keyboard_state[static_cast<size_t>(SDL_SCANCODE_1 + i)] != 0U) {
+    if (keyboard_state[SDL_SCANCODE_1 + static_cast<size_t>(i)] != 0U) {
       hud.SetSelectedSlot(i);
       Logger::Debug("InputHandler",
                     "Hotbar slot " + std::to_string(i + 1) + " selected");
