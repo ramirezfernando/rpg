@@ -14,7 +14,6 @@
 #include "ui/hud.h"
 #include "util/logger.h"
 #include "util/movement.h"
-#include "world/map.h"
 
 bool InputHandler::HandleInput(Entity& player, HUD& hud) {
   int dx = 0;

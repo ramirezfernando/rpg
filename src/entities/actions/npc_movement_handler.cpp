@@ -7,7 +7,6 @@
 #include "entities/entity.h"
 #include "util/math.h"
 #include "util/movement.h"
-#include "world/map.h"
 
 Direction NpcMovementHandler::current_committed_direction_ = Direction::Down;
 int NpcMovementHandler::decision_counter_ = 0;
