@@ -174,8 +174,9 @@ bool Map::IsCollisionTile(int tile) {
     case Constants::GRASS_AND_WATER_TILE_INDEX_345:
     case Constants::GRASS_AND_WATER_TILE_INDEX_347:
       return true;
+    default:
+      return false;
   }
-  return false;
 }
 
 bool Map::IsOutOfBounds(int x, int y) {
