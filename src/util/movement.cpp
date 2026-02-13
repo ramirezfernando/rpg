@@ -7,9 +7,9 @@
 #include "graphics/sprite.h"
 #include "world/map.h"
 
-namespace Movement {
+namespace {
 
-static bool IsMovementValid(Sprite::Coordinate coordinate) {
+bool IsMovementValid(Sprite::Coordinate coordinate) {
   // Check bounds.
   if (Map::IsOutOfBounds(coordinate)) {
     return false;
@@ -19,6 +19,10 @@ static bool IsMovementValid(Sprite::Coordinate coordinate) {
   std::optional<int> tile = Map::GetTopmostTile(coordinate);
   return tile.has_value() && !Map::IsCollisionTile(tile.value());
 }
+
+}  // anonymous namespace
+
+namespace Movement {
 
 void DirectionToDelta(Direction direction, int gap,
                       Sprite::Coordinate& coordinate) {

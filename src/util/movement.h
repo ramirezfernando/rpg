@@ -5,9 +5,6 @@
 
 namespace Movement {
 
-// Movement validation.
-bool IsMovementValid(int x, int y);
-
 // Direction and delta helpers.
 void DirectionToDelta(Direction direction, int gap,
                       Sprite::Coordinate& coordinate);
