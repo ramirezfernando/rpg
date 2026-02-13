@@ -29,7 +29,7 @@ void HUD::RenderHotBar() {
 
     // Render selection tile and border around selected slot.
     const int slot_x = (HOTBAR_X_POSITION + Constants::SELECTED_SLOT_X_OFFSET +
-                        selected_slot_ * Constants::SELECTED_SLOT_GAP);
+                        (selected_slot_ * Constants::SELECTED_SLOT_GAP));
     const int slot_y = HOTBAR_Y_POSITION + Constants::SELECTED_SLOT_Y_OFFSET;
     hotbar_select_tile_->RenderSprite(Constants::SELECTED_SLOT_DEFAULT,
                                       /*dst_x=*/slot_x,

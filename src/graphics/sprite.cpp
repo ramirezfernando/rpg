@@ -87,8 +87,8 @@ void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y,
   const int row = sprite_index / columns_;
 
   SDL_Rect src;
-  src.x = margin_ + col * (sprite_width_ + spacing_);
-  src.y = margin_ + row * (sprite_height_ + spacing_);
+  src.x = margin_ + (col * (sprite_width_ + spacing_));
+  src.y = margin_ + (row * (sprite_height_ + spacing_));
   src.w = sprite_width_;
   src.h = sprite_height_;
 

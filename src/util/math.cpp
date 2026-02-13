@@ -15,14 +15,15 @@ int GetRandomInt(int min, int max) {
 }
 
 int GetRowMajorOrderIndex(int row, int column) {
-  return row * Constants::MAP_COLUMNS + column;
+  return (row * Constants::MAP_COLUMNS) + column;
 }
 
 int GetRowMajorOrderIndexFromCoordinates(int x, int y) {
   // Normalizes coordinates on the screen to tile map rows and columns.
-  const int row = y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE) + 1;
+  const int row =
+      (y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE)) + 1;
   const int column =
-      x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE) + 1;
+      (x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE)) + 1;
   return GetRowMajorOrderIndex(row, column);
 }
 
