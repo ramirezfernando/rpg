@@ -46,7 +46,7 @@ class Sprite {
   const char* path_;
   const Dimension dimension_;
 
-  const SDL_Texture* texture_{nullptr};
+  SDL_Texture* texture_{nullptr};
   int columns_{0};
   int rows_{0};
   int sprite_count_{0};

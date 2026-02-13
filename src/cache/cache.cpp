@@ -20,7 +20,7 @@ Cache::~Cache() {
   // Destroy all cached textures.
   for (auto& pair : texture_cache_) {
     if (pair.second != nullptr) {
-      SDL_DestroyTexture(const_cast<SDL_Texture*>(pair.second));
+      SDL_DestroyTexture(pair.second);
     }
   }
   texture_cache_.clear();
@@ -28,7 +28,7 @@ Cache::~Cache() {
   Logger::Debug("Cache", "Resource cache cleared");
 }
 
-const SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
+SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
   if (file_name == nullptr) {
     Logger::Error("Cache", "file_name is null");
     return nullptr;
@@ -43,7 +43,8 @@ const SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
   }
 
   // Create texture since it's not cached.
-  const SDL_Texture* texture = CreateTexture(file_name);
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
+  SDL_Texture* texture = CreateTexture(file_name);
   if (texture == nullptr) {
     Logger::Error("Cache", std::string("Failed to load texture: ") + file_name);
     return nullptr;
@@ -88,9 +89,11 @@ const Sprite* Cache::GetOrCreateSpriteSheet(const char* file_path,
   return raw_ptr;
 }
 
-const SDL_Texture* Cache::CreateTexture(const char* file_name) {
+// NOLINTNEXTLINE(misc-const-correctness)
+SDL_Texture* Cache::CreateTexture(const char* file_name) {
   SDL_Surface* tmp_surface = IMG_Load(file_name);
-  const SDL_Texture* texture =
+  // NOLINTNEXTLINE(misc-const-correctness)
+  SDL_Texture* texture =
       SDL_CreateTextureFromSurface(Renderer::renderer_, tmp_surface);
   SDL_FreeSurface(tmp_surface);
   return texture;

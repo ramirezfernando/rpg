@@ -21,16 +21,16 @@ class Cache {
   Cache(Cache&&) = delete;
   Cache& operator=(Cache&&) = delete;
 
-  const SDL_Texture* GetOrCreateTexture(const char* file_name);
+  SDL_Texture* GetOrCreateTexture(const char* file_name);
   const Sprite* GetOrCreateSpriteSheet(const char* file_path,
                                        Sprite::Dimension dimension);
 
  private:
   Cache() = default;
-  static const SDL_Texture* CreateTexture(const char* file_name);
+  static SDL_Texture* CreateTexture(const char* file_name);
 
   // Texture cache: file_name -> SDL_Texture*
-  std::map<std::string, const SDL_Texture*> texture_cache_;
+  std::map<std::string, SDL_Texture*> texture_cache_;
   // Sprite sheet cache: file_path -> unique_ptr<Sprite>
   std::map<std::string, std::unique_ptr<Sprite>> sprite_sheet_cache_;
 };
