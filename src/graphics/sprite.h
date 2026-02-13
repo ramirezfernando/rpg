@@ -21,12 +21,12 @@ class Sprite {
   bool LoadSpriteSheet();
   // Renders a specific sprite from the sprite sheet at the given position.
   void RenderSprite(int sprite_index, int dst_x, int dst_y,
-                    bool invert = false);
+                    bool invert = false) const;
   // Renders through an x by 1 sprite sheet as an animation.
-  void RenderAnimatedSprite(int dst_x, int dst_y);
+  void RenderAnimatedSprite(int dst_x, int dst_y) const;
   // Renders a tile map given an array of tile indices.
   void RenderTileMap(
-      const std::array<int, Constants::MAP_ROWS_BY_COLUMNS>& tile_map);
+      const std::array<int, Constants::MAP_ROWS_BY_COLUMNS>& tile_map) const;
 
   // Getters:
   [[nodiscard]] const char* GetPath() const { return path_; }

@@ -79,7 +79,7 @@ void Npc::SetPathForAction(Action action) {
   }
 
   SetAction(action);
-  Sprite* sprite = Cache::GetInstance()->GetOrCreateSpriteSheet(
+  const Sprite* sprite = Cache::GetInstance()->GetOrCreateSpriteSheet(
       action_path, /*sprite_width=*/Constants::ENTITY_SPRITE_WIDTH,
       /*sprite_height=*/Constants::ENTITY_SPRITE_HEIGHT);
   if (sprite != nullptr) {

@@ -21,15 +21,15 @@ class Map {
   Map(Map&&) = delete;
   Map& operator=(Map&&) = delete;
 
-  void RenderPlants();
-  void RenderGrassDirt();
-  void RenderGrassWater();
-  void RenderHouse();
-  void RenderWoodFence();
-  void RenderClothingRack();
-  void RenderMailbox();
-  void RenderWaterfall();
-  void RenderCliff();
+  void RenderPlants() const;
+  void RenderGrassDirt() const;
+  void RenderGrassWater() const;
+  void RenderHouse() const;
+  void RenderWoodFence() const;
+  void RenderClothingRack() const;
+  void RenderMailbox() const;
+  void RenderWaterfall() const;
+  void RenderCliff() const;
   // Returns the rendering order of all the tile maps. Necessary to ensure
   // the map is rendered properly, e.g. fence rendered on top of grass.
   static const std::vector<std::array<int, Constants::MAP_ROWS_BY_COLUMNS>>
@@ -45,14 +45,14 @@ class Map {
   bool IsOutOfBounds(int x, int y);
 
  private:
-  Sprite* plants_{nullptr};
-  Sprite* grass_dirt_{nullptr};
-  Sprite* grass_water_{nullptr};
-  Sprite* house_{nullptr};
-  Sprite* house_chimney_smoke_{nullptr};
-  Sprite* wood_fence_{nullptr};
-  Sprite* clothing_rack_{nullptr};
-  Sprite* mailbox_{nullptr};
-  Sprite* waterfall_{nullptr};
-  Sprite* cliff_{nullptr};
+  const Sprite* plants_{nullptr};
+  const Sprite* grass_dirt_{nullptr};
+  const Sprite* grass_water_{nullptr};
+  const Sprite* house_{nullptr};
+  const Sprite* house_chimney_smoke_{nullptr};
+  const Sprite* wood_fence_{nullptr};
+  const Sprite* clothing_rack_{nullptr};
+  const Sprite* mailbox_{nullptr};
+  const Sprite* waterfall_{nullptr};
+  const Sprite* cliff_{nullptr};
 };

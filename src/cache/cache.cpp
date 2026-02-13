@@ -56,8 +56,9 @@ SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
   return texture;
 }
 
-Sprite* Cache::GetOrCreateSpriteSheet(const char* file_path, int sprite_width,
-                                      int sprite_height) {
+const Sprite* Cache::GetOrCreateSpriteSheet(const char* file_path,
+                                            int sprite_width,
+                                            int sprite_height) {
   if (file_path == nullptr) {
     Logger::Error("Cache", "path is null");
     return nullptr;
@@ -82,7 +83,7 @@ Sprite* Cache::GetOrCreateSpriteSheet(const char* file_path, int sprite_width,
   }
 
   // Cache the sprite sheet.
-  Sprite* raw_ptr = sprite.get();
+  const Sprite* raw_ptr = sprite.get();
   sprite_sheet_cache_[key] = std::move(sprite);
   Logger::Debug("Cache", std::string("Sprite sheet loaded: ") + file_path);
 

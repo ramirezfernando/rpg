@@ -66,7 +66,8 @@ bool Sprite::LoadSpriteSheet() {
   return true;
 }
 
-void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y, bool invert) {
+void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y,
+                          bool invert) const {
   if (texture_ == nullptr) {
     return;
   }
@@ -117,7 +118,7 @@ void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y, bool invert) {
 }
 
 // TODO(fernandoramirez): Generalize for any number of frames and frame rate.
-void Sprite::RenderAnimatedSprite(int dst_x, int dst_y) {
+void Sprite::RenderAnimatedSprite(int dst_x, int dst_y) const {
   // Simple animation by cycling through frames.
   static Uint32 last_time = 0;
   static int current_frame = 0;
@@ -131,7 +132,7 @@ void Sprite::RenderAnimatedSprite(int dst_x, int dst_y) {
 }
 
 void Sprite::RenderTileMap(
-    const std::array<int, Constants::MAP_ROWS_BY_COLUMNS>& tile_map) {
+    const std::array<int, Constants::MAP_ROWS_BY_COLUMNS>& tile_map) const {
   if (texture_ == nullptr) {
     return;
   }

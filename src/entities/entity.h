@@ -10,7 +10,7 @@ enum class Action : std::uint8_t { Idle, Walk, Run };
 
 class Entity {
  public:
-  explicit Entity(Sprite* sprite);
+  explicit Entity(const Sprite* sprite);
   virtual ~Entity() = default;
   Entity(const Entity&) = delete;
   Entity& operator=(const Entity&) = delete;
@@ -40,12 +40,12 @@ class Entity {
       Action action, Direction direction) const = 0;
   [[nodiscard]] virtual int GetSpriteSheetColumns() const = 0;
 
-  Sprite* sprite() { return sprite_; }
-  void SetSprite(Sprite* sprite) { sprite_ = sprite; }
+  const Sprite* sprite() { return sprite_; }
+  void SetSprite(const Sprite* sprite) { sprite_ = sprite; }
 
  private:
   // Non-owning pointer to cached sprite.
-  Sprite* sprite_;
+  const Sprite* sprite_;
 
   Direction direction_{Direction::Down};
   Action action_{Action::Idle};

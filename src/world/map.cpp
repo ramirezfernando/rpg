@@ -58,33 +58,33 @@ Map::Map() {
                                          Constants::SPRITE_HEIGHT);
 }
 
-void Map::RenderPlants() {
+void Map::RenderPlants() const {
   // Plants rendering not implemented yet.
   if (plants_ != nullptr) {
     plants_->RenderTileMap(Constants::TILE_MAP_PLANTS);
   }
 }
 
-void Map::RenderGrassDirt() {
+void Map::RenderGrassDirt() const {
   if (grass_dirt_ != nullptr) {
     grass_dirt_->RenderTileMap(Constants::TILE_MAP_GRASS_DIRT);
   }
 }
 
-void Map::RenderGrassWater() {
+void Map::RenderGrassWater() const {
   if (grass_water_ != nullptr) {
     grass_water_->RenderTileMap(Constants::TILE_MAP_GRASS_WATER_FIRST_LAYER);
     grass_water_->RenderTileMap(Constants::TILE_MAP_GRASS_WATER_SECOND_LAYER);
   }
 }
 
-void Map::RenderWoodFence() {
+void Map::RenderWoodFence() const {
   if (wood_fence_ != nullptr) {
     wood_fence_->RenderTileMap(Constants::TILE_MAP_FENCE);
   }
 }
 
-void Map::RenderClothingRack() {
+void Map::RenderClothingRack() const {
   if (clothing_rack_ != nullptr) {
     clothing_rack_->RenderSprite(/*sprite_index=*/0,
                                  /*dst_x=*/Constants::CLOTHING_RACK_DST_X,
@@ -92,7 +92,7 @@ void Map::RenderClothingRack() {
   }
 }
 
-void Map::RenderMailbox() {
+void Map::RenderMailbox() const {
   if (mailbox_ != nullptr) {
     mailbox_->RenderSprite(/*sprite_index=*/0,
                            /*dst_x=*/Constants::MAILBOX_DST_X,
@@ -100,7 +100,7 @@ void Map::RenderMailbox() {
   }
 }
 
-void Map::RenderHouse() {
+void Map::RenderHouse() const {
   if (house_ != nullptr) {
     // Renders the entire house as a single sprite, not individual 48x48 tiles.
     house_->RenderSprite(/*sprite_index=*/0, /*dst_x=*/Constants::HOUSE_DST_X,
@@ -113,7 +113,7 @@ void Map::RenderHouse() {
   }
 }
 
-void Map::RenderWaterfall() {
+void Map::RenderWaterfall() const {
   if (waterfall_ != nullptr) {
     // Renders the entire waterfall as an animated sprite, not individual
     // animated, 48x48 tiles.
@@ -122,7 +122,7 @@ void Map::RenderWaterfall() {
   }
 }
 
-void Map::RenderCliff() {
+void Map::RenderCliff() const {
   if (cliff_ != nullptr) {
     cliff_->RenderTileMap(Constants::TILE_MAP_CLIFF);
   }

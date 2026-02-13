@@ -7,7 +7,7 @@
 #include "graphics/sprite.h"
 #include "util/logger.h"
 
-Entity::Entity(Sprite* sprite) : sprite_(sprite) {}
+Entity::Entity(const Sprite* sprite) : sprite_(sprite) {}
 
 void Entity::Render() {
   if (sprite() == nullptr) {
