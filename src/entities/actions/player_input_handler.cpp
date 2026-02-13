@@ -60,30 +60,30 @@ void InputHandler::GetMovementInput(int& dx, int& dy, bool& is_running,
   auto keyboard_state = GetKeyboardState();
 
   // Check for running modifier.
-  if (keyboard_state[SDL_SCANCODE_LSHIFT] != 0u ||
-      keyboard_state[SDL_SCANCODE_RSHIFT] != 0u) {
+  if (keyboard_state[SDL_SCANCODE_LSHIFT] != 0U ||
+      keyboard_state[SDL_SCANCODE_RSHIFT] != 0U) {
     gap = base_gap * 2;
     is_running = true;
   }
 
   // Vertical movement.
-  if (keyboard_state[SDL_SCANCODE_W] != 0u &&
-      keyboard_state[SDL_SCANCODE_S] == 0u) {
+  if (keyboard_state[SDL_SCANCODE_W] != 0U &&
+      keyboard_state[SDL_SCANCODE_S] == 0U) {
     dy -= gap;
     facing_direction = Direction::Up;
-  } else if (keyboard_state[SDL_SCANCODE_S] != 0u &&
-             keyboard_state[SDL_SCANCODE_W] == 0u) {
+  } else if (keyboard_state[SDL_SCANCODE_S] != 0U &&
+             keyboard_state[SDL_SCANCODE_W] == 0U) {
     dy += gap;
     facing_direction = Direction::Down;
   }
 
   // Horizontal movement.
-  if (keyboard_state[SDL_SCANCODE_A] != 0u &&
-      keyboard_state[SDL_SCANCODE_D] == 0u) {
+  if (keyboard_state[SDL_SCANCODE_A] != 0U &&
+      keyboard_state[SDL_SCANCODE_D] == 0U) {
     dx -= gap;
     facing_direction = Direction::Left;
-  } else if (keyboard_state[SDL_SCANCODE_D] != 0u &&
-             keyboard_state[SDL_SCANCODE_A] == 0u) {
+  } else if (keyboard_state[SDL_SCANCODE_D] != 0U &&
+             keyboard_state[SDL_SCANCODE_A] == 0U) {
     dx += gap;
     facing_direction = Direction::Right;
   }
@@ -93,7 +93,7 @@ void InputHandler::GetHudInput(HUD& hud) {
   auto keyboard_state = GetKeyboardState();
   const int hud_slots = 8;
   for (const int i : std::ranges::iota_view{0, hud_slots}) {
-    if (keyboard_state[static_cast<size_t>(SDL_SCANCODE_1 + i)] != 0u) {
+    if (keyboard_state[static_cast<size_t>(SDL_SCANCODE_1 + i)] != 0U) {
       hud.SetSelectedSlot(i);
       Logger::Debug("InputHandler",
                     "Hotbar slot " + std::to_string(i + 1) + " selected");
