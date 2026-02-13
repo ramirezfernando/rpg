@@ -27,7 +27,7 @@ class Cache {
 
  private:
   Cache() = default;
-  const SDL_Texture* CreateTexture(const char* file_name);
+  static const SDL_Texture* CreateTexture(const char* file_name);
 
   // Texture cache: file_name -> SDL_Texture*
   std::map<std::string, const SDL_Texture*> texture_cache_;
