@@ -32,7 +32,7 @@ class Map {
   void RenderCliff() const;
   // Returns the rendering order of all the tile maps. Necessary to ensure
   // the map is rendered properly, e.g. fence rendered on top of grass.
-  static const std::vector<std::array<int, Constants::MAP_ROWS_BY_COLUMNS>>
+  static std::vector<std::array<int, Constants::MAP_ROWS_BY_COLUMNS>>
   GetOrderedTileMapLayers();
   // Returns the index of the tile found at `x`, `y` on the map. The index is
   // the position of the tile from its sprite sheet, e.g. 9 is the index of the

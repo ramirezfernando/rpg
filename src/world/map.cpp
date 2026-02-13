@@ -128,7 +128,7 @@ void Map::RenderCliff() const {
   }
 }
 
-const std::vector<std::array<int, Constants::MAP_ROWS_BY_COLUMNS>>
+std::vector<std::array<int, Constants::MAP_ROWS_BY_COLUMNS>>
 Map::GetOrderedTileMapLayers() {
   // Don't include all tile maps, only those that affect rendering order, i.e.
   // plants are decorative and can be ignored for rendering order.
