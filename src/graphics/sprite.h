@@ -45,7 +45,7 @@ class Sprite {
   const int margin_;
   const int spacing_;
 
-  SDL_Texture* texture_{nullptr};
+  const SDL_Texture* texture_{nullptr};
   int columns_{0};
   int rows_{0};
   int sprite_count_{0};

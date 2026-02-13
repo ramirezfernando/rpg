@@ -35,8 +35,8 @@ bool Sprite::LoadSpriteSheet() {
   }
 
   int texture_width = 0, texture_height = 0;
-  if (SDL_QueryTexture(texture_, nullptr, nullptr, &texture_width,
-                       &texture_height) != 0) {
+  if (SDL_QueryTexture(const_cast<SDL_Texture*>(texture_), nullptr, nullptr,
+                       &texture_width, &texture_height) != 0) {
     Logger::Error("Sprite",
                   std::string("SDL_QueryTexture failed: ") + SDL_GetError());
     return false;
@@ -100,10 +100,11 @@ void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y,
 
   if (invert) {
     const SDL_RendererFlip flip = invert ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    SDL_RenderCopyEx(Renderer::renderer_, texture_, &src, &dst, 0.0, nullptr,
-                     flip);
+    SDL_RenderCopyEx(Renderer::renderer_, const_cast<SDL_Texture*>(texture_),
+                     &src, &dst, 0.0, nullptr, flip);
   } else {
-    SDL_RenderCopy(Renderer::renderer_, texture_, &src, &dst);
+    SDL_RenderCopy(Renderer::renderer_, const_cast<SDL_Texture*>(texture_),
+                   &src, &dst);
   }
 
 #if defined(DEBUG_MODE)
