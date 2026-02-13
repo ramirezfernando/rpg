@@ -34,7 +34,8 @@ bool Sprite::LoadSpriteSheet() {
     return false;
   }
 
-  int texture_width = 0, texture_height = 0;
+  int texture_width = 0;
+  int texture_height = 0;
   if (SDL_QueryTexture(const_cast<SDL_Texture*>(texture_), nullptr, nullptr,
                        &texture_width, &texture_height) != 0) {
     Logger::Error("Sprite",
