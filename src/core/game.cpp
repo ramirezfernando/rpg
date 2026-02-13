@@ -16,13 +16,14 @@
 #include "entities/npc.h"
 #include "entities/player.h"
 #include "graphics/renderer.h"
+#include "graphics/sprite.h"
 #include "ui/hud.h"
 #include "util/logger.h"
 #include "world/map.h"
 
 namespace {
 
-bool IsPlayerBehindFence(int x, int y) {
+bool IsPlayerBehindFence(Sprite::Coordinate coordinate) {
   // Left-most fence where player can be behind.
   const int left_fence_y_top_position = 260;
   const int left_fence_y_bottom_position = 300;
@@ -32,20 +33,22 @@ bool IsPlayerBehindFence(int x, int y) {
   const int right_fence_y_top_position = 400;
   const int right_fence_y_bottom_position = 440;
 
-  return (y >= right_fence_y_top_position &&
-          y <= right_fence_y_bottom_position) ||
-         (y >= left_fence_y_top_position && y <= left_fence_y_bottom_position &&
-          x <= left_fence_x_right_position);
+  return (coordinate.y_pos >= right_fence_y_top_position &&
+          coordinate.y_pos <= right_fence_y_bottom_position) ||
+         (coordinate.y_pos >= left_fence_y_top_position &&
+          coordinate.y_pos <= left_fence_y_bottom_position &&
+          coordinate.x_pos <= left_fence_x_right_position);
 }
 
-bool IsPlayerBehindHouse(int x, int y) {
+bool IsPlayerBehindHouse(Sprite::Coordinate coordinate) {
   const int house_x_position = 670;
   const int house_y_position = 200;
-  return y <= house_y_position && x <= house_x_position;
+  return coordinate.y_pos <= house_y_position &&
+         coordinate.x_pos <= house_x_position;
 }
 
-bool ShouldRenderPlayerFirst(int x, int y) {
-  return IsPlayerBehindFence(x, y) || IsPlayerBehindHouse(x, y);
+bool ShouldRenderPlayerFirst(Sprite::Coordinate coordinate) {
+  return IsPlayerBehindFence(coordinate) || IsPlayerBehindHouse(coordinate);
 }
 
 }  // anonymous namespace
@@ -95,10 +98,8 @@ void Game::Render() {
   map_->RenderMailbox();
   map_->RenderPlants();
 
-  const bool player_behind =
-      ShouldRenderPlayerFirst(player_->GetXPos(), player_->GetYPos());
-  const bool npc_behind =
-      ShouldRenderPlayerFirst(npc_->GetXPos(), npc_->GetYPos());
+  const bool player_behind = ShouldRenderPlayerFirst(player_->GetCoordinate());
+  const bool npc_behind = ShouldRenderPlayerFirst(npc_->GetCoordinate());
 
   // Render characters that should appear behind fence/house
   if (player_behind) {

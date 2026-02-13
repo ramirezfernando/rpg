@@ -4,72 +4,74 @@
 #include <optional>
 
 #include "entities/entity.h"
+#include "graphics/sprite.h"
 #include "world/map.h"
 
 namespace Movement {
 
-bool IsMovementValid(int x, int y) {
+bool IsMovementValid(Sprite::Coordinate coordinate) {
   // Check bounds.
-  if (Map::IsOutOfBounds(x, y)) {
+  if (Map::IsOutOfBounds(coordinate)) {
     return false;
   }
 
   // Check collision.
-  std::optional<int> tile = Map::GetTopmostTile(x, y);
+  std::optional<int> tile = Map::GetTopmostTile(coordinate);
   return tile.has_value() && !Map::IsCollisionTile(tile.value());
 }
 
-void DirectionToDelta(Direction direction, int gap, int& dx, int& dy) {
-  dx = 0;
-  dy = 0;
+void DirectionToDelta(Direction direction, int gap,
+                      Sprite::Coordinate& coordinate) {
+  coordinate.x_pos = 0;
+  coordinate.y_pos = 0;
 
   switch (direction) {
     case Direction::Up:
-      dy = -gap;
+      coordinate.y_pos = -gap;
       break;
     case Direction::Down:
-      dy = gap;
+      coordinate.y_pos = gap;
       break;
     case Direction::Left:
-      dx = -gap;
+      coordinate.x_pos = -gap;
       break;
     case Direction::Right:
-      dx = gap;
+      coordinate.x_pos = gap;
       break;
   }
 }
 
-bool IsMoving(int dx, int dy) {
-  return dx != 0 || dy != 0;
+bool IsMoving(Sprite::Coordinate coordinate) {
+  return coordinate.x_pos != 0 || coordinate.y_pos != 0;
 }
 
-bool IsMovingDiagonally(int dx, int dy) {
-  return dx != 0 && dy != 0;
+bool IsMovingDiagonally(Sprite::Coordinate coordinate) {
+  return coordinate.x_pos != 0 && coordinate.y_pos != 0;
 }
 
-void NormalizeDiagonalMovement(int& dx, int& dy, int gap) {
-  const double hypotenuse =
-      std::hypot(static_cast<double>(dx), static_cast<double>(dy));
+void NormalizeDiagonalMovement(Sprite::Coordinate& coordinate, int gap) {
+  const double hypotenuse = std::hypot(static_cast<double>(coordinate.x_pos),
+                                       static_cast<double>(coordinate.y_pos));
   const double factor = static_cast<double>(gap) / hypotenuse;
-  dx = static_cast<int>(std::round(dx * factor));
-  dy = static_cast<int>(std::round(dy * factor));
+  coordinate.x_pos = static_cast<int>(std::round(coordinate.x_pos * factor));
+  coordinate.y_pos = static_cast<int>(std::round(coordinate.y_pos * factor));
 }
 
-bool ApplyMovement(Entity& entity, int dx, int dy, Action action) {
-  // Calculate new position.
-  const int new_x = entity.GetXPos() + dx;
-  const int new_y = entity.GetYPos() + dy;
+bool ApplyMovement(Entity& entity, Sprite::Coordinate coordinate,
+                   Action action) {
+  Sprite::Coordinate new_current = entity.GetCoordinate();
+  new_current.x_pos += coordinate.x_pos;
+  new_current.y_pos += coordinate.y_pos;
 
   // Validate movement.
-  if (!IsMovementValid(new_x, new_y)) {
+  if (!IsMovementValid(new_current)) {
     entity.SetPathForAction(Action::Idle);
     entity.IncrementAnimationFrameIndexAfterInterval();
     return false;
   }
 
   // Apply movement.
-  entity.SetXPos(new_x);
-  entity.SetYPos(new_y);
+  entity.SetCoordinate(new_current);
   entity.SetPathForAction(action);
   entity.IncrementAnimationFrameIndexAfterInterval();
 
@@ -78,10 +80,9 @@ bool ApplyMovement(Entity& entity, int dx, int dy, Action action) {
 
 bool ApplyDirectionalMovement(Entity& entity, Direction direction, int gap,
                               Action action) {
-  int dx{};
-  int dy{};
-  DirectionToDelta(direction, gap, dx, dy);
-  return ApplyMovement(entity, dx, dy, action);
+  Sprite::Coordinate coordinate{.x_pos = 0, .y_pos = 0};
+  DirectionToDelta(direction, gap, coordinate);
+  return ApplyMovement(entity, coordinate, action);
 }
 
 }  // namespace Movement

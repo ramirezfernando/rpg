@@ -1,5 +1,7 @@
 #pragma once
 
+#include "graphics/sprite.h"
+
 namespace Math {
 
 int GetRandomInt(int min, int max);
@@ -8,6 +10,6 @@ int GetRandomInt(int min, int max);
 int GetRowMajorOrderIndex(int row, int column);
 
 // Normalizes coordinates on the screen to tile map's row and column.
-int GetRowMajorOrderIndexFromCoordinates(int x_pos, int y_pos);
+int GetRowMajorOrderIndexFromCoordinates(Sprite::Coordinate coordinate);
 
 }  // namespace Math

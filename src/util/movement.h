@@ -9,15 +9,17 @@ namespace Movement {
 bool IsMovementValid(int x, int y);
 
 // Direction and delta helpers.
-void DirectionToDelta(Direction direction, int gap, int& dx, int& dy);
-bool IsMoving(int dx, int dy);
-bool IsMovingDiagonally(int dx, int dy);
+void DirectionToDelta(Direction direction, int gap,
+                      Sprite::Coordinate& coordinate);
+bool IsMoving(Sprite::Coordinate coordinate);
+bool IsMovingDiagonally(Sprite::Coordinate coordinate);
 
 // Diagonal movement normalization.
-void NormalizeDiagonalMovement(int& dx, int& dy, int gap);
+void NormalizeDiagonalMovement(Sprite::Coordinate& coordinate, int gap);
 
 // Returns true if movement was successful, false if blocked.
-bool ApplyMovement(Entity& entity, int dx, int dy, Action action);
+bool ApplyMovement(Entity& entity, Sprite::Coordinate coordinate,
+                   Action action);
 
 // Convenience overload for directional movement.
 bool ApplyDirectionalMovement(Entity& entity, Direction direction, int gap,

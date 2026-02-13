@@ -21,15 +21,15 @@ class Entity {
   void IncrementAnimationFrameIndexAfterInterval();
 
   // Getters:
-  [[nodiscard]] int GetXPos() const { return dst_x_; }
-  [[nodiscard]] int GetYPos() const { return dst_y_; }
+  [[nodiscard]] Sprite::Coordinate GetCoordinate() const { return coordinate_; }
   [[nodiscard]] Action GetCurrentAction() const { return action_; }
   [[nodiscard]] bool IsNpc() const { return is_npc_; }
 
   // Setters:
   void SetAction(Action action) { action_ = action; }
-  void SetXPos(int dst_x) { dst_x_ = dst_x; }
-  void SetYPos(int dst_y) { dst_y_ = dst_y; }
+  void SetCoordinate(Sprite::Coordinate coordinate) {
+    coordinate_ = coordinate;
+  }
   void SetDirectionFacing(Direction direction) { direction_ = direction; }
   void SetIsNpc(bool is_npc) { is_npc_ = is_npc; }
   virtual void SetPathForAction(Action action) = 0;
@@ -53,7 +53,7 @@ class Entity {
   int idle_animation_counter_{0};
   int walk_animation_counter_{0};
   int run_animation_counter_{0};
-  int dst_x_{Constants::PLAYER_START_X};
-  int dst_y_{Constants::PLAYER_START_Y};
+  Sprite::Coordinate coordinate_{.x_pos = Constants::PLAYER_START_X,
+                                 .y_pos = Constants::PLAYER_START_Y};
   bool is_npc_{false};
 };

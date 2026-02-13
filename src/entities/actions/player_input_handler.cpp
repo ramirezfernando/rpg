@@ -27,7 +27,7 @@ bool InputHandler::HandleInput(Entity& player, HUD& hud) {
   GetHudInput(hud);
 
   // No input: return to idle.
-  if (!Movement::IsMoving(coordinate.x_pos, coordinate.y_pos)) {
+  if (!Movement::IsMoving(coordinate)) {
     player.SetPathForAction(Action::Idle);
     player.IncrementAnimationFrameIndexAfterInterval();
     return false;
@@ -36,17 +36,15 @@ bool InputHandler::HandleInput(Entity& player, HUD& hud) {
   player.SetDirectionFacing(facing_direction);
 
   // Normalize diagonal movement.
-  if (Movement::IsMovingDiagonally(coordinate.x_pos, coordinate.y_pos)) {
+  if (Movement::IsMovingDiagonally(coordinate)) {
     const int base_gap = Constants::ENTITY_WALK_GAP;
     const int gap = is_running ? base_gap * 2 : base_gap;
-    Movement::NormalizeDiagonalMovement(coordinate.x_pos, coordinate.y_pos,
-                                        gap);
+    Movement::NormalizeDiagonalMovement(coordinate, gap);
   }
 
   // Apply movement.
   const Action action = is_running ? Action::Run : Action::Walk;
-  return Movement::ApplyMovement(player, coordinate.x_pos, coordinate.y_pos,
-                                 action);
+  return Movement::ApplyMovement(player, coordinate, action);
 }
 
 std::span<const Uint8> InputHandler::GetKeyboardState() {

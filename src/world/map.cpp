@@ -151,9 +151,8 @@ Map::GetOrderedTileMapLayers() {
           Constants::TILE_MAP_CLIFF, Constants::TILE_MAP_FENCE};
 }
 
-std::optional<int> Map::GetTopmostTile(int x, int y) {
-  const int index =
-      Math::GetRowMajorOrderIndexFromCoordinates(/*x_pos=*/x, /*y_pos=*/y);
+std::optional<int> Map::GetTopmostTile(Sprite::Coordinate coordinate) {
+  const int index = Math::GetRowMajorOrderIndexFromCoordinates(coordinate);
   auto ordered_tile_map_layers = GetOrderedTileMapLayers();
   // Iterate in reverse order without modifying `GetOrderedTileMapLayers`.
   // Start by checking the topmost rendered tile and make your way down to
@@ -193,11 +192,13 @@ bool Map::IsCollisionTile(int tile) {
   }
 }
 
-bool Map::IsOutOfBounds(int x, int y) {
+bool Map::IsOutOfBounds(Sprite::Coordinate coordinate) {
   // Add padding to take character dimensions into account.
   const int padding = 30;
   const int padding_right = 60;
   const int padding_bottom = 72;
-  return x < -padding || x >= Constants::WINDOW_SIZE - padding_right ||
-         y < -padding || y >= Constants::WINDOW_SIZE - padding_bottom;
+  return coordinate.x_pos < -padding ||
+         coordinate.x_pos >= Constants::WINDOW_SIZE - padding_right ||
+         coordinate.y_pos < -padding ||
+         coordinate.y_pos >= Constants::WINDOW_SIZE - padding_bottom;
 }
