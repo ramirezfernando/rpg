@@ -108,7 +108,7 @@ void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y,
                    &src, &dst);
   }
 
-#if defined(DEBUG_MODE)
+#ifdef DEBUG_MODE
   // Draw red border so you can see tile boundaries.
   Uint8 prev_r, prev_g, prev_b, prev_a;
   SDL_GetRenderDrawColor(Renderer::renderer_, &prev_r, &prev_g, &prev_b,

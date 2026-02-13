@@ -25,7 +25,7 @@ std::string LevelToString(Level level) {
 }
 
 bool ShouldLog([[maybe_unused]] Level level) {
-#if defined(DEBUG_MODE)
+#ifdef DEBUG_MODE
   return true;
 #else
   return false;
