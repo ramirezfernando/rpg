@@ -22,8 +22,8 @@ class Cache {
   Cache& operator=(Cache&&) = delete;
 
   const SDL_Texture* GetOrCreateTexture(const char* file_name);
-  const Sprite* GetOrCreateSpriteSheet(const char* file_path, int sprite_width,
-                                       int sprite_height);
+  const Sprite* GetOrCreateSpriteSheet(const char* file_path,
+                                       Sprite::Dimension dimension);
 
  private:
   Cache() = default;

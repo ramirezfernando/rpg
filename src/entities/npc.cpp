@@ -8,8 +8,8 @@
 Npc::Npc()
     : Entity(Cache::GetInstance()->GetOrCreateSpriteSheet(
           /*file_path=*/"assets/sprites/entities/kat/idle.png",
-          /*sprite_width=*/Constants::ENTITY_SPRITE_WIDTH,
-          /*sprite_height=*/Constants::ENTITY_SPRITE_HEIGHT)),
+          Sprite::Dimension{.width = Constants::ENTITY_SPRITE_WIDTH,
+                            .height = Constants::ENTITY_SPRITE_HEIGHT})),
       sprite_sheet_columns_(sprite()->GetColumns()) {
   SetIsNpc(true);
 }
@@ -80,8 +80,9 @@ void Npc::SetPathForAction(Action action) {
 
   SetAction(action);
   const Sprite* sprite = Cache::GetInstance()->GetOrCreateSpriteSheet(
-      action_path, /*sprite_width=*/Constants::ENTITY_SPRITE_WIDTH,
-      /*sprite_height=*/Constants::ENTITY_SPRITE_HEIGHT);
+      action_path,
+      Sprite::Dimension{.width = Constants::ENTITY_SPRITE_WIDTH,
+                        .height = Constants::ENTITY_SPRITE_HEIGHT});
   if (sprite != nullptr) {
     SetSprite(sprite);
   }

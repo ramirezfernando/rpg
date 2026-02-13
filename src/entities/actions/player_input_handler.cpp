@@ -11,22 +11,23 @@
 
 #include "constants/entity_constants.h"
 #include "entities/entity.h"
+#include "graphics/sprite.h"
 #include "ui/hud.h"
 #include "util/logger.h"
 #include "util/movement.h"
 
 bool InputHandler::HandleInput(Entity& player, HUD& hud) {
-  int dx = 0;
-  int dy = 0;
+
+  Sprite::Coordinate coordinate{.x_pos = 0, .y_pos = 0};
   bool is_running = false;
   Direction facing_direction = Direction::Down;
 
   // Get input from keyboard.
-  GetMovementInput(dx, dy, is_running, facing_direction);
+  GetMovementInput(coordinate, is_running, facing_direction);
   GetHudInput(hud);
 
   // No input: return to idle.
-  if (!Movement::IsMoving(dx, dy)) {
+  if (!Movement::IsMoving(coordinate.x_pos, coordinate.y_pos)) {
     player.SetPathForAction(Action::Idle);
     player.IncrementAnimationFrameIndexAfterInterval();
     return false;
@@ -35,15 +36,17 @@ bool InputHandler::HandleInput(Entity& player, HUD& hud) {
   player.SetDirectionFacing(facing_direction);
 
   // Normalize diagonal movement.
-  if (Movement::IsMovingDiagonally(dx, dy)) {
+  if (Movement::IsMovingDiagonally(coordinate.x_pos, coordinate.y_pos)) {
     const int base_gap = Constants::ENTITY_WALK_GAP;
     const int gap = is_running ? base_gap * 2 : base_gap;
-    Movement::NormalizeDiagonalMovement(dx, dy, gap);
+    Movement::NormalizeDiagonalMovement(coordinate.x_pos, coordinate.y_pos,
+                                        gap);
   }
 
   // Apply movement.
   const Action action = is_running ? Action::Run : Action::Walk;
-  return Movement::ApplyMovement(player, dx, dy, action);
+  return Movement::ApplyMovement(player, coordinate.x_pos, coordinate.y_pos,
+                                 action);
 }
 
 std::span<const Uint8> InputHandler::GetKeyboardState() {
@@ -53,7 +56,8 @@ std::span<const Uint8> InputHandler::GetKeyboardState() {
   return {raw_keyboard_state, static_cast<size_t>(num_keys)};
 }
 
-void InputHandler::GetMovementInput(int& dx, int& dy, bool& is_running,
+void InputHandler::GetMovementInput(Sprite::Coordinate& coordinate,
+                                    bool& is_running,
                                     Direction& facing_direction) {
   const int base_gap = Constants::ENTITY_WALK_GAP;
   int gap = base_gap;
@@ -69,22 +73,22 @@ void InputHandler::GetMovementInput(int& dx, int& dy, bool& is_running,
   // Vertical movement.
   if (keyboard_state[SDL_SCANCODE_W] != 0U &&
       keyboard_state[SDL_SCANCODE_S] == 0U) {
-    dy -= gap;
+    coordinate.y_pos -= gap;
     facing_direction = Direction::Up;
   } else if (keyboard_state[SDL_SCANCODE_S] != 0U &&
              keyboard_state[SDL_SCANCODE_W] == 0U) {
-    dy += gap;
+    coordinate.y_pos += gap;
     facing_direction = Direction::Down;
   }
 
   // Horizontal movement.
   if (keyboard_state[SDL_SCANCODE_A] != 0U &&
       keyboard_state[SDL_SCANCODE_D] == 0U) {
-    dx -= gap;
+    coordinate.x_pos -= gap;
     facing_direction = Direction::Left;
   } else if (keyboard_state[SDL_SCANCODE_D] != 0U &&
              keyboard_state[SDL_SCANCODE_A] == 0U) {
-    dx += gap;
+    coordinate.x_pos += gap;
     facing_direction = Direction::Right;
   }
 }

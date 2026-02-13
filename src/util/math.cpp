@@ -18,12 +18,12 @@ int GetRowMajorOrderIndex(int row, int column) {
   return (row * Constants::MAP_COLUMNS) + column;
 }
 
-int GetRowMajorOrderIndexFromCoordinates(int x, int y) {
+int GetRowMajorOrderIndexFromCoordinates(int x_pos, int y_pos) {
   // Normalizes coordinates on the screen to tile map rows and columns.
   const int row =
-      (y / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE)) + 1;
+      (y_pos / (Constants::SPRITE_HEIGHT * Constants::SPRITE_SCALE)) + 1;
   const int column =
-      (x / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE)) + 1;
+      (x_pos / (Constants::SPRITE_WIDTH * Constants::SPRITE_SCALE)) + 1;
   return GetRowMajorOrderIndex(row, column);
 }
 

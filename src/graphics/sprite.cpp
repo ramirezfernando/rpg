@@ -19,13 +19,8 @@
 #include "util/logger.h"
 #include "util/math.h"
 
-Sprite::Sprite(const char* path, int sprite_width, int sprite_height,
-               int margin, int spacing)
-    : path_{path},
-      sprite_width_{sprite_width},
-      sprite_height_{sprite_height},
-      margin_{margin},
-      spacing_{spacing} {}
+Sprite::Sprite(const char* path, Dimension dimension)
+    : path_{path}, dimension_{dimension} {}
 
 bool Sprite::LoadSpriteSheet() {
   texture_ = Cache::GetInstance()->GetOrCreateTexture(path_);
@@ -43,15 +38,12 @@ bool Sprite::LoadSpriteSheet() {
     return false;
   }
 
-  // Compute columns/rows using tile size, margin and spacing.
-  columns_ =
-      (texture_width - 2 * margin_ + spacing_) / (sprite_width_ + spacing_);
+  columns_ = texture_width / dimension_.width;
   if (columns_ <= 0) {
     columns_ = 1;
   }
 
-  rows_ =
-      (texture_height - 2 * margin_ + spacing_) / (sprite_height_ + spacing_);
+  rows_ = texture_height / dimension_.height;
   if (rows_ <= 0) {
     rows_ = 1;
   }
@@ -67,7 +59,8 @@ bool Sprite::LoadSpriteSheet() {
   return true;
 }
 
-void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y,
+// NOLINT(bugprone-easily-swappable-parameters)
+void Sprite::RenderSprite(int sprite_index, Sprite::Coordinate coordinate,
                           bool invert) const {
   if (texture_ == nullptr) {
     return;
@@ -88,16 +81,16 @@ void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y,
   const int row = sprite_index / columns_;
 
   SDL_Rect src;
-  src.x = margin_ + (col * (sprite_width_ + spacing_));
-  src.y = margin_ + (row * (sprite_height_ + spacing_));
-  src.w = sprite_width_;
-  src.h = sprite_height_;
+  src.x = col * dimension_.width;
+  src.y = row * dimension_.height;
+  src.w = dimension_.width;
+  src.h = dimension_.height;
 
   SDL_Rect dst;
-  dst.x = dst_x;
-  dst.y = dst_y;
-  dst.w = sprite_width_ * Constants::SPRITE_SCALE;
-  dst.h = sprite_height_ * Constants::SPRITE_SCALE;
+  dst.x = coordinate.x_pos;
+  dst.y = coordinate.y_pos;
+  dst.w = dimension_.width * Constants::SPRITE_SCALE;
+  dst.h = dimension_.height * Constants::SPRITE_SCALE;
 
   if (invert) {
     const SDL_RendererFlip flip = invert ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
@@ -120,7 +113,7 @@ void Sprite::RenderSprite(int sprite_index, int dst_x, int dst_y,
 }
 
 // TODO(fernandoramirez): Generalize for any number of frames and frame rate.
-void Sprite::RenderAnimatedSprite(int dst_x, int dst_y) const {
+void Sprite::RenderAnimatedSprite(Sprite::Coordinate coordinate) const {
   // Simple animation by cycling through frames.
   static Uint32 last_time = 0;
   static int current_frame = 0;
@@ -130,7 +123,7 @@ void Sprite::RenderAnimatedSprite(int dst_x, int dst_y) const {
     current_frame = (current_frame + 1) % sprite_count_;
     last_time = current_time;
   }
-  RenderSprite(current_frame, dst_x, dst_y);
+  RenderSprite(current_frame, coordinate);
 }
 
 void Sprite::RenderTileMap(
@@ -138,8 +131,8 @@ void Sprite::RenderTileMap(
   if (texture_ == nullptr) {
     return;
   }
-  const int scaled_tile_width = sprite_width_ * Constants::SPRITE_SCALE;
-  const int scaled_tile_height = sprite_height_ * Constants::SPRITE_SCALE;
+  const int scaled_tile_width = dimension_.width * Constants::SPRITE_SCALE;
+  const int scaled_tile_height = dimension_.height * Constants::SPRITE_SCALE;
   for (const int row : std::ranges::iota_view{0, Constants::MAP_ROWS}) {
     for (const int column : std::ranges::iota_view{0, Constants::MAP_COLUMNS}) {
       const int tile = tile_map.at(
@@ -148,7 +141,8 @@ void Sprite::RenderTileMap(
       if (tile < 0) {
         continue;
       }
-      RenderSprite(tile, column * scaled_tile_width, row * scaled_tile_height);
+      RenderSprite(tile, Sprite::Coordinate{.x_pos = column * scaled_tile_width,
+                                            .y_pos = row * scaled_tile_height});
     }
   }
 }

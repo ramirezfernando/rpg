@@ -31,8 +31,9 @@ void Entity::Render() {
     final_index %= sprite_count;
   }
 
-  sprite()->RenderSprite(final_index, /*dst_x=*/dst_x_,
-                         /*dst_y=*/dst_y_,
+  // TODO(ramirezfernando): Use `Coordinate` instead of `dst_x_` and `dst_y_`.
+  sprite()->RenderSprite(final_index,
+                         Sprite::Coordinate{.x_pos = dst_x_, .y_pos = dst_y_},
                          /*invert=*/direction_ == Direction::Left);
 }
 

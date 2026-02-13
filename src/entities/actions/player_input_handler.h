@@ -18,7 +18,7 @@ class InputHandler {
   static std::span<const Uint8> GetKeyboardState();
 
   // Get keyboard state and compute movement delta.
-  static void GetMovementInput(int& dx, int& dy, bool& is_running,
+  static void GetMovementInput(Sprite::Coordinate& coordinate, bool& is_running,
                                Direction& facing_direction);
 
   // Process HUD input.
