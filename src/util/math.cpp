@@ -1,4 +1,4 @@
-#include "math.h"
+#include "math.h"  // NOLINT(modernize-deprecated-headers)
 
 #include <random>
 
