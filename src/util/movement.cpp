@@ -9,7 +9,7 @@
 
 namespace Movement {
 
-bool IsMovementValid(Sprite::Coordinate coordinate) {
+static bool IsMovementValid(Sprite::Coordinate coordinate) {
   // Check bounds.
   if (Map::IsOutOfBounds(coordinate)) {
     return false;
