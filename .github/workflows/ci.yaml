@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  # Run `clang-tidy` static analysis.
+  tidy:
+    name: clang-tidy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y \
+            clang clang-tidy \
+            libsdl3-dev libsdl3-image-dev \
+            pkg-config
+
+      - name: Run clang-tidy
+        run: |
+          SRCS=$(find src -name "*.cpp" | tr '\n' ' ')
+          CXXFLAGS="-std=c++23 -Isrc \
+            -isystem $(pkg-config --variable=includedir sdl3) \
+            -Wall -Weffc++ -Wextra -Wconversion \
+            -Wsign-conversion -Wimplicit-fallthrough -Werror"
+
+          clang-tidy --header-filter='src/.*' $SRCS -- $CXXFLAGS
+
+  # Build.
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y \
+            clang \
+            libsdl3-dev libsdl3-image-dev \
+            pkg-config
+
+      - name: Create output directory
+        run: mkdir -p out
+
+      - name: Compile source files
+        run: |
+          SRCS=$(find src -name "*.cpp")
+          CXXFLAGS="-std=c++23 -Isrc \
+            -isystem $(pkg-config --variable=includedir sdl3) \
+            -Wall -Weffc++ -Wextra -Wconversion \
+            -Wsign-conversion -Wimplicit-fallthrough -Werror"
+
+          for src in $SRCS; do
+            obj="${src%.cpp}.o"
+            echo "Compiling $src -> $obj"
+            clang++ $CXXFLAGS -c "$src" -o "$obj"
+          done
+
+      - name: Link executable
+        run: |
+          OBJS=$(find src -name "*.o" | tr '\n' ' ')
+          LDFLAGS="$(pkg-config --libs sdl3) $(pkg-config --libs sdl3-image)"
+
+          clang++ $OBJS -o out/play $LDFLAGS
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: play
+          path: out/play
+          retention-days: 7
