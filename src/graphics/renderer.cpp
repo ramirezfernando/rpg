@@ -1,14 +1,16 @@
 #include "renderer.h"
 
-#include <SDL2/SDL_render.h>
-#include <SDL2/SDL_video.h>
+#include <SDL3/SDL_render.h>
+#include <SDL3/SDL_video.h>
+
+#include <cstddef>
 
 #include "util/logger.h"
 
 SDL_Renderer* Renderer::renderer_ = nullptr;
 
 Renderer::Renderer(SDL_Window* window) {
-  renderer_ = SDL_CreateRenderer(window, -1, 0);
+  renderer_ = SDL_CreateRenderer(window, nullptr);
   if (renderer_ != nullptr) {
     // Set default draw color to white.
     const int color_value = 255;

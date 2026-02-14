@@ -1,10 +1,11 @@
 #include "sprite.h"
 
-#include <SDL2/SDL_error.h>
-#include <SDL2/SDL_rect.h>
-#include <SDL2/SDL_render.h>
-#include <SDL2/SDL_stdinc.h>
-#include <SDL2/SDL_timer.h>
+#include <SDL3/SDL_error.h>
+#include <SDL3/SDL_rect.h>
+#include <SDL3/SDL_render.h>
+#include <SDL3/SDL_stdinc.h>
+#include <SDL3/SDL_surface.h>
+#include <SDL3/SDL_timer.h>
 
 #include <array>
 #include <cstddef>
@@ -29,21 +30,24 @@ bool Sprite::LoadSpriteSheet() {
     return false;
   }
 
-  int texture_width = 0;
-  int texture_height = 0;
-  if (SDL_QueryTexture(texture_, nullptr, nullptr, &texture_width,
-                       &texture_height) != 0) {
+  float texture_width{0.0F};
+  float texture_height{0.0F};
+  if (!SDL_GetTextureSize(texture_, &texture_width, &texture_height)) {
     Logger::Error("Sprite",
                   std::string("SDL_QueryTexture failed: ") + SDL_GetError());
     return false;
   }
 
-  columns_ = texture_width / dimension_.width;
+  columns_ =
+      static_cast<int>(texture_width / static_cast<float>(dimension_.width));
+
+  ;
   if (columns_ <= 0) {
     columns_ = 1;
   }
 
-  rows_ = texture_height / dimension_.height;
+  rows_ =
+      static_cast<int>(texture_height / static_cast<float>(dimension_.height));
   if (rows_ <= 0) {
     rows_ = 1;
   }
@@ -80,24 +84,27 @@ void Sprite::RenderSprite(int sprite_index, Sprite::Coordinate coordinate,
   const int col = sprite_index % columns_;
   const int row = sprite_index / columns_;
 
-  SDL_Rect src;
-  src.x = col * dimension_.width;
-  src.y = row * dimension_.height;
-  src.w = dimension_.width;
-  src.h = dimension_.height;
+  SDL_FRect src;
+  src.x = static_cast<float>(col * dimension_.width);
+  src.y = static_cast<float>(row * dimension_.height);
+  src.w = static_cast<float>(dimension_.width);
+  src.h = static_cast<float>(dimension_.height);
 
-  SDL_Rect dst;
-  dst.x = coordinate.x_pos;
-  dst.y = coordinate.y_pos;
-  dst.w = dimension_.width * Constants::SPRITE_SCALE;
-  dst.h = dimension_.height * Constants::SPRITE_SCALE;
+  SDL_FRect dst;
+  dst.x = static_cast<float>(coordinate.x_pos);
+  dst.y = static_cast<float>(coordinate.y_pos);
+  dst.w = static_cast<float>(dimension_.width * Constants::SPRITE_SCALE);
+  dst.h = static_cast<float>(dimension_.height * Constants::SPRITE_SCALE);
 
   if (invert) {
-    const SDL_RendererFlip flip = invert ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    SDL_RenderCopyEx(Renderer::renderer_, texture_, &src, &dst, 0.0, nullptr,
-                     flip);
+    const SDL_FlipMode flip = invert ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+    SDL_RenderTextureRotated(Renderer::renderer_, texture_, &src, &dst, 0.0,
+                             nullptr, flip);
   } else {
-    SDL_RenderCopy(Renderer::renderer_, texture_, &src, &dst);
+    if (!SDL_RenderTexture(Renderer::renderer_, texture_, &src, &dst)) {
+      Logger::Error("Sprite",
+                    std::string("Failed to render sprite: ") + SDL_GetError());
+    }
   }
 
 #ifdef DEBUG_MODE
@@ -106,7 +113,7 @@ void Sprite::RenderSprite(int sprite_index, Sprite::Coordinate coordinate,
   SDL_GetRenderDrawColor(Renderer::renderer_, &prev_r, &prev_g, &prev_b,
                          &prev_a);
   SDL_SetRenderDrawColor(Renderer::renderer_, 255, 0, 0, 255);
-  SDL_RenderDrawRect(Renderer::renderer_, &dst);
+  SDL_RenderRect(Renderer::renderer_, &dst);
   SDL_SetRenderDrawColor(Renderer::renderer_, prev_r, prev_g, prev_b, prev_a);
 #endif  // DEBUG_MODE
 }
@@ -114,10 +121,10 @@ void Sprite::RenderSprite(int sprite_index, Sprite::Coordinate coordinate,
 // TODO(fernandoramirez): Generalize for any number of frames and frame rate.
 void Sprite::RenderAnimatedSprite(Sprite::Coordinate coordinate) const {
   // Simple animation by cycling through frames.
-  static Uint32 last_time = 0;
+  static Uint64 last_time = 0;
   static int current_frame = 0;
-  const Uint32 current_time = SDL_GetTicks();
-  const Uint32 FRAME_DELAY = 140;
+  const Uint64 current_time = SDL_GetTicks();
+  const Uint64 FRAME_DELAY = 140;
   if (current_time - last_time >= FRAME_DELAY) {
     current_frame = (current_frame + 1) % sprite_count_;
     last_time = current_time;

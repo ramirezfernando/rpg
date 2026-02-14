@@ -1,7 +1,7 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
 
 class Window {
  public:
@@ -15,5 +15,5 @@ class Window {
   [[nodiscard]] SDL_Window* GetSDLWindow() const { return window_; }
 
  private:
-  SDL_Window* window_;
+  SDL_Window* window_{nullptr};
 };

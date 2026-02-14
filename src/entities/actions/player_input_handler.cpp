@@ -1,8 +1,7 @@
 #include "player_input_handler.h"
 
-#include <SDL2/SDL_keyboard.h>
-#include <SDL2/SDL_scancode.h>
-#include <SDL2/SDL_stdinc.h>
+#include <SDL3/SDL_keyboard.h>
+#include <SDL3/SDL_scancode.h>
 
 #include <cstddef>
 #include <ranges>
@@ -47,9 +46,9 @@ bool InputHandler::HandleInput(Entity& player, HUD& hud) {
   return Movement::ApplyMovement(player, coordinate, action);
 }
 
-std::span<const Uint8> InputHandler::GetKeyboardState() {
+std::span<const bool> InputHandler::GetKeyboardState() {
   int num_keys = 0;
-  const Uint8* raw_keyboard_state = SDL_GetKeyboardState(&num_keys);
+  const bool* raw_keyboard_state = SDL_GetKeyboardState(&num_keys);
   // Wrap the raw pointer in a span to make it "bounds-aware" and safer to use.
   return {raw_keyboard_state, static_cast<size_t>(num_keys)};
 }
@@ -62,30 +61,28 @@ void InputHandler::GetMovementInput(Sprite::Coordinate& coordinate,
   auto keyboard_state = GetKeyboardState();
 
   // Check for running modifier.
-  if (keyboard_state[SDL_SCANCODE_LSHIFT] != 0U ||
-      keyboard_state[SDL_SCANCODE_RSHIFT] != 0U) {
+  if (keyboard_state[SDL_SCANCODE_LSHIFT] ||
+      keyboard_state[SDL_SCANCODE_RSHIFT]) {
     gap = base_gap * 2;
     is_running = true;
   }
 
   // Vertical movement.
-  if (keyboard_state[SDL_SCANCODE_W] != 0U &&
-      keyboard_state[SDL_SCANCODE_S] == 0U) {
+  if (keyboard_state[SDL_SCANCODE_W] && !keyboard_state[SDL_SCANCODE_S]) {
     coordinate.y_pos -= gap;
     facing_direction = Direction::Up;
-  } else if (keyboard_state[SDL_SCANCODE_S] != 0U &&
-             keyboard_state[SDL_SCANCODE_W] == 0U) {
+  } else if (keyboard_state[SDL_SCANCODE_S] &&
+             !keyboard_state[SDL_SCANCODE_W]) {
     coordinate.y_pos += gap;
     facing_direction = Direction::Down;
   }
 
   // Horizontal movement.
-  if (keyboard_state[SDL_SCANCODE_A] != 0U &&
-      keyboard_state[SDL_SCANCODE_D] == 0U) {
+  if (keyboard_state[SDL_SCANCODE_A] && !keyboard_state[SDL_SCANCODE_D]) {
     coordinate.x_pos -= gap;
     facing_direction = Direction::Left;
-  } else if (keyboard_state[SDL_SCANCODE_D] != 0U &&
-             keyboard_state[SDL_SCANCODE_A] == 0U) {
+  } else if (keyboard_state[SDL_SCANCODE_D] &&
+             !keyboard_state[SDL_SCANCODE_A]) {
     coordinate.x_pos += gap;
     facing_direction = Direction::Right;
   }
@@ -95,7 +92,7 @@ void InputHandler::GetHudInput(HUD& hud) {
   auto keyboard_state = GetKeyboardState();
   const int hud_slots = 8;
   for (const int i : std::ranges::iota_view{0, hud_slots}) {
-    if (keyboard_state[SDL_SCANCODE_1 + static_cast<size_t>(i)] != 0U) {
+    if (keyboard_state[SDL_SCANCODE_1 + static_cast<size_t>(i)]) {
       hud.SetSelectedSlot(i);
       Logger::Debug("InputHandler",
                     "Hotbar slot " + std::to_string(i + 1) + " selected");
