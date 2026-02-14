@@ -1,15 +1,15 @@
 CXX = /opt/homebrew/opt/llvm/bin/clang++
 # Use C++23 standard:
 CXXFLAGS = -std=c++23
-# Include SDL2 headers and src directory:
+# Include SDL3 headers and src directory:
 CXXFLAGS += -Isrc
-# Treat SDL2 as system headers (suppresses warnings):
-CXXFLAGS += -isystem $(shell pkg-config --variable=includedir sdl2)
+# Treat SDL3 as system headers (suppresses warnings):
+CXXFLAGS += -isystem $(shell pkg-config --variable=includedir sdl3)
 # Increase warning levels:
 CXXFLAGS += -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -Wimplicit-fallthrough
 # Treat warnings as errors:
 CXXFLAGS += -Werror
-LDFLAGS = $(shell pkg-config --libs sdl2) $(shell pkg-config --libs sdl2_image)
+LDFLAGS = $(shell pkg-config --libs sdl3) $(shell pkg-config --libs sdl3-image)
 SRCS = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp)
 HDRS = $(wildcard src/*.h) $(wildcard src/*/*.h) $(wildcard src/*/*/*.h)
 OBJS = $(SRCS:.cpp=.o)

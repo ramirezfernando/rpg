@@ -15,7 +15,7 @@ class InputHandler {
 
  private:
   // Getter that turns `SDL_GetKeyboardState` dumb pointer into a smart pointer.
-  static std::span<const Uint8> GetKeyboardState();
+  static std::span<const bool> GetKeyboardState();
 
   // Get keyboard state and compute movement delta.
   static void GetMovementInput(Sprite::Coordinate& coordinate, bool& is_running,

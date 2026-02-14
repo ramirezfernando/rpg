@@ -1,5 +1,5 @@
-#include <SDL2/SDL_stdinc.h>
-#include <SDL2/SDL_timer.h>
+#include <SDL3/SDL_stdinc.h>
+#include <SDL3/SDL_timer.h>
 
 #include <memory>
 
@@ -7,8 +7,8 @@
 #include "core/game.h"
 
 int main() {
-  Uint32 frame_start{};
-  Uint32 frame_time{};
+  Uint64 frame_start{};
+  Uint64 frame_time{};
   auto game = std::make_unique<Game>();
 
   while (game->IsRunning()) {
@@ -19,7 +19,7 @@ int main() {
     // Handle frame rate.
     frame_time = SDL_GetTicks() - frame_start;
     if (Constants::FRAME_DELAY > frame_time) {
-      SDL_Delay(Constants::FRAME_DELAY - frame_time);
+      SDL_DelayNS(Constants::FRAME_DELAY - frame_time);
     }
   }
 

@@ -1,10 +1,9 @@
 #include "game.h"
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_events.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_render.h>
-#include <SDL2/SDL_video.h>
+#include <SDL3/SDL_events.h>
+#include <SDL3/SDL_init.h>
+#include <SDL3/SDL_render.h>
+#include <SDL3/SDL_video.h>
 
 #include <memory>
 
@@ -56,7 +55,7 @@ bool ShouldRenderPlayerFirst(Sprite::Coordinate coordinate) {
 SDL_Event Game::event_;
 
 Game::Game() {
-  if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
+  if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) {
     window_ = std::make_unique<Window>(
         "RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         Constants::WINDOW_SIZE, Constants::WINDOW_SIZE);
@@ -84,7 +83,6 @@ Game::Game() {
 
 Game::~Game() {
   SDL_Quit();
-  IMG_Quit();
   Logger::Debug("Game", "Game destroyed");
 }
 
@@ -129,8 +127,8 @@ void Game::Render() {
 
 void Game::Update() {
   SDL_Event event;
-  while (SDL_PollEvent(&event) != 0) {
-    if (event.type == SDL_QUIT) {
+  while (SDL_PollEvent(&event)) {
+    if (event.type == SDL_EVENT_QUIT) {
       is_running_ = false;
     }
   }

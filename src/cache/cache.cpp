@@ -1,8 +1,10 @@
 #include "cache.h"
 
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_render.h>
-#include <SDL2/SDL_surface.h>
+#include <SDL3/SDL_error.h>
+#include <SDL3/SDL_pixels.h>
+#include <SDL3/SDL_render.h>
+#include <SDL3/SDL_surface.h>
+#include <SDL3_image/SDL_image.h>
 
 #include <memory>
 #include <utility>
@@ -10,6 +12,8 @@
 #include "graphics/renderer.h"
 #include "graphics/sprite.h"
 #include "util/logger.h"
+
+namespace {}
 
 Cache* Cache::GetInstance() {
   static Cache instance;  // Thread-safe in C++11+.
@@ -92,9 +96,27 @@ const Sprite* Cache::GetOrCreateSpriteSheet(const char* file_path,
 // NOLINTNEXTLINE(misc-const-correctness)
 SDL_Texture* Cache::CreateTexture(const char* file_name) {
   SDL_Surface* tmp_surface = IMG_Load(file_name);
+  if (tmp_surface == nullptr) {
+    Logger::Error("Cache",
+                  std::string("Failed to load surface: ") + SDL_GetError());
+    return nullptr;
+  }
+
+  // Convert to RGBA format if needed. Sprites such as hotbar are not rendered
+  // unless it's converted to RGBA format.
+  SDL_Surface* converted_surface =
+      SDL_ConvertSurface(tmp_surface, SDL_PIXELFORMAT_RGBA8888);
+  SDL_DestroySurface(tmp_surface);
+  if (converted_surface == nullptr) {
+    Logger::Error("Cache",
+                  std::string("Failed to convert surface: ") + SDL_GetError());
+    return nullptr;
+  }
+
   // NOLINTNEXTLINE(misc-const-correctness)
   SDL_Texture* texture =
-      SDL_CreateTextureFromSurface(Renderer::renderer_, tmp_surface);
-  SDL_FreeSurface(tmp_surface);
+      SDL_CreateTextureFromSurface(Renderer::renderer_, converted_surface);
+  SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_PIXELART);
+  SDL_DestroySurface(converted_surface);
   return texture;
 }
