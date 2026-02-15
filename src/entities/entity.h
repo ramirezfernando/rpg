@@ -2,6 +2,8 @@
 
 #include <SDL3/SDL.h>
 
+#include <cstdint>
+
 #include "constants/entity_constants.h"
 #include "graphics/sprite.h"
 

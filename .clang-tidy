@@ -4,4 +4,3 @@ Checks: 'misc-*'
 WarningsAsErrors: ''
 HeaderFilterRegex: '^src/.*'
 FormatStyle: file
-ExcludeHeaderFilterRegex: '.*/SDL.*|.*/c\+\+/.*'
