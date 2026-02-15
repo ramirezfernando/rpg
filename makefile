@@ -14,11 +14,11 @@ SRCS = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp)
 HDRS = $(wildcard src/*.h) $(wildcard src/*/*.h) $(wildcard src/*/*/*.h)
 OBJS = $(SRCS:.cpp=.o)
 
-# Build the game
+# Build the game.
 build:
 	$(CXX) $(OBJS) -o ./out/play $(LDFLAGS)
 
-# Build and run the game
+# Build and run the game.
 game: $(OBJS)
 	$(CXX) $(OBJS) -o ./out/play $(LDFLAGS) && ./out/play
 
@@ -30,24 +30,24 @@ debug: $(OBJS)
 	$(CXX) $(OBJS) -o ./out/play $(LDFLAGS)
 	leaks --atExit --list -- ./out/play
 
-# Compile all source files
+# Compile all source files.
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean the object files and the executable
+# Clean the object files and the executable.
 clean:
 	rm -f $(OBJS) ./out/play
 
-# Format files using clang-format
+# Format files using clang-format.
 format:
 	clang-format --style=file:.clang-format -i $(SRCS) $(HDRS)
 
-# Run clang-tidy on source files
+# Run `clang-tidy` on source files.
 tidy:
-	clang-tidy --header-filter='src/.*' $(SRCS) -- $(CXXFLAGS)
+	clang-tidy $(SRCS) -- $(CXXFLAGS)
 
-# Run clang-tidy with automatic fixes
+# Run `clang-tidy` with automatic fixes.
 tidy-fix:
-	clang-tidy --header-filter='src/.*' $(SRCS) --fix -- $(CXXFLAGS)
+	clang-tidy $(SRCS) --fix -- $(CXXFLAGS)
 
 .PHONY: build game debug clean format tidy tidy-fix

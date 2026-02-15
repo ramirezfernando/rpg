@@ -39,7 +39,7 @@ jobs:
             -Wall -Weffc++ -Wextra -Wconversion \
             -Wsign-conversion -Wimplicit-fallthrough -Werror"
 
-          clang-tidy --header-filter='src/.*' $SRCS -- $CXXFLAGS
+          clang-tidy $SRCS -- $CXXFLAGS
 
   # 2. Build.
   build:
