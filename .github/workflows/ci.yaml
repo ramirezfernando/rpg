@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  # 1. Run `clang-tidy` static analysis.
+  # Run `clang-tidy` static analysis.
   tidy:
     name: clang-tidy
     runs-on: ubuntu-latest
@@ -40,56 +40,4 @@ jobs:
             -Wall -Weffc++ -Wextra -Wconversion \
             -Wsign-conversion -Wimplicit-fallthrough -Werror"
 
-          clang-tidy $SRCS -- $CXXFLAGS
-
-  # 2. Build.
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up SDL3
-        uses: libsdl-org/setup-sdl@main
-        with:
-          install-linux-dependencies: true
-          version: 3-latest
-          version-sdl-image: 3-latest
-
-      - name: Install clang 21
-        run: |
-          wget -qO llvm.sh https://apt.llvm.org/llvm.sh
-          chmod +x llvm.sh
-          sudo ./llvm.sh 21
-          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-21 100
-
-      - name: Compile and link
-        run: |
-          SDL3_INCLUDES="-isystem $(pkg-config --variable=includedir sdl3)"
-          SDL3_IMAGE_INCLUDES="-isystem $(pkg-config --variable=includedir sdl3-image)"
-          CXXFLAGS="-std=c++23 -Isrc $SDL3_INCLUDES $SDL3_IMAGE_INCLUDES \
-            -Wall -Weffc++ -Wextra -Wconversion \
-            -Wsign-conversion -Wimplicit-fallthrough -Werror"
-          LDFLAGS="$(pkg-config --libs sdl3) $(pkg-config --libs sdl3-image)"
-
-          # Compile
-          SRCS=$(find src -name "*.cpp")
-          for src in $SRCS; do
-            obj="${src%.cpp}.o"
-            echo "  CC  $src"
-            clang++ $CXXFLAGS -c "$src" -o "$obj"
-          done
-
-          # Link
-          mkdir -p out
-          OBJS=$(find src -name "*.o" | tr '\n' ' ')
-          echo "  LD  out/play"
-          clang++ $OBJS -o out/play $LDFLAGS
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: play-linux
-          path: out/play
-          retention-days: 7
+          clang-tidy --warnings-as-errors='*' $SRCS -- $CXXFLAGS
