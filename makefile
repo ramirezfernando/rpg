@@ -50,4 +50,8 @@ tidy:
 tidy-fix:
 	clang-tidy $(SRCS) --fix -- $(CXXFLAGS)
 
+# .PHONY tells Make that those targets are not real files. By default, Make
+# assumes a target is a file it needs to build. So if you run `make build`, it
+# looks for a file called `build` in the directory. If that file exists and is
+# up to date, Make skips the target entirely and does nothing.
 .PHONY: build game debug clean format tidy tidy-fix
