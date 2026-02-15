@@ -1,6 +1,8 @@
 # https://clang.llvm.org/extra/clang-tidy/checks/list.html
 
-Checks: 'misc-*'
+Checks: 'bugprone-*, cppcoreguidelines-*, google-*, misc-*, modernize-*,
+        -modernize-use-trailing-return-type, performance-*, readability-*,
+        -readability-identifier-length'
 WarningsAsErrors: ''
 HeaderFilterRegex: '^src/.*'
 FormatStyle: file
