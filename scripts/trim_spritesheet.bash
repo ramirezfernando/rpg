@@ -48,8 +48,8 @@ echo "Grid:      ${COLUMNS}x${ROWS}  (cell: ${CELL_W}x${CELL_H})"
 echo "Spacing:   $SPACING"
 
 # ── Crop, trim, and smush row by row ─────────────────────────────────────────
-# Each cell is cropped from the sheet by geometry, then -trim removes its
-# transparent padding, then +smush combines each row horizontally.
+# Each cell is cropped from the sheet by geometry, then `-trim` removes its
+# transparent padding, then `+smush` combines each row horizontally.
 # Finally all row strips are smushed vertically into the final sheet.
 
 echo "Processing..."
@@ -70,15 +70,19 @@ for (( row = 0; row < ROWS; row++ )); do
         -trim +repage \
         miff:-
     done
-  ) | magick - -background none +smush "$SPACING" "$ROW_FILE"
+  ) | magick - -background none -gravity south +smush "$SPACING" "$ROW_FILE"
 
   echo "  Row $(( row + 1 ))/$ROWS done."
 done
 
-# ── Stack all rows vertically ─────────────────────────────────────────────────
+# ── Stack all rows vertically and restore outer border ───────────────────────
+# `+smush` only adds spacing between cells, not around the outside edge.
+# `-border` adds the same spacing around the entire sheet so the outer
+# cells aren't flush against the image boundary.
 
 magick "$TMPDIR_WORK"/row_*.miff \
   -background none -smush "$SPACING" \
-  "$OUTPUT"
+  -bordercolor none -border "${SPACING}" \
+  "$OUTPUT" || { echo "Error: failed to stack rows"; exit 1; }
 
 echo "Done → $OUTPUT"
