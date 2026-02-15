@@ -5,12 +5,12 @@
 # Requires: ImageMagick 7+ (`magick` command)
 #
 # Usage:
-#   bash trim_spritesheet.sh <input.png> <columns> <rows> [output.png] [spacing]
+#   bash trim_spritesheet.bash <input.png> <columns> <rows> [output.png] [spacing]
 #
 # Examples:
-#   bash trim_spritesheet.sh sprite.png 4 3
-#   bash trim_spritesheet.sh sprite.png 4 3 sprite_trimmed.png
-#   bash trim_spritesheet.sh sprite.png 4 3 sprite_trimmed.png 0
+#   bash trim_spritesheet.bash sprite.png 4 3
+#   bash trim_spritesheet.bash sprite.png 4 3 sprite_trimmed.png
+#   bash trim_spritesheet.bash sprite.png 4 3 sprite_trimmed.png 0
 
 
 # ── Arguments ────────────────────────────────────────────────────────────────
