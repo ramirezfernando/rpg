@@ -67,7 +67,8 @@ jobs:
       - name: Compile and link
         run: |
           SDL3_INCLUDES="-isystem $(pkg-config --variable=includedir sdl3)"
-          CXXFLAGS="-std=c++23 -Isrc $SDL3_INCLUDES \
+          SDL3_IMAGE_INCLUDES="-isystem $(pkg-config --variable=includedir sdl3-image)"
+          CXXFLAGS="-std=c++23 -Isrc $SDL3_INCLUDES $SDL3_IMAGE_INCLUDES \
             -Wall -Weffc++ -Wextra -Wconversion \
             -Wsign-conversion -Wimplicit-fallthrough -Werror"
           LDFLAGS="$(pkg-config --libs sdl3) $(pkg-config --libs sdl3-image)"
