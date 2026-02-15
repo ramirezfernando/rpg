@@ -8,6 +8,5 @@ A 2D RPG written in C++ from scratch (in development).
 
 ## TODO
 - Explore C++20 modules.
-- Add clang-tidy GitHub Action.
 - Add GTest unit tests.
    - Add unit test GitHub Action.
