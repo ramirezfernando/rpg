@@ -20,6 +20,26 @@
 #include "util/logger.h"
 #include "util/math.h"
 
+#ifdef DEBUG_MODE
+
+namespace {
+
+// Draws a red border around the sprite. Note: Use the spritesheet trimmer
+// script to remove any transparent padding (causes issues with collision
+// detection).
+void DrawBoundingBox(SDL_FRect destination_rectangle) {
+  Uint8 prev_r, prev_g, prev_b, prev_a;
+  SDL_GetRenderDrawColor(Renderer::renderer_, &prev_r, &prev_g, &prev_b,
+                         &prev_a);
+  SDL_SetRenderDrawColor(Renderer::renderer_, 255, 0, 0, 255);
+  SDL_RenderRect(Renderer::renderer_, &destination_rectangle);
+  SDL_SetRenderDrawColor(Renderer::renderer_, prev_r, prev_g, prev_b, prev_a);
+}
+
+}  // anonymous namespace
+
+#endif  // DEBUG_MODE
+
 Sprite::Sprite(const char* path, Dimension dimension)
     : path_{path}, dimension_{dimension} {}
 
@@ -147,13 +167,4 @@ void Sprite::RenderTileMap(
                                             .y_pos = row * scaled_tile_height});
     }
   }
-}
-
-void Sprite::DrawBoundingBox(SDL_FRect destination_rectangle) const {
-  Uint8 prev_r, prev_g, prev_b, prev_a;
-  SDL_GetRenderDrawColor(Renderer::renderer_, &prev_r, &prev_g, &prev_b,
-                         &prev_a);
-  SDL_SetRenderDrawColor(Renderer::renderer_, 255, 0, 0, 255);
-  SDL_RenderRect(Renderer::renderer_, &destination_rectangle);
-  SDL_SetRenderDrawColor(Renderer::renderer_, prev_r, prev_g, prev_b, prev_a);
 }
