@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "cache/cache.h"
+#include "constants/entity_constants.h"
 #include "constants/game_constants.h"
 #include "constants/map_constants.h"
 #include "constants/sprite_constants.h"
@@ -190,6 +191,32 @@ bool Map::IsCollisionTile(int tile) {
     default:
       return false;
   }
+}
+
+bool Map::IsCollision(Sprite::Coordinate coordinate) {
+  // Mailbox:
+  // TODO(ramirezfernando): This is a placeholder for player and mailbox
+  // bounding boxs.
+  // TODO(ramirezfernando): The player has a margin around the sprite, so the
+  // collisions do not truly appear like collisions.
+  const auto player_box = Sprite::BoundingBox{
+      .x = static_cast<float>(coordinate.x_pos),
+      .y = static_cast<float>(coordinate.y_pos),
+      .w = static_cast<float>(Constants::ENTITY_SPRITE_WIDTH *
+                              Constants::SPRITE_SCALE),
+      .h = static_cast<float>(Constants::ENTITY_SPRITE_HEIGHT *
+                              Constants::SPRITE_SCALE),
+  };
+  const auto mailbox_box = Sprite::BoundingBox{
+      .x = static_cast<float>(Constants::MAILBOX_DST_X),
+      .y = static_cast<float>(Constants::MAILBOX_DST_Y),
+      .w = static_cast<float>(Constants::MAILBOX_WIDTH *
+                              Constants::SPRITE_SCALE),
+      .h = static_cast<float>(Constants::MAILBOX_HEIGHT *
+                              Constants::SPRITE_SCALE),
+  };
+
+  return player_box.Intersects(mailbox_box);
 }
 
 bool Map::IsOutOfBounds(Sprite::Coordinate coordinate) {

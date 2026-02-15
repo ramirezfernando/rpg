@@ -17,6 +17,15 @@ class Sprite {
     int x_pos;
     int y_pos;
   };
+  struct BoundingBox {
+    // / NOLINTNEXTLINE(misc-non-private-member-variables-in-classes)
+    float x, y, w, h;
+
+    [[nodiscard]] bool Intersects(const BoundingBox& other) const {
+      return x < other.x + other.w && x + w > other.x &&
+             y < other.y + other.h && y + h > other.y;
+    };
+  };
 
   Sprite(const char* path, Dimension dimension);
   ~Sprite() = default;

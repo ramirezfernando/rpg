@@ -15,7 +15,12 @@ bool IsMovementValid(Sprite::Coordinate coordinate) {
     return false;
   }
 
-  // Check collision.
+  // Check collision by coordinate.
+  if (Map::IsCollision(coordinate)) {
+    return false;
+  }
+
+  // Check collision by tile.
   std::optional<int> tile = Map::GetTopmostTile(coordinate);
   return tile.has_value() && !Map::IsCollisionTile(tile.value());
 }

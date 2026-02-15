@@ -41,6 +41,9 @@ class Map {
   static std::optional<int> GetTopmostTile(Sprite::Coordinate coordinate);
   // Returns whether the provided `tile` causes a collision (unwalkable tile).
   static bool IsCollisionTile(int tile);
+  // Returns whether the provided `coordinate` causes a collision with another
+  // sprite using axis-aligned bounding box.
+  static bool IsCollision(Sprite::Coordinate coordinate);
   // Returns whether the provided `coordinate` is larger than the window size.
   static bool IsOutOfBounds(Sprite::Coordinate coordinate);
 
