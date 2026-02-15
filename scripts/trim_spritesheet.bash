@@ -1,5 +1,6 @@
-# Removes transparent padding from an equally-split sprite sheet using
-# ImageMagick, then re-packs preserving row order.
+# Trims transparent padding from each cell of an equally-split sprite sheet so
+# that each cell's dimensions match its visible pixel boundary (easier to work
+# with). Cells are re-packed in row-major order using ImageMagick.
 #
 # Requires: ImageMagick 7+ (`magick` command)
 #
