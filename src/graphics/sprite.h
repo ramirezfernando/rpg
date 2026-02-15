@@ -52,6 +52,10 @@ class Sprite {
   [[nodiscard]] int GetSpriteCount() const { return sprite_count_; }
 
  private:
+  // Draws a red border around the sprite. Note: Use the spritesheet trimmer
+  // script to remove any transparent padding (causes issues with collision
+  // detection).
+  void DrawBoundingBox(SDL_FRect destination_rectangle) const;
   const char* path_;
   const Dimension dimension_;
 

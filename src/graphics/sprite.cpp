@@ -57,7 +57,9 @@ bool Sprite::LoadSpriteSheet() {
   std::ostringstream oss;
   oss << "Sprite sheet loaded: " << path_ << " tex=" << texture_width << "x"
       << texture_height << " cols=" << columns_ << " rows=" << rows_
-      << " tiles=" << sprite_count_;
+      << " tiles=" << sprite_count_
+      << " cell=" << texture_width / static_cast<float>(columns_) << "x"
+      << texture_height / static_cast<float>(rows_);
   Logger::Debug("Sprite", oss.str());
 
   return true;
@@ -108,13 +110,7 @@ void Sprite::RenderSprite(int sprite_index, Sprite::Coordinate coordinate,
   }
 
 #ifdef DEBUG_MODE
-  // Draw red border so you can see tile boundaries.
-  Uint8 prev_r, prev_g, prev_b, prev_a;
-  SDL_GetRenderDrawColor(Renderer::renderer_, &prev_r, &prev_g, &prev_b,
-                         &prev_a);
-  SDL_SetRenderDrawColor(Renderer::renderer_, 255, 0, 0, 255);
-  SDL_RenderRect(Renderer::renderer_, &dst);
-  SDL_SetRenderDrawColor(Renderer::renderer_, prev_r, prev_g, prev_b, prev_a);
+  DrawBoundingBox(dst);
 #endif  // DEBUG_MODE
 }
 
@@ -151,4 +147,13 @@ void Sprite::RenderTileMap(
                                             .y_pos = row * scaled_tile_height});
     }
   }
+}
+
+void Sprite::DrawBoundingBox(SDL_FRect destination_rectangle) const {
+  Uint8 prev_r, prev_g, prev_b, prev_a;
+  SDL_GetRenderDrawColor(Renderer::renderer_, &prev_r, &prev_g, &prev_b,
+                         &prev_a);
+  SDL_SetRenderDrawColor(Renderer::renderer_, 255, 0, 0, 255);
+  SDL_RenderRect(Renderer::renderer_, &destination_rectangle);
+  SDL_SetRenderDrawColor(Renderer::renderer_, prev_r, prev_g, prev_b, prev_a);
 }
