@@ -20,6 +20,16 @@ Sprite::Coordinate GetEntityCenterCoordinate(Sprite::Coordinate coordinate) {
   };
 }
 
+Sprite::Coordinate GetEntityBottomCenterCoordinate(
+    Sprite::Coordinate coordinate) {
+  return Sprite::Coordinate{
+      .x_pos = coordinate.x_pos +
+               ((Constants::FERN_SPRITE_WIDTH * Constants::SPRITE_SCALE) / 2),
+      .y_pos = coordinate.y_pos +
+               (Constants::FERN_SPRITE_HEIGHT * Constants::SPRITE_SCALE),
+  };
+}
+
 bool IsMovementValid(Sprite::Coordinate coordinate) {
   const Sprite::Coordinate center_coordinate =
       GetEntityCenterCoordinate(coordinate);
@@ -37,6 +47,14 @@ bool IsMovementValid(Sprite::Coordinate coordinate) {
   // Check collision by tile.
   std::optional<int> tile = Map::GetTopmostTile(center_coordinate);
   return tile.has_value() && !Map::IsCollisionTile(tile.value());
+}
+
+bool ShouldRenderBehindFence(Sprite::Coordinate coordinate) {
+  const Sprite::Coordinate bottom_center_coordinate =
+      GetEntityBottomCenterCoordinate(coordinate);
+
+  std::optional<int> tile = Map::GetTopmostTile(bottom_center_coordinate);
+  return tile.has_value() && Map::IsCollisionTile(tile.value());
 }
 
 }  // anonymous namespace
@@ -82,19 +100,26 @@ void NormalizeDiagonalMovement(Sprite::Coordinate& coordinate, int gap) {
 
 bool ApplyMovement(Entity& entity, Sprite::Coordinate coordinate,
                    Action action) {
-  Sprite::Coordinate new_current = entity.GetCoordinate();
-  new_current.x_pos += coordinate.x_pos;
-  new_current.y_pos += coordinate.y_pos;
+  Sprite::Coordinate new_coordintate = entity.GetCoordinate();
+  new_coordintate.x_pos += coordinate.x_pos;
+  new_coordintate.y_pos += coordinate.y_pos;
 
   // Validate movement.
-  if (!IsMovementValid(new_current)) {
+  if (!IsMovementValid(new_coordintate)) {
     entity.SetPathForAction(Action::Idle);
     entity.IncrementAnimationFrameIndexAfterInterval();
     return false;
   }
 
+  // Check if the entity should be rendered behind an object e.g. fence.
+  if (ShouldRenderBehindFence(new_coordintate)) {
+    entity.SetIsBehindFence(true);
+  } else {
+    entity.SetIsBehindFence(false);
+  }
+
   // Apply movement.
-  entity.SetCoordinate(new_current);
+  entity.SetCoordinate(new_coordintate);
   entity.SetPathForAction(action);
   entity.IncrementAnimationFrameIndexAfterInterval();
 

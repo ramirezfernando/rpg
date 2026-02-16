@@ -26,6 +26,7 @@ class Entity {
   [[nodiscard]] Sprite::Coordinate GetCoordinate() const { return coordinate_; }
   [[nodiscard]] Action GetCurrentAction() const { return action_; }
   [[nodiscard]] bool IsNpc() const { return is_npc_; }
+  [[nodiscard]] bool IsBehindFence() const { return is_behind_fence_; }
 
   // Setters:
   void SetAction(Action action) { action_ = action; }
@@ -35,6 +36,10 @@ class Entity {
   void SetDirectionFacing(Direction direction) { direction_ = direction; }
   void SetIsNpc(bool is_npc) { is_npc_ = is_npc; }
   virtual void SetPathForAction(Action action) = 0;
+  void SetSprite(const Sprite* sprite) { sprite_ = sprite; }
+  void SetIsBehindFence(bool is_behind_fence) {
+    is_behind_fence_ = is_behind_fence;
+  }
 
  protected:
   // Pure-virtual hooks for derived classes to customize what is rendered.
@@ -43,7 +48,6 @@ class Entity {
   [[nodiscard]] virtual int GetSpriteSheetColumns() const = 0;
 
   const Sprite* sprite() { return sprite_; }
-  void SetSprite(const Sprite* sprite) { sprite_ = sprite; }
 
  private:
   // Non-owning pointer to cached sprite.
@@ -58,4 +62,7 @@ class Entity {
   Sprite::Coordinate coordinate_{.x_pos = Constants::PLAYER_START_X,
                                  .y_pos = Constants::PLAYER_START_Y};
   bool is_npc_{false};
+  // TODO(ramirezfernando): Generalize to other sprites since this won't be used
+  // just for fences.
+  bool is_behind_fence_{false};
 };
