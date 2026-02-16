@@ -74,6 +74,7 @@ void Game::Render() {
   map_->RenderCliff();
   map_->RenderMailbox();
   map_->RenderPlants();
+  map_->RenderClothingRack();
 
   const bool player_behind =
       player_->IsBehindFence() || IsBehindHouse(player_->GetCoordinate());
@@ -98,8 +99,6 @@ void Game::Render() {
   if (!npc_behind) {
     npc_->Render();
   }
-
-  map_->RenderClothingRack();
 
   hud_->RenderHotBar();
 

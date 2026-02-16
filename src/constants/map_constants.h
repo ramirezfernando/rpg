@@ -31,8 +31,8 @@ inline constexpr const char* CLOTHING_RACK_FILE_PATH =
     "assets/sprites/map/clothing_rack.png";
 inline constexpr const int CLOTHING_RACK_WIDTH = 64;
 inline constexpr const int CLOTHING_RACK_HEIGHT = 35;
-inline constexpr const int CLOTHING_RACK_DST_X = 330;
-inline constexpr const int CLOTHING_RACK_DST_Y = 262;
+inline constexpr const int CLOTHING_RACK_DST_X = 285;
+inline constexpr const int CLOTHING_RACK_DST_Y = 190;
 // Refer to `assets/sprites/map/wood_fence.png` to see which tile index
 // corresponds to which fence piece.
 inline constexpr const int FENCE_TILE_AT_INDEX_0 = 0;
