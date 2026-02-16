@@ -207,16 +207,15 @@ bool Map::IsCollision(Sprite::Coordinate coordinate) {
       .h = static_cast<float>(Constants::ENTITY_SPRITE_HEIGHT *
                               Constants::SPRITE_SCALE),
   };
-  const auto mailbox_box = Sprite::BoundingBox{
+
+  return player_box.Intersects({
       .x = static_cast<float>(Constants::MAILBOX_DST_X),
       .y = static_cast<float>(Constants::MAILBOX_DST_Y),
       .w = static_cast<float>(Constants::MAILBOX_WIDTH *
                               Constants::SPRITE_SCALE),
       .h = static_cast<float>(Constants::MAILBOX_HEIGHT *
                               Constants::SPRITE_SCALE),
-  };
-
-  return player_box.Intersects(mailbox_box);
+  });
 }
 
 bool Map::IsOutOfBounds(Sprite::Coordinate coordinate) {

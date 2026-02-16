@@ -7,7 +7,7 @@
 
 Npc::Npc()
     : Entity(Cache::GetInstance()->GetOrCreateSpriteSheet(
-          /*file_path=*/"assets/sprites/entities/kat/idle.png",
+          /*file_path=*/"assets/sprites/entities/fern/idle.png",
           Sprite::Dimension{.width = Constants::ENTITY_SPRITE_WIDTH,
                             .height = Constants::ENTITY_SPRITE_HEIGHT})),
       sprite_sheet_columns_(sprite()->GetColumns()) {
@@ -68,13 +68,13 @@ void Npc::SetPathForAction(Action action) {
   const char* action_path = nullptr;
   switch (action) {
     case Action::Idle:
-      action_path = "assets/sprites/entities/kat/idle.png";
+      action_path = "assets/sprites/entities/fern/idle.png";
       break;
     case Action::Walk:
-      action_path = "assets/sprites/entities/kat/walk.png";
+      action_path = "assets/sprites/entities/fern/walk.png";
       break;
     case Action::Run:
-      action_path = "assets/sprites/entities/kat/run.png";
+      action_path = "assets/sprites/entities/fern/run.png";
       break;
   }
 
