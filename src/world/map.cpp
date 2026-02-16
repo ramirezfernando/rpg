@@ -189,6 +189,7 @@ bool Map::IsCollisionTile(int tile) {
     case Constants::GRASS_AND_WATER_TILE_INDEX_294:
     case Constants::GRASS_AND_WATER_TILE_INDEX_297:
     case Constants::GRASS_AND_WATER_TILE_INDEX_299:
+    case Constants::GRASS_AND_WATER_TILE_INDEX_344:
     case Constants::GRASS_AND_WATER_TILE_INDEX_345:
     case Constants::GRASS_AND_WATER_TILE_INDEX_347:
       Logger::Debug("Map", "Is collision tile");

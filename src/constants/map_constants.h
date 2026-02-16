@@ -63,6 +63,7 @@ inline constexpr const char* GRASS_AND_WATER_FILE_PATH =
 inline constexpr const int GRASS_AND_WATER_TILE_INDEX_294 = 294;
 inline constexpr const int GRASS_AND_WATER_TILE_INDEX_297 = 297;
 inline constexpr const int GRASS_AND_WATER_TILE_INDEX_299 = 299;
+inline constexpr const int GRASS_AND_WATER_TILE_INDEX_344 = 344;
 inline constexpr const int GRASS_AND_WATER_TILE_INDEX_345 = 345;
 inline constexpr const int GRASS_AND_WATER_TILE_INDEX_347 = 347;
 inline constexpr const char* GRASS_AND_DIRT_FILE_PATH =
