@@ -202,9 +202,9 @@ bool Map::IsCollision(Sprite::Coordinate coordinate) {
   const auto player_box = Sprite::BoundingBox{
       .x = static_cast<float>(coordinate.x_pos),
       .y = static_cast<float>(coordinate.y_pos),
-      .w = static_cast<float>(Constants::ENTITY_SPRITE_WIDTH *
+      .w = static_cast<float>(Constants::FERN_SPRITE_WIDTH *
                               Constants::SPRITE_SCALE),
-      .h = static_cast<float>(Constants::ENTITY_SPRITE_HEIGHT *
+      .h = static_cast<float>(Constants::FERN_SPRITE_HEIGHT *
                               Constants::SPRITE_SCALE),
   };
 

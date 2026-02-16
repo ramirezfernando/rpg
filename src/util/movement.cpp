@@ -14,10 +14,9 @@ namespace {
 Sprite::Coordinate GetEntityCenterCoordinate(Sprite::Coordinate coordinate) {
   return Sprite::Coordinate{
       .x_pos = coordinate.x_pos +
-               ((Constants::ENTITY_SPRITE_WIDTH * Constants::SPRITE_SCALE) / 2),
-      .y_pos =
-          coordinate.y_pos +
-          ((Constants::ENTITY_SPRITE_HEIGHT * Constants::SPRITE_SCALE) / 2),
+               ((Constants::FERN_SPRITE_WIDTH * Constants::SPRITE_SCALE) / 2),
+      .y_pos = coordinate.y_pos +
+               ((Constants::FERN_SPRITE_HEIGHT * Constants::SPRITE_SCALE) / 2),
   };
 }
 
