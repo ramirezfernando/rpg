@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <optional>
 #include <ranges>
+#include <string>
 #include <vector>
 
 #include "cache/cache.h"
@@ -12,6 +13,7 @@
 #include "constants/map_constants.h"
 #include "constants/sprite_constants.h"
 #include "graphics/sprite.h"
+#include "util/logger.h"
 #include "util/math.h"
 
 Map::Map() {
@@ -162,6 +164,8 @@ std::optional<int> Map::GetTopmostTile(Sprite::Coordinate coordinate) {
     if (index >= 0) {
       auto u_index = static_cast<std::size_t>(index);
       if (u_index < tile_map.size() && tile_map.at(u_index) >= 0) {
+        Logger::Debug("Map",
+                      "Topmost tile: " + std::to_string(tile_map.at(u_index)));
         return tile_map.at(u_index);
       }
     }
@@ -187,8 +191,10 @@ bool Map::IsCollisionTile(int tile) {
     case Constants::GRASS_AND_WATER_TILE_INDEX_299:
     case Constants::GRASS_AND_WATER_TILE_INDEX_345:
     case Constants::GRASS_AND_WATER_TILE_INDEX_347:
+      Logger::Debug("Map", "Is collision tile");
       return true;
     default:
+      Logger::Debug("Map", "Is not collision tile");
       return false;
   }
 }
