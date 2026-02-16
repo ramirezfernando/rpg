@@ -3,25 +3,40 @@
 #include <cmath>
 #include <optional>
 
+#include "constants/entity_constants.h"
+#include "constants/sprite_constants.h"
 #include "entities/entity.h"
 #include "graphics/sprite.h"
 #include "world/map.h"
 
 namespace {
 
+Sprite::Coordinate GetEntityCenterCoordinate(Sprite::Coordinate coordinate) {
+  return Sprite::Coordinate{
+      .x_pos = coordinate.x_pos +
+               ((Constants::ENTITY_SPRITE_WIDTH * Constants::SPRITE_SCALE) / 2),
+      .y_pos =
+          coordinate.y_pos +
+          ((Constants::ENTITY_SPRITE_HEIGHT * Constants::SPRITE_SCALE) / 2),
+  };
+}
+
 bool IsMovementValid(Sprite::Coordinate coordinate) {
+  const Sprite::Coordinate center_coordinate =
+      GetEntityCenterCoordinate(coordinate);
+
   // Check bounds.
-  if (Map::IsOutOfBounds(coordinate)) {
+  if (Map::IsOutOfBounds(center_coordinate)) {
     return false;
   }
 
   // Check collision by coordinate.
-  if (Map::IsCollision(coordinate)) {
+  if (Map::IsCollision(center_coordinate)) {
     return false;
   }
 
   // Check collision by tile.
-  std::optional<int> tile = Map::GetTopmostTile(coordinate);
+  std::optional<int> tile = Map::GetTopmostTile(center_coordinate);
   return tile.has_value() && !Map::IsCollisionTile(tile.value());
 }
 

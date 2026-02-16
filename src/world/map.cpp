@@ -219,12 +219,7 @@ bool Map::IsCollision(Sprite::Coordinate coordinate) {
 }
 
 bool Map::IsOutOfBounds(Sprite::Coordinate coordinate) {
-  // Add padding to take character dimensions into account.
-  const int padding = 30;
-  const int padding_right = 60;
-  const int padding_bottom = 72;
-  return coordinate.x_pos < -padding ||
-         coordinate.x_pos >= Constants::WINDOW_SIZE - padding_right ||
-         coordinate.y_pos < -padding ||
-         coordinate.y_pos >= Constants::WINDOW_SIZE - padding_bottom;
+  const int map_size = Constants::WINDOW_SIZE;
+  return coordinate.x_pos < 0 || coordinate.x_pos >= map_size ||
+         coordinate.y_pos < 0 || coordinate.y_pos >= map_size;
 }
