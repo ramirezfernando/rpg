@@ -22,23 +22,6 @@
 
 namespace {
 
-// bool IsPlayerBehindFence(Sprite::Coordinate coordinate) {
-//   // Left-most fence where player can be behind.
-//   const int left_fence_y_top_position = 260;
-//   const int left_fence_y_bottom_position = 330;
-//   const int left_fence_x_right_position = 260;
-
-//   // Right-most fence where player can be behind.
-//   const int right_fence_y_top_position = 400;
-//   const int right_fence_y_bottom_position = 460;
-
-//   return (coordinate.y_pos >= right_fence_y_top_position &&
-//           coordinate.y_pos <= right_fence_y_bottom_position) ||
-//          (coordinate.y_pos >= left_fence_y_top_position &&
-//           coordinate.y_pos <= left_fence_y_bottom_position &&
-//           coordinate.x_pos <= left_fence_x_right_position);
-// }
-
 bool IsBehindHouse(Sprite::Coordinate coordinate) {
   const int house_x_position = 670;
   const int house_y_position = 200;
