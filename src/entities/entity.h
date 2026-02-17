@@ -27,6 +27,9 @@ class Entity {
   // Later in the code this coordinate is used to find the center or bottom
   // center of the sprite's bounding box. To see the bounding box of the sprite,
   // build using `make debug` and see the red box surrounding the sprite.
+  // TODO(ramirezfernando): Convert to a pure-virtual function that way derived
+  // entities could return their own center or bottom center coordinates which
+  // can differ based on the derived entity's width and height.
   [[nodiscard]] Sprite::Coordinate GetCoordinate() const { return coordinate_; }
   [[nodiscard]] Action GetCurrentAction() const { return action_; }
   [[nodiscard]] bool IsNpc() const { return is_npc_; }
