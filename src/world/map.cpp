@@ -201,14 +201,14 @@ bool Map::IsCollisionTile(int tile) {
 }
 
 bool Map::IsCollision(Sprite::Coordinate coordinate) {
-  // Mailbox:
-  // TODO(ramirezfernando): This is a placeholder for player and mailbox
-  // bounding boxs.
-  // TODO(ramirezfernando): The player has a margin around the sprite, so the
-  // collisions do not truly appear like collisions.
+  const float half_width =
+      (Constants::FERN_SPRITE_WIDTH * Constants::SPRITE_SCALE) / 2.0F;
+  const float half_height =
+      (Constants::FERN_SPRITE_HEIGHT * Constants::SPRITE_SCALE) / 2.0F;
+
   const auto player_box = Sprite::BoundingBox{
-      .x = static_cast<float>(coordinate.x_pos),
-      .y = static_cast<float>(coordinate.y_pos),
+      .x = static_cast<float>(coordinate.x_pos) - half_width,
+      .y = static_cast<float>(coordinate.y_pos) - half_height,
       .w = static_cast<float>(Constants::FERN_SPRITE_WIDTH *
                               Constants::SPRITE_SCALE),
       .h = static_cast<float>(Constants::FERN_SPRITE_HEIGHT *

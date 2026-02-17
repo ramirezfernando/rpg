@@ -33,6 +33,8 @@ Sprite::Coordinate GetEntityBottomCenterCoordinate(
 bool IsMovementValid(Sprite::Coordinate coordinate) {
   const Sprite::Coordinate center_coordinate =
       GetEntityCenterCoordinate(coordinate);
+  const Sprite::Coordinate bottom_center_coordinate =
+      GetEntityBottomCenterCoordinate(coordinate);
 
   // Check bounds.
   if (Map::IsOutOfBounds(center_coordinate)) {
@@ -40,7 +42,7 @@ bool IsMovementValid(Sprite::Coordinate coordinate) {
   }
 
   // Check collision by coordinate.
-  if (Map::IsCollision(center_coordinate)) {
+  if (Map::IsCollision(bottom_center_coordinate)) {
     return false;
   }
 
