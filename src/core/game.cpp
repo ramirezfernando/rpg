@@ -72,7 +72,6 @@ void Game::Render() {
   map_->RenderGrassWater();
   map_->RenderWaterfall();
   map_->RenderCliff();
-  map_->RenderMailbox();
   map_->RenderPlants();
   map_->RenderClothingRack();
 
@@ -91,6 +90,7 @@ void Game::Render() {
 
   map_->RenderWoodFence();
   map_->RenderHouse();
+  map_->RenderMailbox();
 
   // Render characters that should appear in front of fence/house
   if (!player_behind) {

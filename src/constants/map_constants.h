@@ -46,10 +46,10 @@ inline constexpr const int FENCE_TILE_AT_INDEX_11 = 11;
 inline constexpr const int FENCE_TILE_AT_INDEX_13 = 13;
 inline constexpr const char* MAILBOX_FILE_PATH =
     "assets/sprites/map/mailbox.png";
-inline constexpr const int MAILBOX_WIDTH = 16;
-inline constexpr const int MAILBOX_HEIGHT = 32;
+inline constexpr const int MAILBOX_WIDTH = 11;
+inline constexpr const int MAILBOX_HEIGHT = 18;
 inline constexpr const int MAILBOX_DST_X = 630;
-inline constexpr const int MAILBOX_DST_Y = 236;
+inline constexpr const int MAILBOX_DST_Y = 275;
 inline constexpr const char* WATERFALL_FILE_PATH =
     "assets/sprites/map/waterfall.png";
 inline constexpr const int WATERFALL_WIDTH = 48;
