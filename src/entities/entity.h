@@ -23,6 +23,10 @@ class Entity {
   void IncrementAnimationFrameIndexAfterInterval();
 
   // Getters:
+  // This coordinate is the top left point of the bounding box of the sprite.
+  // Later in the code this coordinate is used to find the center or bottom
+  // center of the sprite's bounding box. To see the bounding box of the sprite,
+  // build using `make debug` and see the red box surrounding the sprite.
   [[nodiscard]] Sprite::Coordinate GetCoordinate() const { return coordinate_; }
   [[nodiscard]] Action GetCurrentAction() const { return action_; }
   [[nodiscard]] bool IsNpc() const { return is_npc_; }
