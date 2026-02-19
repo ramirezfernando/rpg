@@ -11,3 +11,4 @@ A 2D RPG written in C++ from scratch (in development).
 - Explore C++20 modules.
 - Add GTest unit tests.
    - Add unit test GitHub Action.
+- [Add more asserts!](https://youtu.be/oitYvDe4nps?si=BEmR1PNGNuamOi8c)
