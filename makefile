@@ -31,7 +31,7 @@ game: $(SHARED_OBJS) $(CLIENT_OBJ)
 
 debug-game: CXXFLAGS += -g -DDEBUG_MODE
 debug-game: $(SHARED_OBJS) $(CLIENT_OBJ)
-	$(CXX) $(SHARED_OBJS) $(CLIENT_OBJ) -o ./out/client $(LDFLAGS)
+	$(CXX) $(SHARED_OBJS) $(CLIENT_OBJ) -o ./out/client $(LDFLAGS) && ./out/client
 
 # Build and run the server.
 server: $(SHARED_OBJS) $(SERVER_OBJ)
@@ -39,7 +39,7 @@ server: $(SHARED_OBJS) $(SERVER_OBJ)
 
 debug-server: CXXFLAGS += -g -DDEBUG_MODE
 debug-server: $(SHARED_OBJS) $(SERVER_OBJ)
-	$(CXX) $(SHARED_OBJS) $(SERVER_OBJ) -o ./out/server $(LDFLAGS)
+	$(CXX) $(SHARED_OBJS) $(SERVER_OBJ) -o ./out/server $(LDFLAGS) && ./out/server
 
 # Compile all source files.
 %.o: %.cpp
