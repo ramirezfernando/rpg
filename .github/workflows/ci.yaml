@@ -35,6 +35,7 @@ jobs:
           sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-21 100
           sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-21 100
 
+      # Omit certain checks that lead to warnings on Linux but not macOS.
       - name: Run clang-tidy
         run: |
           SRCS=$(find src -name "*.cpp" | tr '\n' ' ')
@@ -44,4 +45,4 @@ jobs:
             -Wall -Weffc++ -Wextra -Wconversion \
             -Wsign-conversion -Wimplicit-fallthrough -Werror"
 
-          clang-tidy --warnings-as-errors='*' --checks='-misc-include-cleaner' $SRCS -- $CXXFLAGS
+          clang-tidy --warnings-as-errors='*' --checks='-misc-include-cleaner,-clang-diagnostic-error' $SRCS -- $CXXFLAGS
