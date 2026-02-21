@@ -3,6 +3,7 @@
 #include <fcntl.h>
 #include <netdb.h>
 #include <sys/_types/_ssize_t.h>
+#include <sys/fcntl.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
@@ -31,7 +32,10 @@ std::unique_ptr<Client> Client::Create(const std::string& host,
 
   const int status = connect(socket_file_descriptor, address_info->ai_addr,
                              address_info->ai_addrlen);
+
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
   fcntl(socket_file_descriptor, F_SETFL, O_NONBLOCK);
+
   if (status == -1) {
     Logger::Error("Client", strerror(errno));
     close(socket_file_descriptor);

@@ -17,7 +17,9 @@ class Socket {
 
   static struct addrinfo* GetAddressInfo(const std::string& host,
                                          const std::string& port, bool passive);
-  int GetFileDescriptor() const { return socket_file_descriptor_; }
+  [[nodiscard]] int GetFileDescriptor() const {
+    return socket_file_descriptor_;
+  }
 
  private:
   int socket_file_descriptor_;

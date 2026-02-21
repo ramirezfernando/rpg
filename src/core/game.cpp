@@ -4,7 +4,10 @@
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_video.h>
+#include <sys/_types/_ssize_t.h>
 
+#include <array>
+#include <cstddef>
 #include <memory>
 
 #include "constants/game_constants.h"
@@ -120,15 +123,17 @@ void Game::Update() {
   InputHandler::HandleInput(*player_, *hud_);
   NpcMovementHandler::UpdateNpcMovement(*npc_);
 
-  // Send local player state to server
-  std::string msg = "Hello from client";
+  // TODO(ramirezfernando): Send local player state to server.
+  const std::string msg = "Hello from client";
   client_->Send(msg.c_str(), msg.size());
 
-  // Receive updated NPC/other player state from server
-  char buf[1024];
-  ssize_t n = client_->Receive(buf, sizeof(buf));
+  // TODO(ramirezfernando): Receive updated other player state from server.
+  // TODO(ramirezfernando): Fix issue with debug recieve message is "Hello fr".
+  const size_t maxBufferSize = 1024;
+  std::array<char, maxBufferSize> buf{};
+  const ssize_t n = client_->Receive(buf.data(), sizeof(buf.data()));
   if (n > 0) {
-    buf[n] = '\0';
-    Logger::Debug("Game", "Received: " + std::string(buf));
+    buf.at(static_cast<size_t>(n)) = '\0';
+    Logger::Debug("Game", "Received: " + std::string(buf.data()));
   }
 }
