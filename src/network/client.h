@@ -14,8 +14,8 @@ class Client {
 
   static std::unique_ptr<Client> Create(const std::string& host,
                                         const std::string& port);
-  ssize_t Send(const void* buf, size_t len) const;
-  ssize_t Receive(void* buf, size_t len) const;
+  ssize_t Send(const void* buffer, size_t buffer_length) const;
+  ssize_t Receive(void* buffer, size_t buffer_length) const;
 
  private:
   explicit Client(int socket_file_descriptor)

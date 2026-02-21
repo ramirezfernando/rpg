@@ -48,13 +48,14 @@ std::unique_ptr<Server> Server::Create(const std::string& port) {
   return std::unique_ptr<Server>(new Server(socket_file_descriptor));
 }
 
-ssize_t Server::ReceiveFrom(void* buf, size_t len, sockaddr_storage& peer,
-                            socklen_t& peer_len) const {
-  peer_len = sizeof(peer);
+ssize_t Server::ReceiveFrom(void* buffer, size_t buffer_length,
+                            sockaddr_storage& client_address,
+                            socklen_t& client_address_length) const {
+  client_address_length = sizeof(client_address);
   const ssize_t bytes_recieved =
-      // NOLINTNEXTLINE(cppcoreguidelines-pro-type-cstyle-cast)
-      recvfrom(socket_file_descriptor_, buf, len, 0, (sockaddr*)&peer,
-               &peer_len);
+      recvfrom(socket_file_descriptor_, buffer, buffer_length, 0,
+               // NOLINTNEXTLINE(cppcoreguidelines-pro-type-cstyle-cast)
+               (sockaddr*)&client_address, &client_address_length);
   if (bytes_recieved == -1) {
     Logger::Error("Server", strerror(errno));
   }
@@ -63,12 +64,13 @@ ssize_t Server::ReceiveFrom(void* buf, size_t len, sockaddr_storage& peer,
   return bytes_recieved;
 }
 
-ssize_t Server::SendTo(const void* buf, size_t len,
-                       const sockaddr_storage& peer, socklen_t peer_len) const {
+ssize_t Server::SendTo(const void* buffer, size_t buffer_length,
+                       const sockaddr_storage& client_address,
+                       socklen_t client_address_length) const {
   const ssize_t bytes_sent =
-      sendto(socket_file_descriptor_, buf, len, 0,
+      sendto(socket_file_descriptor_, buffer, buffer_length, 0,
              // NOLINTNEXTLINE(cppcoreguidelines-pro-type-cstyle-cast)
-             (const sockaddr*)&peer, peer_len);
+             (const sockaddr*)&client_address, client_address_length);
   if (bytes_sent == -1) {
     Logger::Error("Server", strerror(errno));
   }

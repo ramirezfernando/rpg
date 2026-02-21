@@ -130,10 +130,10 @@ void Game::Update() {
   client_->Send(msg.c_str(), msg.size());
 
   // TODO(ramirezfernando): Receive updated other player state from server.
-  std::array<char, Constants::MAX_BUFFER_SIZE> buf{};
-  const ssize_t n = client_->Receive(buf.data(), buf.size());
-  if (n > 0) {
-    buf.at(static_cast<size_t>(n)) = '\0';
-    Logger::Debug("Game", "Received: " + std::string(buf.data()));
+  std::array<char, Constants::MAX_BUFFER_SIZE> buffer{};
+  const ssize_t bytes_received = client_->Receive(buffer.data(), buffer.size());
+  if (bytes_received > 0) {
+    buffer.at(static_cast<size_t>(bytes_received)) = '\0';
+    Logger::Debug("Game", "Received: " + std::string(buffer.data()));
   }
 }

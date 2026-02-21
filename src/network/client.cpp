@@ -55,8 +55,9 @@ std::unique_ptr<Client> Client::Create(const std::string& host,
   return std::unique_ptr<Client>(new Client(socket_file_descriptor));
 }
 
-ssize_t Client::Send(const void* buf, size_t len) const {
-  const ssize_t bytes_sent = send(socket_file_descriptor_, buf, len, 0);
+ssize_t Client::Send(const void* buffer, size_t buffer_length) const {
+  const ssize_t bytes_sent =
+      send(socket_file_descriptor_, buffer, buffer_length, 0);
   if (bytes_sent == -1) {
     Logger::Error("Client", strerror(errno));
   }
@@ -64,13 +65,13 @@ ssize_t Client::Send(const void* buf, size_t len) const {
   return bytes_sent;
 }
 
-ssize_t Client::Receive(void* buf, size_t len) const {
-  const ssize_t bytes_read_into_buffer =
-      recv(socket_file_descriptor_, buf, len, 0);
-  if (bytes_read_into_buffer == -1) {
+ssize_t Client::Receive(void* buffer, size_t buffer_length) const {
+  const ssize_t bytes_received =
+      recv(socket_file_descriptor_, buffer, buffer_length, 0);
+  if (bytes_received == -1) {
     Logger::Error("Client", strerror(errno));
   }
-  Logger::Debug("Client", "Received " + std::to_string(bytes_read_into_buffer) +
-                              " bytes");
-  return bytes_read_into_buffer;
+  Logger::Debug("Client",
+                "Received " + std::to_string(bytes_received) + " bytes");
+  return bytes_received;
 }
