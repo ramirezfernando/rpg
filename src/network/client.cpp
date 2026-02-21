@@ -17,12 +17,14 @@
 
 Client::~Client() {
   close(socket_file_descriptor_);
+  Logger::Debug("Client", "Destroyed");
 }
 
 std::unique_ptr<Client> Client::Create(const std::string& host,
                                        const std::string& port) {
   addrinfo* address_info = Network::GetAddressInfo(host, port, false);
   if (address_info == nullptr) {
+    Logger::Error("Client", "Failed to get address info");
     return nullptr;
   }
 
@@ -58,7 +60,7 @@ ssize_t Client::Send(const void* buf, size_t len) const {
   if (bytes_sent == -1) {
     Logger::Error("Client", strerror(errno));
   }
-  Logger::Debug("Client", "Send");
+  Logger::Debug("Client", "Sent " + std::to_string(bytes_sent) + " bytes");
   return bytes_sent;
 }
 
@@ -68,6 +70,7 @@ ssize_t Client::Receive(void* buf, size_t len) const {
   if (bytes_read_into_buffer == -1) {
     Logger::Error("Client", strerror(errno));
   }
-  Logger::Debug("Client", "Receive");
+  Logger::Debug("Client", "Received " + std::to_string(bytes_read_into_buffer) +
+                              " bytes");
   return bytes_read_into_buffer;
 }

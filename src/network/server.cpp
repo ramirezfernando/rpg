@@ -17,11 +17,13 @@
 
 Server::~Server() {
   close(socket_file_descriptor_);
+  Logger::Debug("Server", "Destroyed");
 }
 
 std::unique_ptr<Server> Server::Create(const std::string& port) {
   addrinfo* address_info = Network::GetAddressInfo("", port, true);
   if (address_info == nullptr) {
+    Logger::Error("Server", "Failed to get address info");
     return nullptr;
   }
 
@@ -56,7 +58,8 @@ ssize_t Server::ReceiveFrom(void* buf, size_t len, sockaddr_storage& peer,
   if (bytes_recieved == -1) {
     Logger::Error("Server", strerror(errno));
   }
-  Logger::Debug("Server", "ReceiveFrom");
+  Logger::Debug("Server",
+                "Received " + std::to_string(bytes_recieved) + " bytes");
   return bytes_recieved;
 }
 
@@ -69,6 +72,6 @@ ssize_t Server::SendTo(const void* buf, size_t len,
   if (bytes_sent == -1) {
     Logger::Error("Server", strerror(errno));
   }
-  Logger::Debug("Server", "SendTo");
+  Logger::Debug("Server", "Sent " + std::to_string(bytes_sent) + " bytes");
   return bytes_sent;
 }
