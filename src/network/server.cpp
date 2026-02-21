@@ -40,8 +40,9 @@ std::unique_ptr<Server> Server::Create(const std::string& port) {
   return std::unique_ptr<Server>(new Server(socket_file_descriptor));
 }
 
-ssize_t Server::ReceiveFrom(void* buf, size_t len, sockaddr_storage& peer) {
-  socklen_t peer_len = sizeof(peer);
+ssize_t Server::ReceiveFrom(void* buf, size_t len, sockaddr_storage& peer,
+                            socklen_t& peer_len) {
+  peer_len = sizeof(peer);
   const ssize_t bytes_recieved =
       recvfrom(GetFileDescriptor(), buf, len, 0, (sockaddr*)&peer, &peer_len);
   if (bytes_recieved == -1) {
@@ -52,9 +53,9 @@ ssize_t Server::ReceiveFrom(void* buf, size_t len, sockaddr_storage& peer) {
 }
 
 ssize_t Server::SendTo(const void* buf, size_t len,
-                       const sockaddr_storage& peer) {
+                       const sockaddr_storage& peer, socklen_t peer_len) {
   const ssize_t bytes_sent = sendto(GetFileDescriptor(), buf, len, 0,
-                                    (const sockaddr*)&peer, sizeof(peer));
+                                    (const sockaddr*)&peer, peer_len);
   if (bytes_sent == -1) {
     Logger::Error("Server", strerror(errno));
   }
