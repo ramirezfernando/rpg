@@ -11,7 +11,7 @@
 int main() {
   auto server = std::unique_ptr<Server>(Server::Create("8080"));
 
-  const size_t maxBufferSize = 1024;
+  constexpr size_t maxBufferSize = 1024;
   std::array<char, maxBufferSize> buf{};
   sockaddr_storage peer{};
   socklen_t peer_len = sizeof(peer);  // Will be updated by ReceiveFrom.

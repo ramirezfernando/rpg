@@ -9,6 +9,7 @@
 #include <array>
 #include <cstddef>
 #include <memory>
+#include <string>
 
 #include "constants/game_constants.h"
 #include "core/window.h"
@@ -129,7 +130,7 @@ void Game::Update() {
 
   // TODO(ramirezfernando): Receive updated other player state from server.
   // TODO(ramirezfernando): Fix issue with debug recieve message is "Hello fr".
-  const size_t maxBufferSize = 1024;
+  constexpr size_t maxBufferSize = 1024;
   std::array<char, maxBufferSize> buf{};
   const ssize_t n = client_->Receive(buf.data(), sizeof(buf.data()));
   if (n > 0) {

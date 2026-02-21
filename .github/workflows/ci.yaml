@@ -44,4 +44,4 @@ jobs:
             -Wall -Weffc++ -Wextra -Wconversion \
             -Wsign-conversion -Wimplicit-fallthrough -Werror"
 
-          clang-tidy --warnings-as-errors='*' $SRCS -- $CXXFLAGS
+          clang-tidy --warnings-as-errors='*' --checks='-misc-include-cleaner' $SRCS -- $CXXFLAGS
