@@ -10,48 +10,55 @@ CXXFLAGS += -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -Wimplicit-fal
 # Treat warnings as errors:
 CXXFLAGS += -Werror
 LDFLAGS = $(shell pkg-config --libs sdl3) $(shell pkg-config --libs sdl3-image)
-SRCS = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp)
+
+# All sources except the two mains
+SHARED_SRCS = $(filter-out src/client.cpp src/server.cpp, $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp))
+SHARED_OBJS = $(SHARED_SRCS:.cpp=.o)
+
+CLIENT_OBJ = src/client.o
+SERVER_OBJ = src/server.o
+
 HDRS = $(wildcard src/*.h) $(wildcard src/*/*.h) $(wildcard src/*/*/*.h)
-OBJS = $(SRCS:.cpp=.o)
 
-# Build the game.
-build:
-	$(CXX) $(OBJS) -o ./out/play $(LDFLAGS)
+# Build both binaries.
+build: $(SHARED_OBJS) $(CLIENT_OBJ) $(SERVER_OBJ)
+	$(CXX) $(SHARED_OBJS) $(CLIENT_OBJ) -o ./out/client $(LDFLAGS)
+	$(CXX) $(SHARED_OBJS) $(SERVER_OBJ) -o ./out/server $(LDFLAGS)
 
-# Build and run the game.
-game: $(OBJS)
-	$(CXX) $(OBJS) -o ./out/play $(LDFLAGS) && ./out/play
+# Build and run the client.
+game: $(SHARED_OBJS) $(CLIENT_OBJ)
+	$(CXX) $(SHARED_OBJS) $(CLIENT_OBJ) -o ./out/client $(LDFLAGS) && ./out/client
 
-# Debug using `leaks` tool that comes with macOS to check for memory leaks.
-# `export MallocStackLogging=1` to get file and line number of memory leaks.
-# Note: AddressSanitizer does not work on macOS Slicon.
-debug: CXXFLAGS += -g -DDEBUG_MODE
-debug: $(OBJS)
-	$(CXX) $(OBJS) -o ./out/play $(LDFLAGS)
-	leaks --atExit --list -- ./out/play
+debug-game: CXXFLAGS += -g -DDEBUG_MODE
+debug-game: $(SHARED_OBJS) $(CLIENT_OBJ)
+	$(CXX) $(SHARED_OBJS) $(CLIENT_OBJ) -o ./out/client $(LDFLAGS)
+
+# Build and run the server.
+server: $(SHARED_OBJS) $(SERVER_OBJ)
+	$(CXX) $(SHARED_OBJS) $(SERVER_OBJ) -o ./out/server $(LDFLAGS) && ./out/server
+
+debug-server: CXXFLAGS += -g -DDEBUG_MODE
+debug-server: $(SHARED_OBJS) $(SERVER_OBJ)
+	$(CXX) $(SHARED_OBJS) $(SERVER_OBJ) -o ./out/server $(LDFLAGS)
 
 # Compile all source files.
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean the object files and the executable.
+# Clean the object files and both executables.
 clean:
-	rm -f $(OBJS) ./out/play
+	rm -f $(SHARED_OBJS) $(CLIENT_OBJ) $(SERVER_OBJ) ./out/client ./out/server
 
 # Format files using clang-format.
 format:
-	clang-format --style=file:.clang-format -i $(SRCS) $(HDRS)
+	clang-format --style=file:.clang-format -i $(SHARED_SRCS) src/client.cpp src/server.cpp $(HDRS)
 
 # Run `clang-tidy` on source files.
 tidy:
-	clang-tidy $(SRCS) -- $(CXXFLAGS)
+	clang-tidy $(SHARED_SRCS) src/client.cpp src/server.cpp -- $(CXXFLAGS)
 
 # Run `clang-tidy` with automatic fixes.
 tidy-fix:
-	clang-tidy $(SRCS) --fix -- $(CXXFLAGS)
+	clang-tidy $(SHARED_SRCS) src/client.cpp src/server.cpp --fix -- $(CXXFLAGS)
 
-# .PHONY tells Make that those targets are not real files. By default, Make
-# assumes a target is a file it needs to build. So if you run `make build`, it
-# looks for a file called `build` in the directory. If that file exists and is
-# up to date, Make skips the target entirely and does nothing.
-.PHONY: build game debug clean format tidy tidy-fix
+.PHONY: build game server debug-game debug-server clean format tidy tidy-fix
