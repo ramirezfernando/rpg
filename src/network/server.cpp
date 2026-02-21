@@ -20,7 +20,7 @@ Server::~Server() {
 }
 
 std::unique_ptr<Server> Server::Create(const std::string& port) {
-  const addrinfo* address_info = Network::GetAddressInfo("", port, true);
+  addrinfo* address_info = Network::GetAddressInfo("", port, true);
   if (address_info == nullptr) {
     return nullptr;
   }
@@ -39,6 +39,8 @@ std::unique_ptr<Server> Server::Create(const std::string& port) {
     close(socket_file_descriptor);
     return nullptr;
   }
+
+  freeaddrinfo(address_info);
 
   Logger::Debug("Server", "Created");
   return std::unique_ptr<Server>(new Server(socket_file_descriptor));

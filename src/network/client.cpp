@@ -21,7 +21,7 @@ Client::~Client() {
 
 std::unique_ptr<Client> Client::Create(const std::string& host,
                                        const std::string& port) {
-  const addrinfo* address_info = Network::GetAddressInfo(host, port, false);
+  addrinfo* address_info = Network::GetAddressInfo(host, port, false);
   if (address_info == nullptr) {
     return nullptr;
   }
@@ -37,7 +37,10 @@ std::unique_ptr<Client> Client::Create(const std::string& host,
   const int status = connect(socket_file_descriptor, address_info->ai_addr,
                              address_info->ai_addrlen);
 
-  // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
+  freeaddrinfo(address_info);
+
+  // Set the socket to non-blocking mode so that `recv` calls do not block the
+  // game loop. NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
   fcntl(socket_file_descriptor, F_SETFL, O_NONBLOCK);
 
   if (status == -1) {
