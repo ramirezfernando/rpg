@@ -13,7 +13,6 @@
 #include "network/socket.h"
 #include "util/logger.h"
 
-// The typical client pattern is either connect → send/recv
 std::unique_ptr<Client> Client::Create(const std::string& host,
                                        const std::string& port) {
   const addrinfo* address_info = Socket::GetAddressInfo(host, port, false);
