@@ -12,6 +12,7 @@
 #include <string>
 
 #include "constants/game_constants.h"
+#include "constants/network_constants.h"
 #include "core/window.h"
 #include "entities/actions/npc_movement_handler.h"
 #include "entities/actions/player_input_handler.h"
@@ -129,8 +130,7 @@ void Game::Update() {
   client_->Send(msg.c_str(), msg.size());
 
   // TODO(ramirezfernando): Receive updated other player state from server.
-  constexpr size_t maxBufferSize = 1024;
-  std::array<char, maxBufferSize> buf{};
+  std::array<char, Constants::MAX_BUFFER_SIZE> buf{};
   const ssize_t n = client_->Receive(buf.data(), buf.size());
   if (n > 0) {
     buf.at(static_cast<size_t>(n)) = '\0';

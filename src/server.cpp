@@ -9,13 +9,15 @@
 #include <memory>
 #include <string>
 
-int main() {
-  auto server = std::unique_ptr<Server>(Server::Create("8080"));
+#include "constants/network_constants.h"
 
-  constexpr size_t maxBufferSize = 1024;
-  std::array<char, maxBufferSize> buf{};
+int main() {
+  auto server =
+      std::unique_ptr<Server>(Server::Create(std::to_string(Constants::PORT)));
+
+  std::array<char, Constants::MAX_BUFFER_SIZE> buf{};
   sockaddr_storage peer{};
-  socklen_t peer_len = sizeof(peer);  // Will be updated by ReceiveFrom.
+  socklen_t peer_len = sizeof(peer);
 
   while (true) {
     const ssize_t n =
