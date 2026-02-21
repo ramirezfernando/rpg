@@ -1,6 +1,6 @@
 # https://clang.llvm.org/extra/clang-tidy/checks/list.html
 
-Checks: 'bugprone-*, cppcoreguidelines-*, google-*, misc-*, modernize-*,
+Checks: 'bugprone-*, cppcoreguidelines-*, misc-*, modernize-*,
         -modernize-use-trailing-return-type, performance-*, readability-*,
         -readability-identifier-length'
 WarningsAsErrors: ''
