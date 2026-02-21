@@ -9,6 +9,7 @@
 #include "cache/cache.h"
 #include "entities/entity.h"
 #include "graphics/renderer.h"
+#include "network/client.h"
 #include "ui/hud.h"
 #include "window.h"
 #include "world/map.h"
@@ -36,4 +37,5 @@ class Game {
   std::unique_ptr<Entity> npc_;
   std::unique_ptr<Map> map_;
   std::unique_ptr<HUD> hud_;
+  std::unique_ptr<Client> client_;
 };

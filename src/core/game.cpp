@@ -58,6 +58,11 @@ Game::Game() {
 
   hud_ = std::make_unique<HUD>();
   Logger::Debug("Game", "HUD created");
+
+  client_ = Client::Create("127.0.0.1", "8080");
+  if (client_ != nullptr) {
+    Logger::Debug("Game", "Client created");
+  }
 }
 
 Game::~Game() {
@@ -114,4 +119,16 @@ void Game::Update() {
   }
   InputHandler::HandleInput(*player_, *hud_);
   NpcMovementHandler::UpdateNpcMovement(*npc_);
+
+  // Send local player state to server
+  std::string msg = "Hello from client";
+  client_->Send(msg.c_str(), msg.size());
+
+  // Receive updated NPC/other player state from server
+  char buf[1024];
+  ssize_t n = client_->Receive(buf, sizeof(buf));
+  if (n > 0) {
+    buf[n] = '\0';
+    Logger::Debug("Game", "Received: " + std::string(buf));
+  }
 }
