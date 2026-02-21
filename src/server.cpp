@@ -7,6 +7,7 @@
 #include <array>
 #include <cstddef>
 #include <memory>
+#include <string>
 
 int main() {
   auto server = std::unique_ptr<Server>(Server::Create("8080"));

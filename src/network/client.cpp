@@ -12,12 +12,16 @@
 #include <memory>
 #include <string>
 
-#include "network/socket.h"
 #include "util/logger.h"
+#include "util/network.h"
+
+Client::~Client() {
+  close(socket_file_descriptor_);
+}
 
 std::unique_ptr<Client> Client::Create(const std::string& host,
                                        const std::string& port) {
-  const addrinfo* address_info = Socket::GetAddressInfo(host, port, false);
+  const addrinfo* address_info = Network::GetAddressInfo(host, port, false);
   if (address_info == nullptr) {
     return nullptr;
   }
@@ -46,8 +50,8 @@ std::unique_ptr<Client> Client::Create(const std::string& host,
   return std::unique_ptr<Client>(new Client(socket_file_descriptor));
 }
 
-ssize_t Client::Send(const void* buf, size_t len) {
-  const ssize_t bytes_sent = send(GetFileDescriptor(), buf, len, 0);
+ssize_t Client::Send(const void* buf, size_t len) const {
+  const ssize_t bytes_sent = send(socket_file_descriptor_, buf, len, 0);
   if (bytes_sent == -1) {
     Logger::Error("Client", strerror(errno));
   }
@@ -55,8 +59,9 @@ ssize_t Client::Send(const void* buf, size_t len) {
   return bytes_sent;
 }
 
-ssize_t Client::Receive(void* buf, size_t len) {
-  const ssize_t bytes_read_into_buffer = recv(GetFileDescriptor(), buf, len, 0);
+ssize_t Client::Receive(void* buf, size_t len) const {
+  const ssize_t bytes_read_into_buffer =
+      recv(socket_file_descriptor_, buf, len, 0);
   if (bytes_read_into_buffer == -1) {
     Logger::Error("Client", strerror(errno));
   }

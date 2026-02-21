@@ -1,5 +1,4 @@
 #pragma once
-
 #include "entities/entity.h"
 #include "world/map.h"
 

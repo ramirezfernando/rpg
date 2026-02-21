@@ -1,24 +1,19 @@
-#include "socket.h"
+#include "network.h"
 
 #include <netdb.h>
 #include <sys/socket.h>
-#include <unistd.h>
 
 #include <cerrno>
+#include <cstddef>
 #include <cstring>
 #include <string>
 
 #include "util/logger.h"
 
-Socket::Socket(int socket_file_descriptor)
-    : socket_file_descriptor_{socket_file_descriptor} {}
+namespace Network {
 
-Socket::~Socket() {
-  close(socket_file_descriptor_);
-}
-
-struct addrinfo* Socket::GetAddressInfo(const std::string& host,
-                                        const std::string& port, bool passive) {
+struct addrinfo* GetAddressInfo(const std::string& host,
+                                const std::string& port, bool passive) {
   struct addrinfo hints{};
   // NOLINTNEXTLINE(misc-const-correctness)
   struct addrinfo* result{nullptr};
@@ -39,3 +34,5 @@ struct addrinfo* Socket::GetAddressInfo(const std::string& host,
   // TODO(ramirezfernando): Be sure to free this pointer.
   return result;
 }
+
+}  // namespace Network
