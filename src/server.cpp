@@ -19,7 +19,7 @@ int main() {
 
   while (true) {
     const ssize_t n =
-        server->ReceiveFrom(buf.data(), sizeof(buf.data()), peer, peer_len);
+        server->ReceiveFrom(buf.data(), buf.size(), peer, peer_len);
     if (n <= 0) {
       continue;
     }
