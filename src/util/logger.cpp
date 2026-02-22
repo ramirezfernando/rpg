@@ -1,7 +1,6 @@
 #include "logger.h"
 
-#include <format>
-#include <iostream>
+#include <print>
 #include <string>
 #include <utility>
 
@@ -38,17 +37,14 @@ void Log(Level level, const std::string& message) {
   if (!ShouldLog(level)) {
     return;
   }
-  // Note: Do not use `std::endl` as it implicitly flushes the buffer.
-  std::cout << std::format("{} {}\n", LevelToString(level), message);
+  std::println("{} {}", LevelToString(level), message);
 }
 
 void Log(Level level, const std::string& context, const std::string& message) {
   if (!ShouldLog(level)) {
     return;
   }
-  // Note: Do not use `std::endl` as it implicitly flushes the buffer.
-  std::cout << std::format("{}[{}] {}\n", LevelToString(level), context,
-                           message);
+  std::println("{}[{}] {}", LevelToString(level), context, message);
 }
 
 void Debug(const std::string& message) {
