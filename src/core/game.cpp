@@ -126,14 +126,14 @@ void Game::Update() {
   NpcMovementHandler::UpdateNpcMovement(*npc_);
 
   // TODO(ramirezfernando): Send local player state to server.
-  const std::string msg = "Hello from client";
+  const auto& [x, y] = player_->GetCoordinate();
+  const std::string msg = std::to_string(x) + "_" + std::to_string(y);
   client_->Send(msg.c_str(), msg.size());
 
   // TODO(ramirezfernando): Receive updated other player state from server.
   std::array<char, Constants::MAX_BUFFER_SIZE> buffer{};
   const ssize_t bytes_received = client_->Receive(buffer.data(), buffer.size());
   if (bytes_received > 0) {
-    buffer.at(static_cast<size_t>(bytes_received)) = '\0';
     Logger::Debug("Game", "Received: " + std::string(buffer.data()));
   }
 }
