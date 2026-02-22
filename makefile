@@ -9,7 +9,9 @@ CXXFLAGS += -isystem $(shell pkg-config --variable=includedir sdl3)
 CXXFLAGS += -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -Wimplicit-fallthrough
 # Treat warnings as errors:
 CXXFLAGS += -Werror
+
 LDFLAGS = $(shell pkg-config --libs sdl3) $(shell pkg-config --libs sdl3-image)
+LDFLAGS += -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++
 
 # All sources except the two mains
 SHARED_SRCS = $(filter-out src/client.cpp src/server.cpp, $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp))
