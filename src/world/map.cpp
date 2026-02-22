@@ -2,7 +2,7 @@
 
 #include <array>
 #include <cstddef>
-#include <optional>
+#include <expected>
 #include <ranges>
 #include <string>
 #include <vector>
@@ -154,7 +154,8 @@ Map::GetOrderedTileMapLayers() {
           Constants::TILE_MAP_CLIFF, Constants::TILE_MAP_FENCE};
 }
 
-std::optional<int> Map::GetTopmostTile(Sprite::Coordinate coordinate) {
+std::expected<int, std::string> Map::GetTopmostTile(
+    Sprite::Coordinate coordinate) {
   const int index = Math::GetRowMajorOrderIndexFromCoordinates(coordinate);
   auto ordered_tile_map_layers = GetOrderedTileMapLayers();
   // Iterate in reverse order without modifying `GetOrderedTileMapLayers`.
@@ -170,7 +171,7 @@ std::optional<int> Map::GetTopmostTile(Sprite::Coordinate coordinate) {
       }
     }
   }
-  return std::nullopt;
+  return std::unexpected("Topmost tile not found");
 }
 
 bool Map::IsCollisionTile(int tile) {

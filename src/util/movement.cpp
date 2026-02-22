@@ -1,12 +1,13 @@
 #include "movement.h"
 
 #include <cmath>
-#include <optional>
+#include <expected>
 
 #include "constants/entity_constants.h"
 #include "constants/sprite_constants.h"
 #include "entities/entity.h"
 #include "graphics/sprite.h"
+#include "util/logger.h"
 #include "world/map.h"
 
 namespace {
@@ -47,16 +48,24 @@ bool IsMovementValid(Sprite::Coordinate coordinate) {
   }
 
   // Check collision by tile.
-  std::optional<int> tile = Map::GetTopmostTile(center_coordinate);
-  return tile.has_value() && !Map::IsCollisionTile(tile.value());
+  auto result = Map::GetTopmostTile(center_coordinate);
+  if (result.has_value()) {
+    return !Map::IsCollisionTile(result.value());
+  }
+  Logger::Error("Movement", result.error());
+  return false;
 }
 
 bool ShouldRenderBehindFence(Sprite::Coordinate coordinate) {
   const Sprite::Coordinate bottom_center_coordinate =
       GetEntityBottomCenterCoordinate(coordinate);
 
-  std::optional<int> tile = Map::GetTopmostTile(bottom_center_coordinate);
-  return tile.has_value() && Map::IsCollisionTile(tile.value());
+  auto result = Map::GetTopmostTile(bottom_center_coordinate);
+  if (result.has_value()) {
+    return Map::IsCollisionTile(result.value());
+  }
+  Logger::Error("Movement", result.error());
+  return false;
 }
 
 }  // anonymous namespace
