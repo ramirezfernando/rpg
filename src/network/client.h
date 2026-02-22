@@ -20,5 +20,5 @@ class Client {
  private:
   explicit Client(int socket_file_descriptor)
       : socket_file_descriptor_(socket_file_descriptor) {}
-  int socket_file_descriptor_;
+  int socket_file_descriptor_{-1};
 };
