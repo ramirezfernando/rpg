@@ -1,14 +1,15 @@
 name: CI
 
-on:
-  push:
-    branches: ["main"]
-    paths:
-      - 'src/**'
-  pull_request:
-    branches: ["main"]
-    paths:
-      - 'src/**'
+# Temporarily disable automatic triggers to avoid spamming CI.
+on: workflow_dispatch
+  # push:
+  #   branches: ["main"]
+  #   paths:
+  #     - 'src/**'
+  # pull_request:
+  #   branches: ["main"]
+  #   paths:
+  #     - 'src/**'
 
 jobs:
   # Run `clang-tidy` static analysis.
