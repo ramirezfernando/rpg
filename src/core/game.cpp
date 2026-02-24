@@ -6,13 +6,11 @@
 #include <SDL3/SDL_video.h>
 #include <sys/_types/_ssize_t.h>
 
-#include <array>
 #include <cstddef>
 #include <memory>
 #include <string>
 
 #include "constants/game_constants.h"
-#include "constants/network_constants.h"
 #include "core/window.h"
 #include "entities/actions/npc_movement_handler.h"
 #include "entities/actions/player_input_handler.h"
@@ -26,6 +24,11 @@
 #include "world/map.h"
 
 namespace {
+
+struct Payload {
+  int x_pos;
+  int y_pos;
+};
 
 bool IsBehindHouse(Sprite::Coordinate coordinate) {
   const int house_x_position = 670;
@@ -126,14 +129,15 @@ void Game::Update() {
   NpcMovementHandler::UpdateNpcMovement(*npc_);
 
   // TODO(ramirezfernando): Send local player state to server.
-  const auto& [x, y] = player_->GetCoordinate();
-  const std::string msg = std::to_string(x) + "_" + std::to_string(y);
-  client_->Send(msg.c_str(), msg.size());
+  const auto& [x_pos, y_pos] = player_->GetCoordinate();
+  Payload payload = {.x_pos = x_pos, .y_pos = y_pos};
+  client_->Send(&payload, sizeof(payload));
 
   // TODO(ramirezfernando): Receive updated other player state from server.
-  std::array<char, Constants::MAX_BUFFER_SIZE> buffer{};
-  const ssize_t bytes_received = client_->Receive(buffer.data(), buffer.size());
+  Payload received{};
+  const ssize_t bytes_received = client_->Receive(&received, sizeof(received));
   if (bytes_received > 0) {
-    Logger::Debug("Game", "Received: " + std::string(buffer.data()));
+    Logger::Debug("Game", "Received: " + std::to_string(received.x_pos) + ", " +
+                              std::to_string(received.y_pos));
   }
 }
