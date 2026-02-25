@@ -70,7 +70,12 @@ ssize_t Client::Receive(void* buffer, size_t buffer_length) const {
   const ssize_t bytes_received =
       recv(socket_file_descriptor_, buffer, buffer_length, 0);
   if (bytes_received == -1) {
-    Logger::Error("Client", strerror(errno));
+    // Non‑blocking socket frequently returns EWOULDBLOCK/EAGAIN when no data is
+    // available; this is *not* an error we want to spam the logs about. Callers
+    // can still detect the -1 return value and decide how to proceed.
+    if (errno != EWOULDBLOCK && errno != EAGAIN) {
+      Logger::Error("Client", strerror(errno));
+    }
   } else {
     Logger::Debug("Client",
                   "Received " + std::to_string(bytes_received) + " bytes");
