@@ -20,9 +20,9 @@ int main() {
   socklen_t client_address_length = sizeof(client_address);
 
   while (true) {
-    const ssize_t n = server->ReceiveFrom(
+    const ssize_t bytes_received = server->ReceiveFrom(
         buffer.data(), buffer.size(), client_address, client_address_length);
-    if (n <= 0) {
+    if (bytes_received == -1) {
       continue;
     }
 
@@ -30,8 +30,8 @@ int main() {
     // TODO(ramirezfernando): Run authoritative game logic.
     // TODO(ramirezfernando): Serialize and broadcast updated state back.
 
-    server->SendTo(buffer.data(), static_cast<size_t>(n), client_address,
-                   client_address_length);
+    server->SendTo(buffer.data(), static_cast<size_t>(bytes_received),
+                   client_address, client_address_length);
   }
 
   return 0;
