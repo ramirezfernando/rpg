@@ -37,6 +37,9 @@ class Entity {
 
   // Setters:
   void SetAction(Action action) { action_ = action; }
+  void SetCoordinate(int x_pos, int y_pos) {
+    coordinate_ = {.x_pos = x_pos, .y_pos = y_pos};
+  }
   void SetCoordinate(Sprite::Coordinate coordinate) {
     coordinate_ = coordinate;
   }

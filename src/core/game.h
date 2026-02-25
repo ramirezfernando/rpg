@@ -30,10 +30,12 @@ class Game {
   static SDL_Event event_;
 
  private:
+  uint32_t client_id_{0};
   bool is_running_{false};
   std::unique_ptr<Window> window_;
   std::unique_ptr<Renderer> renderer_;
   std::unique_ptr<Entity> player_;
+  std::map<uint32_t, std::unique_ptr<Entity>> others_players_;
   std::unique_ptr<Entity> npc_;
   std::unique_ptr<Map> map_;
   std::unique_ptr<HUD> hud_;

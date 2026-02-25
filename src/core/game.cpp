@@ -19,16 +19,12 @@
 #include "entities/player.h"
 #include "graphics/renderer.h"
 #include "graphics/sprite.h"
+#include "network/packet.h"
 #include "ui/hud.h"
 #include "util/logger.h"
 #include "world/map.h"
 
 namespace {
-
-struct Payload {
-  int x_pos;
-  int y_pos;
-};
 
 bool IsBehindHouse(Sprite::Coordinate coordinate) {
   const int house_x_position = 670;
@@ -115,6 +111,11 @@ void Game::Render() {
 
   hud_->RenderHotBar();
 
+  // Render other players.
+  for (const auto& [_, other_player] : others_players_) {
+    other_player->Render();
+  }
+
   SDL_RenderPresent(Renderer::renderer_);  // Double buffering
 }
 
@@ -126,18 +127,56 @@ void Game::Update() {
     }
   }
   InputHandler::HandleInput(*player_, *hud_);
-  NpcMovementHandler::UpdateNpcMovement(*npc_);
+  // TODO: Add back NpcMovementHandler, temporarily disable since it's annoying
+  // to have the npc move around while testing player movement and multiplayer.
+  // NpcMovementHandler::UpdateNpcMovement(*npc_);
 
-  // TODO(ramirezfernando): Send local player state to server.
   const auto& [x_pos, y_pos] = player_->GetCoordinate();
-  Payload payload = {.x_pos = x_pos, .y_pos = y_pos};
-  client_->Send(&payload, sizeof(payload));
+  Packet packet = {client_id_, x_pos, y_pos};
+  // If it's the first time sending a packet, the client ID will be 0, so the
+  // server will respond with a packet containing the assigned client ID which
+  // we store in `client_id_` for future packets.
+  if (client_id_ == 0 && client_->Send(&packet, sizeof(packet)) != -1) {
+    Packet first_packet_from_server{};
+    if (client_->Receive(&first_packet_from_server,
+                         sizeof(first_packet_from_server)) > 0) {
+      client_id_ = first_packet_from_server.id;
+      Logger::Debug("Game", "Received client ID from server: " +
+                                std::to_string(client_id_));
+    }
+  }
 
-  // TODO(ramirezfernando): Receive updated other player state from server.
-  Payload received{};
-  const ssize_t bytes_received = client_->Receive(&received, sizeof(received));
-  if (bytes_received > 0) {
-    Logger::Debug("Game", "Received: " + std::to_string(received.x_pos) + ", " +
-                              std::to_string(received.y_pos));
+  // Read player states (up to 5) from the server and update existing remote
+  // players or create new ones if necessary.
+  Packet packets[5];
+  const ssize_t bytes_received = client_->Receive(packets, sizeof(packets));
+  if (bytes_received == -1) {
+    return;
+  }
+
+  const size_t player_states =
+      static_cast<size_t>(bytes_received) / sizeof(Packet);
+  for (size_t i = 0; i < player_states; ++i) {
+    auto& packet = packets[i];
+    // Ignore packets from the server about our own player state.
+    // TODO: Do not send our own player state back to us from the server.
+    if (packet.id == client_id_) {
+      continue;
+    }
+
+    // Update existing player or create a new one if we don't already have a
+    // record of that player ID in `others_players_`.
+    auto it = others_players_.find(packet.id);
+    if (it == others_players_.end()) {
+      auto new_player = std::make_unique<Player>();
+      new_player->SetCoordinate(packet.x_pos, packet.y_pos);
+      others_players_[packet.id] = std::move(new_player);
+      Logger::Debug("Game",
+                    "Added new player with ID: " + std::to_string(packet.id));
+    } else {
+      it->second->SetCoordinate(packet.x_pos, packet.y_pos);
+      Logger::Debug("Game",
+                    "Updated player with ID: " + std::to_string(packet.id));
+    }
   }
 }
