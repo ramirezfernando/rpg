@@ -22,8 +22,9 @@ struct PlayerState {
   socklen_t client_address_length;
 };
 
+// Client ID (or packet ID) is the key, `PlayerState` is the value.
 static std::map<uint32_t, PlayerState> players;
-static uint32_t nextId = 1;
+static uint32_t nextClientId = 1;
 
 int main() {
   auto server =
@@ -41,9 +42,10 @@ int main() {
       continue;
     }
 
-    // Register a new player if the id is 0 (convention for "new player").
+    // Register a new player if the client id is 0 (convention for "new
+    // player").
     if (packet.id == 0) {
-      packet.id = nextId++;
+      packet.id = nextClientId++;
       players[packet.id] = {packet.id, packet.x_pos, packet.y_pos,
                             client_address, client_address_length};
       server->SendTo(&packet, sizeof(packet), client_address,
@@ -61,8 +63,9 @@ int main() {
     // Build a snapshot containing every player's state.
     std::vector<Packet> snapshot;
     snapshot.reserve(players.size());
-    for (auto const& [_, state] : players)
+    for (auto const& [_, state] : players) {
       snapshot.push_back({state.id, state.x, state.y});
+    }
 
     // Broadcast the snapshot to every client.
     for (auto const& [_, state] : players) {
