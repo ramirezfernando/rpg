@@ -116,52 +116,50 @@ void Game::Update() {
   }
   InputHandler::HandleInput(*player_, *hud_);
 
-  const auto& [x_pos, y_pos] = player_->GetCoordinate();
-  Packet packet = {client_id_, x_pos, y_pos};
-  // If it's the first time sending a packet, the client ID will be 0, so the
-  // server will respond with a packet containing the assigned client ID which
-  // we store in `client_id_` for future packets.
-  if (client_id_ == 0 && client_->Send(&packet, sizeof(packet)) != -1) {
-    Packet first_packet_from_server{};
-    if (client_->Receive(&first_packet_from_server,
-                         sizeof(first_packet_from_server)) > 0) {
-      client_id_ = first_packet_from_server.id;
-      Logger::Debug("Game", "Received client ID from server: " +
-                                std::to_string(client_id_));
-    }
-  }
-
-  // Read player states (up to 5) from the server and update existing remote
-  // players or create new ones if necessary.
   Packet packets[5];
   const ssize_t bytes_received = client_->Receive(packets, sizeof(packets));
-  if (bytes_received == -1) {
-    return;
+  if (bytes_received > 0) {
+    const size_t player_states =
+        static_cast<size_t>(bytes_received) / sizeof(Packet);
+    for (size_t i = 0; i < player_states; ++i) {
+      auto& packet = packets[i];
+
+      // If we haven't been assigned an ID yet, the very first non‑zero packet
+      // we see is the one the server sent us with our new client ID, stored in
+      // `client_id_` for future reference.
+      if (client_id_ == 0 && packet.id != 0) {
+        client_id_ = packet.id;
+        Logger::Debug("Game", "Received client ID from server: " +
+                                  std::to_string(client_id_));
+      }
+
+      // Skip information about ourselves.
+      if (client_id_ == packet.id) {
+        Logger::Debug("Game", "Skipping packet with our own client ID: " +
+                                  std::to_string(packet.id));
+        continue;
+      }
+
+      auto it = others_players_.find(packet.id);
+      if (it == others_players_.end()) {
+        auto new_player = std::make_unique<Player>();
+        new_player->SetCoordinate(packet.x_pos, packet.y_pos);
+        others_players_[packet.id] = std::move(new_player);
+        Logger::Debug("Game",
+                      "Added new player with ID: " + std::to_string(packet.id));
+      } else {
+        it->second->SetCoordinate(packet.x_pos, packet.y_pos);
+        Logger::Debug("Game",
+                      "Updated player with ID: " + std::to_string(packet.id));
+      }
+    }
   }
 
-  const size_t player_states =
-      static_cast<size_t>(bytes_received) / sizeof(Packet);
-  for (size_t i = 0; i < player_states; ++i) {
-    auto& packet = packets[i];
-    // Ignore packets from the server about our own player state.
-    // TODO: Do not send our own player state back to us from the server.
-    if (packet.id == client_id_) {
-      continue;
-    }
-
-    // Update existing player or create a new one if we don't already have a
-    // record of that player ID in `others_players_`.
-    auto it = others_players_.find(packet.id);
-    if (it == others_players_.end()) {
-      auto new_player = std::make_unique<Player>();
-      new_player->SetCoordinate(packet.x_pos, packet.y_pos);
-      others_players_[packet.id] = std::move(new_player);
-      Logger::Debug("Game",
-                    "Added new player with ID: " + std::to_string(packet.id));
-    } else {
-      it->second->SetCoordinate(packet.x_pos, packet.y_pos);
-      Logger::Debug("Game",
-                    "Updated player with ID: " + std::to_string(packet.id));
-    }
-  }
+  // Send our current state. If `client_id_` is still zero the server will treat
+  // it as a registration packet and reply with an ID).
+  const auto& [x_pos, y_pos] = player_->GetCoordinate();
+  Packet out{client_id_, x_pos, y_pos};
+  client_->Send(&out, sizeof(out));
+  Logger::Debug("Game", "Sent our state to server from client ID: " +
+                            std::to_string(client_id_));
 }
