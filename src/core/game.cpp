@@ -15,7 +15,6 @@
 #include "entities/actions/npc_movement_handler.h"
 #include "entities/actions/player_input_handler.h"
 #include "entities/entity.h"
-#include "entities/npc.h"
 #include "entities/player.h"
 #include "graphics/renderer.h"
 #include "graphics/sprite.h"
@@ -54,9 +53,6 @@ Game::Game() {
   player_ = std::make_unique<Player>();
   Logger::Debug("Game", "Player character created");
 
-  npc_ = std::make_unique<Npc>();
-  Logger::Debug("Game", "NPC character created");
-
   map_ = std::make_unique<Map>();
   Logger::Debug("Game", "Map created");
 
@@ -86,15 +82,10 @@ void Game::Render() {
 
   const bool player_behind =
       player_->IsBehindFence() || IsBehindHouse(player_->GetCoordinate());
-  const bool npc_behind =
-      npc_->IsBehindFence() || IsBehindHouse(npc_->GetCoordinate());
 
   // Render characters that should appear behind fence/house
   if (player_behind) {
     player_->Render();
-  }
-  if (npc_behind) {
-    npc_->Render();
   }
 
   map_->RenderWoodFence();
@@ -104,9 +95,6 @@ void Game::Render() {
   // Render characters that should appear in front of fence/house
   if (!player_behind) {
     player_->Render();
-  }
-  if (!npc_behind) {
-    npc_->Render();
   }
 
   hud_->RenderHotBar();
@@ -127,9 +115,6 @@ void Game::Update() {
     }
   }
   InputHandler::HandleInput(*player_, *hud_);
-  // TODO: Add back NpcMovementHandler, temporarily disable since it's annoying
-  // to have the npc move around while testing player movement and multiplayer.
-  // NpcMovementHandler::UpdateNpcMovement(*npc_);
 
   const auto& [x_pos, y_pos] = player_->GetCoordinate();
   Packet packet = {client_id_, x_pos, y_pos};

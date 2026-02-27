@@ -36,7 +36,6 @@ class Game {
   std::unique_ptr<Renderer> renderer_;
   std::unique_ptr<Entity> player_;
   std::map<uint32_t, std::unique_ptr<Entity>> others_players_;
-  std::unique_ptr<Entity> npc_;
   std::unique_ptr<Map> map_;
   std::unique_ptr<HUD> hud_;
   std::unique_ptr<Client> client_;
