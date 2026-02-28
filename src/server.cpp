@@ -33,6 +33,7 @@ uint32_t nextClientId = 1;
 
 }  // anonymous namespace
 
+// NOLINTNEXTLINE(bugprone-exception-escape)
 int main() {
   auto server =
       std::unique_ptr<Server>(Server::Create(std::to_string(Constants::PORT)));
@@ -73,6 +74,7 @@ int main() {
     // Build a snapshot containing every player's state.
     std::vector<Packet> snapshot;
     snapshot.reserve(players.size());
+
     for (auto const& [_, state] : players) {
       snapshot.push_back({state.id, state.x, state.y});
     }
