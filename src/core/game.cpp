@@ -158,7 +158,7 @@ void Game::Update() {
   // Send our current state. If `client_id_` is still zero the server will treat
   // it as a registration packet and reply with an ID).
   const auto& [x_pos, y_pos] = player_->GetCoordinate();
-  Packet out{client_id_, x_pos, y_pos};
+  Packet out{.id = client_id_, .x_pos = x_pos, .y_pos = y_pos};
   client_->Send(&out, sizeof(out));
   Logger::Debug("Game", "Sent our state to server from client ID: " +
                             std::to_string(client_id_));

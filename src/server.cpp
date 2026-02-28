@@ -46,8 +46,11 @@ int main() {
     // player").
     if (packet.id == 0) {
       packet.id = nextClientId++;
-      players[packet.id] = {packet.id, packet.x_pos, packet.y_pos,
-                            client_address, client_address_length};
+      players[packet.id] = {.id = packet.id,
+                            .x = packet.x_pos,
+                            .y = packet.y_pos,
+                            .client_address = client_address,
+                            .client_address_length = client_address_length};
       server->SendTo(&packet, sizeof(packet), client_address,
                      client_address_length);
       Logger::Debug("Server",
