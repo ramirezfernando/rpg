@@ -9,10 +9,10 @@
 #include <cstddef>
 #include <memory>
 #include <string>
+#include <utility>
 
 #include "constants/game_constants.h"
 #include "core/window.h"
-#include "entities/actions/npc_movement_handler.h"
 #include "entities/actions/player_input_handler.h"
 #include "entities/entity.h"
 #include "entities/player.h"
