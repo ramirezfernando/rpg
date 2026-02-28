@@ -16,6 +16,8 @@
 #include "network/packet.h"
 #include "util/logger.h"
 
+namespace {
+
 struct PlayerState {
   uint32_t id;
   int32_t x, y;
@@ -24,8 +26,12 @@ struct PlayerState {
 };
 
 // Client ID (or packet ID) is the key, `PlayerState` is the value.
-static std::map<uint32_t, PlayerState> players;
-static uint32_t nextClientId = 1;
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+std::map<uint32_t, PlayerState> players;
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+uint32_t nextClientId = 1;
+
+}  // anonymous namespace
 
 int main() {
   auto server =
