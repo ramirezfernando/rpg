@@ -6,6 +6,7 @@
 #include <SDL3/SDL_video.h>
 #include <sys/_types/_ssize_t.h>
 
+#include <array>
 #include <cstddef>
 #include <memory>
 #include <string>
@@ -116,13 +117,14 @@ void Game::Update() {
   }
   InputHandler::HandleInput(*player_, *hud_);
 
-  Packet packets[5];
-  const ssize_t bytes_received = client_->Receive(packets, sizeof(packets));
+  std::array<Packet, Constants::MAX_PLAYERS> packets{};
+  const ssize_t bytes_received =
+      client_->Receive(packets.data(), sizeof(packets));
   if (bytes_received > 0) {
     const size_t player_states =
         static_cast<size_t>(bytes_received) / sizeof(Packet);
     for (size_t i = 0; i < player_states; ++i) {
-      auto& packet = packets[i];
+      auto& packet = packets.at(i);
 
       // If we haven't been assigned an ID yet, the very first non‑zero packet
       // we see is the one the server sent us with our new client ID, stored in

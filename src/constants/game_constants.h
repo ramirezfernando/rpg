@@ -12,6 +12,8 @@ namespace Constants {
 // Delay between frames in milliseconds.
 inline constexpr const Uint64 FRAME_DELAY = NANOSECONDS_PER_SECOND / FRAME_RATE;
 
+inline constexpr int MAX_PLAYERS = 5;
+
 // The size of the SDL3 window.
 inline constexpr const int WINDOW_SIZE = 768;
 
