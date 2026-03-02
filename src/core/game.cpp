@@ -119,6 +119,12 @@ void Game::Update() {
 
   if (IsMultiplayer()) {
     MultiplayerSync();
+  } else {
+    // TODO(ramirezfernando): Clear other players when toggling out of
+    // multiplayer mode. Notify players of disconnection instead of just
+    // removing them from our game, that way other clients can also remove them
+    // from their game.
+    others_players_.clear();
   }
 }
 
