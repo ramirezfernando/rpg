@@ -18,8 +18,7 @@ class InputHandler {
   // Getter that turns `SDL_GetKeyboardState` dumb pointer into a smart pointer.
   static std::span<const bool> GetKeyboardState();
 
-  static bool AcceptInputAfterDelay(const Uint64 last_input_time,
-                                    const Uint64 delay);
+  static bool AcceptInputAfterDelay(Uint64 last_input_time, Uint64 delay);
 
   // Get keyboard state and compute movement delta.
   static void GetMovementInput(Sprite::Coordinate& coordinate, bool& is_running,

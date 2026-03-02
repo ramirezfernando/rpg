@@ -2,6 +2,8 @@
 
 #include <SDL3/SDL_keyboard.h>
 #include <SDL3/SDL_scancode.h>
+#include <SDL3/SDL_stdinc.h>
+#include <SDL3/SDL_timer.h>
 
 #include <cstddef>
 #include <ranges>
@@ -16,7 +18,13 @@
 #include "util/logger.h"
 #include "util/movement.h"
 
-static Uint64 last_input_time = 0;
+namespace {
+
+constexpr Uint64 ENTITY_MOVEMENT_INPUT_DELAY = 500;
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+Uint64 last_input_time = 0;
+
+}  // anonymous namespace
 
 bool InputHandler::HandleInput(Game& game, Entity& player, HUD& hud) {
 
@@ -27,7 +35,7 @@ bool InputHandler::HandleInput(Game& game, Entity& player, HUD& hud) {
   // Get input from keyboard.
   GetMovementInput(coordinate, is_running, facing_direction);
   GetHudInput(hud);
-  if (AcceptInputAfterDelay(last_input_time, 500)) {
+  if (AcceptInputAfterDelay(last_input_time, ENTITY_MOVEMENT_INPUT_DELAY)) {
     GetTriggerMultiplayerInput(game);
   }
 
