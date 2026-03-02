@@ -16,6 +16,8 @@
 #include "util/logger.h"
 #include "util/movement.h"
 
+static Uint64 last_input_time = 0;
+
 bool InputHandler::HandleInput(Game& game, Entity& player, HUD& hud) {
 
   Sprite::Coordinate coordinate{.x_pos = 0, .y_pos = 0};
@@ -25,7 +27,9 @@ bool InputHandler::HandleInput(Game& game, Entity& player, HUD& hud) {
   // Get input from keyboard.
   GetMovementInput(coordinate, is_running, facing_direction);
   GetHudInput(hud);
-  GetTriggerMultiplayerInput(game);
+  if (AcceptInputAfterDelay(last_input_time, 500)) {
+    GetTriggerMultiplayerInput(game);
+  }
 
   // No input: return to idle.
   if (!Movement::IsMoving(coordinate)) {
@@ -53,6 +57,12 @@ std::span<const bool> InputHandler::GetKeyboardState() {
   const bool* raw_keyboard_state = SDL_GetKeyboardState(&num_keys);
   // Wrap the raw pointer in a span to make it "bounds-aware" and safer to use.
   return {raw_keyboard_state, static_cast<size_t>(num_keys)};
+}
+
+bool InputHandler::AcceptInputAfterDelay(const Uint64 last_input_time,
+                                         const Uint64 delay) {
+  const Uint64 current_time = SDL_GetTicks();
+  return current_time - last_input_time >= delay;
 }
 
 void InputHandler::GetMovementInput(Sprite::Coordinate& coordinate,
@@ -108,6 +118,7 @@ void InputHandler::GetTriggerMultiplayerInput(Game& game) {
   if (keyboard_state[SDL_SCANCODE_M]) {
     const bool new_multiplayer_state = !game.IsMultiplayer();
     game.SetIsMultiplayer(new_multiplayer_state);
+    last_input_time = SDL_GetTicks();
     Logger::Debug("InputHandler",
                   std::string("Multiplayer ") +
                       (new_multiplayer_state ? "Enabled" : "Disabled"));
