@@ -117,6 +117,10 @@ void Game::Update() {
   }
   InputHandler::HandleInput(*player_, *hud_);
 
+  MultiplayerSync();
+}
+
+void Game::MultiplayerSync() {
   std::array<Packet, Constants::MAX_PLAYERS> packets{};
   const ssize_t bytes_received =
       client_->Receive(packets.data(), sizeof(packets));

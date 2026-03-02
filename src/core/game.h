@@ -27,6 +27,7 @@ class Game {
   void Update();
   void SetIsRunning(bool is_running) { is_running_ = is_running; }
   [[nodiscard]] bool IsRunning() const { return is_running_; }
+  void MultiplayerSync();
   static SDL_Event event_;
 
  private:
