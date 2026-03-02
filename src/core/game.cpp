@@ -115,9 +115,11 @@ void Game::Update() {
       is_running_ = false;
     }
   }
-  InputHandler::HandleInput(*player_, *hud_);
+  InputHandler::HandleInput(*this, *player_, *hud_);
 
-  MultiplayerSync();
+  if (IsMultiplayer()) {
+    MultiplayerSync();
+  }
 }
 
 void Game::MultiplayerSync() {

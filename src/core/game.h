@@ -26,13 +26,18 @@ class Game {
   void Render();
   void Update();
   void SetIsRunning(bool is_running) { is_running_ = is_running; }
+  void SetIsMultiplayer(bool is_multiplayer) {
+    is_multiplayer_ = is_multiplayer;
+  }
   [[nodiscard]] bool IsRunning() const { return is_running_; }
+  [[nodiscard]] bool IsMultiplayer() const { return is_multiplayer_; }
   void MultiplayerSync();
   static SDL_Event event_;
 
  private:
   uint32_t client_id_{0};
   bool is_running_{false};
+  bool is_multiplayer_{false};
   std::unique_ptr<Window> window_;
   std::unique_ptr<Renderer> renderer_;
   std::unique_ptr<Entity> player_;

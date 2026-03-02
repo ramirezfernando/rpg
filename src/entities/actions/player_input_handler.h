@@ -2,6 +2,7 @@
 
 #include <span>
 
+#include "core/game.h"
 #include "entities/entity.h"
 #include "ui/hud.h"
 #include "world/map.h"
@@ -11,7 +12,7 @@ class InputHandler {
  public:
   // Process input for the given character. Returns `true` if the character
   // moved, `false` otherwise.
-  static bool HandleInput(Entity& player, HUD& hud);
+  static bool HandleInput(Game& game, Entity& player, HUD& hud);
 
  private:
   // Getter that turns `SDL_GetKeyboardState` dumb pointer into a smart pointer.
@@ -23,4 +24,6 @@ class InputHandler {
 
   // Process HUD input.
   static void GetHudInput(HUD& hud);
+
+  static void GetTriggerMultiplayerInput(Game& game);
 };

@@ -9,13 +9,14 @@
 #include <string>
 
 #include "constants/entity_constants.h"
+#include "core/game.h"
 #include "entities/entity.h"
 #include "graphics/sprite.h"
 #include "ui/hud.h"
 #include "util/logger.h"
 #include "util/movement.h"
 
-bool InputHandler::HandleInput(Entity& player, HUD& hud) {
+bool InputHandler::HandleInput(Game& game, Entity& player, HUD& hud) {
 
   Sprite::Coordinate coordinate{.x_pos = 0, .y_pos = 0};
   bool is_running = false;
@@ -24,6 +25,7 @@ bool InputHandler::HandleInput(Entity& player, HUD& hud) {
   // Get input from keyboard.
   GetMovementInput(coordinate, is_running, facing_direction);
   GetHudInput(hud);
+  GetTriggerMultiplayerInput(game);
 
   // No input: return to idle.
   if (!Movement::IsMoving(coordinate)) {
@@ -98,5 +100,16 @@ void InputHandler::GetHudInput(HUD& hud) {
                     "Hotbar slot " + std::to_string(i + 1) + " selected");
       break;
     }
+  }
+}
+
+void InputHandler::GetTriggerMultiplayerInput(Game& game) {
+  auto keyboard_state = GetKeyboardState();
+  if (keyboard_state[SDL_SCANCODE_M]) {
+    const bool new_multiplayer_state = !game.IsMultiplayer();
+    game.SetIsMultiplayer(new_multiplayer_state);
+    Logger::Debug("InputHandler",
+                  std::string("Multiplayer ") +
+                      (new_multiplayer_state ? "Enabled" : "Disabled"));
   }
 }
