@@ -13,8 +13,8 @@
 #include <vector>
 
 #include "constants/network_constants.h"
-#include "network/packet.h"
 #include "util/logger.h"
+#include "util/network.h"
 
 namespace {
 
@@ -38,7 +38,7 @@ int main() {
   auto server =
       std::unique_ptr<Server>(Server::Create(std::to_string(Constants::PORT)));
 
-  Packet packet{};
+  Network::Packet packet{};
   sockaddr_storage client_address{};
   socklen_t client_address_length = sizeof(client_address);
 

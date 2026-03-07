@@ -19,9 +19,9 @@
 #include "entities/player.h"
 #include "graphics/renderer.h"
 #include "graphics/sprite.h"
-#include "network/packet.h"
 #include "ui/hud.h"
 #include "util/logger.h"
+#include "util/network.h"
 #include "world/map.h"
 
 namespace {
@@ -129,12 +129,12 @@ void Game::Update() {
 }
 
 void Game::MultiplayerSync() {
-  std::array<Packet, Constants::MAX_PLAYERS> packets{};
+  std::array<Network::Packet, Constants::MAX_PLAYERS> packets{};
   const ssize_t bytes_received =
       client_->Receive(packets.data(), sizeof(packets));
   if (bytes_received > 0) {
     const size_t player_states =
-        static_cast<size_t>(bytes_received) / sizeof(Packet);
+        static_cast<size_t>(bytes_received) / sizeof(Network::Packet);
     for (size_t i = 0; i < player_states; ++i) {
       auto& packet = packets.at(i);
 
@@ -172,7 +172,7 @@ void Game::MultiplayerSync() {
   // Send our current state. If `client_id_` is still zero the server will treat
   // it as a registration packet and reply with an ID).
   const auto& [x_pos, y_pos] = player_->GetCoordinate();
-  Packet out{.id = client_id_, .x_pos = x_pos, .y_pos = y_pos};
+  Network::Packet out{.id = client_id_, .x_pos = x_pos, .y_pos = y_pos};
   client_->Send(&out, sizeof(out));
   Logger::Debug("Game", "Sent our state to server from client ID: " +
                             std::to_string(client_id_));
