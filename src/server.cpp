@@ -19,8 +19,7 @@
 namespace {
 
 struct PlayerState {
-  uint32_t id;
-  int32_t x, y;
+  Network::Packet client_packet;
   sockaddr_storage client_address;
   socklen_t client_address_length;
 };
@@ -54,11 +53,12 @@ int main() {
     // player").
     if (packet.id == 0) {
       packet.id = nextClientId++;
-      players[packet.id] = {.id = packet.id,
-                            .x = packet.x_pos,
-                            .y = packet.y_pos,
-                            .client_address = client_address,
-                            .client_address_length = client_address_length};
+      players[packet.id] = {
+          .client_packet = Network::Packet{.id = packet.id,
+                                           .x_pos = packet.x_pos,
+                                           .y_pos = packet.y_pos},
+          .client_address = client_address,
+          .client_address_length = client_address_length};
       server->SendTo(&packet, sizeof(packet), client_address,
                      client_address_length);
       Logger::Debug("Server",
@@ -68,20 +68,20 @@ int main() {
 
     // Update an existing player's state.
     auto& state = players[packet.id];
-    state.x = packet.x_pos;
-    state.y = packet.y_pos;
+    state.client_packet.x_pos = packet.x_pos;
+    state.client_packet.y_pos = packet.y_pos;
 
     // Build a snapshot containing every player's state.
-    std::vector<Packet> snapshot;
+    std::vector<Network::Packet> snapshot;
     snapshot.reserve(players.size());
 
     for (auto const& [_, state] : players) {
-      snapshot.push_back({state.id, state.x, state.y});
+      snapshot.push_back(state.client_packet);
     }
 
     // Broadcast the snapshot to every client.
     for (auto const& [_, state] : players) {
-      server->SendTo(snapshot.data(), snapshot.size() * sizeof(Packet),
+      server->SendTo(snapshot.data(), snapshot.size() * sizeof(Network::Packet),
                      state.client_address, state.client_address_length);
     }
   }
