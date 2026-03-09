@@ -6,7 +6,9 @@
 #include <SDL3/SDL_surface.h>
 #include <SDL3_image/SDL_image.h>
 
+#include <expected>
 #include <memory>
+#include <string>
 #include <utility>
 
 #include "graphics/renderer.h"
@@ -32,10 +34,10 @@ Cache::~Cache() {
   Logger::Debug("Cache", "Resource cache cleared");
 }
 
-SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
+std::expected<SDL_Texture*, std::string> Cache::GetOrCreateTexture(
+    const char* file_name) {
   if (file_name == nullptr) {
-    Logger::Error("Cache", "file_name is null");
-    return nullptr;
+    return std::unexpected("file_name is null");
   }
 
   const std::string key{file_name};
@@ -48,11 +50,14 @@ SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
 
   // Create texture since it's not cached.
   // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-  SDL_Texture* texture = CreateTexture(file_name);
-  if (texture == nullptr) {
-    Logger::Error("Cache", std::string("Failed to load texture: ") + file_name);
-    return nullptr;
+  std::expected<SDL_Texture*, std::string> texture_result =
+      CreateTexture(file_name);
+  if (!texture_result.has_value()) {
+    return std::unexpected(std::string("Failed to load texture: ") + file_name +
+                           " - " + texture_result.error());
   }
+
+  SDL_Texture* texture = texture_result.value();
 
   // Cache the texture.
   texture_cache_[key] = texture;
@@ -61,11 +66,10 @@ SDL_Texture* Cache::GetOrCreateTexture(const char* file_name) {
   return texture;
 }
 
-const Sprite* Cache::GetOrCreateSpriteSheet(const char* file_path,
-                                            Sprite::Dimension dimension) {
+std::expected<const Sprite*, std::string> Cache::GetOrCreateSpriteSheet(
+    const char* file_path, Sprite::Dimension dimension) {
   if (file_path == nullptr) {
-    Logger::Error("Cache", "path is null");
-    return nullptr;
+    return std::unexpected("path is null");
   }
 
   const std::string key{file_path};
@@ -80,9 +84,8 @@ const Sprite* Cache::GetOrCreateSpriteSheet(const char* file_path,
   auto sprite = std::make_unique<Sprite>(file_path, dimension);
 
   if (!sprite->LoadSpriteSheet()) {
-    Logger::Error("Cache",
-                  std::string("Failed to load sprite sheet: ") + file_path);
-    return nullptr;
+    return std::unexpected(std::string("Failed to load sprite sheet: ") +
+                           file_path);
   }
 
   // Cache the sprite sheet.
@@ -94,12 +97,12 @@ const Sprite* Cache::GetOrCreateSpriteSheet(const char* file_path,
 }
 
 // NOLINTNEXTLINE(misc-const-correctness)
-SDL_Texture* Cache::CreateTexture(const char* file_name) {
+std::expected<SDL_Texture*, std::string> Cache::CreateTexture(
+    const char* file_name) {
   SDL_Surface* tmp_surface = IMG_Load(file_name);
   if (tmp_surface == nullptr) {
-    Logger::Error("Cache",
-                  std::string("Failed to load surface: ") + SDL_GetError());
-    return nullptr;
+    return std::unexpected(std::string("Failed to load surface: ") +
+                           SDL_GetError());
   }
 
   // Convert to RGBA format if needed. Sprites such as hotbar are not rendered
@@ -108,9 +111,8 @@ SDL_Texture* Cache::CreateTexture(const char* file_name) {
       SDL_ConvertSurface(tmp_surface, SDL_PIXELFORMAT_RGBA8888);
   SDL_DestroySurface(tmp_surface);
   if (converted_surface == nullptr) {
-    Logger::Error("Cache",
-                  std::string("Failed to convert surface: ") + SDL_GetError());
-    return nullptr;
+    return std::unexpected(std::string("Failed to convert surface: ") +
+                           SDL_GetError());
   }
 
   // NOLINTNEXTLINE(misc-const-correctness)

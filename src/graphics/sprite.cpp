@@ -44,11 +44,13 @@ Sprite::Sprite(const char* path, Dimension dimension)
     : path_{path}, dimension_{dimension} {}
 
 bool Sprite::LoadSpriteSheet() {
-  texture_ = Cache::GetInstance()->GetOrCreateTexture(path_);
-  if (texture_ == nullptr) {
-    Logger::Error("Sprite", std::string("Failed to load texture: ") + path_);
+  auto texture_result = Cache::GetInstance()->GetOrCreateTexture(path_);
+  if (!texture_result.has_value()) {
+    Logger::Error("Sprite", "Failed to load texture " + std::string(path_) +
+                                " - " + texture_result.error());
     return false;
   }
+  texture_ = texture_result.value();
 
   float texture_width{0.0F};
   float texture_height{0.0F};

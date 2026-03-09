@@ -19,55 +19,78 @@
 Map::Map() {
   Cache* cache = Cache::GetInstance();
 
-  plants_ = cache->GetOrCreateSpriteSheet(
-      Constants::PLANTS_FILE_PATH,
-      Sprite::Dimension{.width = Constants::SPRITE_WIDTH,
-                        .height = Constants::SPRITE_HEIGHT});
+  plants_ = cache
+                ->GetOrCreateSpriteSheet(
+                    Constants::PLANTS_FILE_PATH,
+                    Sprite::Dimension{.width = Constants::SPRITE_WIDTH,
+                                      .height = Constants::SPRITE_HEIGHT})
+                .value_or(nullptr);
 
-  grass_dirt_ = cache->GetOrCreateSpriteSheet(
-      Constants::GRASS_AND_DIRT_FILE_PATH,
-      Sprite::Dimension{.width = Constants::SPRITE_WIDTH,
-                        .height = Constants::SPRITE_HEIGHT});
+  grass_dirt_ = cache
+                    ->GetOrCreateSpriteSheet(
+                        Constants::GRASS_AND_DIRT_FILE_PATH,
+                        Sprite::Dimension{.width = Constants::SPRITE_WIDTH,
+                                          .height = Constants::SPRITE_HEIGHT})
+                    .value_or(nullptr);
 
-  house_ = cache->GetOrCreateSpriteSheet(
-      Constants::HOUSE_FILE_PATH,
-      Sprite::Dimension{.width = Constants::HOUSE_WIDTH,
-                        .height = Constants::HOUSE_HEIGHT});
+  house_ = cache
+               ->GetOrCreateSpriteSheet(
+                   Constants::HOUSE_FILE_PATH,
+                   Sprite::Dimension{.width = Constants::HOUSE_WIDTH,
+                                     .height = Constants::HOUSE_HEIGHT})
+               .value_or(nullptr);
 
-  house_chimney_smoke_ = cache->GetOrCreateSpriteSheet(
-      Constants::HOUSE_CHIMNEY_SMOKE_FILE_PATH,
-      Sprite::Dimension{.width = Constants::HOUSE_CHIMNEY_SMOKE_WIDTH,
-                        .height = Constants::HOUSE_CHIMNEY_SMOKE_HEIGHT});
+  house_chimney_smoke_ =
+      cache
+          ->GetOrCreateSpriteSheet(
+              Constants::HOUSE_CHIMNEY_SMOKE_FILE_PATH,
+              Sprite::Dimension{
+                  .width = Constants::HOUSE_CHIMNEY_SMOKE_WIDTH,
+                  .height = Constants::HOUSE_CHIMNEY_SMOKE_HEIGHT})
+          .value_or(nullptr);
 
-  wood_fence_ = cache->GetOrCreateSpriteSheet(
-      Constants::WOOD_FENCE_FILE_PATH,
-      Sprite::Dimension{.width = Constants::SPRITE_WIDTH,
-                        .height = Constants::SPRITE_HEIGHT});
+  wood_fence_ = cache
+                    ->GetOrCreateSpriteSheet(
+                        Constants::WOOD_FENCE_FILE_PATH,
+                        Sprite::Dimension{.width = Constants::SPRITE_WIDTH,
+                                          .height = Constants::SPRITE_HEIGHT})
+                    .value_or(nullptr);
 
-  clothing_rack_ = cache->GetOrCreateSpriteSheet(
-      Constants::CLOTHING_RACK_FILE_PATH,
-      Sprite::Dimension{.width = Constants::CLOTHING_RACK_WIDTH,
-                        .height = Constants::CLOTHING_RACK_HEIGHT});
+  clothing_rack_ =
+      cache
+          ->GetOrCreateSpriteSheet(
+              Constants::CLOTHING_RACK_FILE_PATH,
+              Sprite::Dimension{.width = Constants::CLOTHING_RACK_WIDTH,
+                                .height = Constants::CLOTHING_RACK_HEIGHT})
+          .value_or(nullptr);
 
-  mailbox_ = cache->GetOrCreateSpriteSheet(
-      Constants::MAILBOX_FILE_PATH,
-      Sprite::Dimension{.width = Constants::MAILBOX_WIDTH,
-                        .height = Constants::MAILBOX_HEIGHT});
+  mailbox_ = cache
+                 ->GetOrCreateSpriteSheet(
+                     Constants::MAILBOX_FILE_PATH,
+                     Sprite::Dimension{.width = Constants::MAILBOX_WIDTH,
+                                       .height = Constants::MAILBOX_HEIGHT})
+                 .value_or(nullptr);
 
-  waterfall_ = cache->GetOrCreateSpriteSheet(
-      Constants::WATERFALL_FILE_PATH,
-      Sprite::Dimension{.width = Constants::WATERFALL_WIDTH,
-                        .height = Constants::WATERFALL_HEIGHT});
+  waterfall_ = cache
+                   ->GetOrCreateSpriteSheet(
+                       Constants::WATERFALL_FILE_PATH,
+                       Sprite::Dimension{.width = Constants::WATERFALL_WIDTH,
+                                         .height = Constants::WATERFALL_HEIGHT})
+                   .value_or(nullptr);
 
-  grass_water_ = cache->GetOrCreateSpriteSheet(
-      Constants::GRASS_AND_WATER_FILE_PATH,
-      Sprite::Dimension{.width = Constants::SPRITE_WIDTH,
-                        .height = Constants::SPRITE_HEIGHT});
+  grass_water_ = cache
+                     ->GetOrCreateSpriteSheet(
+                         Constants::GRASS_AND_WATER_FILE_PATH,
+                         Sprite::Dimension{.width = Constants::SPRITE_WIDTH,
+                                           .height = Constants::SPRITE_HEIGHT})
+                     .value_or(nullptr);
 
-  cliff_ = cache->GetOrCreateSpriteSheet(
-      Constants::CLIFF_FILE_PATH,
-      Sprite::Dimension{.width = Constants::SPRITE_WIDTH,
-                        .height = Constants::SPRITE_HEIGHT});
+  cliff_ = cache
+               ->GetOrCreateSpriteSheet(
+                   Constants::CLIFF_FILE_PATH,
+                   Sprite::Dimension{.width = Constants::SPRITE_WIDTH,
+                                     .height = Constants::SPRITE_HEIGHT})
+               .value_or(nullptr);
 }
 
 void Map::RenderPlants() const {

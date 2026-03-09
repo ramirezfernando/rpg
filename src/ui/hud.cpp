@@ -7,18 +7,26 @@
 
 HUD::HUD() {
   Cache* cache = Cache::GetInstance();
-  hotbar_ = cache->GetOrCreateSpriteSheet(
-      "assets/sprites/hud/inventory/hotbar.png",
-      Sprite::Dimension{.width = Constants::HOTBAR_WIDTH,
-                        .height = Constants::HOTBAR_HEIGHT});
-  hotbar_select_tile_ = cache->GetOrCreateSpriteSheet(
-      "assets/sprites/hud/inventory/hotbar_select_tile.png",
-      Sprite::Dimension{.width = Constants::SELECT_TILE_WIDTH,
-                        .height = Constants::SELECT_TILE_HEIGHT});
-  hotbar_select_border_ = cache->GetOrCreateSpriteSheet(
-      "assets/sprites/hud/inventory/hotbar_select_border.png",
-      Sprite::Dimension{.width = Constants::SELECT_TILE_WIDTH,
-                        .height = Constants::SELECT_TILE_HEIGHT});
+  hotbar_ = cache
+                ->GetOrCreateSpriteSheet(
+                    "assets/sprites/hud/inventory/hotbar.png",
+                    Sprite::Dimension{.width = Constants::HOTBAR_WIDTH,
+                                      .height = Constants::HOTBAR_HEIGHT})
+                .value_or(nullptr);
+  hotbar_select_tile_ =
+      cache
+          ->GetOrCreateSpriteSheet(
+              "assets/sprites/hud/inventory/hotbar_select_tile.png",
+              Sprite::Dimension{.width = Constants::SELECT_TILE_WIDTH,
+                                .height = Constants::SELECT_TILE_HEIGHT})
+          .value_or(nullptr);
+  hotbar_select_border_ =
+      cache
+          ->GetOrCreateSpriteSheet(
+              "assets/sprites/hud/inventory/hotbar_select_border.png",
+              Sprite::Dimension{.width = Constants::SELECT_TILE_WIDTH,
+                                .height = Constants::SELECT_TILE_HEIGHT})
+          .value_or(nullptr);
 }
 
 void HUD::RenderHotBar() {

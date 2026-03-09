@@ -3,6 +3,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 
+#include <expected>
 #include <map>
 #include <memory>
 #include <string>
@@ -21,13 +22,15 @@ class Cache {
   Cache(Cache&&) = delete;
   Cache& operator=(Cache&&) = delete;
 
-  SDL_Texture* GetOrCreateTexture(const char* file_name);
-  const Sprite* GetOrCreateSpriteSheet(const char* file_path,
-                                       Sprite::Dimension dimension);
+  std::expected<SDL_Texture*, std::string> GetOrCreateTexture(
+      const char* file_name);
+  std::expected<const Sprite*, std::string> GetOrCreateSpriteSheet(
+      const char* file_path, Sprite::Dimension dimension);
 
  private:
   Cache() = default;
-  static SDL_Texture* CreateTexture(const char* file_name);
+  static std::expected<SDL_Texture*, std::string> CreateTexture(
+      const char* file_name);
 
   // Texture cache: file_name -> SDL_Texture*
   std::map<std::string, SDL_Texture*> texture_cache_;

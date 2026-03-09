@@ -6,10 +6,12 @@
 #include "graphics/sprite.h"
 
 Npc::Npc()
-    : Entity(Cache::GetInstance()->GetOrCreateSpriteSheet(
-          /*file_path=*/"assets/sprites/entities/fern/idle.png",
-          Sprite::Dimension{.width = Constants::FERN_SPRITE_WIDTH,
-                            .height = Constants::FERN_SPRITE_HEIGHT})),
+    : Entity(Cache::GetInstance()
+                 ->GetOrCreateSpriteSheet(
+                     /*file_path=*/"assets/sprites/entities/fern/idle.png",
+                     Sprite::Dimension{.width = Constants::FERN_SPRITE_WIDTH,
+                                       .height = Constants::FERN_SPRITE_HEIGHT})
+                 .value_or(nullptr)),
       sprite_sheet_columns_(sprite()->GetColumns()) {
   SetIsNpc(true);
 }
@@ -79,10 +81,10 @@ void Npc::SetPathForAction(Action action) {
   }
 
   SetAction(action);
-  const Sprite* sprite = Cache::GetInstance()->GetOrCreateSpriteSheet(
+  auto sprite_result = Cache::GetInstance()->GetOrCreateSpriteSheet(
       action_path, Sprite::Dimension{.width = Constants::FERN_SPRITE_WIDTH,
                                      .height = Constants::FERN_SPRITE_HEIGHT});
-  if (sprite != nullptr) {
-    SetSprite(sprite);
+  if (sprite_result.has_value()) {
+    SetSprite(sprite_result.value());
   }
 }
