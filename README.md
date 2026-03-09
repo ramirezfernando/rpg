@@ -8,7 +8,6 @@ A 2D RPG written in C++ from scratch (in development).
 <img width="760" height="788" alt="Screenshot 2026-02-16 at 7 22 45 PM" src="https://github.com/user-attachments/assets/a577af3a-8c24-4874-b859-da6108217d52" />
 
 ## TODO
-- ~~Look into Entity Component System (ECS) for more optimized game, taking advantage of data-oriented design and cache locality.~~ (Decided to stick with OOP for career relevance, but keeping ECS in mind for interview discussions on scaling)
 - Explore C++20 modules.
 - Add `std::expected` for more modern error handling.
 - Add GTest unit tests.
