@@ -38,5 +38,5 @@ jobs:
             -Wall -Weffc++ -Wextra -Wconversion \
             -Wsign-conversion -Wimplicit-fallthrough -Werror"
           
-          clang++ $CXXFLAGS $SRCS -o test_runner $SDL3_LIBS -lgtest -lgtest_main -pthread
+          g++ $CXXFLAGS $SRCS -o test_runner $SDL3_LIBS -lgtest -lgtest_main -pthread
           ./test_runner
