@@ -2,9 +2,8 @@
 
 #include <netdb.h>
 #include <netinet/in.h>
-#include <sys/_types/_socklen_t.h>
-#include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #include <cerrno>
