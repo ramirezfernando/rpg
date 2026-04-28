@@ -1,5 +1,7 @@
 #include "player.h"
 
+#include <utility>
+
 #include "cache/cache.h"
 #include "constants/entity_constants.h"
 #include "entities/entity.h"
@@ -53,6 +55,7 @@ int Player::GetInitialAnimationFrame(Action action, Direction direction) const {
       }
       break;
   }
+  std::unreachable();
 }
 
 int Player::GetSpriteSheetColumns() const {

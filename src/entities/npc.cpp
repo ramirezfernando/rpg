@@ -1,5 +1,7 @@
 #include "npc.h"
 
+#include <utility>
+
 #include "cache/cache.h"
 #include "constants/entity_constants.h"
 #include "entities/entity.h"
@@ -55,6 +57,7 @@ int Npc::GetInitialAnimationFrame(Action action, Direction direction) const {
       }
       break;
   }
+  std::unreachable();
 }
 
 int Npc::GetSpriteSheetColumns() const {
