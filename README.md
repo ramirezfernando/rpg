@@ -8,6 +8,9 @@ A 2D RPG written in C++ from scratch (in development).
 <img width="760" height="788" alt="Screenshot 2026-02-16 at 7 22 45 PM" src="https://github.com/user-attachments/assets/a577af3a-8c24-4874-b859-da6108217d52" />
 
 ## TODO
+- Discord integration
+   - Show current location in Discord status
+   - Support sending messages from the game to Discord (for multiplyer chat)
 - Explore C++20 modules.
 - Add GTest unit tests.
 - [Add more asserts!](https://youtu.be/oitYvDe4nps?si=BEmR1PNGNuamOi8c)
