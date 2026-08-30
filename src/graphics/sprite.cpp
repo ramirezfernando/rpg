@@ -56,7 +56,7 @@ bool Sprite::LoadSpriteSheet() {
   float texture_height{0.0F};
   if (!SDL_GetTextureSize(texture_, &texture_width, &texture_height)) {
     Logger::Error("Sprite",
-                  std::string("SDL_QueryTexture failed: ") + SDL_GetError());
+                  std::string("SDL_GetTextureSize failed: ") + SDL_GetError());
     return false;
   }
 
