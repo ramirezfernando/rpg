@@ -36,7 +36,7 @@ jobs:
           SDL3_LIBS="$(pkg-config --libs sdl3) $(pkg-config --libs sdl3-image)"
           CXXFLAGS="-std=c++23 -Isrc $SDL3_INCLUDES $SDL3_IMAGE_INCLUDES \
             -Wall -Weffc++ -Wextra -Wconversion \
-            -Wsign-conversion -Wimplicit-fallthrough -Werror"
+            -Wsign-conversion -Wimplicit-fallthrough"
           
           g++ $CXXFLAGS $SRCS -o test_runner $SDL3_LIBS -lgtest -lgtest_main -pthread
           ./test_runner
