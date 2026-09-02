@@ -42,7 +42,7 @@ class Game {
   uint32_t client_id_{0};
   bool is_running_{false};
   bool is_multiplayer_{false};
-  Mode mode_{Mode::kPlaying}; // Default to playing mode for now.
+  Mode mode_{Mode::kPlaying};  // Default to playing mode for now.
   std::unique_ptr<Window> window_;
   std::unique_ptr<Renderer> renderer_;
   std::unique_ptr<Entity> player_;
