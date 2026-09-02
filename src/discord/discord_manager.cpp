@@ -47,7 +47,7 @@ void DiscordManager::Init() {
       discordpp::Activity activity;
       activity.SetType(discordpp::ActivityTypes::Playing);
       activity.SetState("In Competitive Match");
-      activity.SetDetails("Rank: Diamond II");
+      activity.SetDetails("Rank: One Above All");
 
       // Update rich presence.
       self->client_->UpdateRichPresence(
