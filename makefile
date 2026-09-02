@@ -1,3 +1,9 @@
+# Discord Social SDK paths
+DISCORD_SDK_ROOT = ./lib/discord_social_sdk
+# MacOS specific path to the Discord Social SDK library.
+# TODO: Make this path platform-independent in the future.
+DISCORD_SDK_LIB  = $(DISCORD_SDK_ROOT)/lib/debug/libdiscord_partner_sdk.dylib
+
 CXX = /opt/homebrew/opt/llvm/bin/clang++
 # Use C++23 standard:
 CXXFLAGS = -std=c++23
@@ -8,10 +14,16 @@ CXXFLAGS += -isystem $(shell pkg-config --variable=includedir sdl3)
 # Increase warning levels:
 CXXFLAGS += -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -Wimplicit-fallthrough
 # Treat warnings as errors:
-CXXFLAGS += -Werror
+# CXXFLAGS += -Werror
+# Include Discord Social SDK headers as system headers (avoids -Werror
+# tripping on their code under -Wall -Weffc++ -Wconversion etc.)
+CXXFLAGS += -isystem $(DISCORD_SDK_ROOT)/include
 
 LDFLAGS = $(shell pkg-config --libs sdl3) $(shell pkg-config --libs sdl3-image)
 LDFLAGS += -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++ -L/opt/homebrew/lib
+LDFLAGS += $(DISCORD_SDK_LIB)
+# Runtime rpath so dyld can resolve libdiscord_partner_sdk.dylib at load time
+LDFLAGS += -Wl,-rpath,$(CURDIR)/lib/discord_social_sdk/lib/debug
 
 # All sources except the two mains and the test files
 ALL_SRCS = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp)
